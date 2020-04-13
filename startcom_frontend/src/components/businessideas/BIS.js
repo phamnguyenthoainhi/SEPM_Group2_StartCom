@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux';
-import {fetchBI, registerBI} from '../../actions/businessideas/BIActions';
+import {fetchBI} from '../../actions/businessideas/BIActions';
 // import { withStyles } from '@material-ui/core';
 class BIS extends Component {
     componentDidMount() { 
@@ -8,7 +8,7 @@ class BIS extends Component {
     }
 
     render() {
-        console.log(this.props.businessIdeas);
+        
         return (
             <div>
                 

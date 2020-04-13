@@ -11,7 +11,7 @@ const style = (theme) => ({
         
     },
     button: {
-        marginTop: "20px",
+        marginTop: "40px",
         paddingLeft: "20px",
         paddingRight: "20px",
         backgroundColor: theme.color.primary3,
@@ -35,6 +35,20 @@ const style = (theme) => ({
     },
     content: {
         marginTop: '30px'
+    },
+
+    checkbox: {
+        color: theme.color.primary3,
+        '&$checked': {
+            color: theme.color.contrast
+        },
+        root: {
+            color: "white",
+            '&$checked': {
+              color: 'white',
+            },
+        },
+        checkedColor: "black"
     }
     
 
