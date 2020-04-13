@@ -1,4 +1,4 @@
-import {REGISTER_BI, READ_BI} from '../actions/actionTypes';
+import {READ_BI} from '../actions/actionTypes';
 
 const initialState = {
     businessIdea: {},
@@ -7,12 +7,6 @@ const initialState = {
 
 export default function(state = initialState, action) {
     switch(action.type) {
-        case REGISTER_BI:
-            console.log(action.payload)
-            return {
-                ...state,
-                businessIdea: action.payload
-            }
         case READ_BI:
             return {
                 ...state,
