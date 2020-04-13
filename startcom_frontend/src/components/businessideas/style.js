@@ -1,10 +1,42 @@
-const style = () => ({
-    form: {
-        '& .MuiTextField-root': {
-          margin: 20,
-          width: '25ch',
-        },
-      },
+const style = (theme) => ({
+    formContainer: {
+        textAlign: 'center',
+        margin: "70px",
+        marginLeft: "100px",
+        marginRight: "100px"
+    },
+    title: {
+        fontSize: "25px",
+        color: theme.color.primary3,
+        
+    },
+    button: {
+        marginTop: "20px",
+        paddingLeft: "20px",
+        paddingRight: "20px",
+        backgroundColor: theme.color.primary3,
+        color: "white",
+        '&:hover':{
+            backgroundColor: theme.color.contrast
+        }
+    
+
+    },
+    input: {
+        marginBottom: "30px",
+        fontSize: '20px',
+        '& label.Mui-focused': {
+            color: theme.color.primary1,
+          },
+          '& .MuiInput-underline:after': {
+            borderBottomColor: theme.color.primary1,
+          }
+    
+    },
+    content: {
+        marginTop: '30px'
+    }
+    
 
 })
 export default style;

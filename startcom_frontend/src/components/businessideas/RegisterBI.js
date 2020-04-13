@@ -44,32 +44,38 @@ class RegisterBI extends Component {
     render() {
         const {classes} = this.props;
         return (
-            <div>
-                    <form className={classes.root} noValidate autoComplete="off" onSubmit={this.onSubmit}>
-                            <div>
-                                <TextField required label="Business Idea Name"
-                                onChange={this.onChange} value = {this.state.name} name = 'name'
-                                />
-                                <br />
-                                <TextField
-                                onChange={this.onChange} value = {this.state.date} name = 'date'
-                                label="Date Of Establishment"
+            <div className={classes.formContainer}>
+                    <form className={classes.form} autoComplete="off" onSubmit={this.onSubmit}>
+                        <a className={classes.title}> Register Your Business Idea </a>
+                            <div className={classes.content}>
+                            <TextField
+                                onChange={this.onChange} 
+                                value = {this.state.name} 
+                                name = 'name'  
+                                fullWidth
                                 
-    
-                                className={classes.textField}
-                               
-                                />
-                                <br />
-                                <TextField
-                                id="standard-number"
-                                
-                                
-                                onChange={this.onChange} value = {this.state.description} name = 'description'
-                               
-                                />
-                                 <br />
-                                 <br />
-                                 <Button variant="contained" type='submit'>Default</Button>
+                                label="Business Idea Name"
+                                required className ={classes.input}
+                            />
+
+                            <TextField
+                                onChange={this.onChange} 
+                                value = {this.state.date} 
+                                name = 'date'  
+                                fullWidth
+                                label="Date of Establishment"
+                                className ={classes.input}
+                            />
+
+                            <TextField label="Description of Business Idea"
+                                onChange={this.onChange} 
+                                value = {this.state.description} 
+                                name = 'description'  
+                                fullWidth
+                                className ={classes.input}
+                            />
+
+                            <Button variant="contained" type='submit' className={classes.button}>Submit</Button>
                                 
                                
                             </div> 
