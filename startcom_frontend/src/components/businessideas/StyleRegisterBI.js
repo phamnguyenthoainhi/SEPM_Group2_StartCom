@@ -41,11 +41,14 @@ const style = (theme) => ({
         margin: '10px'
     },
     image: {
-        height: 450,
-        margin: '20px'
+        height: 400,
+        marginLeft: 40,
+        marginRight: 40,
+        margin: 10
+
     },
     text: {
-        color: theme.color.contrast,
+        color: theme.color.primary3,
         paddingTop: '10px',
         paddingBottom: '10px',
         fontSize: '16px'   

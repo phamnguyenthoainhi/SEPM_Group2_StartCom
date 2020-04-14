@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux';
 import { withStyles } from '@material-ui/core';
-import style from './style';
+import style from './StyleRegisterBI';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -95,7 +95,7 @@ class RegisterBI extends Component {
             needConsultant: this.state.needConsultant
         };
         this.props.registerBI(businessIdea);
-        
+        // this.handleClickOpen();
         
         
     }
@@ -125,6 +125,7 @@ class RegisterBI extends Component {
                                 label="Date of Establishment"
                                 className ={classes.input}
                                 type = 'date'
+                                required
                                 InputLabelProps={{
                                     shrink: true,
                                   }}
@@ -135,6 +136,7 @@ class RegisterBI extends Component {
                                 value = {this.state.description} 
                                 name = 'description'  
                                 fullWidth
+                                required
                                 className ={classes.input}
                             />
                             <TextField label="Target Funding"
@@ -161,8 +163,8 @@ class RegisterBI extends Component {
                                 <DialogContent>
                                     <Card className={classes.card}>
                                         <CardActionArea>
-                                            <CardMedia className={classes.image}
-                                            image={require("../../images/Success.png")}
+                                            <CardMedia className={classes.image} 
+                                            image={require("../../images/registersuccess.svg")}
                                             />
                                             <CardContent>
                                                 <Typography gutterBottom className={classes.text}>

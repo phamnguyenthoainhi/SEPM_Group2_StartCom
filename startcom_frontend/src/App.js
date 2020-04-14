@@ -3,10 +3,10 @@ import './App.css';
 import {Provider} from 'react-redux';
 import store  from './store'
 import RegisterBI from './components/businessideas/RegisterBI';
-import BIS from './components/businessideas/BIS';
 import theme from './theme/theme'
 import { ThemeProvider } from '@material-ui/core/styles';
-import { BrowserRouter, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route} from 'react-router-dom';
+import HomePage from './components/anonymoususers/HomePage';
 class App extends Component {
   render() {
     return (
@@ -15,6 +15,8 @@ class App extends Component {
                 <ThemeProvider theme={theme}>
                     <div className="App">
                       <Route exact path={'/registerBI'} render={(props) => <RegisterBI {...props} />} />
+                      <Route exact path={'/'} render={(props) => <HomePage {...props} />} />
+
                     </div>
                 </ThemeProvider>
           </Provider>
