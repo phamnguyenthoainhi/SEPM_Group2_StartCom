@@ -38,19 +38,21 @@ const style = (theme) => ({
     },
 
     checkbox: {
-        color: theme.color.primary3,
-        '&$checked': {
-            color: theme.color.contrast
-        },
-        root: {
-            color: "white",
-            '&$checked': {
-              color: 'white',
-            },
-        },
-        checkedColor: "black"
+        margin: '10px'
+    },
+    image: {
+        height: 450,
+        margin: '20px'
+    },
+    text: {
+        color: theme.color.contrast,
+        paddingTop: '10px',
+        paddingBottom: '10px',
+        fontSize: '16px'   
+    },
+    card: {
+        maxWidth: 600
     }
-    
 
 })
 export default style;

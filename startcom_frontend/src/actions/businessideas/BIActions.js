@@ -1,4 +1,4 @@
-import {READ_BI} from '../actionTypes';
+import {READ_BI, IS_REGISTERED_SUCCESS, RESET_REGISTER} from '../actionTypes';
 
 export const registerBI = (BIData) => dispatch => {
     
@@ -11,10 +11,25 @@ export const registerBI = (BIData) => dispatch => {
         body: JSON.stringify(BIData)
         
     })
-    .then(res => res.json())
+    .then((res) => {
+        console.log("res "+ res.status)
+        if(res.status === 200) {
+            dispatch({
+                type: IS_REGISTERED_SUCCESS,
+                payload: true
+            })
+            return res.json();
+        } else {
+            dispatch({
+                type: IS_REGISTERED_SUCCESS,
+                payload: false
+            })
+            return null;
+        }
+    })
     .then(() => dispatch(
         fetchBI()
-    ))    
+    )) 
 }
 export const fetchBI = () => dispatch =>  {
    
@@ -25,7 +40,15 @@ export const fetchBI = () => dispatch =>  {
             type: READ_BI,
             payload: businessIdeas
         }))
+        
      
+}
+
+export const resetRegisterStatus = () => dispatch => {
+    dispatch({
+        type: RESET_REGISTER
+    })
+
 }
 
 
