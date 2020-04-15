@@ -2,19 +2,16 @@ const admin = require('firebase-admin');
 const firebase = require('../config/config');
 const db = admin.firestore()
 
+const {sendEmail} = require('./email');
+
 exports.signUp = (req,res) =>{
     const user = req.body
     return firebase.auth().createUserWithEmailAndPassword(user.email,user.password)
-        // .then((cred)=>{
-        //     // Promise(createUser(req.body));
-        //     return cred.user.getIdToken();
-        // })
-        // .then((token)=>{
-        //     return res.json(token);
-        // })
         .then((cred)=>{
             delete user.password;
-            return Promise(createUser(user, cred.user.uid));
+            return Promise.all(createUser(user, cred.user.uid), sendEmail({
+                from: "Startcom",to:user.email,subject:"Welcome",text:"Welcome to Startcom!"
+            }));
         })
         .catch((error)=>{
             console.log(error)
