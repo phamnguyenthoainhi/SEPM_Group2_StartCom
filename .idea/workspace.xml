@@ -1,373 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5958ebe8-6fc6-427a-a79a-6ad99fd99871" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/startcom_frontend/public/star.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/startcom_frontend/src/images/trans_logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/components/Post_20200406204547.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/components/Post_20200406204605.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/components/Post_20200406204609.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/components/Post_20200406204630.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/components/Post_20200406204636.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/components/Post_20200406204642.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/components/Post_20200406204645.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/components/Post_20200406204655.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/components/Post_20200406204658.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/components/Post_20200406204701.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/components/Post_20200406204704.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/package_20200406212316.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/package_20200406214548.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/public/index_19851026151459.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/public/index_20200406204244.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/public/index_20200406204248.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/public/index_20200406204252.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/public/index_20200406204256.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/public/index_20200406204301.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/public/index_20200406204308.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/public/index_20200406204311.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/public/index_20200406204326.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/public/manifest_19851026151459.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/public/manifest_20200406204219.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_19851026151459.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_19851026151459.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406204420.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406204424.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406204433.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406204456.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406204743.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406204756.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406204801.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406204803.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406204814.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406204819.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406204823.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406204833.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406204924.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406204925.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406210726.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406210731.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406210735.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406210744.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406210750.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406210800.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406210804.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406210812.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406212540.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406212545.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406212554.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406212602.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406212606.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406212609.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406212610.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406212613.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406212616.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406212640.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406212941.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406212947.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406212951.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406212956.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406212959.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406213004.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406213019.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406213022.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406213033.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406213046.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406213048.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406213058.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406213059.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406213102.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406213108.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406213112.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406213133.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406213142.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406213145.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406213148.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406213255.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406213308.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406213317.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406215217.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/App_20200406215221.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/actions/actionTypes_20200406214003.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/actions/actionTypes_20200406214007.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/actions/actionTypes_20200406214010.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/actions/actionTypes_20200406214017.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/actions/actionTypes_20200406214023.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/actions/actionTypes_20200406214025.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/actions/actionTypes_20200406214030.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/actions/actionTypes_20200406214035.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/actions/actionTypes_20200406214036.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/actions/actionTypes_20200406214046.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/actions/actionTypes_20200406214058.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/actions/actionTypes_20200406214106.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/actions/actionTypes_20200406214108.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/actions/actionTypes_20200406214110.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/actions/actionTypes_20200406214117.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/actions/actionTypes_20200406214128.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/actions/actionTypes_20200406215153.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406204551.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406210645.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406210649.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406210652.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406210655.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406210658.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406210701.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406210704.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406210713.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406210835.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406210836.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406210838.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406210842.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406210848.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406210853.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406210900.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406210904.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406210918.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406210921.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406210925.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406210929.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406210933.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406210938.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406210940.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406210945.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406210952.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406210959.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211002.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211010.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211013.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211017.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211022.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211026.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211032.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211103.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211107.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211112.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211116.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211138.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211139.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211143.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211201.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211212.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211248.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211250.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211255.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211257.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211303.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211314.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211322.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211331.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211337.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211350.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211357.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211400.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211408.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211412.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211417.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211421.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211425.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211444.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211533.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211539.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211549.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211555.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211559.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211604.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211616.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211626.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211642.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211646.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211701.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211743.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211746.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211751.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211803.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211806.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211807.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211814.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211816.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211818.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211820.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211831.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211837.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211840.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211844.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211855.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211902.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211912.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211919.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211925.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211929.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211933.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211936.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211946.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211948.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211950.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406211957.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406212007.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406212013.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406212022.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/PostForm_20200406212035.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406204702.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205018.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205023.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205026.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205033.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205048.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205051.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205126.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205214.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205216.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205218.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205225.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205227.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205234.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205238.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205247.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205251.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205359.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205400.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205401.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205623.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205626.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205633.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205634.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205645.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205647.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205704.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205705.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205706.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205746.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205748.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205804.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205825.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205831.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205840.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205847.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205850.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205854.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205858.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205908.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205934.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205937.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205952.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406205958.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210034.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210105.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210155.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210200.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210207.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210217.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210241.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210312.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210315.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210321.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210331.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210342.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210349.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210355.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210403.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210404.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210430.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210433.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210437.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210440.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210444.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210454.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210501.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210504.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210512.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210516.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210520.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210526.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210529.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210533.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210542.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210559.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210601.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/components/Post_20200406210622.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/postReducer_20200406213930.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/postReducer_20200406214137.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/postReducer_20200406214141.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/postReducer_20200406214144.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/postReducer_20200406214155.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/postReducer_20200406214158.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/postReducer_20200406214202.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/postReducer_20200406214204.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/postReducer_20200406214206.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/postReducer_20200406214227.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/postReducer_20200406214232.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/postReducer_20200406214238.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/postReducer_20200406214341.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/postReducer_20200406214345.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/postReducer_20200406214359.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/postReducer_20200406214402.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/postReducer_20200406214406.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/postReducer_20200406214503.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/postReducer_20200406214510.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/rootReducer_20200406213741.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/rootReducer_20200406213751.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/rootReducer_20200406213755.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/rootReducer_20200406213802.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/rootReducer_20200406213807.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/rootReducer_20200406213813.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/rootReducer_20200406213819.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/rootReducer_20200406213821.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/rootReducer_20200406213823.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/rootReducer_20200406213824.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/rootReducer_20200406213826.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/rootReducer_20200406213830.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/rootReducer_20200406213835.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/rootReducer_20200406213843.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/rootReducer_20200406213849.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/rootReducer_20200406213856.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/rootReducer_20200406213900.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/rootReducer_20200406213903.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/rootReducer_20200406213910.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/rootReducer_20200406213916.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/rootReducer_20200406213918.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/rootReducer_20200406214822.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/rootReducer_20200406215055.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/rootReducer_20200406215128.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/rootReducer_20200406215132.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/reducers/rootReducer_20200406215246.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406213246.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406213257.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406213332.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406213354.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406213420.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406213425.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406213430.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406213433.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406213436.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406213440.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406213443.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406213450.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406213458.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406213508.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406213514.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406213518.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406213528.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406213531.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406213538.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406213543.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406213546.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406213548.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406213600.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406213603.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406213627.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406213640.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406214740.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406214745.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406214749.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406214753.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406214758.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/.history/src/store_20200406214802.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/startcom_frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/startcom_frontend/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/startcom_frontend/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/src/components/Footer.js" beforeDir="false" afterPath="$PROJECT_DIR$/startcom_frontend/src/components/Footer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/src/components/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/startcom_frontend/src/components/Navbar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/startcom_frontend/src/utils/theme.js" beforeDir="false" afterPath="$PROJECT_DIR$/startcom_frontend/src/utils/theme.js" afterDir="false" />
-    </list>
+    <list default="true" id="5958ebe8-6fc6-427a-a79a-6ad99fd99871" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -393,11 +27,11 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/startcom_frontend/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="252">
-              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+              <caret line="12" selection-start-line="12" selection-end-line="12" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -405,10 +39,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/startcom_frontend/src/components/Footer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="302">
+            <state relative-caret-position="1701">
               <caret line="81" selection-start-line="81" selection-end-line="81" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
@@ -444,7 +78,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/startcom_frontend/src/components/Navbar.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-15">
+            <state relative-caret-position="189">
               <caret line="9" selection-start-line="9" selection-end-line="9" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
@@ -591,12 +225,12 @@
       <workItem from="1586784426506" duration="6842000" />
       <workItem from="1586836774648" duration="12858000" />
       <workItem from="1586920603924" duration="1399000" />
-      <workItem from="1586926377028" duration="456000" />
+      <workItem from="1586926377028" duration="770000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23185000" />
+    <option name="totallyTimeSpent" value="23499000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -756,17 +390,6 @@
     <entry file="file://$PROJECT_DIR$/startcom_frontend/.history/components/Post_20200406204704.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/startcom_frontend/src/components/Navbar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-15">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-            <element signature="e#158#204#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/startcom_frontend/src/utils/theme.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -794,17 +417,6 @@
     <entry file="file://$PROJECT_DIR$/startcom_frontend/public/star.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/startcom_frontend/src/components/Footer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="81" selection-start-line="81" selection-end-line="81" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-            <element signature="e#201#243#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/startcom_frontend/src/index.css">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -818,9 +430,31 @@
     <entry file="file://$PROJECT_DIR$/startcom_frontend/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
-          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/startcom_frontend/src/components/Navbar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+            <element signature="e#158#204#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/startcom_frontend/src/components/Footer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1701">
+          <caret line="81" selection-start-line="81" selection-end-line="81" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#201#243#0" expanded="true" />
           </folding>
         </state>
       </provider>
