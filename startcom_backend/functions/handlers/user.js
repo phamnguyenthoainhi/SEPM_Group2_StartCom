@@ -12,9 +12,9 @@ exports.signUp = (req,res) =>{
         // .then((token)=>{
         //     return res.json(token);
         // })
-        .then(()=>{
+        .then((cred)=>{
             delete user.password;
-            return Promise(createUser(user));
+            return Promise(createUser(user, cred.user.uid));
         })
         .catch((error)=>{
             console.log(error)
@@ -37,14 +37,20 @@ exports.signIn = (req,res) =>{
 }
 
 exports.editProfile = (req,res) =>{
-    return db.collection('User').doc(req.params.id).update(req.body)
-        .then(()=>{
-            return res.json(req.body)
-        })
-        .catch((error)=>{
-            console.log(error);
-            return res.json(error);
-        })
+    if(req.user.uid === req.params.id){
+        return db.collection('User').doc(req.params.id).update(req.body)
+            .then(()=>{
+                return res.json(req.body)
+            })
+            .catch((error)=>{
+                console.log(error);
+                return res.json(error);
+            })
+    }
+    else{
+        res.status(403).send('Unauthorized');
+        return;
+    }
 
 }
 
@@ -83,28 +89,57 @@ exports.getAllConsultants = (req,res) => {
 }
 
 exports.deleteAccount = (userRecord) =>{
-    return db.collection('User').where('email','==',userRecord.email).get()
-        .then((query)=>{
-            return deleteUser(query.docs[0].id);
+    return db.collection('User').doc(userRecord.uid).delete()
+        .then(()=>{return null})
+        .catch(error=>{
+            console.log(error);
+            return res.json(error)
         })
 }
 
-function createUser(user){
-    return db.collection('User').add(user)
-        .then((doc)=> {return null})
+function createUser(user,id){
+    return db.collection('User').doc(id).set(user)
+        .then(()=> {return null})
         .catch(error=>{
             console.log(error);
             return res.json(error);
         })
 }
 
-function deleteUser(id){
-    return db.collection('User').doc(id).delete()
-        .then(()=>{
-            return null;
-        })
-        .catch(error=>{
-            console.log(error);
-            return res.json(error);
-        })
+// function deleteUser(id){
+//     return db.collection('User').doc(id).delete()
+//         .then(()=>{
+//             return null;
+//         })
+//         .catch(error=>{
+//             console.log(error);
+//             return res.json(error);
+//         })
+// }
+
+exports.validateFirebaseIdToken =async (req,res,next)=>{
+    let idToken;
+    if(req.headers.authorization && req.headers.authorization.startsWith('Bearer ')){
+        console.log('Found authorization header');
+        idToken = req.headers.authorization.split('Bearer ')[1];
+    }
+    else{
+        console.log('no token')
+        res.status(403).send('Unauthorized');
+        return;
+    }
+
+    try{
+        const decodedIdToken = await admin.auth().verifyIdToken(idToken);
+        console.log('decoded token: ', decodedIdToken);
+        req.user = decodedIdToken;
+        next();
+        return;
+    }
+    catch(error){
+        console.log('error verifying token');
+        console.log(error);
+        res.status(403).send('Unauthorized');
+        return;
+    }
 }
