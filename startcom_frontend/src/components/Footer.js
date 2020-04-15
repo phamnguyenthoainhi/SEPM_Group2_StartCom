@@ -15,7 +15,7 @@ const styles = (theme) => ({
     logoContainer: {
         [theme.breakpoints.down('sm')]: {
             textAlign: "center"
-        }
+        },
     },
     navContainer: {
         marginTop: 20,
