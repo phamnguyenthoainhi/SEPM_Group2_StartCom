@@ -49,11 +49,12 @@ const style = (theme) => ({
         height: 150,
         width: 150,
         marginBottom: 30,
-        backgroundColor: theme.color.primary3
+        backgroundColor: theme.color.primary2
     },
     avatarbox: {
         paddingLeft: '45%'
-    }
+    },
+
 
 })
 export default style;

@@ -8,9 +8,13 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import CardMedia from '@material-ui/core/CardMedia';
 import Avatar from '@material-ui/core/Avatar';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Link from '@material-ui/core/Link';
 class HomePage extends Component {
     render() {
         const {classes} = this.props; 
+        const preventDefault = (event) => event.preventDefault();
         return (
             <div className={classes.root}>
                 <Grid container spacing={0}>
@@ -42,7 +46,7 @@ class HomePage extends Component {
                         </Grid>
                         <Grid item xs={12} className={classes.below}>
                                 <Box  m={1} className={classes.avatarbox}>
-                                <Avatar src={require("../../images/deal.svg")} className={classes.avatar} />
+                                <Avatar src={require("../../images/logo.png")} className={classes.avatar} />
                                 </Box>
                                 <Box fontWeight="fontWeightLight" m={1} >
                                 StartCom is focused on bringing about chances. We’ve built and fueled our vision with time, resources, and passion, but we need your help to strengthen its connection. 
