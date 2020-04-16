@@ -57,7 +57,7 @@ const style = (theme) => ({
     },
     avatarbox: {
         paddingLeft: '45%'
-    },
+    }
 
 
 })

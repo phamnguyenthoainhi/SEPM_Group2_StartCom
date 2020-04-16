@@ -9,7 +9,7 @@ import RegisterBI from './components/businessideas/RegisterBI';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter, Route} from 'react-router-dom';
-import HomePage from './components/anonymoususers/HomePage';
+import HomePage from './components/anonymoususers/homepage/HomePage';
 class App extends Component {
   render() {
   const theme = createMuiTheme(themeFile);
