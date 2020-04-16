@@ -5,7 +5,7 @@ import themeFile from "./utils/theme";
 import store  from './store'
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import RegisterBI from './components/businessideas/registerbusinessidea/RegisterBI';
+import RegisterBI from './components/businessideas/RegisterBI';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter, Route} from 'react-router-dom';

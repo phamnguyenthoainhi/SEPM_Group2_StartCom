@@ -8,10 +8,8 @@ const theme = createMuiTheme({
         primary3: "#3C5155",
 
         secondary: "#90B494",
-        contrast: "#718F94",
-        
+        contrast: "#718F94"
 
-    },
-    font: "'Raleway', sans-serif;"
+    }
 });
 export default theme;

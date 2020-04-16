@@ -1,7 +1,7 @@
 const style = (theme) => ({
     root: {
         flexGrow: 1,
-        fontFamily: theme.font
+        fontFamily: "'Raleway', sans-serif;",
         
     },
     grid: {
@@ -37,7 +37,7 @@ const style = (theme) => ({
         backgroundColor: theme.color.primary3,
         padding: '100px',
         paddingLeft: '250px',
-        
+        fontFamily: theme.generalfont
         
     },
     rowtittle: {

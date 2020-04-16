@@ -1,7 +1,7 @@
 const style = (theme) => ({
     root: {
         flexGrow: 1,
-        fontFamily: theme.font
+        fontFamily: theme.generalfont
         
     },
     grid: {

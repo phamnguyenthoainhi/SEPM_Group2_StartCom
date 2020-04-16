@@ -1,7 +1,7 @@
 const style = (theme) => ({
     root: {
         flexGrow: 1,
-        fontFamily: theme.font
+        fontFamily: "'Raleway', sans-serif;",
         
     },
     grid: {

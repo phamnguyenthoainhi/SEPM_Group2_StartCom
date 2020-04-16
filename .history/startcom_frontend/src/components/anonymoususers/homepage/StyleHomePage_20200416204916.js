@@ -1,7 +1,7 @@
 const style = (theme) => ({
     root: {
         flexGrow: 1,
-        fontFamily: theme.font
+        fontFamily: theme.generalfont
         
     },
     grid: {
@@ -20,13 +20,13 @@ const style = (theme) => ({
         '&:hover':{
             backgroundColor: theme.color.contrast
         },
-        
+        fontFamily: theme.generalfont
     },
     welcomtittle: {
         color: theme.color.primary3,
         fontSize: '25px',
         paddingBottom: '20px',
-        
+        fontFamily: theme.generalfont
     },
     media: {
         height: 400,
@@ -37,7 +37,6 @@ const style = (theme) => ({
         backgroundColor: theme.color.primary3,
         padding: '100px',
         paddingLeft: '250px',
-        
         
     },
     rowtittle: {

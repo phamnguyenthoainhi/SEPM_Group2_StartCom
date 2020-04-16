@@ -19,14 +19,12 @@ const style = (theme) => ({
         marginTop: '30px',
         '&:hover':{
             backgroundColor: theme.color.contrast
-        },
-        
+        }
     },
     welcomtittle: {
         color: theme.color.primary3,
         fontSize: '25px',
-        paddingBottom: '20px',
-        
+        paddingBottom: '20px'
     },
     media: {
         height: 400,
@@ -37,7 +35,6 @@ const style = (theme) => ({
         backgroundColor: theme.color.primary3,
         padding: '100px',
         paddingLeft: '250px',
-        
         
     },
     rowtittle: {
