@@ -1,4 +1,6 @@
+
 const functions = require('firebase-functions');
+
 const admin = require('firebase-admin');
 const db = admin.firestore();
 
@@ -16,7 +18,9 @@ exports.getAllBusinessIdeas = (req,res)=>{
         })
         .catch((error)=>{
             console.log(error);
-            return res.json({error:error})
+
+            return res.json(error)
+
         })
 }
 
@@ -33,7 +37,9 @@ exports.getBusinessIdeaById = (req,res) =>{
         })
         .catch((error)=>{
             console.log(error);
-            return res.json({error:error});
+
+            return res.json(error);
+
         })
 }
 
@@ -47,7 +53,9 @@ exports.postBusinessIdea = (req,res)=>{
         })
         .catch((error)=>{
             console.log(error);
-            return res.json({error:error});
+
+            return res.json(error);
+
         })
 }
 
@@ -59,7 +67,8 @@ exports.editBusinessIdea = (req,res)=>{
         })
         .catch((error)=>{
             console.log(error)
-            return res.json({error:error})
+
+            return res.json(error)
         })
 }
 
@@ -71,6 +80,7 @@ exports.deleteBusinessIdea = (req,res)=>{
         })
         .catch((error)=>{
             console.log(error);
-            return res.json({error:error})
+
+            return res.json(error)
         })
 }
