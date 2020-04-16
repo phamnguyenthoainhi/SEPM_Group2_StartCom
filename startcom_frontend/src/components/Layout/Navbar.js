@@ -18,6 +18,9 @@ import Grid from "@material-ui/core/Grid";
 
 
 const styles = (theme) => ({
+    appBar: {
+
+    },
     toolbar: {
         backgroundColor: theme.color.primary3,
         padding: '0 50px'
@@ -105,7 +108,7 @@ class Navbar extends Component {
         const { classes } = this.props;
         const { openDrawer} = this.state;
         return (
-            <AppBar>
+            <AppBar className={classes.appBar}>
                 <Toolbar className={classes.toolbar}>
                     <Button
                         component={Link}

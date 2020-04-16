@@ -1,9 +1,8 @@
 const style = (theme) => ({
     root: {
-        flexGrow: 1,
-        
+        flexGrow: 1
     },
-    leftcolumn: {
+    leftColumn: {
         backgroundColor: theme.color.primary2,
         textAlign: 'center',   
         padding: '100px'    
@@ -17,7 +16,7 @@ const style = (theme) => ({
             backgroundColor: theme.color.primary3
         }
     },
-    welcomtittle: {
+    welcomeTittle: {
         color: theme.color.contrast,
         fontSize: '25px',
         paddingBottom: '20px'
@@ -32,7 +31,7 @@ const style = (theme) => ({
         padding: '100px',
         paddingLeft: '250px'
     },
-    rowtittle: {
+    rowTittle: {
         color: theme.color.primary2,
         fontSize: '35px',
         marginBottom: '20px'
@@ -40,7 +39,6 @@ const style = (theme) => ({
     below: {
         backgroundColor: theme.color.primary2,
         textAlign: 'center',
-     
         alignItems:"center",
         padding: 80
           
@@ -51,9 +49,8 @@ const style = (theme) => ({
         marginBottom: 30,
         backgroundColor: theme.color.primary3
     },
-    avatarbox: {
+    avatarBox: {
         paddingLeft: '45%'
     }
-
-})
+});
 export default style;
