@@ -1,13 +1,11 @@
 import React, { Component} from 'react';
 import { Link } from "react-router-dom";
-import clsx from 'clsx';
 import withStyles from '@material-ui/core/styles/withStyles'
-import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
 //Material UI
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
-import logo from '../images/trans_logo.png';
+import logo from '../../images/trans_logo.png';
 import Hidden from '@material-ui/core/Hidden'
 import IconButton from '@material-ui/core/IconButton'
 import MenuRoundedIcon from '@material-ui/icons/MenuRounded';

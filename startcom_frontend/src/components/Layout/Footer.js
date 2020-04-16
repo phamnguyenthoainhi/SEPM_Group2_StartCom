@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
-import logo from '../images/trans_logo.png';
+import logo from '../../images/trans_logo.png';
 import withStyles from '@material-ui/core/styles/withStyles'
 
 

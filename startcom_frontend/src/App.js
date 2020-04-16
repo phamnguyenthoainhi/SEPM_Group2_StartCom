@@ -6,8 +6,8 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 
 import store  from './store'
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import Navbar from "./components/Layout/Navbar";
+import Footer from "./components/Layout/Footer";
 
 const theme = createMuiTheme(themeFile);
 
