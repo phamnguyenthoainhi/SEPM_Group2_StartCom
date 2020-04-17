@@ -2,7 +2,7 @@ const admin = require('firebase-admin');
 const firebase = require('../config/config');
 const db = admin.firestore()
 
-const {sendEmail} = require('./email');
+const {sendEmail} = require('./utilities');
 
 exports.signUp = (req,res) =>{
     const user = req.body
@@ -11,7 +11,7 @@ exports.signUp = (req,res) =>{
             delete user.password;
             return Promise.all(createUser(user, cred.user.uid), sendEmail({
                 from: "Startcom",to:user.email,subject:"Welcome",text:"Welcome to Startcom!"
-            }));
+            }))
         })
         .catch((error)=>{
             console.log(error)
@@ -20,12 +20,15 @@ exports.signUp = (req,res) =>{
 }
 
 exports.signIn = (req,res) =>{
+    var user = {}
     return firebase.auth().signInWithEmailAndPassword(req.body.email,req.body.password)
         .then((cred)=>{
+            user.id = cred.user.uid;
             return cred.user.getIdToken();
         })
         .then((token)=>{
-            return res.json(token);
+            user.token = token
+            return res.json(user);
         })
         .catch((error)=>{
             console.log(error)
@@ -90,7 +93,7 @@ exports.deleteAccount = (userRecord) =>{
         .then(()=>{return null})
         .catch(error=>{
             console.log(error);
-            return res.json(error)
+            return error;
         })
 }
 
@@ -99,7 +102,7 @@ function createUser(user,id){
         .then(()=> {return null})
         .catch(error=>{
             console.log(error);
-            return res.json(error);
+            return error;
         })
 }
 
