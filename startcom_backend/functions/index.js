@@ -12,8 +12,8 @@ const {
 } = require('./handlers/businessIdea')
 
 const {
-    signUp,signIn, getAllInvestors,
-    getAllConsultants,editProfile, deleteAccount
+    signUp,signIn, getAllInvestors, getAllConsultants,
+    editProfile, deleteAccount, validateFirebaseIdToken
 } = require('./handlers/user')
 
 app.get("/get_all_business_ideas",getAllBusinessIdeas);
@@ -27,7 +27,7 @@ app.post("/signup",signUp);
 app.post("/signin",signIn);
 app.get("/get_all_investors",getAllInvestors);
 app.get("/get_all_consultants",getAllConsultants);
-app.put("/edit_profile/:id",editProfile);
+app.put("/edit_profile/:id",validateFirebaseIdToken,editProfile);
 
 exports.api = functions.region('asia-east2').https.onRequest(app);
 exports.onAccountDeleted = functions.auth.user().onDelete(deleteAccount);
