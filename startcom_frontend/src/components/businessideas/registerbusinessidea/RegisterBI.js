@@ -14,6 +14,7 @@ import {registerBI, resetRegisterStatus } from '../../../actions/businessideas/B
 // import CardMedia from '@material-ui/core/CardMedia';
 // import CardContent from '@material-ui/core/CardContent';
 // import Icon from '@material-ui/core/Icon';
+
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Typography from '@material-ui/core/Typography';
 import Navbar from '../../Navbar';
@@ -53,19 +54,19 @@ class RegisterBI extends Component {
         if (this.props.isRegisteredSuccess !== prevProps.isRegisteredSuccess && this.props.isRegisteredSuccess === true) {
             this.handleClickOpen();
             
-            // this.setState({
-            //     isRegisteredSuccess: '',
-            //     name: '',
-            //     date:' ',
-            //     description: '',
-            //     targetFunding: '',
-            //     needInvestor: false,
-            //     needConsultant: false,
-            //     open: false,
-            //     setOpen: false,
-            //     file:'',
-            //     chosenfile: ''
-            // })  
+            this.setState({
+                isRegisteredSuccess: '',
+                name: '',
+                date:' ',
+                description: '',
+                targetFunding: '',
+                needInvestor: false,
+                needConsultant: false,
+                open: false,
+                setOpen: false,
+                file:'',
+                chosenfile: ''
+            })  
 
         }
 
@@ -205,7 +206,7 @@ class RegisterBI extends Component {
                                 required
                                 className ={classes.input}
                             />
-                            <TextField label="Target Funding"
+                            <TextField label="Target Funding $"
                                 onChange={this.onChange} 
                                 value = {this.state.targetFunding} 
                                 name = 'targetFunding'  

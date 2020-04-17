@@ -4,11 +4,11 @@ import {withStyles} from "@material-ui/core";
 import {connect} from "react-redux";
 //Material UI
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography"
+// import Typography from "@material-ui/core/Typography"
 import TextField from "@material-ui/core/TextField";
-import CircularProgress from "@material-ui/core/CircularProgress";
+// import CircularProgress from "@material-ui/core/CircularProgress";
 //Material UI Icons
-import CheckIcon from "@material-ui/icons/Check";
+// import CheckIcon from "@material-ui/icons/Check";
 
 
 const styles = {
