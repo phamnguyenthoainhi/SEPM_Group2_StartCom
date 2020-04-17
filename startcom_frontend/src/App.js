@@ -11,8 +11,8 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter, Route} from 'react-router-dom';
 import HomePage from './components/anonymoususers/homepage/HomePage';
 import Authentication from './components/authentication/Authentication';
-import Login from './components/authentication/Login';
-import SignUp from './components/authentication/SignUp';
+import Login from './components/authentication/login/Login';
+import SignUp from './components/authentication/register/SignUp';
 class App extends Component {
   render() {
   const theme = createMuiTheme(themeFile);

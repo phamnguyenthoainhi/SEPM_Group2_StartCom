@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import CardMedia from '@material-ui/core/CardMedia';
 import Avatar from '@material-ui/core/Avatar';
 import Navbar from '../../Navbar';
+import Footer from '../../Footer';
 // import AppBar from '@material-ui/core/AppBar';
 // import Toolbar from '@material-ui/core/Toolbar';
 // import Link from '@material-ui/core/Link';
@@ -54,10 +55,9 @@ class HomePage extends Component {
                                 StartCom is focused on bringing about chances. We’ve built and fueled our vision with time, resources, and passion, but we need your help to strengthen its connection. 
                                 </Box>
                         </Grid>
-
-
-
+                        <Footer />
                 </Grid>
+                
                 
             </div>
         )

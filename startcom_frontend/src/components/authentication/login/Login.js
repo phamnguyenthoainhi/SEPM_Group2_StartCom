@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import {withStyles} from "@material-ui/core";
 import {connect} from "react-redux";
+import style from './LoginStyle'
 //Material UI
 import Button from "@material-ui/core/Button";
 // import Typography from "@material-ui/core/Typography"
@@ -11,85 +12,7 @@ import TextField from "@material-ui/core/TextField";
 // import CheckIcon from "@material-ui/icons/Check";
 
 
-const styles = {
-    buttonWrapper: {
-        outline: "none",
-        "&:hover": {
-            backgroundColor: "transparent",
-        },
-        "&:focus": {
-            outline: "none",
-            border: "none"
-        },
-    },
-    formInput: {
-        backgroundColor: "#eee",
-        border: "none",
-        padding: "12px 15px",
-        margin: "5px 10px ",
-        width: "80%",
-        outline: "none",
-        "&&&:before": {
-            borderBottom: "none"
-        },
-        "&&:after": {
-            borderBottom: "none"
-        }
-    },
-    successBtn: {
-        outline: "none",
-        fontFamily: "inherit",
-        borderRadius: 20,
-        color: "black",
-        fontSize: 13,
-        padding: "10px 30px",
-        letterSpacing: 1,
-        textTransform: "uppercase",
-        margin: "10px 0",
-        backgroundColor: "rgb(99,151,68)",
-        "&:focus": {
-            outline: "none"
-        }
-    },
-    progress: {
-        marginTop: "5%"
-    },
-    icon: {
-        color: "white"
-    },
-    registerBtn: {
-        fontFamily: "inherit",
-        outline: "none",
-        borderRadius: 20,
-        border: "1px solid #DDDDDD",
-        backgroundColor: "white",
-        padding: "10px 30px",
-        letterSpacing: 1,
-        textTransform: "uppercase",
-        transition: "all 350mx ease-in-out",
-        margin: "10px 0",
-        "&:hover": {
-            transition: "all 350ms ease-in-out",
-            backgroundColor: "black",
-            color: "white",
-            border: "1px solid black",
-            outline: "none"
-        },
-        "&:focus": {
-            outline: "none"
-        }
-    },
-    input: {
-        fontFamily: "'Quicksand', sans-serif;",
-    },
-    customError: {
-        color: "red",
-    },
-    tick: {
-        marginTop: "5%"
-    }
 
-};
 
 class Login extends Component {
     constructor(props) {
@@ -131,7 +54,7 @@ class Login extends Component {
         // const {errors} = this.state;
         return (
             <div className="form-container sign-in-container">
-                <form>
+                <form className={classes.form}>
                     <h1 className="title">Login</h1>
                     <TextField type="text"
                                name="loginEmail"
@@ -199,4 +122,4 @@ const mapDispatchToProps = {
 
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Login));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(Login));

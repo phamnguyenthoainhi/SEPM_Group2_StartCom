@@ -5,79 +5,28 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 // import CheckIcon from "@material-ui/icons/Check";
 import withStyles from "@material-ui/core/styles/withStyles";
-import {registerAccount} from '../../actions/anonymoususers/AnonymoususersActions';
+import styles from './signUpStyle';
+import {registerAccount} from '../../../actions/anonymoususers/AnonymoususersActions';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-const styles = {
-    textField: {
-        border: "none",
-    },
-    buttonWrapper: {
-        outline: "none",
-        "&:hover": {
-            backgroundColor: "transparent",
-        },
-        "&:focus": {
-            outline: "none",
-            border: "none"
-        },
-    },
-    formInput: {
-        width: "80%",
-        backgroundColor: "#eee",
-        border: "none",
-        padding: "12px 15px",
-        margin: "5px 0 ",
-        outline: "none",
-    },
-    successBtn: {
-        outline: "none",
-        fontFamily: "inherit",
-        borderRadius: 20,
-        color: "black",
-        fontSize: 13,
-        padding: "10px 30px",
-        // letterSpacing: 1,
-        textTransform: "uppercase",
-        margin: "10px 0",
-        backgroundColor: "rgb(99,151,68)",
-        "&:focus": {
-            outline: "none"
-        }
-    },
-    icon: {
-        color: "white"
-    },
-    registerBtn: {
-        fontFamily: "inherit",
-        outline: "none",
-        borderRadius: 20,
-        border: "1px solid #DDDDDD",
-        backgroundColor: "white",
-        padding: "10px 30px",
-        // letterSpacing: 1,
-        textTransform: "uppercase",
-        transition: "all 350mx ease-in-out",
-        margin: "10px 0",
-        "&:hover": {
-            transition: "all 350ms ease-in-out",
-            backgroundColor: "black",
-            color: "white",
-            border: "1px solid black",
-            outline: "none"
-        },
-        "&:focus": {
-            outline: "none"
-        }
-    },
-    input: {
-        fontFamily: "'Quicksand', sans-serif;",
-    }
+// import FormLabel from '@material-ui/core/FormLabel';
 
-};
+
+const CustomRadio = withStyles({
+    root: {
+      color: '#718F94',
+      '&$checked': {
+        color: '#E3CFB5',
+      },
+    },
+    checked: {},
+  })((props) => <Radio color="default" {...props} />);
+  
+
+
+
 
 class SignUp extends Component {
     constructor(props) {
@@ -151,14 +100,15 @@ class SignUp extends Component {
                 password: this.state.signUpPassword,
                 type: this.state.type
             }
-            this.props.registerAccount(user);
+            console.log(JSON.stringify(user));
+            // this.props.registerAccount(user);
         }
        
     };
+   
 
     render() {
         const {classes} = this.props;
-        const {errors} = this.state.formSignUpErrors;
         return (
             <div className="form-container sign-up-container">
                 <form>
@@ -169,7 +119,6 @@ class SignUp extends Component {
                         placeholder="Email"
                         className={classes.formInput}
                         helperText={this.state.formSignUpErrors.emailError}
-                        // error={!!errors.email}
                         id="signUpEmail"
                         onChange={this.handleChange}
                         value={this.state.signUpEmail}
@@ -188,7 +137,6 @@ class SignUp extends Component {
                         placeholder="Password"
                         className={classes.formInput}
                         helperText={this.state.formSignUpErrors.passwordError}
-                        // error={!!errors.password}
                         id="signUpPassword"
                         onChange={this.handleChange}
                         value={this.state.signUpPassword}
@@ -207,7 +155,6 @@ class SignUp extends Component {
                         placeholder="Confirm Password"
                         className={classes.formInput}
                         helperText={this.state.formSignUpErrors.confirmPassError}
-                        // error={!!errors.confirmPassword}
                         id="confirmPassword"
                         onChange={this.handleChange}
                         value={this.state.signUpConfirmPassword}
@@ -218,11 +165,11 @@ class SignUp extends Component {
                     >
                     </TextField>
                     <FormControl component="fieldset">
-                        <FormLabel component="legend">You want to register as</FormLabel>
+                        {/* <FormLabel component="legend" className={classes.formlabel}>You want to register as</FormLabel> */}
                             <RadioGroup row aria-label="type" name="type" value={this.state.type} onChange={this.handleChange}>
-                                <FormControlLabel value="startupowner" control={<Radio />} label="Startup Owner" />
-                                <FormControlLabel value="investor" control={<Radio />} label="Investor" />
-                                <FormControlLabel value="consultant" control={<Radio />} label="Consultant" />
+                                <FormControlLabel value="startupowner" control={<CustomRadio />}  label="Startup Owner" className={classes.formcontrollabel}/>
+                                <FormControlLabel value="investor" control={<CustomRadio />} label="Investor" className={classes.formcontrollabel} />
+                                <FormControlLabel value="consultant" control={<CustomRadio />} label="Consultant" className={classes.formcontrollabel}/>
                             </RadioGroup>
                     </FormControl>
                     {/* {
