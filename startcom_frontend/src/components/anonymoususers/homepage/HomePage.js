@@ -26,7 +26,7 @@ class HomePage extends Component {
                                 <Box fontWeight="fontWeightRegular" m={1} className={classes.welcomtittle}>
                                     Welcome
                                 </Box>
-                                <Box fontWeight="fontWeightLight" m={1}>
+                                <Box fontWeight="fontWeightLight" m={1} className={classes.description}>
                                 StartCom began in 2020 with a simple idea that’s grown into an incredible opportunity for startup community. To do so, we’ve decided to develop this platform to connect startup owners, investors and consultants together. If you choose to join us, you’ll be taking a step towards the potential partnership. 
                                 </Box>
                             </Typography>

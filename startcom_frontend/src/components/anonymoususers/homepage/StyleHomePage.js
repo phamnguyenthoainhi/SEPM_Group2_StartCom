@@ -1,7 +1,10 @@
 const style = (theme) => ({
     root: {
         flexGrow: 1,
-        fontFamily: theme.font
+        fontFamily: theme.font,
+        // [theme.breakpoints.down('sm')]: {
+        //     backgroundColor: 'red',
+        // },
         
     },
     grid: {
@@ -10,7 +13,14 @@ const style = (theme) => ({
     leftcolumn: {
         backgroundColor: theme.color.primary2,
         textAlign: 'center',   
-        padding: '100px'    
+        padding: '100px',
+        [theme.breakpoints.down('sm')]: {
+            padding: '50px',
+            fontSize: '10px',
+            
+            
+           
+        },    
      
     },
     joinButton: {
@@ -28,10 +38,19 @@ const style = (theme) => ({
         paddingBottom: '20px',
         
     },
+    description: {
+        color: theme.color.primary3
+    },
     media: {
         height: 400,
         margin: 50,
-        marginLeft: 100
+        marginLeft: 100,
+        [theme.breakpoints.down('sm')]: {
+            height: 400,
+            margin: 25,
+            marginLeft: 50
+           
+        }, 
     },
     row: {
         backgroundColor: theme.color.primary3,
@@ -60,7 +79,21 @@ const style = (theme) => ({
         backgroundColor: theme.color.primary2
     },
     avatarbox: {
-        paddingLeft: '45%'
+        paddingLeft: '45%',
+        [theme.breakpoints.down('sm')]: {
+            paddingLeft: '25%',
+  
+        },
+        [theme.breakpoints.down('md')]: {
+            paddingLeft: '35%',
+            
+        },
+        [theme.breakpoints.down('lg')]: {
+            paddingLeft: '40%',
+            
+   
+        }
+        
     }
 
 
