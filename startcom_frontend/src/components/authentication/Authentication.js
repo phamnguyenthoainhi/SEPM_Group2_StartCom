@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import withStyles from "@material-ui/core/styles/withStyles";
-import SignUp from "./SignUp";
-import SignIn from "./Login";
+import SignUp from "./register/SignUp";
+import SignIn from "./login/Login";
 import './authentication.css';
 
 const styles = {

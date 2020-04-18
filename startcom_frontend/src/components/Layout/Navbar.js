@@ -1,6 +1,8 @@
 import React, { Component} from 'react';
 import { Link } from "react-router-dom";
+// import clsx from 'clsx';
 import withStyles from '@material-ui/core/styles/withStyles'
+// import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
 //Material UI
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -18,9 +20,6 @@ import Grid from "@material-ui/core/Grid";
 
 
 const styles = (theme) => ({
-    appBar: {
-
-    },
     toolbar: {
         backgroundColor: theme.color.primary3,
         padding: '0 50px'
@@ -108,7 +107,7 @@ class Navbar extends Component {
         const { classes } = this.props;
         const { openDrawer} = this.state;
         return (
-            <AppBar className={classes.appBar}>
+            <AppBar>
                 <Toolbar className={classes.toolbar}>
                     <Button
                         component={Link}

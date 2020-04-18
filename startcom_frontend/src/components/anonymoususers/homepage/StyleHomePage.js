@@ -1,25 +1,32 @@
 const style = (theme) => ({
     root: {
-        flexGrow: 1
+        flexGrow: 1,
+        fontFamily: theme.font
+        
     },
-    leftColumn: {
+    grid: {
+        paddingTop: 100
+    },
+    leftcolumn: {
         backgroundColor: theme.color.primary2,
         textAlign: 'center',   
         padding: '100px'    
      
     },
     joinButton: {
-        backgroundColor: theme.color.contrast,
-        color: theme.color.primary2,
+        backgroundColor: theme.color.primary3,
+        color: theme.color.primary1,
         marginTop: '30px',
         '&:hover':{
-            backgroundColor: theme.color.primary3
-        }
+            backgroundColor: theme.color.contrast
+        },
+        
     },
-    welcomeTittle: {
-        color: theme.color.contrast,
+    welcomtittle: {
+        color: theme.color.primary3,
         fontSize: '25px',
-        paddingBottom: '20px'
+        paddingBottom: '20px',
+        
     },
     media: {
         height: 400,
@@ -27,18 +34,21 @@ const style = (theme) => ({
         marginLeft: 100
     },
     row: {
-        backgroundColor: theme.color.contrast,
+        backgroundColor: theme.color.primary3,
         padding: '100px',
-        paddingLeft: '250px'
+        paddingLeft: '250px',
+        
+        
     },
-    rowTittle: {
-        color: theme.color.primary2,
+    rowtittle: {
+        color: theme.color.primary1,
         fontSize: '35px',
         marginBottom: '20px'
     },
     below: {
         backgroundColor: theme.color.primary2,
         textAlign: 'center',
+     
         alignItems:"center",
         padding: 80
           
@@ -47,10 +57,12 @@ const style = (theme) => ({
         height: 150,
         width: 150,
         marginBottom: 30,
-        backgroundColor: theme.color.primary3
+        backgroundColor: theme.color.primary2
     },
-    avatarBox: {
+    avatarbox: {
         paddingLeft: '45%'
     }
-});
+
+
+})
 export default style;

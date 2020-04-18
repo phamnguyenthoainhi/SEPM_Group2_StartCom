@@ -86,7 +86,7 @@ class Footer extends Component {
         return (
             <Grid container className={classes.footerWrapper}>
                 <Grid item sm={12} md={6} className={classes.logoContainer}>
-                    <img src={logo} style={{width: 150, height: 80}}/>
+                    <img src={logo} style={{width: 150, height: 80}} alt='logo'/>
 
                 </Grid>
 
