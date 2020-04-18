@@ -6,8 +6,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from "@material-ui/core/Typography";
-import logo from '../../images/trans_logo.png';
-import {updateBI} from "../../actions/businessideas/BIActions";
+import {deleteBI, updateBI} from "../../actions/businessideas/BIActions";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -59,6 +58,11 @@ class BITemplate extends Component {
         })
     };
 
+    delete = () => {
+        const id = this.props.idea.id;
+        this.props.deleteBI(id)
+    };
+
     submit = () => {
         const id = this.props.idea.id;
         const businessIdea = {
@@ -104,6 +108,7 @@ class BITemplate extends Component {
                 </CardContent>
                 <CardActions>
                     <Button variant="contained" onClick={this.handleClickOpen}>Update</Button>
+                    <Button variant="contained" onClick={this.delete}>Delete</Button>
                 </CardActions>
 
                 <Dialog open={open} onClose={this.handleClose} aria-labelledby="form-dialog-title">
@@ -170,7 +175,8 @@ class BITemplate extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    updateBI: (businessIdea,id) => dispatch(updateBI(businessIdea,id))
+    updateBI: (businessIdea,id) => dispatch(updateBI(businessIdea,id)),
+    deleteBI: (id) => dispatch(deleteBI(id))
 });
 
 const mapStateToProps = state => ({

@@ -75,6 +75,8 @@ export const updateBI = (BIData, id) => dispatch => {
         ))
 };
 
+
+// NOTE: future improvement: changing payload to filter out the delete business ideas
 export const deleteBI = (id) => dispatch => {
     fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/delete_business_idea/${id}`, {
         method: 'DELETE',
@@ -88,9 +90,8 @@ export const deleteBI = (id) => dispatch => {
             if(res.status === 200) {
                 dispatch({
                     type: DELETE_BI,
-                    payload: res.data
+                    payload: id
                 });
-                return res.json();
             } else
                 return res.error;
         })
