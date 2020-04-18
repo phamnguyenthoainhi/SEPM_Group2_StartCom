@@ -28,9 +28,8 @@ exports.sendEmail = (data) => {
         .catch(error => { console.log(error) })
 }
 
-exports.uploadImage = (imageString,name) => {
-    
-    console.log(imageString)
+exports.uploadImage = async (imageString,name) => {
+
     var extension = ''
     if(imageString.charAt(0)==='/'){
         extension='jpg'
@@ -43,7 +42,8 @@ exports.uploadImage = (imageString,name) => {
         return 'error: invalid file type'
     }
 
-    const fileName = `${name.replace(/ /g, '')}.${extension}`
+    const time = Date.now()
+    const fileName = `${name.replace(/ /g, '')}-${time}.${extension}`
     
     //console.log(`Test:${firebase.storage.TaskState.RUNNING}`);
     try {

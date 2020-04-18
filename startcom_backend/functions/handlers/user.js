@@ -9,9 +9,12 @@ exports.signUp = (req,res) =>{
     return firebase.auth().createUserWithEmailAndPassword(user.email,user.password)
         .then((cred)=>{
             delete user.password;
-            return Promise.all(createUser(user, cred.user.uid), sendEmail({
+            return Promise.all([createUser(user, cred.user.uid), sendEmail({
                 from: "Startcom",to:user.email,subject:"Welcome",text:"Welcome to Startcom!"
-            }))
+            })])
+            .then((results)=>{
+                return res.json(results[0])
+            })
         })
         .catch((error)=>{
             console.log(error)
@@ -98,8 +101,15 @@ exports.deleteAccount = (userRecord) =>{
 }
 
 function createUser(user,id){
-    return db.collection('User').doc(id).set(user)
-        .then(()=> {return null})
+    const newUser = user
+    if(newUser.type && newUser.type==="investor"){
+        newUser.verified = false
+    }
+    return db.collection('User').doc(id).set(newUser)
+        .then(()=> {
+            newUser.id = id
+            return newUser
+        })
         .catch(error=>{
             console.log(error);
             return error;

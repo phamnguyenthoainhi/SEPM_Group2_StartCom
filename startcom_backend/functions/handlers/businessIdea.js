@@ -41,23 +41,28 @@ exports.getBusinessIdeaById = (req, res) => {
 exports.postBusinessIdea = (req, res) => {
     var businessIdea = req.body
     if (businessIdea.image) {
-        return uploadImage(businessIdea.image, businessIdea.name)
-            .then(url => {
-                businessIdea.image = url
-                return db.collection('BusinessIdea').add(businessIdea)
-                    .then((doc) => {
-                        businessIdea.id = doc.id;
-                        return res.json(businessIdea);
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                        return res.json(error);
-                    })
+        const imageUpload = uploadImage(businessIdea.image, businessIdea.name)
+        const ideaUpload = imageUpload.then((url) => {
+            businessIdea.image = url
+            return db.collection('BusinessIdea').add(businessIdea)
+                .then((doc) => {
+                    businessIdea.id = doc.id
+                    return businessIdea
+                })
+                .catch(error => {
+                    console.log(error)
+                    return error
+                })
+        })
+        return Promise.all([imageUpload, ideaUpload])
+            .then(results => {
+                return res.json(results[1])
             })
             .catch(error => {
                 console.log(error)
                 return res.json(error)
             })
+
     }
     else {
         return db.collection('BusinessIdea').add(businessIdea)
@@ -75,14 +80,41 @@ exports.postBusinessIdea = (req, res) => {
 
 //edit business idea
 exports.editBusinessIdea = (req, res) => {
-    return db.collection('BusinessIdea').doc(req.params.id).update(req.body)
-        .then(() => {
-            return res.json(req.body);
+    var businessIdea = req.body
+    if (businessIdea.image && !businessIdea.image.includes("https://storage.googleapis.com/startcom-sepm.appspot.com/images/")) {
+        const imageUpdate = uploadImage(businessIdea.image, businessIdea.name)
+        const ideaUpdate = imageUpdate.then((url) => {
+            businessIdea.image = url
+            return db.collection('BusinessIdea').doc(req.params.id).update(req.body)
+                .then(() => {
+                    businessIdea.id = req.params.id
+                    return businessIdea
+                })
+                .catch(error => {
+                    console.log(error)
+                    return error
+                })
         })
-        .catch((error) => {
-            console.log(error)
-            return res.json(error)
-        })
+        return Promise.all([imageUpdate, ideaUpdate])
+            .then(results => {
+                return res.json(results[1])
+            })
+            .catch(error => {
+                console.log(error)
+                return res.json(error)
+            })
+    }
+    else {
+        return db.collection('BusinessIdea').doc(req.params.id).update(businessIdea)
+            .then(() => {
+                businessIdea.id = req.params.id
+                return res.json(businessIdea);
+            })
+            .catch((error) => {
+                console.log(error)
+                return res.json(error)
+            })
+    }
 }
 
 //delete business idea
