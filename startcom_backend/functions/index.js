@@ -16,6 +16,8 @@ const {
     editProfile, deleteAccount, validateFirebaseIdToken
 } = require('./handlers/user')
 
+const {uploadImage} = require('./handlers/utilities')
+
 app.get("/get_all_business_ideas",getAllBusinessIdeas);
 app.get("/get_business_idea/:id",getBusinessIdeaById);
 app.post("/post_business_idea",postBusinessIdea);
@@ -29,5 +31,6 @@ app.get("/get_all_investors",getAllInvestors);
 app.get("/get_all_consultants",getAllConsultants);
 app.put("/edit_profile/:id",validateFirebaseIdToken,editProfile);
 
+//app.post("/upload_image",uploadImage)
 exports.api = functions.region('asia-east2').https.onRequest(app);
 exports.onAccountDeleted = functions.auth.user().onDelete(deleteAccount);
