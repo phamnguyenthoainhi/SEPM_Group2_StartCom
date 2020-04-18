@@ -41,7 +41,7 @@ class RegisterBI extends Component {
             needConsultant: false,
             open: false,
             setOpen: false,
-            file:'',
+            image:'',
             chosenfile: ''
 
         }
@@ -54,19 +54,19 @@ class RegisterBI extends Component {
         if (this.props.isRegisteredSuccess !== prevProps.isRegisteredSuccess && this.props.isRegisteredSuccess === true) {
             this.handleClickOpen();
             
-            this.setState({
-                isRegisteredSuccess: '',
-                name: '',
-                date:' ',
-                description: '',
-                targetFunding: '',
-                needInvestor: false,
-                needConsultant: false,
-                open: false,
-                setOpen: false,
-                file:'',
-                chosenfile: ''
-            })  
+            // this.setState({
+            //     isRegisteredSuccess: '',
+            //     name: '',
+            //     date:' ',
+            //     description: '',
+            //     targetFunding: '',
+            //     needInvestor: false,
+            //     needConsultant: false,
+            //     open: false,
+            //     setOpen: false,
+            //     file:'',
+            //     chosenfile: ''
+            // })  
 
         }
 
@@ -94,7 +94,7 @@ class RegisterBI extends Component {
     chooseFile = event => {
         console.log(event.target.files[0].name);
         this.setState({
-            file: event.target.files[0],
+            image: event.target.files[0],
             chosenfile: 'Uploaded file: '+ event.target.files[0].name
         })
         
@@ -118,7 +118,8 @@ class RegisterBI extends Component {
         var reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function () {
-            callback(reader.result)
+            var base64result = reader.result.split(',')[1];
+            callback(base64result)
         };
        
         reader.onerror = function (error) {
@@ -133,11 +134,11 @@ class RegisterBI extends Component {
             date: this.state.date,
             description: this.state.description,
             targetFunding: this.state.targetFunding,
-            file: encodedimage,
+            image: encodedimage,
             needInvestor: this.state.needInvestor,
             needConsultant: this.state.needConsultant
         };
-        
+        console.log(JSON.stringify(businessIdea));
         this.props.registerBI(businessIdea);
         // this.handleClickOpen();   
         
@@ -146,16 +147,15 @@ class RegisterBI extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        console.log(this.state.file);
-        if (!(this.state.file === '' || this.state.file === null || this.state.file === undefined)) {
-            this.getBase64(this.state.file, this.handleRegisterBI)
+        if (!(this.state.image === '' || this.state.image === null || this.state.image === undefined)) {
+            this.getBase64(this.state.image, this.handleRegisterBI)
         } else {
             const businessIdea = {
                 name: this.state.name,
                 date: this.state.date,
                 description: this.state.description,
                 targetFunding: this.state.targetFunding,
-                file: '',
+                image: '',
                 needInvestor: this.state.needInvestor,
                 needConsultant: this.state.needConsultant
             };
@@ -182,6 +182,7 @@ class RegisterBI extends Component {
                                 fullWidth
                                 label="Business Idea Name"
                                 required className ={classes.input}
+                                
                             />
 
                             <TextField
@@ -217,7 +218,7 @@ class RegisterBI extends Component {
                             
                             <Button color="default"  className={classes.buttonfile} 
                             label='My Label'startIcon={<CloudUploadIcon />}  >
-                                   <input type="file" accept="image/*" id='file' style={{display:'none'}} name='file'  onChange={this.chooseFile}/>
+                                   <input type="file" accept="image/*" id='file' style={{display:'none'}} name='image'  onChange={this.chooseFile}/>
                                    <label htmlFor='file' >
                                    
                                            Upload Business Idea Image
@@ -239,7 +240,8 @@ class RegisterBI extends Component {
                             
                             
                             
-                            <Dialog className={classes.dialog}
+                            <Dialog 
+                            className={classes.dialog}
                                 open={this.state.open}
                                 onClose={this.handleClose}
                                 aria-labelledby="alert-dialog-title"

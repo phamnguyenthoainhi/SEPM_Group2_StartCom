@@ -18,12 +18,11 @@ const style = (theme) => ({
         paddingLeft: "20px",
         paddingRight: "20px",
         backgroundColor: theme.color.primary3,
-        color: "white",
+        color: theme.color.primary1,
         '&:hover':{
             backgroundColor: theme.color.contrast
         }
     
-
     },
     input: {
         marginBottom: "30px",
@@ -33,7 +32,11 @@ const style = (theme) => ({
           },
           '& .MuiInput-underline:after': {
             borderBottomColor: theme.color.primary1,
+          },
+          '& .MuiInput-underline:hover': {
+            borderBottomColor: theme.color.primary3,
           }
+
     
     },
     content: {
