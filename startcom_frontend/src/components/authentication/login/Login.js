@@ -55,7 +55,7 @@ class Login extends Component {
         return (
             <div className="form-container sign-in-container">
                 <form className={classes.form}>
-                    <h1 className="title">Login</h1>
+                    <h1 className="title" >Login</h1>
                     <TextField type="text"
                                name="loginEmail"
                                placeholder="Email"
@@ -64,12 +64,7 @@ class Login extends Component {
                                id="loginEmail"
                                onChange={this.handleChange}
                                value={this.state.loginEmail}
-                               InputLabelProps={{className: classes.input}}
-                               InputProps={
-                                   {
-                                       disableUnderline: true,
-                                       className: classes.input
-                                   }}
+                               
                     />
                     <TextField
                         type="password"
@@ -80,12 +75,7 @@ class Login extends Component {
                         id="loginPassword"
                         onChange={this.handleChange}
                         value={this.state.loginPassword}
-                        InputLabelProps={{className: classes.input}}
-                        InputProps={
-                            {
-                                disableUnderline: true,
-                                className: classes.input
-                            }}
+                        
                     />
                     {/*<Typography variant="body2" className={classes.customError}>{errors.general}</Typography>*/}
                     {/*{loading ? (*/}

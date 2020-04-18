@@ -3,14 +3,14 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Raleway', sans-serif;
     height: 100vh;
 }
 .custom-btn {
     position: relative;
-    border-radius: 20px;
-    border: 1px solid #DDDDDD;
-    background-color: white;
+    border-radius: 5px;
+    border: 1px solid whitesmoke;
+    background-color: whitesmoke;
     /*color: #FFFFFF;*/
     font-size: 13px;
     padding: 12px 45px;
@@ -21,20 +21,20 @@
 }
 
 .custom-btn:hover {
-    background-color: black;
-    border: 1px solid black;
-    color: white
+    background-color: #3C5155;
+    border: 1px solid #3C5155;
+    color: whitesmoke
 }
 
 .custom-btn.ghost {
-    color: white;
+    color: whitesmoke;
     background-color: transparent;
-    border: 1px solid white;
+    border: 1px solid whitesmoke;
     transition: all 200ms ease-in-out;
 }
 
 .custom-btn.ghost:hover {
-    background-color: white;
+    background-color: whitesmoke;
     color: #3C5155
 }
 .custom-btn:focus {
@@ -146,7 +146,7 @@ form {
 
 .overlay {
     background: #3C5155;
-    background: linear-gradient(90deg, #3C5155 0%, #718F94 71%);
+    background: linear-gradient(90deg, #3C5155 0%, #3C5155 71%);
 
     background-repeat: no-repeat;
     background-size: cover;
@@ -186,6 +186,13 @@ form {
 .overlay-left {
     transform: translateX(-20%);
 }
+.overlay-left h1, .overlay-left p {
+    font-family: 'Raleway', sans-serif;
+}
+.overlay-right h1, .overlay-right p {
+    font-family: 'Raleway', sans-serif;
+}
+
 
 .container.right-panel-active .overlay-left {
     transform: translateX(0);

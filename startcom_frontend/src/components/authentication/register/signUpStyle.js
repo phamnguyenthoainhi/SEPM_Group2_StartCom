@@ -8,6 +8,10 @@ const style = (theme) => ({
   textField: {
       border: "none",
   },
+  label: {
+      color: theme.color.primary3,
+      fontFamily: theme.font
+  },
   buttonWrapper: {
       outline: "none",
       "&:hover": {
@@ -20,11 +24,21 @@ const style = (theme) => ({
   },
   formInput: {
       width: "80%",
-      backgroundColor: "#eee",
+      
       border: "none",
       padding: "12px 15px",
       margin: "5px 0 ",
       outline: "none",
+      '& label.Mui-focused': {
+        color: theme.color.primary1,
+      },
+      '& .MuiInput-underline:after': {
+        borderBottomColor: theme.color.primary1,
+      },
+      '& .MuiInput-underline:hover:before': {
+        borderBottomColor: theme.color.primary3,
+      }
+      
   },
   successBtn: {
       outline: "none",
@@ -42,21 +56,26 @@ const style = (theme) => ({
       }
   },
   registerBtn: {
+      
       fontFamily: theme.font,
       outline: "none",
-      borderRadius: 20,
-      border: "1px solid #DDDDDD",
-      backgroundColor: "white",
+  
+    backgroundColor: theme.color.primary3,
+          color: theme.color.primary1,
+          border: "1px",
+          borderColor: theme.color.primary3,
+  
       padding: "10px 30px",
-      // letterSpacing: 1,
+      letterSpacing: 1,
       textTransform: "uppercase",
       transition: "all 350mx ease-in-out",
-      margin: "10px 0",
+      margin: "20px 0",
       "&:hover": {
           transition: "all 350ms ease-in-out",
-          backgroundColor: "black",
-          color: "white",
-          border: "1px solid black",
+          backgroundColor: theme.color.primary3,
+          color: 'white',
+          border: "1px",
+          borderColor: theme.color.primary3,
           outline: "none"
       },
       "&:focus": {

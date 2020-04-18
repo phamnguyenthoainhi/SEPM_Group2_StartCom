@@ -16,7 +16,7 @@ import FormControl from '@material-ui/core/FormControl';
 
 const CustomRadio = withStyles({
     root: {
-      color: '#718F94',
+      color: '#3C5155',
       '&$checked': {
         color: '#E3CFB5',
       },
@@ -55,6 +55,9 @@ class SignUp extends Component {
     // }
 
     componentDidUpdate(prevProps) {
+        
+        console.log(prevProps.registerMessage);
+
         if (this.props.registerMessage !== prevProps.registerMessage) {
             if (this.props.registerMessage.code === 'auth/email-already-in-use') {
                 this.setState({
@@ -72,7 +75,17 @@ class SignUp extends Component {
                         confirmPassError: ""
                     },
                 })
-            } else if (this.props.registerMessage.code === undefined) {
+            } else if (this.props.registerMessage.code == "auth/invalid-email") {
+                
+                this.setState({
+                    formSignUpErrors: {
+                        emailError: this.props.registerMessage.message,
+                        passwordError: '',
+                        confirmPassError: ""
+                    },
+                })
+            }
+            else if (this.props.registerMessage.code === undefined) {
                 console.log('Success');
             }
         }
@@ -100,8 +113,7 @@ class SignUp extends Component {
                 password: this.state.signUpPassword,
                 type: this.state.type
             }
-            console.log(JSON.stringify(user));
-            // this.props.registerAccount(user);
+            this.props.registerAccount(user);
         }
        
     };
@@ -112,7 +124,7 @@ class SignUp extends Component {
         return (
             <div className="form-container sign-up-container">
                 <form>
-                    <h1>Create your account</h1>
+                    <h1 className={classes.label}>Create your account</h1>
                     <TextField
                         type="email"
                         name="signUpEmail"
@@ -123,12 +135,7 @@ class SignUp extends Component {
                         onChange={this.handleChange}
                         value={this.state.signUpEmail}
                         fullWidth
-                        InputLabelProps={{className: classes.input}}
-                        InputProps={
-                            {
-                                disableUnderline: true,
-                                className: classes.input
-                            }}
+                     
                     >
                     </TextField>
                     <TextField
@@ -141,12 +148,7 @@ class SignUp extends Component {
                         onChange={this.handleChange}
                         value={this.state.signUpPassword}
                         fullWidth
-                        InputLabelProps={{className: classes.input}}
-                        InputProps={
-                            {
-                                disableUnderline: true,
-                                className: classes.input
-                            }}
+                
                     >
                     </TextField>
                     <TextField
@@ -159,9 +161,7 @@ class SignUp extends Component {
                         onChange={this.handleChange}
                         value={this.state.signUpConfirmPassword}
                         fullWidth
-                        InputLabelProps={{className: classes.input}}
-                        InputProps={
-                            {disableUnderline: true, className: classes.input}}
+                       
                     >
                     </TextField>
                     <FormControl component="fieldset">
