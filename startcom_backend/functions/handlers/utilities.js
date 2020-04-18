@@ -28,7 +28,7 @@ exports.sendEmail = (data) => {
         .catch(error => { console.log(error) })
 }
 
-exports.uploadImage = async (imageString,name) => {
+exports.uploadImage = (imageString,name) => {
 
     var extension = ''
     if(imageString.charAt(0)==='/'){
