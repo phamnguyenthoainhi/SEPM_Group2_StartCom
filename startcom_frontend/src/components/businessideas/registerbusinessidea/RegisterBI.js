@@ -6,18 +6,18 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import RadioGroup from '@material-ui/core/RadioGroup';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import {registerBI, resetRegisterStatus } from '../../../actions/businessideas/BIActions';
-// import Card from '@material-ui/core/Card';
-// import CardActionArea from '@material-ui/core/CardActionArea';
-// import CardMedia from '@material-ui/core/CardMedia';
-// import CardContent from '@material-ui/core/CardContent';
-// import Icon from '@material-ui/core/Icon';
-
+import Radio from '@material-ui/core/Radio';
+import FormControl from '@material-ui/core/FormControl';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Typography from '@material-ui/core/Typography';
 import Navbar from '../../Navbar';
+import Box from '@material-ui/core/Box';
+import FormLabel from '@material-ui/core/FormLabel';
+
 const CustomCheckbox = withStyles({
     root: {
       color: '#718F94',
@@ -27,6 +27,17 @@ const CustomCheckbox = withStyles({
     },
     checked: {},
   })((props) => <Checkbox color="default" {...props} />);
+
+const CustomRadio = withStyles({
+    root: {
+      color: '#718F94',
+      '&$checked': {
+        color: '#E3CFB5',
+      },
+    },
+    checked: {},
+})((props) => <Radio color="default" {...props} />);
+
 
 class RegisterBI extends Component {
     constructor(props) {
@@ -42,7 +53,8 @@ class RegisterBI extends Component {
             open: false,
             setOpen: false,
             image:'',
-            chosenfile: ''
+            chosenfile: '',
+            category: ''
 
         }
         this.onChange = this.onChange.bind(this);
@@ -136,9 +148,9 @@ class RegisterBI extends Component {
             targetFunding: this.state.targetFunding,
             image: encodedimage,
             needInvestor: this.state.needInvestor,
-            needConsultant: this.state.needConsultant
+            needConsultant: this.state.needConsultant,
+            category: this.state.category
         };
-        console.log(JSON.stringify(businessIdea));
         this.props.registerBI(businessIdea);
         // this.handleClickOpen();   
         
@@ -157,10 +169,12 @@ class RegisterBI extends Component {
                 targetFunding: this.state.targetFunding,
                 image: '',
                 needInvestor: this.state.needInvestor,
-                needConsultant: this.state.needConsultant
+                needConsultant: this.state.needConsultant,
+                category: this.state.category
             };
             // this.handleClickOpen();
             this.props.registerBI(businessIdea); 
+            // console.log(JSON.stringify(businessIdea));
         }
                 
     }
@@ -215,31 +229,49 @@ class RegisterBI extends Component {
                                 className ={classes.input}
                                 type='number'
                             />
+                            <div className={classes.floatitem}>
+                            <Typography className={classes.chosenfile}>{this.state.chosenfile}</Typography>
+<br/>
+                                <Button color="default"  className={classes.buttonfile} 
+                                label='My Label'startIcon={<CloudUploadIcon />}  >
+                                    <input type="file" accept="image/*" id='file' style={{display:'none'}} name='image'  onChange={this.chooseFile}/>
+                                    <label htmlFor='file' >
+                                    
+                                            Upload Business Idea Image
+                                    </label>
+                                </Button>
+                                
                             
-                            <Button color="default"  className={classes.buttonfile} 
-                            label='My Label'startIcon={<CloudUploadIcon />}  >
-                                   <input type="file" accept="image/*" id='file' style={{display:'none'}} name='image'  onChange={this.chooseFile}/>
-                                   <label htmlFor='file' >
-                                   
-                                           Upload Business Idea Image
-                                   </label>
-                            </Button><br/>
-                            <br/>
-                            <br/>
-                                <Typography className={classes.chosenfile}>{this.state.chosenfile}</Typography>
-                                <br/>
-                                <br/>
-                            <FormControlLabel control={<CustomCheckbox checked={this.state.needInvestor} onChange={this.onChange} name="needInvestor" />}
-                            label="Looking for an investor" className={classes.checkbox} />
-                            <FormControlLabel control={<CustomCheckbox checked={this.state.needConsultant} onChange={this.onChange} name="needConsultant" />}
-                            label="Looking for an consultant" className={classes.checkbox}/>
-                            <br/>
+
+                            </div>
+                           
+                            <br/><br/><br/><br/><br/>
+                            <div className={classes.floatitem}>
+                                <Box className={classes.radiogroup}>
+                                    <FormControlLabel control={<CustomCheckbox checked={this.state.needInvestor} onChange={this.onChange} name="needInvestor" />}
+                                    label="Looking for an investor" className={classes.checkbox} />
+                                    <FormControlLabel control={<CustomCheckbox checked={this.state.needConsultant} onChange={this.onChange} name="needConsultant" />}
+                                    label="Looking for an consultant" className={classes.checkbox}/>
+                                </Box>
+                            </div>        
                             
+                                
+                            <br/><br/><br/>
+                            <div className={classes.floatitem}>
+                                <FormControl component="fieldset" className={classes.radiogroup} position='left'>
+                                    <RadioGroup row aria-label="type" name="category" value={this.state.category} onChange={this.onChange}>
+                                        <FormControlLabel value="techno" control={<CustomRadio />}  label="Technology & Innovation" className={classes.formcontrollabel}/>
+                                        <FormControlLabel value="art" control={<CustomRadio />} label="Art Works" className={classes.formcontrollabel} />
+                                        <FormControlLabel value="community" control={<CustomRadio />} label="Community Works" className={classes.formcontrollabel}/>
+                                    </RadioGroup>
+                                </FormControl>
+                            </div>
+                           
+                           <br/><br/><br/><br/>
+                           <div>
                             <Button variant="contained" type='submit' className={classes.button}>Submit</Button>
-                            
-                            
-                            
-                            
+
+                           </div>
                             <Dialog 
                             className={classes.dialog}
                                 open={this.state.open}
@@ -248,19 +280,11 @@ class RegisterBI extends Component {
                                 aria-describedby="alert-dialog-description"
                                 > 
                                 <DialogContent>
-                                    {/* <Card className={classes.card}>
-                                        <CardActionArea> */}
-                                            {/* <CardMedia className={classes.image} 
-                                            image={require("../../images/registersuccess.svg")}
-                                            /> */}
-                                            {/* <CardContent> */}
+                                   
                                                 <Typography gutterBottom className={classes.text}>
                                                 Congratulations, your business idea has been registered sucessfully!
                                                 </Typography>
-                                            {/* </CardContent>
-                                            
-                                        </CardActionArea>
-                                    </Card> */}
+                                           
                                     
                                 </DialogContent>
     

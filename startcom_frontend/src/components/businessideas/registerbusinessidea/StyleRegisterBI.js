@@ -1,6 +1,6 @@
 const style = (theme) => ({
     formContainer: {
-        textAlign: 'center',
+        // textAlign: 'center',
         margin: "70px",
         marginLeft: "100px",
         marginRight: "100px"
@@ -14,18 +14,21 @@ const style = (theme) => ({
         
     },
     button: {
-        marginTop: "40px",
+        // marginTop: "200px",
         paddingLeft: "20px",
         paddingRight: "20px",
         backgroundColor: theme.color.primary3,
         color: theme.color.primary1,
         '&:hover':{
             backgroundColor: theme.color.contrast
-        }
+        },
+        clear: 'left',
+        // display: 'table'
+        
     
     },
     input: {
-        marginBottom: "30px",
+        marginBottom: "15px",
         fontSize: '20px',
         '& label.Mui-focused': {
             color: theme.color.primary1,
@@ -45,9 +48,11 @@ const style = (theme) => ({
 
     checkbox: {
         marginTop:'5px',
-        marginLeft: '10px',
+        
         marginRight: '10px',
-        marginBottom: '10px'
+        marginBottom: '10px',
+        // float: 'left',
+        color: theme.color.primary3
     },
     image: {
         height: 300,
@@ -69,7 +74,7 @@ const style = (theme) => ({
     
     buttonfile: {
         color: theme.color.primary3,
-        float: 'left',
+        // float: 'left',
         '&:hover':{
             backgroundColor: theme.color.primary2,
             color: theme.color.primary1,
@@ -78,8 +83,27 @@ const style = (theme) => ({
     },
     chosenfile: {
         float: 'left',
+        color: theme.color.contrast,
+        fontSize: '14px',
+        marginTop: '7px'
+        
+    },
+    formcontrollabel: {
         color: theme.color.primary3,
-        fontSize: '14px'
+        fontFamily: theme.font,
+        
+    },
+    radiogroup: {
+        float: 'left',
+        
+    },
+    label: {
+        // float: 'left',
+    },
+    floatitem: {
+        float: 'left',
+        display: 'block',
+        clear:'center'
     }
 
 })

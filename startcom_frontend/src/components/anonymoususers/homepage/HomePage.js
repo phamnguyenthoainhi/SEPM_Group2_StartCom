@@ -10,6 +10,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Avatar from '@material-ui/core/Avatar';
 import Navbar from '../../Navbar';
 import Footer from '../../Footer';
+
 // import AppBar from '@material-ui/core/AppBar';
 // import Toolbar from '@material-ui/core/Toolbar';
 // import Link from '@material-ui/core/Link';

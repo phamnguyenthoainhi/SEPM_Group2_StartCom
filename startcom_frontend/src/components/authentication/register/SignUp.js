@@ -8,9 +8,10 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import styles from './signUpStyle';
 import {registerAccount} from '../../../actions/anonymoususers/AnonymoususersActions';
 import Radio from '@material-ui/core/Radio';
+import FormControl from '@material-ui/core/FormControl';
+
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
 // import FormLabel from '@material-ui/core/FormLabel';
 
 
