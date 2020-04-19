@@ -1,6 +1,7 @@
 import {REGISTER_ACCOUNT, LOGIN} from '../actions/actionTypes';
 const initialState = {
-    registerMessage: {}
+    registerMessage: {},
+    loginMessage: {}
 }
 
 export default function (state = initialState, action) {
@@ -14,6 +15,13 @@ export default function (state = initialState, action) {
                 registerMessage: action.payload
                 
             }
+        case LOGIN:
+            
+            return {
+                ...state,
+                loginMessage: action.payload
+            }
+
             
         default:
             return state;

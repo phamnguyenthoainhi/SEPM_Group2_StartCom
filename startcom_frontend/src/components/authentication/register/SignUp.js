@@ -46,18 +46,9 @@ class SignUp extends Component {
         }
     }
 
-    // static getDerivedStateFromProps(props, state) {
-    //     if (props.UI.errors !== state.errors) {
-    //         return {
-    //             errors: props.UI.errors
-    //         }
-    //     }
-    //     return null;
-    // }
 
     componentDidUpdate(prevProps) {
         
-        console.log(prevProps.registerMessage);
 
         if (this.props.registerMessage !== prevProps.registerMessage) {
             if (this.props.registerMessage.code === 'auth/email-already-in-use') {
@@ -76,7 +67,7 @@ class SignUp extends Component {
                         confirmPassError: ""
                     },
                 })
-            } else if (this.props.registerMessage.code == "auth/invalid-email") {
+            } else if (this.props.registerMessage.code === "auth/invalid-email") {
                 
                 this.setState({
                     formSignUpErrors: {
