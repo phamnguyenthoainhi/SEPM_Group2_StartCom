@@ -10,7 +10,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import {registerBI, resetRegisterStatus } from '../../../actions/businessideas/BIActions';
 
-
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Typography from '@material-ui/core/Typography';
 import Navbar from '../../Layout/Navbar';
@@ -93,8 +92,7 @@ class RegisterBI extends Component {
             image: event.target.files[0],
             chosenfile: 'Uploaded file: '+ event.target.files[0].name
         })
-        
-    }
+    };
 
     
     onChange(e) {
@@ -272,7 +270,7 @@ const mapDispatchToProps = dispatch => ({
       registerBI: (businessIdea) => dispatch(registerBI(businessIdea)),
       resetRegisterStatus: () => dispatch(resetRegisterStatus())
     
-})
+});
 
 const mapStateToProps = state => ({
     isRegisteredSuccess: state.businessIdeas.isRegisteredSuccess,

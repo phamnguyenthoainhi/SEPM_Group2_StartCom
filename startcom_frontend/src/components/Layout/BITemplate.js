@@ -2,6 +2,8 @@ import React, { Component} from 'react';
 import {connect} from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles'
 //Material UI
+
+import logo from '../../images/company_logo.png';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -14,17 +16,19 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContentText from "@material-ui/core/DialogContentText";
+import CardMedia from "@material-ui/core/CardMedia";
 
 
 const styles = (theme) => ({
     cardWrapper: {
-        maxWidth: 275,
-        padding: 20
-
+        maxWidth: 'auto',
+        minWidth: 275
     },
-    media: {
-        width: 200,
-        height: 100
+    cardContent: {
+        padding: 20
+    },
+    cardTitle: {
+        fontFamily: theme.font
     }
 
 });
@@ -90,8 +94,17 @@ class BITemplate extends Component {
         const { open } = this.state;
         return (
             <Card className={classes.cardWrapper}>
-                <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
+                <CardMedia
+                    component="img"
+                    alt="Contemplative Reptile"
+                    height="140"
+                    image={logo}
+                    title="Company Logo"
+                >
+
+                </CardMedia>
+                <CardContent className={classes.cardContent}>
+                    <Typography gutterBottom variant="h5" component="h2" className={classes.cardTitle}>
                         {idea.name}
                     </Typography>
                     <Typography gutterBottom variant="subtitle2">

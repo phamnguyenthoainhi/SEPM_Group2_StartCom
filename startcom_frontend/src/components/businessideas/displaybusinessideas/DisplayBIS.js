@@ -4,10 +4,12 @@ import {fetchBI, registerBI, resetRegisterStatus, updateBI} from '../../../actio
 import { withStyles } from '@material-ui/core';
 import BITemplate from '../../Layout/BITemplate';
 import Grid from "@material-ui/core/Grid";
+import Navbar from '../../Layout/Navbar';
+import Footer from '../../Layout/Footer';
 
 const styles = (theme) => ({
     gridContainer: {
-        padding: 20
+
     },
 
 });
@@ -38,11 +40,13 @@ class DisplayBIS extends Component {
         const { classes, businessIdeas } = this.props;
         return (
             <Grid container className={classes.gridContainer}>
+                <Navbar/>
                 {businessIdeas.map((idea,index) => (
                     <Grid item md={4} key={index} onClick={() => this.onBICardClick(idea.id)} style={{padding: 20}}>
                         <BITemplate  idea={idea}  />
                     </Grid>
                 ))}
+                <Footer/>
             </Grid>
         )
     }
