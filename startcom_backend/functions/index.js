@@ -12,10 +12,9 @@ const {
 
 const {
     signUp,signIn, getAllInvestors, getAllConsultants,
-    editProfile, deleteAccount, validateFirebaseIdToken
+    editProfile, deleteAccount, validateFirebaseIdToken,
+    deleteUser
 } = require('./handlers/user')
-
-const {uploadImage} = require('./handlers/utilities')
 
 app.get("/get_all_business_ideas",getAllBusinessIdeas);
 app.get("/get_business_idea/:id",getBusinessIdeaById);
@@ -28,6 +27,7 @@ app.post("/signin",signIn);
 app.get("/get_all_investors",getAllInvestors);
 app.get("/get_all_consultants",getAllConsultants);
 app.put("/edit_profile/:id",validateFirebaseIdToken,editProfile);
+app.delete("/delete_user/:id",validateFirebaseIdToken,deleteUser)
 
 //app.post("/upload_image",uploadImage)
 exports.api = functions.region('asia-east2').https.onRequest(app);

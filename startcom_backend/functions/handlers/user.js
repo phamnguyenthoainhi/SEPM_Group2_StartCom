@@ -78,8 +78,7 @@ exports.editProfile = (req, res) => {
         }
     }
     else {
-        res.status(403).send('Unauthorized');
-        return;
+        return res.status(403).send('Unauthorized');
     }
 
 }
@@ -125,6 +124,22 @@ exports.deleteAccount = (userRecord) => {
             console.log(error);
             return error;
         })
+}
+
+exports.deleteUser = (req,res)=>{
+    if (req.user.uid === req.params.id) {
+        return admin.auth().deleteUser(req.params.id)
+            .then(()=>{
+                return res.status(200).send('Success')
+            })
+            .catch(error=>{
+                console.log(error)
+                return res.json(error)
+            })
+    }
+    else{
+        return res.status(403).send('Unauthorized')
+    }
 }
 
 function createUser(user, id) {
