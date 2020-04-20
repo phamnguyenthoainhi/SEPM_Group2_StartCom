@@ -37,7 +37,7 @@ class BITemplate extends Component {
             open: false,
             id: '',
             name: "",
-            imgSc: "",
+            image: "",
             category: "",
             description: "",
             date: "",
@@ -98,7 +98,7 @@ class BITemplate extends Component {
             <Card className={classes.cardWrapper}>
                 <CardMedia
                     className={classes.media}
-                    image= {idea.imgSc}
+                    image= {idea.image}
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
