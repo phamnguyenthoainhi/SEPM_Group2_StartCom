@@ -1,12 +1,12 @@
-import React, { Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles'
 //Material UI
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from "@material-ui/core/Typography";
-import {deleteBI, updateBI} from "../../actions/businessideas/BIActions";
+import { deleteBI, updateBI } from "../../actions/businessideas/BIActions";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -14,6 +14,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContentText from "@material-ui/core/DialogContentText";
+import { CardMedia } from '@material-ui/core';
 
 
 const styles = (theme) => ({
@@ -36,14 +37,17 @@ class BITemplate extends Component {
             open: false,
             id: '',
             name: "",
+            imgSc: "",
+            category: "",
             description: "",
             date: "",
             targetFunding: "",
+            
         }
     }
 
     handleChange = (event) => {
-        this.setState({[event.target.name]: event.target.value})
+        this.setState({ [event.target.name]: event.target.value })
     };
 
     handleClickOpen = () => {
@@ -68,6 +72,7 @@ class BITemplate extends Component {
         const businessIdea = {
             name: this.state.name,
             description: this.state.description,
+            category: this.state.category,
             targetFunding: this.state.targetFunding,
             date: this.state.date
         };
@@ -76,10 +81,11 @@ class BITemplate extends Component {
         ID: ${this.props.idea.id}
         Name: ${this.state.name}
         Description: ${this.state.description}
+        Category: ${this.state.category}
         Target Funding: ${this.state.targetFunding}
         Date: ${this.state.date}
         `);
-        this.props.updateBI(businessIdea,id);
+        this.props.updateBI(businessIdea, id);
         this.handleClose()
 
     };
@@ -90,18 +96,22 @@ class BITemplate extends Component {
         const { open } = this.state;
         return (
             <Card className={classes.cardWrapper}>
+                <CardMedia
+                    className={classes.media}
+                    image= {idea.imgSc}
+                />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
                         {idea.name}
                     </Typography>
                     <Typography gutterBottom variant="subtitle2">
-                        Business
+                        {idea.category}
                     </Typography>
-                    <br/>
-                    <Typography variant="subtitle2"  color="textSecondary" component="p" gutterBottom>
+                    <br />
+                    <Typography variant="subtitle2" color="textSecondary" component="p" gutterBottom>
                         {idea.description}
                     </Typography>
-                    <br/>
+                    <br />
                     <Typography variant="h6" component="h2">
                         Funding Target: $ {idea.targetFunding}
                     </Typography>
@@ -140,6 +150,16 @@ class BITemplate extends Component {
                         <TextField
                             onChange={this.handleChange}
                             autoFocus
+                            name="category"
+                            id="category"
+                            label="Category"
+                            type="text"
+                            fullWidth
+                            value={this.state.category}
+                        />
+                        <TextField
+                            onChange={this.handleChange}
+                            autoFocus
                             name="targetFunding"
                             id="targetFunding"
                             label="Target Funding"
@@ -168,14 +188,12 @@ class BITemplate extends Component {
                     </DialogActions>
                 </Dialog>
             </Card>
-
-
         )
     }
 }
 
 const mapDispatchToProps = dispatch => ({
-    updateBI: (businessIdea,id) => dispatch(updateBI(businessIdea,id)),
+    updateBI: (businessIdea, id) => dispatch(updateBI(businessIdea, id)),
     deleteBI: (id) => dispatch(deleteBI(id))
 });
 
