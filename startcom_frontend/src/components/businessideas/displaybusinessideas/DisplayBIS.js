@@ -1,30 +1,31 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 //import { connect } from 'react-redux';
-//import { fetchBI, registerBI, resetRegisterStatus, updateBI } from '../../../actions/businessideas/BIActions';
-//import BITemplate from '../../Layout/BITemplate';
-import { IdeaConsumer } from "../../../context";
-
+import { fetchBI, updateBI } from '../../../actions/businessideas/BIActions';
+import BITemplate from '../../Layout/BITemplate';
+import {connect} from 'react-redux';
+import Navbar from "../../Layout/Navbar";
+import Footer from "../../Layout/Footer";
+import { withStyles } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from "@material-ui/core/Grid";
+
 //import { withStyles } from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import {IconButton } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardHeader from '@material-ui/core/CardHeader'; 
+//import MoreVertIcon from '@material-ui/icons/MoreVert';
+
+//import {IconButton } from '@material-ui/core';
+// import Typography from '@material-ui/core/Typography';
+// import Button from '@material-ui/core/Button';
+// import Card from '@material-ui/core/Card';
+// import CardMedia from '@material-ui/core/CardMedia';
+// import CardContent from '@material-ui/core/CardContent';
+// import CardActions from '@material-ui/core/CardActions';
+// import CardActionArea from '@material-ui/core/CardActionArea';
+// import CardHeader from '@material-ui/core/CardHeader'; 
 
 const styles = (theme) => ({
     gridContainer: {
         padding: 20
     },
-});
-
-const useStyles = makeStyles({
     bullet: {
         display: 'inline-block',
         margin: '0 2px',
@@ -39,10 +40,7 @@ const useStyles = makeStyles({
     padding: 20
 });
 
-const classes = useStyles();
-
 class DisplayBIS extends Component {
-    
     constructor(props) {
         super(props);
         this.state = {
@@ -53,61 +51,40 @@ class DisplayBIS extends Component {
             targetFunding: '',
             needInvestor: false,
             needConsultant: false,
-        };
+        }
+    }
+
+    componentDidMount (){
+        this.props.fetchBI();
+    };
+    onBICardClick = (id) => {
+        console.log(`Clicked card: ${id}`)
     };
 
     render() {
-        const { name, date, description, targetFunding, needInvestor, needConsultant, imgSc } = this.props.idea;
-
+        const { classes, businessIdeas} = this.props;
         return (
             <Grid container className={classes.gridContainer}>
-                <IdeaConsumer>
-                    <Card>
-                        {/*Picture of the card*/}
-                        <CardMedia style ={{height : "150px"}}
-                            className={classes.media}
-                            image={imgSc}
-                        />
-
-                        {/*Header and name of the card*/}
-                        <CardHeader
-                            action={
-                                <IconButton aria-label="settings">
-                                    <MoreVertIcon />
-                                </IconButton>
-                            } name={name} />
-
-                        {/*content of the card*/}
-                        <CardContent>
-                            <Typography description={description} />
-                            <Typography targetFunding={targetFunding} />
-                            <Typography date={date} />
-                        </CardContent>
-
-
-                        
-                        {/*Button of the card*/}
-                        <CardActions>
-                            <Button size="small" color="primary"> Book Now</Button>
-                        </CardActions>
-                    </Card>
-                </IdeaConsumer>
+                <Navbar/>
+                {businessIdeas.map((idea,index) => (
+                    <Grid item md={4} key={index} onClick={() => this.onBICardClick(idea.id)} style={{padding: 20}}>
+                        <BITemplate  idea={idea}  />
+                    </Grid>
+                ))}
+                <Footer/>
             </Grid>
-
         )
     }
 }
 
-// const mapDispatchToProps = dispatch => ({
-//     fetchBI: () => dispatch(fetchBI()),
-//     updateBI: (businessIdea, id) => dispatch(updateBI(businessIdea, id))
-// });
+const mapDispatchToProps = dispatch => ({
+    fetchBI: () => dispatch(fetchBI()),
+    updateBI: (businessIdea, id) => dispatch(updateBI(businessIdea, id))
+});
 
-// const mapStateToProps = state => ({
-//     businessIdeas: state.businessIdeas.businessIdeas,
+const mapStateToProps = state => ({
+    businessIdeas: state.businessIdeas.businessIdeas,
 
-// });
-export default DisplayBIS;
+});
 
-
-// export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(DisplayBIS));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(DisplayBIS));
