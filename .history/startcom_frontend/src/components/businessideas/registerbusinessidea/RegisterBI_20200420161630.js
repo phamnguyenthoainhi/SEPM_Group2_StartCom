@@ -21,42 +21,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import InputBase from '@material-ui/core/InputBase';
-import Grid from '@material-ui/core/Grid';
 
-// const BootstrapInput = withStyles((theme) => ({
-//     root: {
-//       'label + &': {
-//         marginTop: theme.spacing(3),
-//       },
-//     },
-//     input: {
-//       borderRadius: 4,
-//       position: 'relative',
-//       backgroundColor: theme.palette.background.paper,
-//       border: '1px solid #ced4da',
-//       fontSize: 16,
-//       padding: '10px 26px 10px 12px',
-//       transition: theme.transitions.create(['border-color', 'box-shadow']),
-//       // Use the system font instead of the default Roboto font.
-//       fontFamily: [
-//         '-apple-system',
-//         'BlinkMacSystemFont',
-//         '"Segoe UI"',
-//         'Roboto',
-//         '"Helvetica Neue"',
-//         'Arial',
-//         'sans-serif',
-//         '"Apple Color Emoji"',
-//         '"Segoe UI Emoji"',
-//         '"Segoe UI Symbol"',
-//       ].join(','),
-//       '&:focus': {
-//         borderRadius: 4,
-//         borderColor: '#80bdff',
-//         boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-//       },
-//     },
-//   }))(InputBase);
 const CustomCheckbox = withStyles({
     root: {
       color: '#718F94',
@@ -66,6 +31,17 @@ const CustomCheckbox = withStyles({
     },
     checked: {},
   })((props) => <Checkbox color="default" {...props} />);
+
+const CustomRadio = withStyles({
+    root: {
+      color: '#718F94',
+      '&$checked': {
+        color: '#E3CFB5',
+      },
+    },
+    checked: {},
+})((props) => <Radio color="default" {...props} />);
+
 
 class RegisterBI extends Component {
     constructor(props) {
@@ -88,7 +64,6 @@ class RegisterBI extends Component {
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this); 
         this.chooseFile = this.chooseFile.bind(this);
-        
     }
     
     componentDidUpdate(prevProps) {
@@ -127,6 +102,7 @@ class RegisterBI extends Component {
         
     }
 
+    
     onChange(e) {
         if (e.target.name === 'needInvestor' || e.target.name === 'needConsultant') {
             this.setState({
@@ -137,8 +113,7 @@ class RegisterBI extends Component {
             this.setState({
                 [e.target.name] : e.target.value,
             })
-
-        } 
+        }  
     }
 
     getBase64 = (file, callback) => {
@@ -167,7 +142,7 @@ class RegisterBI extends Component {
             category: this.state.category
         };
         this.props.registerBI(businessIdea);
-        
+        // this.handleClickOpen();   
         
 
      }
@@ -187,10 +162,9 @@ class RegisterBI extends Component {
                 needConsultant: this.state.needConsultant,
                 category: this.state.category
             };
-        
-            // console.log(JSON.stringify(businessIdea))
+            // this.handleClickOpen();
             this.props.registerBI(businessIdea); 
-           
+            // console.log(JSON.stringify(businessIdea));
         }
                 
     }
@@ -261,39 +235,29 @@ class RegisterBI extends Component {
 
                             </div>
                            
+                            <br/><br/><br/><br/><br/>
+                            <div className={classes.floatitem}>
+                                <Box className={classes.radiogroup}>
+                                    <FormControlLabel control={<CustomCheckbox checked={this.state.needInvestor} onChange={this.onChange} name="needInvestor" />}
+                                    label="Looking for an investor" className={classes.checkbox} />
+                                    <FormControlLabel control={<CustomCheckbox checked={this.state.needConsultant} onChange={this.onChange} name="needConsultant" />}
+                                    label="Looking for an consultant" className={classes.checkbox}/>
+                                </Box>
+                            </div>        
                             
-                            <Grid container spacing={0} className={classes.grid}>
-                                <Grid item xs={6}className={classes.leftcolumn}>
                                 
-                                    <Box className={classes.radiogroup}>
-                                        <FormControlLabel control={<CustomCheckbox checked={this.state.needInvestor} onChange={this.onChange} name="needInvestor" />}
-                                        label="Looking for an investor" className={classes.checkbox} />
-                                        <FormControlLabel control={<CustomCheckbox checked={this.state.needConsultant} onChange={this.onChange} name="needConsultant" />}
-                                        label="Looking for an consultant" className={classes.checkbox}/>
-                                    </Box>
-                                </Grid>
-                                <Grid item xs={6} className={classes.rightcolumn}>
-                               
-                                <FormControl className={classes.formControl}>
-                                   
-
-                                    <TextField type ='tetx' id="select" label ='Choose your business category' select className ={classes.input} onChange={this.onChange} name ='category'>
-                                    <MenuItem value = 'technology' >Techology</MenuItem>
-                                        <MenuItem value = 'art' >Art</MenuItem>
-                                        <MenuItem value = 'community'>Community</MenuItem>
-                                        <MenuItem value = 'foodbeverage'>Food & Beverage</MenuItem>
-                                        <MenuItem value = 'education'>Education</MenuItem>
-                                        <MenuItem value = 'medical'>Medical</MenuItem>
-                                        <MenuItem value = 'transportation'>Transportation</MenuItem>
-                                    </TextField>
-                                        
-
-                                    
+                            <br/><br/><br/>
+                            <div className={classes.floatitem}>
+                                <FormControl component="fieldset" className={classes.radiogroup} position='left'>
+                                    <RadioGroup row aria-label="type" name="category" value={this.state.category} onChange={this.onChange}>
+                                        <FormControlLabel value="techno" control={<CustomRadio />}  label="Technology & Innovation" className={classes.formcontrollabel}/>
+                                        <FormControlLabel value="art" control={<CustomRadio />} label="Art Works" className={classes.formcontrollabel} />
+                                        <FormControlLabel value="community" control={<CustomRadio />} label="Community Works" className={classes.formcontrollabel}/>
+                                    </RadioGroup>
                                 </FormControl>
-                                
-                                </Grid>
-                            </Grid>
+                            </div>
                            
+                           <br/><br/><br/><br/>
                            <div>
                             <Button variant="contained" type='submit' className={classes.button}>Submit</Button>
 

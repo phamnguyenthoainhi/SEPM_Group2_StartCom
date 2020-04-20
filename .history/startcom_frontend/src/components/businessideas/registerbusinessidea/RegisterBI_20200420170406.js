@@ -67,6 +67,17 @@ const CustomCheckbox = withStyles({
     checked: {},
   })((props) => <Checkbox color="default" {...props} />);
 
+const CustomSelect = withStyles({
+    root: {
+      color: '#718F94',
+      '&$checked': {
+        color: '#E3CFB5',
+      },
+    }
+ 
+})((props) => <Select color="default" {...props} />);
+
+
 class RegisterBI extends Component {
     constructor(props) {
         super(props);
@@ -88,6 +99,7 @@ class RegisterBI extends Component {
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this); 
         this.chooseFile = this.chooseFile.bind(this);
+        // this.onChangeSelect = this.onChangeSelect.bind(this); 
         
     }
     
@@ -126,7 +138,17 @@ class RegisterBI extends Component {
         })
         
     }
+    // onChangeSelect(e) {
+    //     e.preventDefault();
+        
 
+        
+    //     this.setState({
+    //         [e.target.name] : e.target.value,
+    //     })
+    // }
+
+    
     onChange(e) {
         if (e.target.name === 'needInvestor' || e.target.name === 'needConsultant') {
             this.setState({
@@ -188,8 +210,8 @@ class RegisterBI extends Component {
                 category: this.state.category
             };
         
-            // console.log(JSON.stringify(businessIdea))
-            this.props.registerBI(businessIdea); 
+            console.log(JSON.stringify(businessIdea))
+            // this.props.registerBI(businessIdea); 
            
         }
                 
@@ -275,20 +297,29 @@ class RegisterBI extends Component {
                                 <Grid item xs={6} className={classes.rightcolumn}>
                                
                                 <FormControl className={classes.formControl}>
-                                   
-
-                                    <TextField type ='tetx' id="select" label ='Choose your business category' select className ={classes.input} onChange={this.onChange} name ='category'>
-                                    <MenuItem value = 'technology' >Techology</MenuItem>
+                                    <InputLabel id="demo-controlled-open-select-label">Choose your business category</InputLabel>
+                                    <Select
+                                    // labelId="demo-controlled-open-select-label"
+                                    // id="demo-controlled-open-select"
+                                    // open={open}
+                                    // onClose={handleClose}
+                                    // onOpen={handleOpen}
+                                    // control ={<CustomSelect 
+                                        name ='category'
+                                        value={this.state.category}
+                                        onChange={this.onChange}
+                                    // />}
+                                    
+                                    >
+                                        <MenuItem value = 'technology' >Techology</MenuItem>
                                         <MenuItem value = 'art' >Art</MenuItem>
                                         <MenuItem value = 'community'>Community</MenuItem>
                                         <MenuItem value = 'foodbeverage'>Food & Beverage</MenuItem>
                                         <MenuItem value = 'education'>Education</MenuItem>
                                         <MenuItem value = 'medical'>Medical</MenuItem>
                                         <MenuItem value = 'transportation'>Transportation</MenuItem>
-                                    </TextField>
-                                        
 
-                                    
+                                    </Select>
                                 </FormControl>
                                 
                                 </Grid>

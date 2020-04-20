@@ -18,7 +18,7 @@ const style = (theme) => ({
         
     },
     button: {
-        marginTop: "20px",
+        // marginTop: "200px",
         paddingLeft: "20px",
         paddingRight: "20px",
         backgroundColor: theme.color.primary3,
@@ -36,15 +36,15 @@ const style = (theme) => ({
         fontSize: '20px',
         '& label.Mui-focused': {
             color: theme.color.primary1,
+            backgroundColor: 'transparent'
           },
           '& .MuiInput-underline:after': {
             borderBottomColor: theme.color.primary1,
-            
           },
           '& .MuiInput-underline:hover': {
             borderBottomColor: theme.color.primary3,
-          },
-       
+          }
+
     
     },
     content: {
@@ -56,7 +56,7 @@ const style = (theme) => ({
         
         marginRight: '10px',
         marginBottom: '10px',
-        
+        // float: 'left',
         color: theme.color.primary3
     },
     image: {
@@ -79,7 +79,7 @@ const style = (theme) => ({
     
     buttonfile: {
         color: theme.color.primary3,
-        
+        // float: 'left',
         '&:hover':{
             backgroundColor: theme.color.primary2,
             color: theme.color.primary1,
@@ -104,12 +104,12 @@ const style = (theme) => ({
         clear:'center'
     },
     leftcolumn: {
-        
-        
+        // backgroundColor: 'red',
+        justifyContent: 'center',
         paddingTop: 12
     },
     rightcolumn: {
-       
+        // backgroundColor: 'blue'
     },
     radiogroup: {
         float: 'left'

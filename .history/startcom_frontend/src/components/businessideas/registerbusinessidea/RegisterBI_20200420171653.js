@@ -188,8 +188,8 @@ class RegisterBI extends Component {
                 category: this.state.category
             };
         
-            // console.log(JSON.stringify(businessIdea))
-            this.props.registerBI(businessIdea); 
+            console.log(JSON.stringify(businessIdea))
+            // this.props.registerBI(businessIdea); 
            
         }
                 

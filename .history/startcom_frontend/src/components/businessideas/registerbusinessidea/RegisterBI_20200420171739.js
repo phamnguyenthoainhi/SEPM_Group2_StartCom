@@ -189,7 +189,7 @@ class RegisterBI extends Component {
             };
         
             // console.log(JSON.stringify(businessIdea))
-            this.props.registerBI(businessIdea); 
+            // this.props.registerBI(businessIdea); 
            
         }
                 

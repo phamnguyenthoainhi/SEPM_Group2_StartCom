@@ -67,6 +67,17 @@ const CustomCheckbox = withStyles({
     checked: {},
   })((props) => <Checkbox color="default" {...props} />);
 
+const CustomSelect = withStyles({
+    root: {
+      color: '#718F94',
+      '&$checked': {
+        color: '#E3CFB5',
+      },
+    }
+ 
+})((props) => <Select color="default" {...props} />);
+
+
 class RegisterBI extends Component {
     constructor(props) {
         super(props);
@@ -188,8 +199,8 @@ class RegisterBI extends Component {
                 category: this.state.category
             };
         
-            // console.log(JSON.stringify(businessIdea))
-            this.props.registerBI(businessIdea); 
+            console.log(JSON.stringify(businessIdea))
+            // this.props.registerBI(businessIdea); 
            
         }
                 
@@ -275,9 +286,23 @@ class RegisterBI extends Component {
                                 <Grid item xs={6} className={classes.rightcolumn}>
                                
                                 <FormControl className={classes.formControl}>
-                                   
+                                    <InputLabel id="demo-controlled-open-select-label">Choose your business category</InputLabel>
+                                    
+                                    {/* <Select
+                                    // labelId="demo-controlled-open-select-label"
+                                    // id="demo-controlled-open-select"
+                                    // open={open}
+                                    // onClose={handleClose}
+                                    // onOpen={handleOpen}
+                                    // control ={<CustomSelect 
+                                        name ='category'
+                                        value={this.state.category}
+                                        onChange={this.onChange}
+                                    // />}
+                                    
+                                    > */}
 
-                                    <TextField type ='tetx' id="select" label ='Choose your business category' select className ={classes.input} onChange={this.onChange} name ='category'>
+                                    <TextField id="select" label="Age" value="20" select className ={classes.input}>
                                     <MenuItem value = 'technology' >Techology</MenuItem>
                                         <MenuItem value = 'art' >Art</MenuItem>
                                         <MenuItem value = 'community'>Community</MenuItem>
@@ -288,7 +313,7 @@ class RegisterBI extends Component {
                                     </TextField>
                                         
 
-                                    
+                                    {/* </Select> */}
                                 </FormControl>
                                 
                                 </Grid>

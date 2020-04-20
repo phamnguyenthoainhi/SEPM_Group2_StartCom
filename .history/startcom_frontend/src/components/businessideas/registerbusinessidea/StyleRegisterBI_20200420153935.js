@@ -8,17 +8,13 @@ const style = (theme) => ({
     form: {
         marginTop: '170px'
     },
-    formControl: {
-        // margin: theme.spacing(1),
-        width: '100%',
-    },
     title: {
         fontSize: "25px",
         color: theme.color.primary3,
         
     },
     button: {
-        marginTop: "20px",
+        // marginTop: "200px",
         paddingLeft: "20px",
         paddingRight: "20px",
         backgroundColor: theme.color.primary3,
@@ -39,12 +35,11 @@ const style = (theme) => ({
           },
           '& .MuiInput-underline:after': {
             borderBottomColor: theme.color.primary1,
-            
           },
           '& .MuiInput-underline:hover': {
             borderBottomColor: theme.color.primary3,
-          },
-       
+          }
+
     
     },
     content: {
@@ -56,7 +51,7 @@ const style = (theme) => ({
         
         marginRight: '10px',
         marginBottom: '10px',
-        
+        // float: 'left',
         color: theme.color.primary3
     },
     image: {
@@ -79,7 +74,7 @@ const style = (theme) => ({
     
     buttonfile: {
         color: theme.color.primary3,
-        
+        // float: 'left',
         '&:hover':{
             backgroundColor: theme.color.primary2,
             color: theme.color.primary1,
@@ -98,23 +93,18 @@ const style = (theme) => ({
         fontFamily: theme.font,
         
     },
+    radiogroup: {
+        float: 'left',
+        
+    },
+    label: {
+        // float: 'left',
+    },
     floatitem: {
         float: 'left',
         display: 'block',
         clear:'center'
-    },
-    leftcolumn: {
-        
-        
-        paddingTop: 12
-    },
-    rightcolumn: {
-       
-    },
-    radiogroup: {
-        float: 'left'
     }
-
 
 })
 export default style;

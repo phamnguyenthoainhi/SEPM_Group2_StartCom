@@ -18,7 +18,7 @@ const style = (theme) => ({
         
     },
     button: {
-        marginTop: "20px",
+        // marginTop: "200px",
         paddingLeft: "20px",
         paddingRight: "20px",
         backgroundColor: theme.color.primary3,
@@ -44,7 +44,10 @@ const style = (theme) => ({
           '& .MuiInput-underline:hover': {
             borderBottomColor: theme.color.primary3,
           },
-       
+        '&:focused': {
+            backgroundColor: 'black'
+        }
+
     
     },
     content: {
@@ -104,12 +107,12 @@ const style = (theme) => ({
         clear:'center'
     },
     leftcolumn: {
-        
-        
+        // backgroundColor: 'red',
+        justifyContent: 'center',
         paddingTop: 12
     },
     rightcolumn: {
-       
+        // backgroundColor: 'blue'
     },
     radiogroup: {
         float: 'left'
