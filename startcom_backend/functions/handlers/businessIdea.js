@@ -38,30 +38,26 @@ exports.getBusinessIdeaById = (req, res) => {
 }
 
 //post business idea
-exports.postBusinessIdea = (req, res) => {
+exports.postBusinessIdea = async (req, res) => {
     var businessIdea = req.body
     if (businessIdea.image) {
-        const imageUpload = uploadImage(businessIdea.image, businessIdea.name)
-        const ideaUpload = imageUpload.then((url) => {
-            businessIdea.image = url
+        try {
+            const imageUpload = await uploadImage(businessIdea.image, businessIdea.name)
+            businessIdea.image = imageUpload
             return db.collection('BusinessIdea').add(businessIdea)
                 .then((doc) => {
                     businessIdea.id = doc.id
-                    return businessIdea
+                    return res.json(businessIdea)
                 })
                 .catch(error => {
                     console.log(error)
-                    return error
+                    return res.json(error)
                 })
-        })
-        return Promise.all([imageUpload, ideaUpload])
-            .then(results => {
-                return res.json(results[1])
-            })
-            .catch(error => {
-                console.log(error)
-                return res.json(error)
-            })
+        }
+        catch (error) {
+            console.log(error)
+            return res.json(error)
+        }
 
     }
     else {
@@ -79,30 +75,27 @@ exports.postBusinessIdea = (req, res) => {
 }
 
 //edit business idea
-exports.editBusinessIdea = (req, res) => {
+exports.editBusinessIdea = async (req, res) => {
     var businessIdea = req.body
     if (businessIdea.image && !businessIdea.image.includes("https://storage.googleapis.com/startcom-sepm.appspot.com/images/")) {
-        const imageUpdate = uploadImage(businessIdea.image, businessIdea.name)
-        const ideaUpdate = imageUpdate.then((url) => {
-            businessIdea.image = url
+        try {
+            const imageUpdate = await uploadImage(businessIdea.image, businessIdea.name)
+            businessIdea.image = imageUpdate
             return db.collection('BusinessIdea').doc(req.params.id).update(req.body)
                 .then(() => {
                     businessIdea.id = req.params.id
-                    return businessIdea
+                    return res.json(businessIdea)
                 })
                 .catch(error => {
                     console.log(error)
-                    return error
+                    return res.json(error)
                 })
-        })
-        return Promise.all([imageUpdate, ideaUpdate])
-            .then(results => {
-                return res.json(results[1])
-            })
-            .catch(error => {
-                console.log(error)
-                return res.json(error)
-            })
+        }
+        catch (error) {
+            console.log(error)
+            return res.json(error)
+        }
+
     }
     else {
         return db.collection('BusinessIdea').doc(req.params.id).update(businessIdea)

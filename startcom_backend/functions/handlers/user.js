@@ -4,22 +4,23 @@ const db = admin.firestore()
 
 const { sendEmail, uploadImage } = require('./utilities');
 
-exports.signUp = (req, res) => {
+exports.signUp = async (req, res) => {
     const user = req.body
-    return firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
-        .then((cred) => {
-            delete user.password;
-            return Promise.all([createUser(user, cred.user.uid), sendEmail({
-                from: "Startcom", to: user.email, subject: "Welcome", text: "Welcome to Startcom!"
-            })])
-                .then((results) => {
-                    return res.json(results[0])
-                })
-        })
-        .catch((error) => {
-            console.log(error)
-            return res.json(error);
-        })
+    try {
+        const cred = await firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
+        delete user.password;
+        return Promise.all([createUser(user, cred.user.uid), sendEmail({
+            from: "Startcom", to: user.email, subject: "Welcome", text: "Welcome to Startcom!"
+        })])
+            .then((results) => {
+                return res.json(results[0])
+            })
+    }
+    catch (error) {
+        console.log(error)
+        return res.json(error)
+    }
+
 }
 
 exports.signIn = (req, res) => {
@@ -39,31 +40,31 @@ exports.signIn = (req, res) => {
         })
 }
 
-exports.editProfile = (req, res) => {
+
+
+exports.editProfile = async (req, res) => {
     if (req.user.uid === req.params.id) {
         var user = req.body
         if (user.image && !user.image.includes("https://storage.googleapis.com/startcom-sepm.appspot.com/images/")) {
-            const imageUpdate = uploadImage(user.image, req.params.id)
-            const ideaUpdate = imageUpdate.then((url) => {
-                user.image = url
+            try {
+                const imageUpdate = await uploadImage(user.image, req.params.id)
+                user.image = imageUpdate
                 return db.collection('User').doc(req.params.id).update(req.body)
                     .then(() => {
                         user.id = req.params.id
-                        return user
+                        return res.json(user)
                     })
                     .catch(error => {
                         console.log(error)
-                        return error
+                        return res.json(error)
                     })
-            })
-            return Promise.all([imageUpdate, ideaUpdate])
-                .then(results => {
-                    return res.json(results[1])
-                })
-                .catch(error => {
-                    console.log(error)
-                    return res.json(error)
-                })
+            }
+            catch (error) {
+                console.log(error)
+                return res.json(error)
+            }
+
+
         }
         else {
             return db.collection('User').doc(req.params.id).update(user)
@@ -126,18 +127,18 @@ exports.deleteAccount = (userRecord) => {
         })
 }
 
-exports.deleteUser = (req,res)=>{
+exports.deleteUser = (req, res) => {
     if (req.user.uid === req.params.id) {
         return admin.auth().deleteUser(req.params.id)
-            .then(()=>{
+            .then(() => {
                 return res.status(200).send('Success')
             })
-            .catch(error=>{
+            .catch(error => {
                 console.log(error)
                 return res.json(error)
             })
     }
-    else{
+    else {
         return res.status(403).send('Unauthorized')
     }
 }
@@ -157,17 +158,6 @@ function createUser(user, id) {
             return error;
         })
 }
-
-// function deleteUser(id){
-//     return db.collection('User').doc(id).delete()
-//         .then(()=>{
-//             return null;
-//         })
-//         .catch(error=>{
-//             console.log(error);
-//             return res.json(error);
-//         })
-// }
 
 exports.validateFirebaseIdToken = async (req, res, next) => {
     let idToken;
