@@ -16,14 +16,8 @@ const mailTransport = nodemailer.createTransport({
 })
 
 exports.sendEmail = (data) => {
-    const mailOptions = {
-        from: data.from,
-        to: data.to,
-        subject: data.subject,
-        text: data.text
-    }
 
-    return mailTransport.sendMail(mailOptions)
+    return mailTransport.sendMail(data)
         .then(() => { return null })
         .catch(error => { console.log(error) })
 }

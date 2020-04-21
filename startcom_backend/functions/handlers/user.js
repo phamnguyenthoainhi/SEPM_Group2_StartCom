@@ -118,6 +118,19 @@ exports.getAllConsultants = (req, res) => {
         })
 }
 
+exports.getProfile = (req,res) =>{
+    return db.collection('User').doc(req.params.id).get()
+        .then(doc=>{
+            const user = doc.data()
+            user.id = doc.id
+            return res.json(user)
+        })
+        .catch(error=>{
+            console.log(error)
+            return res.json(error)
+        })
+}
+
 exports.deleteAccount = (userRecord) => {
     return db.collection('User').doc(userRecord.uid).delete()
         .then(() => { return null })
@@ -140,6 +153,33 @@ exports.deleteUser = (req, res) => {
     }
     else {
         return res.status(403).send('Unauthorized')
+    }
+}
+
+exports.sendEmailByUser = async (req,res)=>{
+    try {
+        const sender = await (await db.collection('User').doc(req.body.sender).get()).data().email
+        const receiver = await (await db.collection('User').doc(req.body.receiver).get()).data().email
+
+        const mailOption = {
+            from:sender,
+            to:receiver,
+            subject:`From ${sender}: ${req.body.subject}`,
+            text:req.body.text   
+        }
+        return sendEmail(mailOption)
+            .then(()=>{
+                return res.status(200).send('Success')
+            })
+            .catch(error=>{
+                console.log(error)
+                return res.json(error)
+            })
+
+    }
+    catch (error){
+        console.log(error)
+        return res.json(error)
     }
 }
 
