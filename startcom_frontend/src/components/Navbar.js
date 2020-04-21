@@ -121,7 +121,7 @@ class Navbar extends Component {
                         <Button className={classes.navBtn} component={Link} to="/startups">Startups</Button>
                         <Button className={classes.navBtn} component={Link} to="/consultants">Consultants</Button>
                         <Button className={classes.navBtn} component={Link} to="/investors">Investors</Button>
-                        <Button variant='outlined' className={classes.signUpBtn} component={Link} to="/signup">Sign Up</Button>
+                        <Button variant='outlined' className={classes.signUpBtn} component={Link} to="/auth">Sign Up</Button>
                     </Hidden>
 
                     <Hidden mdUp>

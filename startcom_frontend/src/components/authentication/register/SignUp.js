@@ -9,10 +9,10 @@ import styles from './signUpStyle';
 import {registerAccount} from '../../../actions/anonymoususers/AnonymoususersActions';
 import Radio from '@material-ui/core/Radio';
 import FormControl from '@material-ui/core/FormControl';
-
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 // import FormLabel from '@material-ui/core/FormLabel';
+import DoneIcon from '@material-ui/icons/Done';
 
 
 const CustomRadio = withStyles({
@@ -179,6 +179,7 @@ class SignUp extends Component {
                        onClick={this.signUpWithEmail}
                        className={classes.registerBtn}
                         // disabled={loading}
+                        // startIcon={<DoneIcon />}
                     > Register </Button>
                 </form>
             </div>

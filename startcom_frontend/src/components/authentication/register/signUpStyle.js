@@ -43,16 +43,19 @@ const style = (theme) => ({
   successBtn: {
       outline: "none",
       fontFamily: theme.font,
-      borderRadius: 20,
-      color: "black",
+      
+      color: theme.color.primary2,
       fontSize: 13,
       padding: "10px 30px",
       // letterSpacing: 1,
       textTransform: "uppercase",
       margin: "10px 0",
-      backgroundColor: "rgb(99,151,68)",
+      backgroundColor: theme.color.contrast,
       "&:focus": {
           outline: "none"
+      },
+      "&:hover":{
+        backgroundColor: theme.color.contrast,
       }
   },
   registerBtn: {
