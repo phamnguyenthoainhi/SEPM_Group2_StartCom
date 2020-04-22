@@ -7,13 +7,14 @@ app.use(cors())
 
 const {
     getAllBusinessIdeas,getBusinessIdeaById,
-    postBusinessIdea,editBusinessIdea,deleteBusinessIdea
+    postBusinessIdea,editBusinessIdea,deleteBusinessIdea, testUploadMultipleImages
 } = require('./handlers/businessIdea')
 
 const {
     signUp,signIn, getAllInvestors, getAllConsultants,
     editProfile, deleteAccount, validateFirebaseIdToken,
-    deleteUser, getProfile, sendEmailByUser
+    deleteUser, getProfile, sendEmailByUser,
+    getUnverifiedInvestors,verifyInvestor
 } = require('./handlers/user')
 
 app.get("/get_all_business_ideas",getAllBusinessIdeas);
@@ -21,6 +22,7 @@ app.get("/get_business_idea/:id",getBusinessIdeaById);
 app.post("/post_business_idea",postBusinessIdea);
 app.put("/edit_business_idea/:id",editBusinessIdea);
 app.delete("/delete_business_idea/:id",deleteBusinessIdea);
+app.post("/test_multiple_images",testUploadMultipleImages)
 
 app.post("/signup",signUp);
 app.post("/signin",signIn);
@@ -30,6 +32,8 @@ app.get("/get_profile/:id",getProfile)
 app.put("/edit_profile/:id",validateFirebaseIdToken,editProfile);
 app.delete("/delete_user/:id",validateFirebaseIdToken,deleteUser)
 app.post("/send_email",sendEmailByUser)
+app.get("/get_unverified",getUnverifiedInvestors)
+app.get("/verify/:id",verifyInvestor)
 
 //app.post("/upload_image",uploadImage)
 exports.api = functions.region('asia-east2').https.onRequest(app);

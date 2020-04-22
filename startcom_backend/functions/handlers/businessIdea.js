@@ -1,6 +1,6 @@
 const admin = require('firebase-admin');
 const db = admin.firestore();
-const { uploadImage } = require('./utilities')
+const { uploadImage, uploadMultipleImages } = require('./utilities')
 
 //get all business ideas
 exports.getAllBusinessIdeas = (req, res) => {
@@ -118,6 +118,17 @@ exports.deleteBusinessIdea = (req, res) => {
         })
         .catch((error) => {
             console.log(error);
+            return res.json(error)
+        })
+}
+
+exports.testUploadMultipleImages = (req,res)=>{
+    return uploadMultipleImages(req.body.list, req.body.name)
+        .then((urlList)=>{
+            return res.json(urlList)
+        })
+        .catch(error=>{
+            console.log(error)
             return res.json(error)
         })
 }

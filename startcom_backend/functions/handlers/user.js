@@ -131,6 +131,41 @@ exports.getProfile = (req,res) =>{
         })
 }
 
+exports.getUnverifiedInvestors = (req,res)=>{
+    const list = []
+    return db.collection('User').where('type','==','investor').get()
+        .then(query=>{
+            console.log('abc')
+            query.forEach(doc=>{
+                if(doc.data().verified===false)
+                {
+                    const user = {
+                        email:doc.data().email,
+                        id:doc.id
+                    }
+                    list.push(user)
+                }
+                
+            })
+            return res.json(list)
+        })
+        .catch(error=>{
+            console.log(error)
+            return res.json(error)
+        })
+}
+
+exports.verifyInvestor = (req,res)=>{
+    return db.collection('User').doc(req.params.id).update({verified: true})
+        .then(()=>{
+            return res.status(200).send('Success')
+        })
+        .catch(error=>{
+            console.log(error)
+            return res.json(error)
+        })
+}
+
 exports.deleteAccount = (userRecord) => {
     return db.collection('User').doc(userRecord.uid).delete()
         .then(() => { return null })
