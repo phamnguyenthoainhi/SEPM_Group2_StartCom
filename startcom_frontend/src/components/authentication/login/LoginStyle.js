@@ -37,18 +37,19 @@ const style = (theme) => ({
             outline: "none",
             fontFamily: theme.font,
             
-            color: theme.color.primary2,
+            color: theme.color.primary3,
             fontSize: 13,
             padding: "10px 30px",
             // letterSpacing: 1,
             textTransform: "uppercase",
             margin: "10px 0",
-            backgroundColor: theme.color.contrast,
+
+            backgroundColor: 'transparent',
             "&:focus": {
                 outline: "none"
             },
             "&:hover":{
-              backgroundColor: theme.color.contrast,
+              backgroundColor: 'transparent',
             }
         },
         progress: {

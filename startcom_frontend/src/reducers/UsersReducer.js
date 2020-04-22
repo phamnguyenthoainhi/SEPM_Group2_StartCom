@@ -1,7 +1,9 @@
-import {REGISTER_ACCOUNT, LOGIN} from '../actions/actionTypes';
+import {REGISTER_ACCOUNT, LOGIN, REGISTER_LOADING, LOGIN_LOADING} from '../actions/actionTypes';
 const initialState = {
     registerMessage: {},
-    loginMessage: {}
+    loginMessage: {},
+    registerLoading: {},
+    loginLoading: {}
 }
 
 export default function (state = initialState, action) {
@@ -12,17 +14,28 @@ export default function (state = initialState, action) {
             return {
 
                 ...state,
-                registerMessage: action.payload
-                
+                registerMessage: action.payload,
+                registerLoading: false
+
             }
         case LOGIN:
             
             return {
                 ...state,
-                loginMessage: action.payload
+                loginMessage: action.payload,
+                loginLoading: false
             }
+        case REGISTER_LOADING: 
+            return {
+                ...state,
+                registerLoading: true
+            }
+        case LOGIN_LOADING: 
+        return {
+            ...state,
+            loginLoading: true
+        }
 
-            
         default:
             return state;
 

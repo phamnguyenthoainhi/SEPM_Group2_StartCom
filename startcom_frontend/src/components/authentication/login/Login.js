@@ -7,7 +7,7 @@ import style from './LoginStyle'
 import Button from "@material-ui/core/Button";
 // import Typography from "@material-ui/core/Typography"
 import TextField from "@material-ui/core/TextField";
-// import CircularProgress from "@material-ui/core/CircularProgress";
+import CircularProgress from "@material-ui/core/CircularProgress";
 //Material UI Icons
 // import CheckIcon from "@material-ui/icons/Check";
 import DoneIcon from '@material-ui/icons/Done';
@@ -23,11 +23,18 @@ class Login extends Component {
             loginFormError: {
                 emailError: "",
                 passwordError: ""
-            }
+            },
+            loading: false,
+            success: false
         };
     }
 
     componentDidUpdate(prevProps) {
+        if (this.props.loginLoading !== prevProps.loginLoading) {
+            this.setState({
+                loading: this.props.loginLoading
+            })
+        }
         if (this.props.loginMessage !== prevProps.loginMessage) {
             if (this.props.loginMessage.code === 'auth/user-not-found') {
                 this.setState({
@@ -53,12 +60,15 @@ class Login extends Component {
                 })
             }
             else if (this.props.loginMessage.code === undefined) {
-                console.log('Success');
+                this.setState({
+                    success: true
+                })
+                window.location.replace("http://localhost:3000/");
             }
         }
     }
 
-
+   
 
     handleChange = (event) => {
         this.setState({
@@ -83,7 +93,7 @@ class Login extends Component {
         return (
             <div className="form-container sign-in-container">
                 <form className={classes.form}>
-                    <h1 className="title" >Login</h1>
+                    <h1 className="title" style ={{color: '#3C5155'}}>Login</h1>
                     <TextField type="text"
                                name="loginEmail"
                                placeholder="Email"
@@ -105,21 +115,23 @@ class Login extends Component {
                         value={this.state.loginPassword}
                     />
 
-                    {/*<Typography variant="body2" className={classes.customError}>{errors.general}</Typography>*/}
-                    {/*{loading ? (*/}
-                    {/*    <CircularProgress variant="indeterminate" size={32} className={classes.progress}/>*/}
-                    {/*) : doneSignIn ? (<CheckIcon fontSize="large" className={classes.tick} />) : (<Button*/}
-                    {/*    variant="contained"*/}
-                    {/*    onClick={this.loginWithEmail}*/}
-                    {/*    className={doneSignIn ? classes.successBtn : classes.registerBtn}*/}
-                    {/*    disabled={loading}*/}
-                    {/*> Đăng Nhập </Button>)}*/}
-                <Button
-                  variant="contained"
-                        onClick={this.loginWithEmail}
-                        className={classes.registerBtn}
-                        // disabled={loading}
-                    > Login</Button>
+{
+                    this.state.loading === true ? (<CircularProgress variant="indeterminate" size={32} style={{marginTop: "5%"}}/>)
+                    :
+                    
+                    ((this.state.success === false && (this.state.loading === '' || this.state.loading === false)) ? 
+                    (<Button
+                        variant="contained"
+                              onClick={this.loginWithEmail}
+                              className={classes.registerBtn}
+                              // disabled={loading}
+                    > Login</Button>)
+                    :  ''
+                    
+                   
+
+                    )}    
+                
                 </form>
             </div>
         );
@@ -127,8 +139,8 @@ class Login extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    loginMessage: state.loginMessage.loginMessage
-
+    loginMessage: state.loginMessage.loginMessage,
+    loginLoading: state.loginLoading.loginLoading
 });
 
 const mapDispatchToProps = dispatch => ({

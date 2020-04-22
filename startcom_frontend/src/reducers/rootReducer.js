@@ -5,5 +5,7 @@ export default combineReducers({
     businessIdeas: BIReducer,
     registerMessage: UsersReducer,
     loginMessage: UsersReducer,
+    registerLoading: UsersReducer,
+    loginLoading: UsersReducer
     
 });
