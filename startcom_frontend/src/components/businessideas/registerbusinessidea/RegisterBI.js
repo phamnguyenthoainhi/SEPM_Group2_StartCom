@@ -6,57 +6,25 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import RadioGroup from '@material-ui/core/RadioGroup';
+
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import {registerBI, resetRegisterStatus } from '../../../actions/businessideas/BIActions';
-import Radio from '@material-ui/core/Radio';
+
+
+
 import FormControl from '@material-ui/core/FormControl';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Typography from '@material-ui/core/Typography';
 import Navbar from '../../Navbar';
 import Box from '@material-ui/core/Box';
-import InputLabel from '@material-ui/core/InputLabel';
+
 import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import NativeSelect from '@material-ui/core/NativeSelect';
-import InputBase from '@material-ui/core/InputBase';
+
+
+
 import Grid from '@material-ui/core/Grid';
 
-// const BootstrapInput = withStyles((theme) => ({
-//     root: {
-//       'label + &': {
-//         marginTop: theme.spacing(3),
-//       },
-//     },
-//     input: {
-//       borderRadius: 4,
-//       position: 'relative',
-//       backgroundColor: theme.palette.background.paper,
-//       border: '1px solid #ced4da',
-//       fontSize: 16,
-//       padding: '10px 26px 10px 12px',
-//       transition: theme.transitions.create(['border-color', 'box-shadow']),
-//       // Use the system font instead of the default Roboto font.
-//       fontFamily: [
-//         '-apple-system',
-//         'BlinkMacSystemFont',
-//         '"Segoe UI"',
-//         'Roboto',
-//         '"Helvetica Neue"',
-//         'Arial',
-//         'sans-serif',
-//         '"Apple Color Emoji"',
-//         '"Segoe UI Emoji"',
-//         '"Segoe UI Symbol"',
-//       ].join(','),
-//       '&:focus': {
-//         borderRadius: 4,
-//         borderColor: '#80bdff',
-//         boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-//       },
-//     },
-//   }))(InputBase);
 const CustomCheckbox = withStyles({
     root: {
       color: '#718F94',
@@ -66,6 +34,8 @@ const CustomCheckbox = withStyles({
     },
     checked: {},
   })((props) => <Checkbox color="default" {...props} />);
+
+
 
 class RegisterBI extends Component {
     constructor(props) {
@@ -82,7 +52,8 @@ class RegisterBI extends Component {
             setOpen: false,
             image:'',
             chosenfile: '',
-            category: ''
+            category: '',
+            terms: false
 
         }
         this.onChange = this.onChange.bind(this);
@@ -128,17 +99,20 @@ class RegisterBI extends Component {
     }
 
     onChange(e) {
-        if (e.target.name === 'needInvestor' || e.target.name === 'needConsultant') {
+        if (e.target.name === 'needInvestor' || e.target.name === 'needConsultant' || e.target.name === 'terms') {
             this.setState({
                 [e.target.name] : e.target.checked
 
             })
-        }  else {
+        } 
+        
+        else {
             this.setState({
                 [e.target.name] : e.target.value,
             })
 
         } 
+        console.log(this.state.terms)
     }
 
     getBase64 = (file, callback) => {
@@ -174,24 +148,28 @@ class RegisterBI extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        if (!(this.state.image === '' || this.state.image === null || this.state.image === undefined)) {
-            this.getBase64(this.state.image, this.handleRegisterBI)
+        if (this.state.terms === true) {
+            if (!(this.state.image === '' || this.state.image === null || this.state.image === undefined)) {
+                this.getBase64(this.state.image, this.handleRegisterBI)
+            } else {
+                const businessIdea = {
+                    name: this.state.name,
+                    date: this.state.date,
+                    description: this.state.description,
+                    targetFunding: this.state.targetFunding,
+                    image: '',
+                    needInvestor: this.state.needInvestor,
+                    needConsultant: this.state.needConsultant,
+                    category: this.state.category
+                };
+            
+                this.props.registerBI(businessIdea); 
+               
+            }
         } else {
-            const businessIdea = {
-                name: this.state.name,
-                date: this.state.date,
-                description: this.state.description,
-                targetFunding: this.state.targetFunding,
-                image: '',
-                needInvestor: this.state.needInvestor,
-                needConsultant: this.state.needConsultant,
-                category: this.state.category
-            };
-        
-            // console.log(JSON.stringify(businessIdea))
-            this.props.registerBI(businessIdea); 
-           
+
         }
+        
                 
     }
 
@@ -247,7 +225,7 @@ class RegisterBI extends Component {
                             />
                             <div className={classes.floatitem}>
                             <Typography className={classes.chosenfile}>{this.state.chosenfile}</Typography>
-<br/>
+                            <br/>
                                 <Button color="default"  className={classes.buttonfile} 
                                 label='My Label'startIcon={<CloudUploadIcon />}  >
                                     <input type="file" accept="image/*" id='file' style={{display:'none'}} name='image'  onChange={this.chooseFile}/>
@@ -277,7 +255,7 @@ class RegisterBI extends Component {
                                 <FormControl className={classes.formControl}>
                                    
 
-                                    <TextField type ='tetx' id="select" label ='Choose your business category' select className ={classes.input} onChange={this.onChange} name ='category'>
+                                    <TextField type ='tetx' id="select" label ='Choose your business category' value =''select className ={classes.input} onChange={this.onChange} name ='category'>
                                     <MenuItem value = 'technology' >Techology</MenuItem>
                                         <MenuItem value = 'art' >Art</MenuItem>
                                         <MenuItem value = 'community'>Community</MenuItem>
@@ -292,7 +270,15 @@ class RegisterBI extends Component {
                                 </FormControl>
                                 
                                 </Grid>
+                                <Grid item xs={12} >
+                                    <FormControl component="fieldset" className={classes.floatitem}>
+                                    <FormControlLabel control={<CustomCheckbox checked={this.state.terms} onChange={this.onChange} name="terms" required/>}
+                                        label="I agree that all information about my business idea is published" className={classes.terms} />
+                                                
+                                    </FormControl>
+                                </Grid>
                             </Grid>
+
                            
                            <div>
                             <Button variant="contained" type='submit' className={classes.button}>Submit</Button>

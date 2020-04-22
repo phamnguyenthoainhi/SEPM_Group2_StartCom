@@ -14,7 +14,8 @@ export default function (state = initialState, action) {
             return {
 
                 ...state,
-                registerMessage: action.payload,
+                registerMessage: action.payload
+                ,
                 registerLoading: false
 
             }
@@ -22,7 +23,8 @@ export default function (state = initialState, action) {
             
             return {
                 ...state,
-                loginMessage: action.payload,
+                loginMessage: action.payload
+                ,
                 loginLoading: false
             }
         case REGISTER_LOADING: 

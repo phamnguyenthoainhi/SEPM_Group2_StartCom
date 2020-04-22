@@ -98,6 +98,12 @@ const style = (theme) => ({
         fontFamily: theme.font,
         
     },
+    terms: {
+        color: theme.color.contrast,
+        fontSize: '14px',
+        fontFamily: theme.font,
+        
+    },
     floatitem: {
         float: 'left',
         display: 'block',

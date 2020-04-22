@@ -14,6 +14,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 // import FormLabel from '@material-ui/core/FormLabel';
 import DoneIcon from '@material-ui/icons/Done';
 
+const ColorCircularProgress = withStyles({
+    root: {
+      color: '#3C5155'
+      
+    },
+  })(CircularProgress);
 
 const CustomRadio = withStyles({
     root: {
@@ -180,7 +186,7 @@ class SignUp extends Component {
                 </FormControl>
 
                     {
-                    this.state.loading === true ? (<CircularProgress variant="indeterminate" size={32} style={{marginTop: "5%"}}/>)
+                    this.state.loading === true ? (<ColorCircularProgress variant="indeterminate" size={32} style={{marginTop: "5%"}}/>)
                     :
                     
                     ((this.state.success === false && (this.state.loading === '' || this.state.loading === false)) ? 

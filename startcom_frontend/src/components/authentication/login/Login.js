@@ -5,15 +5,17 @@ import {connect} from "react-redux";
 import style from './LoginStyle'
 //Material UI
 import Button from "@material-ui/core/Button";
-// import Typography from "@material-ui/core/Typography"
 import TextField from "@material-ui/core/TextField";
 import CircularProgress from "@material-ui/core/CircularProgress";
-//Material UI Icons
-// import CheckIcon from "@material-ui/icons/Check";
-import DoneIcon from '@material-ui/icons/Done';
+
 import {login} from '../../../actions/anonymoususers/AnonymoususersActions'
 
-
+const ColorCircularProgress = withStyles({
+    root: {
+      color: '#3C5155'
+      
+    },
+  })(CircularProgress);
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -68,8 +70,6 @@ class Login extends Component {
         }
     }
 
-   
-
     handleChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value
@@ -116,7 +116,7 @@ class Login extends Component {
                     />
 
 {
-                    this.state.loading === true ? (<CircularProgress variant="indeterminate" size={32} style={{marginTop: "5%"}}/>)
+                    this.state.loading === true ? (<ColorCircularProgress variant="indeterminate" size={32} style={{marginTop: "5%"}}/>)
                     :
                     
                     ((this.state.success === false && (this.state.loading === '' || this.state.loading === false)) ? 
@@ -124,7 +124,7 @@ class Login extends Component {
                         variant="contained"
                               onClick={this.loginWithEmail}
                               className={classes.registerBtn}
-                              // disabled={loading}
+                             
                     > Login</Button>)
                     :  ''
                     
