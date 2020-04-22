@@ -13,6 +13,7 @@ import Authentication from './components/authentication/Authentication';
 import Login from './components/authentication/login/Login';
 import SignUp from './components/authentication/register/SignUp';
 import DisplayBIS from "./components/businessideas/displaybusinessideas/DisplayBIS";
+import BIDetail from './components/Layout/BIDetail';
 
 class App extends Component {
   render() {
@@ -22,12 +23,14 @@ class App extends Component {
       <BrowserRouter>
             <Provider store={store}>
                 <ThemeProvider theme={theme}>
-                      <Route exact path={'/registerBI'} render={(props) => <RegisterBI {...props} />} />
-                      <Route exact path={'/'} render={(props) => <HomePage {...props} />} />
-                      <Route exact path={'/auth'} render={(props) => <Authentication {...props} />} />
-                      <Route exact path={'/login'} render={(props) => <Login {...props} />} />
-                      <Route exact path={'/signup'} render={(props) => <SignUp {...props} />} />
-                    <Route exact path={'/displayBIS'} render={(props) => <DisplayBIS {...props} />} />
+                  <Route exact path={'/registerBI'} render={(props) => <RegisterBI {...props} />} />
+                  <Route exact path={'/'} render={(props) => <HomePage {...props} />} />
+                  <Route exact path={'/auth'} render={(props) => <Authentication {...props} />} />
+                  <Route exact path={'/login'} render={(props) => <Login {...props} />} />
+                  <Route exact path={'/signup'} render={(props) => <SignUp {...props} />} />
+                  <Route exact path={'/displayBIS'} render={(props) => <DisplayBIS {...props} />} />
+                  <Route exact path={'/displayBIS'} render={(props) => <DisplayBIS {...props} />} />
+                    <Route exact path={'/detail/:id'} render={(props) => <BIDetail {...props} />} />
                 </ThemeProvider>
           </Provider>
       </BrowserRouter>

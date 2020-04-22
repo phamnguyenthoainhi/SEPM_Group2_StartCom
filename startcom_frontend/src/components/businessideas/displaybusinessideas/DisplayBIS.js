@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux';
-import {fetchBI} from '../../../actions/businessideas/BIActions';
+import { getAllBIS} from '../../../actions/businessideas/BIActions';
 import { withStyles } from '@material-ui/core';
 import BITemplate from '../../Layout/BITemplate';
 import Grid from "@material-ui/core/Grid";
@@ -29,13 +29,12 @@ class DisplayBIS extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchBI();
+        this.props.getAllBIS();
     }
 
     onBICardClick = (id) => {
-        window.open(`/get_business_idea/${id}`, '_blank');
+        window.open(`/detail/${id}`, '_blank');
     };
-
 
     render() {
         const { classes, businessIdeas } = this.props;
@@ -56,7 +55,7 @@ class DisplayBIS extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    fetchBI: () => dispatch(fetchBI())
+    getAllBIS: () => dispatch(getAllBIS())
 });
 
 const mapStateToProps = state => ({

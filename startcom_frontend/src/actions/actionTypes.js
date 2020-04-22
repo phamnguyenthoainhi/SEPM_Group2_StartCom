@@ -1,4 +1,5 @@
-export const READ_BI = 'READ_BI';
+export const GET_ALL_BIS = 'GET_ALL_BIS';
+export const GET_BI = 'GET_BI';
 export const IS_REGISTERED_SUCCESS = 'IS_REGISTERED_SUCCESS';
 export const RESET_REGISTER = 'RESET_REGISTER';
 export const REGISTER_ACCOUNT = 'REGISTER_ACCOUNT';

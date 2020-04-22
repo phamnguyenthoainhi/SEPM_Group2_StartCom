@@ -1,17 +1,48 @@
-import {READ_BI, IS_REGISTERED_SUCCESS, RESET_REGISTER, UPDATE_BI, DELETE_BI} from '../actionTypes';
+import {
+    GET_ALL_BIS,
+    GET_BI,
+    IS_REGISTERED_SUCCESS,
+    RESET_REGISTER,
+    UPDATE_BI,
+    DELETE_BI,
+
+} from '../actionTypes';
 
 
-
-
-export const fetchBI = () => dispatch =>  {
+export const getAllBIS = () => dispatch =>  {
     fetch('https://asia-east2-startcom-sepm.cloudfunctions.net/api/get_all_business_ideas')
         .then (res => res.json())
         .then(businessIdeas =>
             dispatch({
-                type: READ_BI,
+                type: GET_ALL_BIS,
                 payload: businessIdeas
             }))
 };
+
+export const getBI = (id) => dispatch => {
+    fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/get_business_idea/${id}`)
+        .then (res => res.json())
+        .then(businessIdea =>
+            dispatch({
+                type: GET_BI,
+                payload: businessIdea
+            }))
+};
+
+// .then((res) => {
+//     console.log("res "+ res.status);
+//     if(res.status === 200) {
+//         dispatch({
+//             type: UPDATE_BI,
+//             payload: res.data
+//         });
+//         return res.json();
+//     } else
+//         return res.error;
+// })
+//     .then(() => dispatch(
+//         getAllBIS()
+//     ))
 
 export const resetRegisterStatus = () => dispatch => {
     dispatch({
@@ -46,7 +77,7 @@ export const registerBI = (BIData) => dispatch => {
         }
     })
     .then(() => dispatch(
-        fetchBI()
+        getAllBIS()
     )) 
 };
 
@@ -71,7 +102,7 @@ export const updateBI = (BIData, id) => dispatch => {
                 return res.error;
         })
         .then(() => dispatch(
-            fetchBI()
+            getAllBIS()
         ))
 };
 
@@ -96,7 +127,7 @@ export const deleteBI = (id) => dispatch => {
                 return res.error;
         })
         .then(() => dispatch(
-            fetchBI()
+            getAllBIS()
         ))
 };
 

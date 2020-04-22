@@ -1,4 +1,10 @@
-import {READ_BI, IS_REGISTERED_SUCCESS, RESET_REGISTER, UPDATE_BI, DELETE_BI} from '../actions/actionTypes';
+import {
+    GET_ALL_BIS,
+    GET_BI,
+    IS_REGISTERED_SUCCESS,
+    RESET_REGISTER,
+    UPDATE_BI,
+    DELETE_BI} from '../actions/actionTypes';
 
 const initialState = {
     businessIdea: {},
@@ -8,10 +14,15 @@ const initialState = {
 
 export default function (state = initialState, action) {
     switch(action.type) {
-        case READ_BI:
+        case GET_ALL_BIS:
             return {
                 ...state,
                 businessIdeas: action.payload
+            };
+        case GET_BI:
+            return {
+                ...state,
+                businessIdea: action.payload
             };
         case IS_REGISTERED_SUCCESS:
             return {
