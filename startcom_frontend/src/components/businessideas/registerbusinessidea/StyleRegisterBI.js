@@ -1,12 +1,7 @@
 const styles = (theme) => ({
     formContainer: {
         textAlign: 'center',
-        margin: "70px",
-        marginLeft: "100px",
-        marginRight: "100px"
-    },
-    form: {
-        marginTop: '170px'
+        padding: 50
     },
     title: {
         fontSize: "25px",
@@ -36,8 +31,6 @@ const styles = (theme) => ({
           '& .MuiInput-underline:hover': {
             borderBottomColor: theme.color.primary3,
           }
-
-    
     },
     content: {
         marginTop: '30px'
@@ -67,7 +60,7 @@ const styles = (theme) => ({
         maxWidth: 600
     },
     
-    buttonfile: {
+    buttonFile: {
         color: theme.color.primary3,
         float: 'left',
         '&:hover':{
@@ -76,7 +69,7 @@ const styles = (theme) => ({
             
         }
     },
-    chosenfile: {
+    chosenFile: {
         float: 'left',
         color: theme.color.primary3,
         fontSize: '14px'

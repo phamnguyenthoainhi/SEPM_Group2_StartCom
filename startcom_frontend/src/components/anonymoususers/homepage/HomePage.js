@@ -3,11 +3,9 @@ import {connect} from 'react-redux';
 import { withStyles } from '@material-ui/core';
 import style from './StyleHomePage';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import CardMedia from '@material-ui/core/CardMedia';
-import Avatar from '@material-ui/core/Avatar';
 import Navbar from '../../Layout/Navbar';
 import Footer from '../../Layout/Footer';
 import Hidden from "@material-ui/core/Hidden";
@@ -42,7 +40,7 @@ class HomePage extends Component {
                             <Grid container alignItems='center'>
                                 <Grid item md={1}/>
                                 <Grid item md={3} sm={12} xs={12}>
-                                    <img src={require("../../../images/logo.png")} className={classes.avatar} />
+                                    <img src={require("../../../images/logo.png")} className={classes.avatar} alt="App's Symbol"/>
                                 </Grid>
 
                                 <Grid item md={7}>
@@ -61,7 +59,7 @@ class HomePage extends Component {
                             <Grid container>
                                 <Grid item md={4} sm={12} xs={12}>
                                     <Box>
-                                        <img src={require("../../../images/community.png")}/>
+                                        <img src={require("../../../images/community.png")} alt="Community" />
                                     </Box>
                                     <Box fontWeight="fontWeightLight" m={1} className={classes.belowTitle}>
                                         Expanding business connection
@@ -70,7 +68,7 @@ class HomePage extends Component {
                                 </Grid>
                                 <Grid item md={4} sm={12} xs={12}>
                                     <Box>
-                                        <img src={require("../../../images/idea.png")}/>
+                                        <img src={require("../../../images/idea.png")} alt="Idea"/>
                                     </Box>
                                     <Box fontWeight="fontWeightLight" m={1} className={classes.belowTitle}>
                                        Publicize your idea for potential investors
@@ -78,7 +76,7 @@ class HomePage extends Component {
                                 </Grid>
                                 <Grid item md={4} sm={12} xs={12}>
                                     <Box>
-                                        <img src={require("../../../images/funding.png")} className={classes.belowIcon}/>
+                                        <img src={require("../../../images/funding.png")} alt="Funding" />
                                     </Box>
                                     <Box fontWeight="fontWeightLight" m={1} className={classes.belowTitle}>
                                         Raising capital with ease

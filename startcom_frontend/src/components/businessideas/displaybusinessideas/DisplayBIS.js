@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux';
-import {fetchBI, registerBI, resetRegisterStatus, updateBI} from '../../../actions/businessideas/BIActions';
+import {fetchBI} from '../../../actions/businessideas/BIActions';
 import { withStyles } from '@material-ui/core';
 import BITemplate from '../../Layout/BITemplate';
 import Grid from "@material-ui/core/Grid";
@@ -9,8 +9,14 @@ import Footer from '../../Layout/Footer';
 
 const styles = (theme) => ({
     gridContainer: {
-
+        flexGrow: 1
     },
+    contentContainer: {
+        padding: 80,
+        [theme.breakpoints.down('sm')]: {
+            padding: 40
+        }
+    }
 
 });
 
@@ -18,12 +24,7 @@ class DisplayBIS extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
-            date:' ',
-            description: '',
-            targetFunding: '',
-            needInvestor: false,
-            needConsultant: false,
+
         };
     }
 
@@ -32,7 +33,7 @@ class DisplayBIS extends Component {
     }
 
     onBICardClick = (id) => {
-        console.log(`Clicked card: ${id}`)
+        window.open(`/get_business_idea/${id}`, '_blank');
     };
 
 
@@ -41,11 +42,13 @@ class DisplayBIS extends Component {
         return (
             <Grid container className={classes.gridContainer}>
                 <Navbar/>
+                <Grid container className={classes.contentContainer}>
                 {businessIdeas.map((idea,index) => (
-                    <Grid item md={4} key={index} onClick={() => this.onBICardClick(idea.id)} style={{padding: 20}}>
+                    <Grid item md={4} lg={3} sm={4} xs={6} key={index} onClick={() => this.onBICardClick(idea.id)} style={{padding: 20}}>
                         <BITemplate  idea={idea}  />
                     </Grid>
                 ))}
+                </Grid>
                 <Footer/>
             </Grid>
         )
@@ -53,13 +56,11 @@ class DisplayBIS extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    fetchBI: () => dispatch(fetchBI()),
-    updateBI: (businessIdea,id) => dispatch(updateBI(businessIdea,id))
+    fetchBI: () => dispatch(fetchBI())
 });
 
 const mapStateToProps = state => ({
     businessIdeas: state.businessIdeas.businessIdeas,
-
 });
 
 

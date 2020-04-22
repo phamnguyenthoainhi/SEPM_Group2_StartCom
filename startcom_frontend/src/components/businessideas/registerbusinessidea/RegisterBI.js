@@ -13,6 +13,8 @@ import {registerBI, resetRegisterStatus } from '../../../actions/businessideas/B
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Typography from '@material-ui/core/Typography';
 import Navbar from '../../Layout/Navbar';
+import Grid from "@material-ui/core/Grid";
+import Footer from "../../Layout/Footer";
 const CustomCheckbox = withStyles({
     root: {
       color: '#718F94',
@@ -37,9 +39,8 @@ class RegisterBI extends Component {
             open: false,
             setOpen: false,
             image:'',
-            chosenfile: ''
-
-        }
+            chosenFile: ''
+        };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this); 
         this.chooseFile = this.chooseFile.bind(this);
@@ -90,7 +91,7 @@ class RegisterBI extends Component {
         console.log(event.target.files[0].name);
         this.setState({
             image: event.target.files[0],
-            chosenfile: 'Uploaded file: '+ event.target.files[0].name
+            chosenFile: 'Uploaded file: '+ event.target.files[0].name
         })
     };
 
@@ -164,25 +165,28 @@ class RegisterBI extends Component {
     render() {
         const {classes} = this.props;
         return (
-            <div className={classes.formContainer} >
+
+            <Grid container>
                 <Navbar/>
+                <Grid item md={2}/>
+                <Grid item md={8} className={classes.formContainer} >
                     <form className={classes.form} autoComplete="off" onSubmit={this.onSubmit}>
                         <label className={classes.title}> Register Your Business Idea </label>
                             <div className={classes.content}>
                             <TextField
-                                onChange={this.onChange} 
-                                value = {this.state.name} 
-                                name = 'name'  
+                                onChange={this.onChange}
+                                value = {this.state.name}
+                                name = 'name'
                                 fullWidth
                                 label="Business Idea Name"
-                                required className ={classes.input}
-                                
+                                required
+                                className ={classes.input}
                             />
 
                             <TextField
-                                onChange={this.onChange} 
-                                value = {this.state.date} 
-                                name = 'date'  
+                                onChange={this.onChange}
+                                value = {this.state.date}
+                                name = 'date'
                                 fullWidth
                                 label="Date of Establishment"
                                 className ={classes.input}
@@ -194,33 +198,34 @@ class RegisterBI extends Component {
                             />
 
                             <TextField label="Description of Business Idea"
-                                onChange={this.onChange} 
-                                value = {this.state.description} 
-                                name = 'description'  
+                                onChange={this.onChange}
+                                value = {this.state.description}
+                                name = 'description'
                                 fullWidth
                                 required
                                 className ={classes.input}
                             />
                             <TextField label="Target Funding $"
-                                onChange={this.onChange} 
-                                value = {this.state.targetFunding} 
-                                name = 'targetFunding'  
+                                onChange={this.onChange}
+                                value = {this.state.targetFunding}
+                                name = 'targetFunding'
                                 fullWidth
                                 className ={classes.input}
                                 type='number'
+                                required
                             />
-                            
-                            <Button color="default"  className={classes.buttonfile} 
+
+                            <Button color="default"  className={classes.buttonFile}
                             label='My Label'startIcon={<CloudUploadIcon />}  >
                                    <input type="file" accept="image/*" id='file' style={{display:'none'}} name='image'  onChange={this.chooseFile}/>
                                    <label htmlFor='file' >
-                                   
+
                                            Upload Business Idea Image
                                    </label>
                             </Button><br/>
                             <br/>
                             <br/>
-                                <Typography className={classes.chosenfile}>{this.state.chosenfile}</Typography>
+                                <Typography className={classes.chosenFile}>{this.state.chosenFile}</Typography>
                                 <br/>
                                 <br/>
                             <FormControlLabel control={<CustomCheckbox checked={this.state.needInvestor} onChange={this.onChange} name="needInvestor" />}
@@ -228,40 +233,40 @@ class RegisterBI extends Component {
                             <FormControlLabel control={<CustomCheckbox checked={this.state.needConsultant} onChange={this.onChange} name="needConsultant" />}
                             label="Looking for an consultant" className={classes.checkbox}/>
                             <br/>
-                            
+
                             <Button variant="contained" type='submit' className={classes.button}>Submit</Button>
-                            
-                            
-                            
-                            
-                            <Dialog 
+
+                            <Dialog
                             className={classes.dialog}
                                 open={this.state.open}
                                 onClose={this.handleClose}
                                 aria-labelledby="alert-dialog-title"
                                 aria-describedby="alert-dialog-description"
-                                > 
+                                >
                                 <DialogContent>
                                     {/* <Card className={classes.card}>
                                         <CardActionArea> */}
-                                            {/* <CardMedia className={classes.image} 
+                                            {/* <CardMedia className={classes.image}
                                             image={require("../../images/registersuccess.svg")}
                                             /> */}
                                             {/* <CardContent> */}
                                                 <Typography gutterBottom className={classes.text}>
-                                                Congratulations, your business idea has been registered sucessfully!
+                                                Congratulations, your business idea has been registered successfully!
                                                 </Typography>
                                             {/* </CardContent>
-                                            
+
                                         </CardActionArea>
                                     </Card> */}
-                                    
+
                                 </DialogContent>
-    
-                            </Dialog>   
-                            </div> 
+
+                            </Dialog>
+                            </div>
                     </form>
-            </div>
+                </Grid>
+                <Grid item md={2}/>
+                <Footer/>
+            </Grid>
         )
     }
 }
