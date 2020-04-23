@@ -255,13 +255,13 @@ class RegisterBI extends Component {
                                    
 
                                     <TextField type ='tetx' id="select" label ='Choose your business category' value =''select className ={classes.input} onChange={this.onChange} name ='category'>
-                                    <MenuItem value = 'technology' >Techology</MenuItem>
-                                        <MenuItem value = 'art' >Art</MenuItem>
-                                        <MenuItem value = 'community'>Community</MenuItem>
-                                        <MenuItem value = 'foodbeverage'>Food & Beverage</MenuItem>
-                                        <MenuItem value = 'education'>Education</MenuItem>
-                                        <MenuItem value = 'medical'>Medical</MenuItem>
-                                        <MenuItem value = 'transportation'>Transportation</MenuItem>
+                                    <MenuItem value = 'Technology' >Techology</MenuItem>
+                                        <MenuItem value = 'Art' >Art</MenuItem>
+                                        <MenuItem value = 'Community'>Community</MenuItem>
+                                        <MenuItem value = 'Food & Beverage'>Food & Beverage</MenuItem>
+                                        <MenuItem value = 'Education'>Education</MenuItem>
+                                        <MenuItem value = 'Medical'>Medical</MenuItem>
+                                        <MenuItem value = 'Transportation'>Transportation</MenuItem>
                                     </TextField>
                                         
 
