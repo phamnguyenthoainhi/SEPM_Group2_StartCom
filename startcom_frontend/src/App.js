@@ -13,6 +13,7 @@ import HomePage from './components/anonymoususers/homepage/HomePage';
 import Authentication from './components/authentication/Authentication';
 import Login from './components/authentication/login/Login';
 import SignUp from './components/authentication/register/SignUp';
+import AdminDashboard from './components/admin/AdminDashboard.js'
 class App extends Component {
   render() {
   const theme = createMuiTheme(themeFile);
@@ -29,6 +30,7 @@ class App extends Component {
                       <Route exact path={'/auth'} render={(props) => <Authentication {...props} />} />
                       <Route exact path={'/login'} render={(props) => <Login {...props} />} />
                       <Route exact path={'/signup'} render={(props) => <SignUp {...props} />} />
+                      <Route exact path={'/admin'} render={(props) => <AdminDashboard {...props} />} />
 
 
 

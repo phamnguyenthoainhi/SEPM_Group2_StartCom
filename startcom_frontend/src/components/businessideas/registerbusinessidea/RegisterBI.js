@@ -69,7 +69,7 @@ class RegisterBI extends Component {
         }
 
         else if (this.props.isRegisteredSuccess === false) {
-            console.log('false');
+            
         }
 
     }
@@ -89,6 +89,7 @@ class RegisterBI extends Component {
         this.props.history.push('/');
     
     };
+
     chooseFile = event => {
         console.log(event.target.files[0].name);
         this.setState({
@@ -142,8 +143,6 @@ class RegisterBI extends Component {
         };
         this.props.registerBI(businessIdea);
         
-        
-
      }
 
     onSubmit(e) {
