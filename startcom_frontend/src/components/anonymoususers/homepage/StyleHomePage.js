@@ -27,7 +27,6 @@ const style = (theme) => ({
             backgroundColor: theme.color.secondary,
             color: theme.color.primary2
         },
-        
     },
     welcomeTitle: {
         color: theme.color.primary3,

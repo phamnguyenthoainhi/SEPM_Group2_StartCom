@@ -21,11 +21,11 @@ import Grid from "@material-ui/core/Grid";
 
 const styles = (theme) => ({
     appBar: {
-      position: 'relative'
+        backgroundColor: theme.color.primary3,
+        position: 'relative',
     },
     toolbar: {
         backgroundColor: theme.color.primary3,
-        padding: '0 50px'
     },
     logoBtn: {
         textDecoration: 'none',
@@ -160,7 +160,6 @@ class Navbar extends Component {
                                 </ListItem>
                             </List>
                         </Drawer>
-
                     </Hidden>
                 </Toolbar>
             </AppBar>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux';
 import { withStyles } from '@material-ui/core';
+import {registerBI, resetRegisterStatus } from '../../../actions/businessideas/BIActions';
 import styles from './StyleRegisterBI';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -8,13 +9,15 @@ import DialogContent from '@material-ui/core/DialogContent';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
-import {registerBI, resetRegisterStatus } from '../../../actions/businessideas/BIActions';
 
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Typography from '@material-ui/core/Typography';
 import Navbar from '../../Layout/Navbar';
 import Grid from "@material-ui/core/Grid";
 import Footer from "../../Layout/Footer";
+import { MuiPickersUtilsProvider, DatePicker } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+
 const CustomCheckbox = withStyles({
     root: {
       color: '#718F94',

@@ -29,8 +29,7 @@ class App extends Component {
                   <Route exact path={'/login'} render={(props) => <Login {...props} />} />
                   <Route exact path={'/signup'} render={(props) => <SignUp {...props} />} />
                   <Route exact path={'/displayBIS'} render={(props) => <DisplayBIS {...props} />} />
-                  <Route exact path={'/displayBIS'} render={(props) => <DisplayBIS {...props} />} />
-                    <Route exact path={'/detail/:id'} render={(props) => <BIDetail {...props} />} />
+                  <Route exact path={'/detail/:id'} render={(props) => <BIDetail {...props} />} />
                 </ThemeProvider>
           </Provider>
       </BrowserRouter>

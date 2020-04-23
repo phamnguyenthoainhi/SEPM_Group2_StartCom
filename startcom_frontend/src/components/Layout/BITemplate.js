@@ -14,7 +14,6 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 
 
 const styles = (theme) => ({
-
     cardWrapper: {
         maxWidth: 'auto',
         minWidth: 'auto',
@@ -26,7 +25,11 @@ const styles = (theme) => ({
             cursor: 'pointer',
         },
 
-
+    },
+    cardImage: {
+        objectFit: 'cover',
+        width: '100%',
+        maxHeight: '100%'
     },
     cardContent: {
         padding: 20
@@ -206,6 +209,7 @@ class BITemplate extends Component {
                         height="140"
                         image={logo}
                         title="Company Logo"
+                        className={classes.cardImage}
                     >
 
                     </CardMedia>
@@ -244,7 +248,7 @@ class BITemplate extends Component {
                         <Typography variant="subtitle1" className={classes.cardFunding}>
                             Target Funding: $ {idea.targetFunding}
                         </Typography>
-                        <div className={classes.dividerTrue}></div>
+                        <div className={classes.dividerTrue}/>
                     </CardContent>
                 </Card>
             </CardActionArea>
@@ -255,8 +259,6 @@ class BITemplate extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    // updateBI: (businessIdea,id) => dispatch(updateBI(businessIdea,id)),
-    // deleteBI: (id) => dispatch(deleteBI(id))
 });
 
 const mapStateToProps = state => ({
