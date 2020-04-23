@@ -1,139 +1,124 @@
 /* eslint-disable no-use-before-define */
-import React from 'react';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogActions from '@material-ui/core/DialogActions';
+import React, { Component } from 'react';
+import { fetchBI, updateBI } from "../../actions/businessideas/BIActions";
+import { connect } from 'react-redux';
+
+import withStyles from '@material-ui/core/styles/withStyles';
+
 import Button from '@material-ui/core/Button';
-import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
+import SearchBar from 'material-ui-search-bar';
 
-const filter = createFilterOptions();
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 
-export default function FreeSoloCreateOptionDialog() {
-  const [value, setValue] = React.useState(null);
-  const [open, toggleOpen] = React.useState(false);
+const styles = (theme) => ({
+  cardWrapper: {
+    maxWidth: 275,
+    padding: 20
 
-  const handleClose = () => {
-    setDialogValue({
-      title: '',
-      year: '',
-    });
+  },
+  media: {
+    width: "200px",
+    height: "100px"
+  }
 
-    toggleOpen(false);
+});
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+      width: '25ch',
+    },
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: '25ch',
+  },
+
+}));
+
+const getUnique = (items, value) => {
+  return [...new Set(items.map(item => item[value]))];
+};
+
+
+class BIsearch extends Component {
+  constructor(props) {
+    super(props);
+    this.child = React.createRef();
+    this.state = {
+      name: '',
+      allOrFound: 'all',
+      foundIdeas: ""
+
+    };
   };
 
-  const [dialogValue, setDialogValue] = React.useState({
-    title: '',
-    year: '',
-  });
+  updateSearch(event) {
+    this.setState({ search: event.target.value.substr(0, 20) });
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setValue({
-      title: dialogValue.title,
-      year: parseInt(dialogValue.year, 10),
-    });
-
-    handleClose();
   };
 
-  return (
-    <React.Fragment>
-      <Autocomplete
-        value={value}
-        onChange={(event, newValue) => {
-          if (typeof newValue === 'string') {
-            // timeout to avoid instant validation of the dialog's form.
-            setTimeout(() => {
-              toggleOpen(true);
-              setDialogValue({
-                title: newValue,
-                year: '',
-              });
-            });
-            return;
-          }
+  updateState(e) {
+    let obj = {};
+    obj[e.target.name] = e.target.value;
+    this.setState(obj);
+  };
 
-          if (newValue && newValue.inputValue) {
-            toggleOpen(true);
-            setDialogValue({
-              title: newValue.inputValue,
-              year: '',
-            });
+  handleDetail = (name) => {
+    const idea = this.getIdea(name);
+    this.setState({})
+  };
 
-            return;
-          }
+  //set all and set found value
+  setAll = () => { this.setState({ allOrFound: "all" }) };
+  setFound = () => { this.setState({ allOrFound: "found" }) };
 
-          setValue(newValue);
-        }}
-        filterOptions={(options, params) => {
-          const filtered = filter(options, params);
+  handleChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value })
+  };
 
-          if (params.inputValue !== '') {
-            filtered.push({
-              inputValue: params.inputValue,
-              title: `Add "${params.inputValue}"`,
-            });
-          }
+  searchBI = (name) => {
+    let matchingIdeas = this.state.ideas.filter(idea => idea.name.toLowerCase().indexOf(name.toLowerCase()) > -1);
+    this.setState({ foundIdeas: matchingIdeas })
+  }
 
-          return filtered;
-        }}
-        id="free-solo-dialog-demo"
-        options={top100Films}
-        getOptionLabel={(option) => {
-          // e.g value selected with enter, right from the input
-          if (typeof option === 'string') {
-            return option;
-          }
-          if (option.inputValue) {
-            return option.inputValue;
-          }
-          return option.title;
-        }}
-        renderOption={(option) => option.title}
-        style={{ width: 300 }}
-        freeSolo
-        renderInput={(params) => (
-          <TextField {...params} label="Free solo dialog" variant="outlined" />
-        )}
-      />
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <form onSubmit={handleSubmit}>
-          <DialogTitle id="form-dialog-title">Add a new film</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Did you miss any film in our list? Please, add it!
-            </DialogContentText>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              value={dialogValue.title}
-              onChange={(event) => setDialogValue({ ...dialogValue, title: event.target.value })}
-              label="title"
-              type="text"
-            />
-            <TextField
-              margin="dense"
-              id="name"
-              value={dialogValue.year}
-              onChange={(event) => setDialogValue({ ...dialogValue, year: event.target.value })}
-              label="year"
-              type="number"
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button type="submit" color="primary">
-              Add
-            </Button>
-          </DialogActions>
-        </form>
-      </Dialog>
-    </React.Fragment>
-  );
+  backToPageOne = () => { this.child.current.handlePageChange(1) };
+
+  render() {
+    let filterIdeas = this.props.ideas;
+
+    const { name } = this.props;
+    return (
+      <div>
+      {/*
+        <h5>Search By Name</h5>
+        <input list="IdeaList" type="text" placeholder="name" value={name} onChange={this.updateState}></input>
+        
+        <datalist id="IdeaList">
+          {filterIdeas.map(
+            (name, i) => <option value={name} key={i}></option>
+          )}
+        </datalist>
+
+        <button className="btn btn-primary" onClick={() => { filterIdeas.searchBI(name); filterIdeas.setFound(); this.backToPageOne() }}>Search</button>
+        <br /><br />
+          */}
+      </div>
+
+    )
+  }
 }
+
+const mapDispatchToProps = dispatch => ({
+  fetchBI: () => dispatch(fetchBI()),
+  updateBI: (businessIdea, id) => dispatch(updateBI(businessIdea, id))
+});
+
+const mapStateToProps = state => ({
+  businessIdeas: state.businessIdeas.businessIdeas,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(BIsearch));
