@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import {registerBI, resetRegisterStatus } from '../../../actions/businessideas/BIActions';
 
 
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import FormControl from '@material-ui/core/FormControl';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
@@ -35,7 +36,12 @@ const CustomCheckbox = withStyles({
     checked: {},
   })((props) => <Checkbox color="default" {...props} />);
 
-
+  const ColorCircularProgress = withStyles({
+    root: {
+      color: '#3C5155'
+      
+    },
+  })(CircularProgress);
 
 class RegisterBI extends Component {
     constructor(props) {
@@ -53,7 +59,8 @@ class RegisterBI extends Component {
             image:'',
             chosenfile: '',
             category: '',
-            terms: false
+            terms: false,
+            loading: false
 
         }
         this.onChange = this.onChange.bind(this);
@@ -63,6 +70,12 @@ class RegisterBI extends Component {
     }
     
     componentDidUpdate(prevProps) {
+        
+        if (this.props.isRegisteredLoading !== prevProps.isRegisteredLoading) {
+            this.setState({
+                loading: this.props.isRegisteredLoading
+            })
+        }
         if (this.props.isRegisteredSuccess !== prevProps.isRegisteredSuccess && this.props.isRegisteredSuccess === true) {
             this.handleClickOpen();
             
@@ -279,10 +292,13 @@ class RegisterBI extends Component {
                             </Grid>
 
                            
+                           {this.state.loading ? (<ColorCircularProgress variant="indeterminate" size={32} style={{marginTop: "5%"}}/>)
+                           :
                            <div>
                             <Button variant="contained" type='submit' className={classes.button}>Submit</Button>
 
-                           </div>
+                           </div>}
+                           
                             <Dialog 
                             className={classes.dialog}
                                 open={this.state.open}
@@ -315,6 +331,7 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
     isRegisteredSuccess: state.businessIdeas.isRegisteredSuccess,
+    isRegisteredLoading: state.businessIdeas.isRegisteredLoading
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(RegisterBI));

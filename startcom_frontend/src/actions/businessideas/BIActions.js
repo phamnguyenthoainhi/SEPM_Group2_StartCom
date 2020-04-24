@@ -1,7 +1,9 @@
-import {READ_BI, IS_REGISTERED_SUCCESS, RESET_REGISTER} from '../actionTypes';
+import {READ_BI, IS_REGISTERED_SUCCESS, RESET_REGISTER, REGISTER_BI_LOADING} from '../actionTypes';
 
 export const registerBI = (BIData) => dispatch => {
-    
+    dispatch({
+        type: REGISTER_BI_LOADING
+    })
     fetch('https://asia-east2-startcom-sepm.cloudfunctions.net/api/post_business_idea', {
         method: 'POST',
         headers: {

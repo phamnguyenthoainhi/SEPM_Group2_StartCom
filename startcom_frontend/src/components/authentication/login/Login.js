@@ -115,7 +115,7 @@ class Login extends Component {
                         value={this.state.loginPassword}
                     />
 
-{
+                    {
                     this.state.loading === true ? (<ColorCircularProgress variant="indeterminate" size={32} style={{marginTop: "5%"}}/>)
                     :
                     

@@ -10,6 +10,7 @@ export default combineReducers({
     loginLoading: UsersReducer,
     unverifiedEmails: AdminReducer,
     emailLoading: AdminReducer,
-    verifySuccess: AdminReducer
+    verifySuccess: AdminReducer,
+    
     
 });
