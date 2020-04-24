@@ -1,9 +1,11 @@
-import {FETCH_INVESTOR_EMAIL, FETCH_INVESTOR_EMAIL_LOADING, VERIFY_SUCCESS} from '../actions/actionTypes';
+import {FETCH_INVESTOR_EMAIL, FETCH_INVESTOR_EMAIL_LOADING, VERIFY_SUCCESS, ADMIN_VERIFY} from '../actions/actionTypes';
 
 const initialState = {
     unverifiedEmails: [],
-    emailLoading: '',
-    verifySuccess: false
+    emailLoading: false,
+    verifySuccess: false,
+    loadingVerify: false
+
 
 }
 
@@ -15,7 +17,8 @@ export default function (state = initialState, action) {
                 ...state,
                 unverifiedEmails: action.payload,
                 emailLoading: false,
-                verifySuccess: false
+                verifySuccess: false,
+                loadingVerify: false
             }
         case FETCH_INVESTOR_EMAIL_LOADING: 
 
@@ -27,6 +30,11 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 verifySuccess: true
+            }
+        case ADMIN_VERIFY:
+            return {
+                ...state,
+                loadingVerify: true
             }
         default:
             return state;                

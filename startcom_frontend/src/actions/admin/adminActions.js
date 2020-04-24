@@ -1,4 +1,4 @@
-import {FETCH_INVESTOR_EMAIL, FETCH_INVESTOR_EMAIL_LOADING, VERIFY_SUCCESS} from '../actionTypes';
+import {FETCH_INVESTOR_EMAIL, FETCH_INVESTOR_EMAIL_LOADING, VERIFY_SUCCESS, ADMIN_VERIFY} from '../actionTypes';
 
 export const fetchUnverifiedEmails = () => dispatch => {
     dispatch({
@@ -17,6 +17,9 @@ export const fetchUnverifiedEmails = () => dispatch => {
         }))  
 }
 export const VerifiedEmails = (id) => dispatch => {
+    dispatch({
+        type: ADMIN_VERIFY
+    })
     fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/verify/${id}`, {
         method: 'GET'
     })

@@ -13,7 +13,15 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import Typography from '@material-ui/core/Typography';
+import Skeleton from '@material-ui/lab/Skeleton';
+import CircularProgress from "@material-ui/core/CircularProgress";
 
+const ColorCircularProgress = withStyles({
+    root: {
+      color: '#3C5155'
+      
+    },
+  })(CircularProgress);
 class AdminDashboard extends Component {
     constructor(props) {
         super(props);
@@ -23,9 +31,10 @@ class AdminDashboard extends Component {
             loading: false,
             success: false,
             unverifiedEmails: [],
-            open: false
+            open: false,
+            loadingVerify: false
         };
-        // this.verify = this.verify.bind(this);
+        
     }
     componentDidMount() { 
         this.props.fetchUnverifiedEmails();
@@ -35,6 +44,11 @@ class AdminDashboard extends Component {
         if (this.props.unverifiedEmails !== prevProps.unverifiedEmails ) {
             this.setState({
                 unverifiedEmails: this.props.unverifiedEmails
+            })
+        }
+        if (this.props.loadingVerify !== prevProps.loadingVerify ) {
+            this.setState({
+                loadingVerify: this.props.loadingVerify
             })
         }
         if (this.props.loading !== prevProps.loading) {
@@ -77,20 +91,45 @@ class AdminDashboard extends Component {
         
         return (
             <div>
-                 <TableContainer component={Paper}>
-                        <Table className={classes.table} aria-label="customized table">
-                            <TableBody>
-                            {this.state.unverifiedEmails.map((row) => (
-                                <TableRow key ={row.id}>
-                                    <TableCell component="th" scope="row">
-                                    {row.email}
-                                    </TableCell>
-                                    <TableCell align="right"><Button onClick={()=> this.verify(row.id)}>Verify</Button></TableCell>
-                                </TableRow>
-                            ))} 
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+                {this.state.loading ? 
+                ( <div className={classes.skeletoncontainer}>
+                    
+                    <Skeleton className={classes.skeleton} animation="wave" />
+                    
+                    <Skeleton className={classes.skeleton} animation="wave" />
+                    <Skeleton className={classes.skeleton} animation="wave" />
+                    
+                   
+
+                </div>
+                ) 
+                 :
+                (
+                    <TableContainer component={Paper}>
+                    <Table className={classes.table} aria-label="customized table">
+                        <TableBody>
+                        {this.state.unverifiedEmails.map((row) => (
+                            <TableRow key ={row.id}>
+                                <TableCell component="th" scope="row">
+                                {row.email}
+                                </TableCell>
+                                <TableCell align="right">
+                                    {this.state.loadingVerify
+                                    ? 
+                                    (<ColorCircularProgress variant="indeterminate" size={32} style={{marginTop: "5%"}}/>)
+                                    :
+                                    (<Button onClick={()=> this.verify(row.id)}>Verify</Button>)
+                                    }
+
+                                </TableCell>
+                            </TableRow>
+                        ))} 
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                )
+                } 
+                 
                     <Dialog 
                             className={classes.dialog}
                                 open={this.state.open}
@@ -121,7 +160,8 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => ({
     unverifiedEmails: state.unverifiedEmails.unverifiedEmails,
     loading: state.emailLoading.emailLoading,
-    success: state.verifySuccess.verifySuccess
+    success: state.verifySuccess.verifySuccess,
+    loadingVerify: state.loadingVerify.loadingVerify
 });
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(AdminDashboard));
 
