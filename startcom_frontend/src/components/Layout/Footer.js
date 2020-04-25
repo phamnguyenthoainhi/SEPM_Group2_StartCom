@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
-import logo from '../images/trans_logo.png';
+import logo from '../../images/trans_logo.png';
 import withStyles from '@material-ui/core/styles/withStyles'
 
 
@@ -35,7 +35,6 @@ const styles = (theme) => ({
 
     footerWrapper: {
         backgroundColor: theme.color.primary3,
-        marginTop: 590,
         bottom: 0,
         padding: '50px 100px',
         [theme.breakpoints.down('sm')]: {

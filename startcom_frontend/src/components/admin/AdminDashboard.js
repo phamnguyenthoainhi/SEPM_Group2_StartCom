@@ -2,12 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux';
 import { withStyles } from '@material-ui/core';
 import style from './AdminDashboardStyle.js';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+
 import {fetchUnverifiedEmails, VerifiedEmails} from '../../actions/admin/adminActions.js';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -90,45 +85,52 @@ class AdminDashboard extends Component {
         const {classes} = this.props; 
         
         return (
-            <div>
+            <div className={classes.container}>
+                <Typography className={classes.title}>List of Unverified Investors</Typography>
                 {this.state.loading ? 
-                ( <div className={classes.skeletoncontainer}>
+                    ( 
+                    <div className={classes.skeletoncontainer}>
+                        
+                        <Skeleton className={classes.skeleton} animation="wave" />
+                        
+                        <Skeleton className={classes.skeleton} animation="wave" />
+                        <Skeleton className={classes.skeleton} animation="wave" />
+                        
                     
-                    <Skeleton className={classes.skeleton} animation="wave" />
-                    
-                    <Skeleton className={classes.skeleton} animation="wave" />
-                    <Skeleton className={classes.skeleton} animation="wave" />
-                    
-                   
 
-                </div>
-                ) 
-                 :
-                (
-                    <TableContainer component={Paper}>
-                    <Table className={classes.table} aria-label="customized table">
-                        <TableBody>
-                        {this.state.unverifiedEmails.map((row) => (
-                            <TableRow key ={row.id}>
-                                <TableCell component="th" scope="row">
-                                {row.email}
-                                </TableCell>
-                                <TableCell align="right">
-                                    {this.state.loadingVerify
-                                    ? 
-                                    (<ColorCircularProgress variant="indeterminate" size={32} style={{marginTop: "5%"}}/>)
-                                    :
-                                    (<Button onClick={()=> this.verify(row.id)}>Verify</Button>)
-                                    }
+                    </div>
+                    ) 
+                    :
+                    ( 
+                        <div className='tablecontainer'>
+                            <table className="table">
+                                <tbody >
+                                    {this.state.unverifiedEmails.map((row) => (
+                                        <tr key ={row.id} >
+                                            <td component="th" className={classes.cell} style={{paddingLeft: "70px"}}>
+                                            {row.email}
+                                            </td>
+                                            <td style={{textAlign: 'center'}} className={classes.cell}>
+                                                {this.state.loadingVerify
+                                                ? 
+                                                (<ColorCircularProgress variant="indeterminate" size={32} style={{marginTop: "5%"}}/>)
+                                                :
+                                                (<Button className ={classes.verifyBtn} onClick={()=> this.verify(row.id)}>Verify</Button>)
+                                                }
 
-                                </TableCell>
-                            </TableRow>
-                        ))} 
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                )
+                                            </td>
+                                        </tr>))
+                                    } 
+                                    
+                                    
+                                </tbody>
+                            </table>
+
+                        </div>
+                        
+                    )
                 } 
+                
                  
                     <Dialog 
                             className={classes.dialog}

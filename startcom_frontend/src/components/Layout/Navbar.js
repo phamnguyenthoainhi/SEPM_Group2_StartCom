@@ -7,7 +7,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
-import logo from '../images/trans_logo.png';
+import logo from '../../images/trans_logo.png';
 import Hidden from '@material-ui/core/Hidden'
 import IconButton from '@material-ui/core/IconButton'
 import MenuRoundedIcon from '@material-ui/icons/MenuRounded';
@@ -20,9 +20,12 @@ import Grid from "@material-ui/core/Grid";
 
 
 const styles = (theme) => ({
+    appBar: {
+        backgroundColor: theme.color.primary3,
+        position: 'relative',
+    },
     toolbar: {
         backgroundColor: theme.color.primary3,
-        padding: '0 50px'
     },
     logoBtn: {
         textDecoration: 'none',
@@ -86,9 +89,6 @@ const styles = (theme) => ({
 });
 
 
-
-
-
 class Navbar extends Component {
     constructor(props) {
         super(props);
@@ -107,7 +107,7 @@ class Navbar extends Component {
         const { classes } = this.props;
         const { openDrawer} = this.state;
         return (
-            <AppBar>
+            <AppBar className={classes.appBar}>
                 <Toolbar className={classes.toolbar}>
                     <Button
                         component={Link}
@@ -121,7 +121,7 @@ class Navbar extends Component {
                         <Button className={classes.navBtn} component={Link} to="/startups">Startups</Button>
                         <Button className={classes.navBtn} component={Link} to="/consultants">Consultants</Button>
                         <Button className={classes.navBtn} component={Link} to="/investors">Investors</Button>
-                        <Button variant='outlined' className={classes.signUpBtn} component={Link} to="/auth">Sign Up</Button>
+                        <Button variant='outlined' className={classes.signUpBtn} component={Link} to="/signup">Sign Up</Button>
                     </Hidden>
 
                     <Hidden mdUp>
@@ -160,7 +160,6 @@ class Navbar extends Component {
                                 </ListItem>
                             </List>
                         </Drawer>
-
                     </Hidden>
                 </Toolbar>
             </AppBar>

@@ -1,101 +1,94 @@
 const style = (theme) => ({
     root: {
         flexGrow: 1,
-        fontFamily: theme.font,
-        // [theme.breakpoints.down('sm')]: {
-        //     backgroundColor: 'red',
-        // },
+        fontFamily: theme.font
         
     },
-    grid: {
-        paddingTop: 100
+    rightColumn: {
+      objectFit: 'cover'
     },
-    leftcolumn: {
+    leftColumn: {
         backgroundColor: theme.color.primary2,
         textAlign: 'center',   
-        padding: '100px',
-        [theme.breakpoints.down('sm')]: {
-            padding: '50px',
-            fontSize: '10px',
-            
-            
-           
-        },    
-     
+        padding: 100,
+        [theme.breakpoints.down('md','sm')]: {
+            padding: 50
+        },
     },
     joinButton: {
+        fontSize: 16,
+        padding: '10px 30px',
         backgroundColor: theme.color.primary3,
         color: theme.color.primary1,
+        fontFamily: "'Raleway', sans-serif;",
+        transition: "all 350ms ease-in-out",
         marginTop: '30px',
         '&:hover':{
-            backgroundColor: theme.color.contrast
+            backgroundColor: theme.color.secondary,
+            color: theme.color.primary2
         },
-        
     },
-    welcomtittle: {
+    welcomeTitle: {
         color: theme.color.primary3,
-        fontSize: '25px',
-        paddingBottom: '20px',
-        
-    },
-    description: {
-        color: theme.color.primary3
+        fontSize: 50,
+        paddingBottom: 20,
     },
     media: {
         height: 400,
         margin: 50,
         marginLeft: 100,
-        [theme.breakpoints.down('sm')]: {
-            height: 400,
-            margin: 25,
-            marginLeft: 50
-           
-        }, 
+        [theme.breakpoints.down('md')]: {
+            margin: 30
+        },
     },
     row: {
         backgroundColor: theme.color.primary3,
-        padding: '100px',
-        paddingLeft: '250px',
-        
-        
+        padding: '40px',
+        [theme.breakpoints.down('sm')]: {
+            textAlign: 'center'
+        },
+
     },
-    rowtittle: {
+    rowTitle: {
         color: theme.color.primary1,
-        fontSize: '35px',
-        marginBottom: '20px'
+        fontSize: '40px',
+        marginBottom: '20px',
+        [theme.breakpoints.down('sm','xs')]: {
+            fontSize: 30
+        },
     },
+    rowSubTitle: {
+        fontSize: 17,
+        [theme.breakpoints.down('sm','xs')]: {
+            fontSize: 16
+        },
+    },
+
     below: {
         backgroundColor: theme.color.primary2,
         textAlign: 'center',
-     
-        alignItems:"center",
-        padding: 80
-          
-    }, 
-    avatar: {
-        height: 150,
-        width: 150,
-        marginBottom: 30,
-        backgroundColor: theme.color.primary2
+        alignItems: 'center',
+        padding: 100,
+        [theme.breakpoints.down('sm','xs')]: {
+            padding: 50
+        },
     },
-    avatarbox: {
-        paddingLeft: '45%',
-        [theme.breakpoints.down('sm')]: {
-            paddingLeft: '25%',
-  
+    belowTitle: {
+        [theme.breakpoints.down('sm','xs')]: {
+            paddingBottom: 10
         },
-        [theme.breakpoints.down('md')]: {
-            paddingLeft: '35%',
-            
+    },
+
+    avatar: {
+        height: 170,
+        width: 170,
+        [theme.breakpoints.down('sm','xs')]: {
+            height: 150,
+            width: 150,
         },
-        [theme.breakpoints.down('lg')]: {
-            paddingLeft: '40%',
-            
-   
-        }
-        
+    },
+    avatarBox: {
+        paddingLeft: '45%'
     }
-
-
-})
+});
 export default style;

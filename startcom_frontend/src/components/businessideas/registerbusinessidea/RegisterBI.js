@@ -17,7 +17,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import FormControl from '@material-ui/core/FormControl';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Typography from '@material-ui/core/Typography';
-import Navbar from '../../Navbar';
+import Navbar from '../../Layout/Navbar';
 import Box from '@material-ui/core/Box';
 
 import MenuItem from '@material-ui/core/MenuItem';

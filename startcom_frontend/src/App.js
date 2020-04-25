@@ -3,8 +3,8 @@ import {Provider} from 'react-redux';
 import themeFile from "./utils/theme";
 
 import store  from './store'
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import Navbar from "./components/Layout/Navbar";
+import Footer from "./components/Layout/Footer";
 import RegisterBI from './components/businessideas/registerbusinessidea/RegisterBI';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -13,7 +13,8 @@ import HomePage from './components/anonymoususers/homepage/HomePage';
 import Authentication from './components/authentication/Authentication';
 import Login from './components/authentication/login/Login';
 import SignUp from './components/authentication/register/SignUp';
-import AdminDashboard from './components/admin/AdminDashboard.js'
+import AdminDashboard from './components/admin/AdminDashboard.js';
+import './custom.css';
 class App extends Component {
   render() {
   const theme = createMuiTheme(themeFile);
