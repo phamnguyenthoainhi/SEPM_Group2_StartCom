@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import { withStyles } from '@material-ui/core';
 import style from './AdminDashboardStyle.js';
 
-import {fetchUnverifiedEmails, VerifiedEmails} from '../../actions/admin/adminActions.js';
+import {fetchUnverifiedEmails, VerifiedEmails, deleteUser} from '../../actions/admin/adminActions.js';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -27,7 +27,9 @@ class AdminDashboard extends Component {
             success: false,
             unverifiedEmails: [],
             open: false,
-            loadingVerify: false
+            loadingVerify: false,
+            deleteLoading: false,
+            deleteSuccess: false
         };
         
     }
@@ -41,6 +43,16 @@ class AdminDashboard extends Component {
                 unverifiedEmails: this.props.unverifiedEmails
             })
         }
+        if (this.props.deleteLoading !== prevProps.deleteLoading ) {
+            this.setState({
+                deleteLoading: this.props.deleteLoading
+            })
+        }
+        if (this.props.deleteSuccess !== prevProps.deleteSuccess ) {
+            this.setState({
+                deleteSuccess: this.props.deleteSuccess
+            })
+        }
         if (this.props.loadingVerify !== prevProps.loadingVerify ) {
             this.setState({
                 loadingVerify: this.props.loadingVerify
@@ -51,7 +63,7 @@ class AdminDashboard extends Component {
                 loading: this.props.loading
             })
         }
-        if (this.props.success !== prevProps.success && this.props.success === true) {
+        if ((this.props.success !== prevProps.success && this.props.success === true) || (this.props.deleteSuccess !== prevProps.deleteSuccess && this.props.deleteSuccess === true)) {
             // this.setState({
             //     success: this.props.success
             // })
@@ -64,6 +76,11 @@ class AdminDashboard extends Component {
         // this.handleClickOpen()
         this.props.VerifiedEmails(key)
     }
+
+    delete = (id) => {
+        this.props.deleteUser(id)
+    }
+
     handleClickOpen = () => {
         this.setState({
             open: true
@@ -117,6 +134,12 @@ class AdminDashboard extends Component {
                                                 :
                                                 (<Button className ={classes.verifyBtn} onClick={()=> this.verify(row.id)}>Verify</Button>)
                                                 }
+                                                {this.state.deleteLoading
+                                                ? 
+                                                (<ColorCircularProgress variant="indeterminate" size={32} style={{marginTop: "5%"}}/>)
+                                                :
+                                                (<Button className ={classes.deleteBtn} onClick={()=> this.delete(row.id)}>Decline</Button>)
+                                                }
 
                                             </td>
                                         </tr>))
@@ -155,7 +178,8 @@ class AdminDashboard extends Component {
 }
 const mapDispatchToProps = dispatch => ({
     fetchUnverifiedEmails: () => dispatch(fetchUnverifiedEmails()),
-    VerifiedEmails: (id) => dispatch(VerifiedEmails(id))
+    VerifiedEmails: (id) => dispatch(VerifiedEmails(id)),
+    deleteUser: (id) => dispatch(deleteUser(id))
 
   
 })
@@ -163,7 +187,9 @@ const mapStateToProps = state => ({
     unverifiedEmails: state.unverifiedEmails.unverifiedEmails,
     loading: state.emailLoading.emailLoading,
     success: state.verifySuccess.verifySuccess,
-    loadingVerify: state.loadingVerify.loadingVerify
+    loadingVerify: state.loadingVerify.loadingVerify,
+    deleteLoading: state.deleteLoading.deleteLoading,
+    deleteSuccess: state.deleteSuccess.deleteSuccess,
 });
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(AdminDashboard));
 

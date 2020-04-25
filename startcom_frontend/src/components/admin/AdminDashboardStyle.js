@@ -10,7 +10,7 @@ const style = (theme) => ({
     },
     verifyBtn: {
         backgroundColor: theme.color.secondary,
-        color: theme.color.primary3,
+        color: 'black',
         "&:hover" : {
             backgroundColor:  theme.color.secondary,
             color: theme.color.primary2
@@ -20,6 +20,19 @@ const style = (theme) => ({
         fontSize: 13,
         fontFamily: theme.font
         
+    },
+    deleteBtn: {
+        backgroundColor: theme.color.contrast,
+        color: theme.color.primary2,
+        "&:hover" : {
+            backgroundColor:  theme.color.contrast,
+            color: theme.color.primary3
+        },
+        paddingLeft: 20,
+        paddingRight: 20,
+        fontSize: 13,
+        fontFamily: theme.font,
+        marginLeft: 50
     },
     container: {
         marginLeft: 100,

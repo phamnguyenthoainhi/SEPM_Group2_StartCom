@@ -11,7 +11,9 @@ export default combineReducers({
     unverifiedEmails: AdminReducer,
     emailLoading: AdminReducer,
     verifySuccess: AdminReducer,
-    loadingVerify: AdminReducer
+    loadingVerify: AdminReducer,
+    deleteLoading: AdminReducer,
+    deleteSuccess: AdminReducer
 
     
 });

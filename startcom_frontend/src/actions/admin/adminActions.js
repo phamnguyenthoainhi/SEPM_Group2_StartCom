@@ -1,4 +1,4 @@
-import {FETCH_INVESTOR_EMAIL, FETCH_INVESTOR_EMAIL_LOADING, VERIFY_SUCCESS, ADMIN_VERIFY} from '../actionTypes';
+import {FETCH_INVESTOR_EMAIL, FETCH_INVESTOR_EMAIL_LOADING, VERIFY_SUCCESS, ADMIN_VERIFY, DELETE_USER_LOADING, DELETE_USER_SUCCESS} from '../actionTypes';
 
 export const fetchUnverifiedEmails = () => dispatch => {
     dispatch({
@@ -30,5 +30,28 @@ export const VerifiedEmails = (id) => dispatch => {
         dispatch({
             type: VERIFY_SUCCESS
         })) 
+    .then(dispatch(fetchUnverifiedEmails()) )
+}
+
+export const deleteUser = (id) => dispatch => {
+   
+    dispatch({
+        type: DELETE_USER_LOADING
+    })
+    fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/delete_user/${id}`, {
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+
+        },
+        method: 'DELETE'
+    })
+    .then(res => {
+        if (res.status === 200) {
+            dispatch({
+                type: DELETE_USER_SUCCESS
+            })
+        }
+    })
     .then(dispatch(fetchUnverifiedEmails()) )
 }

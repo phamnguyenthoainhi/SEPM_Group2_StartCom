@@ -1,10 +1,12 @@
-import {FETCH_INVESTOR_EMAIL, FETCH_INVESTOR_EMAIL_LOADING, VERIFY_SUCCESS, ADMIN_VERIFY} from '../actions/actionTypes';
+import {FETCH_INVESTOR_EMAIL, FETCH_INVESTOR_EMAIL_LOADING, VERIFY_SUCCESS, ADMIN_VERIFY, DELETE_USER_SUCCESS, DELETE_USER_LOADING} from '../actions/actionTypes';
 
 const initialState = {
     unverifiedEmails: [],
     emailLoading: false,
     verifySuccess: false,
-    loadingVerify: false
+    loadingVerify: false,
+    deleteSuccess: false,
+    deleteLoading: false
 
 
 }
@@ -18,7 +20,9 @@ export default function (state = initialState, action) {
                 unverifiedEmails: action.payload,
                 emailLoading: false,
                 verifySuccess: false,
-                loadingVerify: false
+                loadingVerify: false,
+                deleteSuccess: false,
+                deleteLoading: false
             }
         case FETCH_INVESTOR_EMAIL_LOADING: 
 
@@ -35,6 +39,16 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 loadingVerify: true
+            }
+        case DELETE_USER_SUCCESS: 
+            return {
+                ...state,
+                deleteSuccess: true
+            }
+        case DELETE_USER_LOADING: 
+            return {
+                ...state,
+                deleteLoading: true
             }
         default:
             return state;                
