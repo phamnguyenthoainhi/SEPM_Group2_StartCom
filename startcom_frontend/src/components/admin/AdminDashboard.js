@@ -165,10 +165,8 @@ class AdminDashboard extends Component {
                                 <DialogContent>
                                    
                                                 <Typography gutterBottom className={classes.text}>
-                                                Verify Email Sucessfully!
+                                                Sucess!
                                                 </Typography>
-                                           
-                                    
                                 </DialogContent>
     
                             </Dialog> 

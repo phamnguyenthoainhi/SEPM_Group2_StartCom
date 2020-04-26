@@ -38,7 +38,7 @@ export const deleteUser = (id) => dispatch => {
     dispatch({
         type: DELETE_USER_LOADING
     })
-    fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/delete_user/${id}`, {
+    fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/decline/${id}`, {
         headers: {
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'

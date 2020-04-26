@@ -1,12 +1,9 @@
 const style = (theme) => ({
-    formContainer: {
-        // textAlign: 'center',
-        margin: "70px",
+
+    form: {
+        marginTop: '60px',
         marginLeft: "100px",
         marginRight: "100px"
-    },
-    form: {
-        marginTop: '170px'
     },
     formControl: {
         // margin: theme.spacing(1),

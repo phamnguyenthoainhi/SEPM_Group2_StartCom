@@ -190,7 +190,7 @@ class RegisterBI extends Component {
     render() {
         const {classes} = this.props;
         return (
-            <div className={classes.formContainer} >
+            <div className={classes.formContainer}>
                 <Navbar/>
                     <form className={classes.form} autoComplete="off" onSubmit={this.onSubmit}>
                         <label className={classes.title}> Register Your Business Idea </label>
@@ -216,7 +216,7 @@ class RegisterBI extends Component {
                                 required
                                 InputLabelProps={{
                                     shrink: true,
-                                  }}
+                                }}
                             />
 
                             <TextField label="Description of Business Idea"
@@ -266,7 +266,6 @@ class RegisterBI extends Component {
                                
                                 <FormControl className={classes.formControl}>
                                    
-
                                     <TextField type ='tetx' id="select" label ='Choose your business category' value =''select className ={classes.input} onChange={this.onChange} name ='category'>
                                     <MenuItem value = 'Technology' >Techology</MenuItem>
                                         <MenuItem value = 'Art' >Art</MenuItem>
