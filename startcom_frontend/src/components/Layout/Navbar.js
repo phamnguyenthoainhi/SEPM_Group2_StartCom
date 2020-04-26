@@ -26,6 +26,7 @@ const styles = (theme) => ({
     },
     toolbar: {
         backgroundColor: theme.color.primary3,
+        padding: "0 50px"
     },
     logoBtn: {
         textDecoration: 'none',

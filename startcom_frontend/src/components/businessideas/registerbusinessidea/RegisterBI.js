@@ -138,10 +138,9 @@ class RegisterBI extends Component {
         };
         console.log(JSON.stringify(businessIdea));
         this.props.registerBI(businessIdea);
-        // this.handleClickOpen();   
-        
+        // this.handleClickOpen()
 
-     }
+     };
 
     onSubmit(e) {
         e.preventDefault();

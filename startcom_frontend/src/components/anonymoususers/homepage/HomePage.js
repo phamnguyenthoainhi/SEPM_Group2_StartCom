@@ -15,7 +15,7 @@ class HomePage extends Component {
         return (
             <div className={classes.root}>
                 <Navbar/>
-                <Grid container spacing={0}>
+                <Grid container spacing={0} style={{}}>
                         <Grid item xs={12} sm={12} md={6} className={classes.leftColumn}>
 
                             <Box fontWeight="fontWeightLight" m={1} className={classes.welcomeTitle} >
@@ -24,8 +24,6 @@ class HomePage extends Component {
                             <Box fontWeight="fontWeightLight" m={1}>
                                 Established in 2020 with a simple idea from origin and has been growing into an incredible opportunity for startup community.
                                 Out goal is to develop a community platform that can connect startup owners, investors and consultants together.
-                                {/*StartCom began in 2020 with a simple idea that’s grown into an incredible opportunity for startup community.*/}
-                                {/*To do so, we’ve decided to develop this platform to connect startup owners, investors and consultants together. If you choose to join us, you’ll be taking a step towards the potential partnership.*/}
                             </Box>
 
                             <Button variant="contained" className={classes.joinButton}>Join Us</Button>
@@ -83,12 +81,9 @@ class HomePage extends Component {
                                     </Box>
                                 </Grid>
                             </Grid>
-
                         </Grid>
                         <Footer />
                 </Grid>
-                
-                
             </div>
         )
     }

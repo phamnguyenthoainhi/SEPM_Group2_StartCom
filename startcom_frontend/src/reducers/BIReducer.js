@@ -7,6 +7,7 @@ import {
     DELETE_BI} from '../actions/actionTypes';
 
 const initialState = {
+    loading: false,
     businessIdea: {},
     businessIdeas: [],
     isRegisteredSuccess: false
@@ -22,7 +23,7 @@ export default function (state = initialState, action) {
         case GET_BI:
             return {
                 ...state,
-                businessIdea: action.payload
+                businessIdea: action.payload,
             };
         case IS_REGISTERED_SUCCESS:
             return {

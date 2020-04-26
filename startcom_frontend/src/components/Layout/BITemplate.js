@@ -7,45 +7,46 @@ import logo from '../../images/company_logo.png';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from "@material-ui/core/Typography";
-import Chip from '@material-ui/core/Chip';
 import CardMedia from "@material-ui/core/CardMedia";
 import CardActionArea from '@material-ui/core/CardActionArea';
+import Grid from "@material-ui/core/Grid";
 
 
 
 const styles = (theme) => ({
     cardWrapper: {
-        maxWidth: 'auto',
-        minWidth: 'auto',
-        minHeight: 400,
-        [theme.breakpoints.down('sm')]: {
-
-        },
+        border: '.5px solid grey',
+        // maxWidth: 'auto',
+        // minWidth: 'auto',
+        // minHeight: 400,
+        // height: 'auto',
         "&:hover": {
             cursor: 'pointer',
+            border: '.5px solid grey',
         },
-
     },
     cardImage: {
         objectFit: 'cover',
         width: '100%',
-        maxHeight: '100%'
+        maxHeight: '100%',
+
     },
     cardContent: {
-        padding: 20
+        padding: '10px 20px'
     },
     cardTitle: {
-        fontFamily: theme.font1,
-        fontWeight: 600,
+        fontFamily: theme.font2,
+        fontWeight: 700,
+        lineHeight: 'normal',
         [theme.breakpoints.down('sm')]: {
-            fontSize: 22
+            fontSize: 15
         },
         [theme.breakpoints.down('xs')]: {
-            fontSize: 20
+            fontSize: 14
         }
     },
     cardDescription: {
-        fontFamily: theme.font1,
+        fontFamily: theme.font2,
         [theme.breakpoints.down('sm')]: {
             fontSize: 13
         },
@@ -54,8 +55,8 @@ const styles = (theme) => ({
         }
     },
     cardCategory: {
-        fontFamily: theme.font1,
-        fontWeight: 600,
+        fontFamily: theme.font2,
+        fontWeight: 700,
         margin: 0,
         [theme.breakpoints.down('sm')]: {
             fontSize: 15
@@ -67,26 +68,28 @@ const styles = (theme) => ({
 
     investorTrue: {
         fontFamily: theme.font1,
-        fontSize: 15,
+        fontSize: 13,
         fontWeight: 600,
+        textTransform: 'uppercase',
         color: theme.color.secondary,
         [theme.breakpoints.down('sm')]: {
-            fontSize: 14
+            fontSize: 12
         },
         [theme.breakpoints.down('xs')]: {
-            fontSize: 13
+            fontSize: 11
         }
     },
     investorFalse: {
         fontFamily: theme.font1,
-        fontSize: 15,
+        fontSize: 13,
         fontWeight: 600,
+        textTransform: 'uppercase',
         color: '#C75D5D',
         [theme.breakpoints.down('sm')]: {
-            fontSize: 14
+            fontSize: 12
         },
         [theme.breakpoints.down('xs')]: {
-            fontSize: 13
+            fontSize: 11
         }
     },
     consultantTrue: {
@@ -103,13 +106,22 @@ const styles = (theme) => ({
         marginBottom: 20
     },
     cardFunding: {
-        fontFamily: theme.font1,
-        fontWeight: 600,
+        fontFamily: theme.font2,
         [theme.breakpoints.down('sm')]: {
-            fontSize: 15
+            fontSize: 13
         },
         [theme.breakpoints.down('xs')]: {
-            fontSize: 14
+            fontSize: 12
+        }
+    },
+    value: {
+        fontFamily: theme.font2,
+        fontWeight: 700,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 13
+        },
+        [theme.breakpoints.down('xs')]: {
+            fontSize: 12
         }
     },
     dividerTrue: {
@@ -137,52 +149,6 @@ class BITemplate extends Component {
         }
     }
 
-    // componentDidMount() {
-    //     this.setState({
-    //         idea: this.props.idea
-    //     })
-    // }
-
-    // handleChange = (event) => {
-    //     this.setState({[event.target.name]: event.target.value})
-    // };
-
-    // handleClickOpen = () => {
-    //     this.setState({
-    //         open: true
-    //     })
-    // };
-    //
-    // handleClose = () => {
-    //     this.setState({
-    //         open: false
-    //     })
-    // };
-
-    // delete = () => {
-    //     const id = this.props.idea.id;
-    //     this.props.deleteBI(id)
-    // };
-
-    // submit = () => {
-    //     const id = this.props.idea.id;
-    //     const businessIdea = {
-    //         name: this.state.name,
-    //         description: this.state.description,
-    //         targetFunding: this.state.targetFunding,
-    //         date: this.state.date
-    //     };
-    //
-    //     console.log(`
-    //     ID: ${this.props.idea.id}
-    //     Name: ${this.state.name}
-    //     Description: ${this.state.description}
-    //     Target Funding: ${this.state.targetFunding}
-    //     Date: ${this.state.date}
-    //     `);
-    //     this.props.updateBI(businessIdea,id);
-    //     this.handleClose()
-    // };
     onMouseOver = () => {
         this.setState({
             cardElevation: 8
@@ -202,58 +168,74 @@ class BITemplate extends Component {
         const { cardElevation } = this.state;
         return (
             <CardActionArea onMouseOver={this.onMouseOver}  onMouseOut={this.onMouseOut}>
-                <Card className={classes.cardWrapper} elevation={cardElevation} >
-                    <CardMedia
-                        component="img"
-                        alt="Company Logo"
-                        height="140"
-                        image={logo}
-                        title="Company Logo"
-                        className={classes.cardImage}
-                    >
+                <Card className={classes.cardWrapper} elevation={cardElevation}>
+                    {idea.image ? (
+                        <CardMedia
+                            component="img"
+                            alt="Company Logo"
+                            height="140"
+                            image={idea.image}
+                            title="Company Logo"
+                            className={classes.cardImage}
+                        >
+                        </CardMedia>
+                    ) : (
+                        <CardMedia
+                            component="img"
+                            alt="Company Logo"
+                            height="140"
+                            image={logo}
+                            title="Company Logo"
+                            className={classes.cardImage}
+                        >
+                        </CardMedia>
+                    )}
 
-                    </CardMedia>
+
                     <CardContent className={classes.cardContent}>
                         {idea.needInvestor ? (
-                            <Typography className={classes.investorTrue} variant="subtitle2" gutterBottom>
+                            <Typography className={classes.investorTrue} variant="subtitle2">
                                 Funding
                             </Typography>
                         ) : (
-                            <Typography className={classes.investorFalse} variant="subtitle2" gutterBottom>
+                            <Typography className={classes.investorFalse} variant="subtitle2">
                                 Funding Closed
                             </Typography>
                         )}
 
-                        <Typography variant="h5" component="h5" className={classes.cardTitle}>
-                            {idea.name}
-                        </Typography>
-                        <Typography variant="subtitle2"  component="p" gutterBottom className={classes.cardDescription}>
-                            {idea.description}
-                        </Typography>
-                        <br/>
+                        <Grid container style={{height: 150}} direction='column'>
+                            <Typography variant="subtitle1" component="h5" className={classes.cardTitle} gutterBottom>
+                                {idea.name}
+                            </Typography>
+
+                            <Typography variant="subtitle2"  component="p" gutterBottom className={classes.cardDescription}>
+                                {idea.description}
+                            </Typography>
+                        </Grid>
+
                         <Typography gutterBottom variant="subtitle1" className={classes.cardCategory}>
                             {idea.category}
                         </Typography>
-                        {idea.needConsultant ? (
-                            <Chip
-                                className={classes.consultantTrue}
-                                label="Consultancy Required"
-                            />
-                            ) : (
-                            <Chip
-                                className={classes.consultantFalse}
-                                label="Consultancy Occupied"/>
+
+                        <Grid container direction="row" justify='space-between'>
+                            <Typography variant="subtitle2" className={classes.cardFunding}>
+                                Target Funding:
+                            </Typography>
+                            <Typography variant="subtitle2" className={classes.value}>
+                               ${idea.targetFunding}
+                            </Typography>
+                        </Grid>
+
+                        {idea.needInvestor ? (
+                            <div className={classes.dividerTrue}/>
+                        ) : (
+                            <div className={classes.dividerFalse}/>
                         )}
 
-                        <Typography variant="subtitle1" className={classes.cardFunding}>
-                            Target Funding: $ {idea.targetFunding}
-                        </Typography>
-                        <div className={classes.dividerTrue}/>
+
                     </CardContent>
                 </Card>
             </CardActionArea>
-
-
         )
     }
 }

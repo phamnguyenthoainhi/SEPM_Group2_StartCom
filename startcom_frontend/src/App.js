@@ -14,6 +14,7 @@ import Login from './components/authentication/login/Login';
 import SignUp from './components/authentication/register/SignUp';
 import DisplayBIS from "./components/businessideas/displaybusinessideas/DisplayBIS";
 import BIDetail from './components/Layout/BIDetail';
+import BISkeleton from "./components/Layout/BISkeleton";
 
 class App extends Component {
   render() {
@@ -30,6 +31,7 @@ class App extends Component {
                   <Route exact path={'/signup'} render={(props) => <SignUp {...props} />} />
                   <Route exact path={'/displayBIS'} render={(props) => <DisplayBIS {...props} />} />
                   <Route exact path={'/detail/:id'} render={(props) => <BIDetail {...props} />} />
+                  <Route exact path={'/skeleton'} render={(props) => <BISkeleton {...props} />} />
                 </ThemeProvider>
           </Provider>
       </BrowserRouter>

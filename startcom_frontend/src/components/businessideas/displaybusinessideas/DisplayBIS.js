@@ -6,10 +6,11 @@ import BITemplate from '../../Layout/BITemplate';
 import Grid from "@material-ui/core/Grid";
 import Navbar from '../../Layout/Navbar';
 import Footer from '../../Layout/Footer';
+import BISkeleton from "../../Layout/BISkeleton";
 
 const styles = (theme) => ({
     gridContainer: {
-        flexGrow: 1
+        flexGrow: 1,
     },
     contentContainer: {
         padding: 80,
@@ -37,17 +38,23 @@ class DisplayBIS extends Component {
     };
 
     render() {
-        const { classes, businessIdeas } = this.props;
+        const { classes, businessIdeas, loading } = this.props;
         return (
             <Grid container className={classes.gridContainer}>
                 <Navbar/>
-                <Grid container className={classes.contentContainer}>
-                {businessIdeas.map((idea,index) => (
-                    <Grid item md={4} lg={3} sm={4} xs={6} key={index} onClick={() => this.onBICardClick(idea.id)} style={{padding: 20}}>
-                        <BITemplate  idea={idea}  />
+                {loading ? (
+                    <BISkeleton/>
+                ) : (
+                    <Grid container className={classes.contentContainer}>
+                        {businessIdeas.map((idea,index) => (
+                            <Grid item md={4} lg={3} sm={4} xs={6} key={index} onClick={() => this.onBICardClick(idea.id)} style={{padding: 20}}>
+                                <BITemplate  idea={idea} loading={loading} />
+                            </Grid>
+                        ))}
                     </Grid>
-                ))}
-                </Grid>
+                )}
+
+
                 <Footer/>
             </Grid>
         )
@@ -60,6 +67,7 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
     businessIdeas: state.businessIdeas.businessIdeas,
+    loading: state.UI.loading
 });
 
 

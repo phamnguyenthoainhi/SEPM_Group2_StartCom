@@ -3,21 +3,57 @@ import {connect} from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles'
 //Material UI
 import Skeleton from '@material-ui/lab/Skeleton';
+import Grid from "@material-ui/core/Grid";
+import CardContent from "@material-ui/core/CardContent";
+import Card from "@material-ui/core/Card/Card";
 
 
 
 const styles = (theme) => ({
-    cardWrapper: {
-        maxWidth: 'auto',
-        minWidth: 275
+    container: {
+        padding: 80,
+        [theme.breakpoints.down('sm')]: {
+            padding: 40
+        }
     },
     cardContent: {
-        padding: 20
+        padding: '10px 20px'
     },
-    cardTitle: {
-        fontFamily: theme.font
-    }
+    cardWrapper: {
+        border: '.5px solid grey',
+    },
+    imageSke: {
+        height: 140,
+        width: 'auto',
+        backgroundColor: '#a4a4a4'
+    },
+    investorSke: {
+        width: 120,
+        height: 20,
+        backgroundColor: '#a4a4a4',
+        margin: "10px 0"
+    },
+    bodySke: {
+        width: 'auto',
+        height: 100,
+        margin: '10px 0',
+        backgroundColor: '#a4a4a4',
+    },
+    categorySke: {
+        width: 130,
+        height: 20,
+        backgroundColor: '#a4a4a4',
+        margin: "10px 0"
+    },
+    fundingSke: {
+        width: 'auto',
+        backgroundColor: '#a4a4a4',
+        height: 30
+    },
+    skeletonWrapper: {
+        padding: 20,
 
+    }
 });
 
 class BISkeleton extends Component {
@@ -27,25 +63,32 @@ class BISkeleton extends Component {
 
         }
     }
-
-
-
     render() {
-
-        const { classes, idea } = this.props;
-        const { open } = this.state;
+        const { classes } = this.props;
         return (
-            <Skeleton>
+            <Grid container className={classes.container}>
+                {Array.from({length: 3}).map((item, index) => (
+                    <Grid item md={4} lg={3} sm={4} xs={6} key={index} style={{padding: 20}}>
+                        <Card className={classes.cardWrapper}>
+                            <Skeleton variant="rect" className={classes.imageSke}/>
+                            <CardContent className={classes.cardContent}>
+                                <Skeleton variant="rect" className={classes.investorSke}/>
+                                <Skeleton variant="rect" className={classes.bodySke}/>
+                                <Skeleton variant="react" className={classes.categorySke}/>
+                                <Skeleton variant="react" className={classes.fundingSke}/>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                ))}
+            </Grid>
 
-            </Skeleton>
 
         )
     }
 }
 
 const mapDispatchToProps = dispatch => ({
-    updateBI: (businessIdea,id) => dispatch(updateBI(businessIdea,id)),
-    deleteBI: (id) => dispatch(deleteBI(id))
+
 });
 
 const mapStateToProps = state => ({

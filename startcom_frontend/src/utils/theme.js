@@ -11,5 +11,6 @@ const theme = createMuiTheme({
         contrast: "#718F94",
     },
     font1: "'Raleway', sans-serif;",
+    font2: "'Manrope', sans-serif;",
 });
 export default theme;

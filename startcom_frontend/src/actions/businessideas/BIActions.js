@@ -5,18 +5,22 @@ import {
     RESET_REGISTER,
     UPDATE_BI,
     DELETE_BI,
+    UPDATING_BI,
+    UPDATE_BI_SUCCESS, RESET_UI_STATE, GETTING_ALL_BIS, GET_ALL_BIS_SUCCESS
 
 } from '../actionTypes';
 
 
 export const getAllBIS = () => dispatch =>  {
+    dispatch({ type: GETTING_ALL_BIS});
     fetch('https://asia-east2-startcom-sepm.cloudfunctions.net/api/get_all_business_ideas')
         .then (res => res.json())
         .then(businessIdeas =>
             dispatch({
                 type: GET_ALL_BIS,
                 payload: businessIdeas
-            }))
+            }));
+            dispatch({ type: GET_ALL_BIS_SUCCESS })
 };
 
 export const getBI = (id) => dispatch => {
@@ -28,21 +32,6 @@ export const getBI = (id) => dispatch => {
                 payload: businessIdea
             }))
 };
-
-// .then((res) => {
-//     console.log("res "+ res.status);
-//     if(res.status === 200) {
-//         dispatch({
-//             type: UPDATE_BI,
-//             payload: res.data
-//         });
-//         return res.json();
-//     } else
-//         return res.error;
-// })
-//     .then(() => dispatch(
-//         getAllBIS()
-//     ))
 
 export const resetRegisterStatus = () => dispatch => {
     dispatch({
@@ -82,6 +71,7 @@ export const registerBI = (BIData) => dispatch => {
 };
 
 export const updateBI = (BIData, id) => dispatch => {
+    dispatch({ type: UPDATING_BI});
     fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/edit_business_idea/${id}`, {
         method: 'PUT',
         headers: {
@@ -91,19 +81,12 @@ export const updateBI = (BIData, id) => dispatch => {
         body: JSON.stringify(BIData)
     })
         .then((res) => {
-            console.log("res "+ res.status);
-            if(res.status === 200) {
-                dispatch({
-                    type: UPDATE_BI,
-                    payload: res.data
-                });
-                return res.json();
-            } else
-                return res.error;
+            dispatch({
+                type: UPDATE_BI,
+                payload: res.data
+            });
+            dispatch({type: UPDATE_BI_SUCCESS});
         })
-        .then(() => dispatch(
-            getAllBIS()
-        ))
 };
 
 

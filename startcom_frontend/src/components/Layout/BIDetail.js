@@ -14,11 +14,6 @@ import Typography from "@material-ui/core/Typography";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-
-
-import Chip from "@material-ui/core/Chip";
 import UpdateBIForm from "./UpdateBIForm";
 
 
@@ -203,6 +198,7 @@ class BIDetail extends Component {
             idea: {},
             toggleUpdate: false,
             openUpdateForm: false,
+            openDeleteDialog: false
         }
     }
 
@@ -237,7 +233,7 @@ class BIDetail extends Component {
 
 
     render() {
-        console.log(this.props.businessIdea);
+        // console.log(this.props.businessIdea);
         const { classes, businessIdea } = this.props;
         const { openDeleteDialog, toggleUpdate } = this.state;
         return (
@@ -245,14 +241,14 @@ class BIDetail extends Component {
                 <Navbar/>
                 <Grid container className={classes.detailWrapper}>
                     <Grid container spacing={5}>
-                        <Grid item md={7}>
+                        <Grid item md={7} sm={6}>
                             {businessIdea.image === '' ? (
                                 <img src={defaultLogo} className={classes.companyLogo}/>
                             ) :
                                 <img src={businessIdea.image} className={classes.companyLogo} />
                             }
                         </Grid>
-                        <Grid item md={5}>
+                        <Grid item md={5} sm={6}>
                             {businessIdea.needInvestor ? (
                                 <Typography className={classes.investorTrue} variant="subtitle1" gutterBottom>
                                     Funding
@@ -306,6 +302,7 @@ class BIDetail extends Component {
                     </Grid>
                 </Grid>
                 <Dialog
+                    keepMounted
                     className={classes.dialog}
                     open={openDeleteDialog}
                     onClose={this.closeDeleteDialog}
@@ -333,7 +330,7 @@ class BIDetail extends Component {
                     </DialogActions>
                 </Dialog>
 
-                <UpdateBIForm open={toggleUpdate} close={this.toggleUpdateForm} ideaInfo={businessIdea}/>
+                <UpdateBIForm open={toggleUpdate} close={this.toggleUpdateForm} businessIdea={businessIdea}/>
 
                 <Footer/>
             </Grid>
