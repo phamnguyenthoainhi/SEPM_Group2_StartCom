@@ -14,7 +14,7 @@ const {
     signUp,signIn, getAllInvestors, getAllConsultants,
     editProfile, deleteAccount, validateFirebaseIdToken,
     deleteUser, getProfile, sendEmailByUser,
-    getUnverifiedInvestors,verifyInvestor
+    getUnverifiedInvestors,verifyInvestor, declineInvestor
 } = require('./handlers/user')
 
 app.get("/get_all_business_ideas",getAllBusinessIdeas);
@@ -34,6 +34,7 @@ app.delete("/delete_user/:id",validateFirebaseIdToken,deleteUser)
 app.post("/send_email",sendEmailByUser)
 app.get("/get_unverified",getUnverifiedInvestors)
 app.get("/verify/:id",verifyInvestor)
+app.delete("/decline/:id",declineInvestor)
 
 //app.post("/upload_image",uploadImage)
 exports.api = functions.region('asia-east2').https.onRequest(app);

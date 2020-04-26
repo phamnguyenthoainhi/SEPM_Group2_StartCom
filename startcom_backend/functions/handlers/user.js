@@ -118,52 +118,101 @@ exports.getAllConsultants = (req, res) => {
         })
 }
 
-exports.getProfile = (req,res) =>{
+exports.getProfile = (req, res) => {
     return db.collection('User').doc(req.params.id).get()
-        .then(doc=>{
+        .then(doc => {
             const user = doc.data()
             user.id = doc.id
             return res.json(user)
         })
-        .catch(error=>{
+        .catch(error => {
             console.log(error)
             return res.json(error)
         })
 }
 
-exports.getUnverifiedInvestors = (req,res)=>{
+exports.getUnverifiedInvestors = (req, res) => {
     const list = []
-    return db.collection('User').where('type','==','investor').get()
-        .then(query=>{
+    return db.collection('User').where('type', '==', 'investor').get()
+        .then(query => {
             console.log('abc')
-            query.forEach(doc=>{
-                if(doc.data().verified===false)
-                {
+            query.forEach(doc => {
+                if (doc.data().verified === false) {
                     const user = {
-                        email:doc.data().email,
-                        id:doc.id
+                        email: doc.data().email,
+                        id: doc.id
                     }
                     list.push(user)
                 }
-                
+
             })
             return res.json(list)
         })
-        .catch(error=>{
+        .catch(error => {
             console.log(error)
             return res.json(error)
         })
 }
 
-exports.verifyInvestor = (req,res)=>{
-    return db.collection('User').doc(req.params.id).update({verified: true})
-        .then(()=>{
-            return res.status(200).send('Success')
-        })
-        .catch(error=>{
-            console.log(error)
-            return res.json(error)
-        })
+exports.verifyInvestor = async (req, res) => {
+    try {
+        const user = await (await db.collection('User').doc(req.params.id).get()).data()
+        if (user !== undefined && user !== null && user.type === 'investor') {
+            const mailOption = {
+                from: "Startcom",
+                to: user.email,
+                subject: `Verification completed`,
+                text: `Dear ${user.email}, we have verified that you are a legitimate investor. Thank you for your cooperation.`
+            }
+            return Promise.all([db.collection('User').doc(req.params.id).update({ verified: true }),
+                sendEmail(mailOption)])
+                .then(() => {
+                    return res.status(200).send('Success')
+                })
+                .catch(error => {
+                    console.log(error)
+                    return res.json(error)
+                })
+        }
+        else{
+            return res.status(404).send('User does not exist or is not an investor')
+        }
+    }
+    catch (error) {
+        console.log(error)
+        return res.json(error)
+    }
+
+}
+
+exports.declineInvestor = async (req,res) =>{
+    try {
+        const user = await (await db.collection('User').doc(req.params.id).get()).data()
+        if (user !== undefined && user !== null && user.type==='investor') {
+            const mailOption = {
+                from: "Startcom",
+                to: user.email,
+                subject: `Unable to verify`,
+                text: `Dear ${user.email}, we were unable to verify your credibility as an investor. Therefore, your account has been deleted. We deeply apologize for any inconvenience caused.`
+            }
+            return Promise.all([admin.auth().deleteUser(req.params.id),
+                sendEmail(mailOption)])
+                .then(() => {
+                    return res.status(200).send('Success')
+                })
+                .catch(error => {
+                    console.log(error)
+                    return res.json(error)
+                })
+        }
+        else{
+            return res.status(404).send('User does not exist or is not an investor')
+        }
+    }
+    catch (error) {
+        console.log(error)
+        return res.json(error)
+    }
 }
 
 exports.deleteAccount = (userRecord) => {
@@ -191,28 +240,28 @@ exports.deleteUser = (req, res) => {
     }
 }
 
-exports.sendEmailByUser = async (req,res)=>{
+exports.sendEmailByUser = async (req, res) => {
     try {
         const sender = await (await db.collection('User').doc(req.body.sender).get()).data().email
         const receiver = await (await db.collection('User').doc(req.body.receiver).get()).data().email
 
         const mailOption = {
-            from:sender,
-            to:receiver,
-            subject:`From ${sender}: ${req.body.subject}`,
-            text:req.body.text   
+            from: sender,
+            to: receiver,
+            subject: `From ${sender}: ${req.body.subject}`,
+            text: req.body.text
         }
         return sendEmail(mailOption)
-            .then(()=>{
+            .then(() => {
                 return res.status(200).send('Success')
             })
-            .catch(error=>{
+            .catch(error => {
                 console.log(error)
                 return res.json(error)
             })
 
     }
-    catch (error){
+    catch (error) {
         console.log(error)
         return res.json(error)
     }
