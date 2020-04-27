@@ -20,6 +20,12 @@ const styles = (theme) => ({
   media: {
     width: "200px",
     height: "100px"
+  },
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+      width: '25ch',
+    },
   }
 
 });
@@ -39,86 +45,75 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const getUnique = (items, value) => {
-  return [...new Set(items.map(item => item[value]))];
-};
-
-
 class BIsearch extends Component {
   constructor(props) {
     super(props);
-    this.child = React.createRef();
     this.state = {
       name: '',
       allOrFound: 'all',
-      foundIdeas: ""
-
+      foundIdeas: [],
+      keywords: [],
     };
+    this.handleChange = this.handleChange.bind(this);
+    // this.searchByname = this.searchByname.bind(this);
+  };
+  
+
+  componentDidMount() {
+    this.props.fetchBI();
   };
 
-  updateSearch(event) {
-    this.setState({ search: event.target.value.substr(0, 20) });
-
+  componentDidUpdate(prevProps) {
+    console.log(JSON.stringify(this.props.businessIdeas))
+    if (this.props.businessIdeas !== prevProps.businessIdeas) {
+      this.setState({
+        keywords: this.props.businessIdeas
+      })
+    }
   };
 
-  updateState(e) {
-    let obj = {};
-    obj[e.target.name] = e.target.value;
-    this.setState(obj);
-  };
-
-  handleDetail = (name) => {
-    const idea = this.getIdea(name);
-    this.setState({})
-  };
-
-  //set all and set found value
-  setAll = () => { this.setState({ allOrFound: "all" }) };
-  setFound = () => { this.setState({ allOrFound: "found" }) };
+  // searchByname = (name) => {
+  //   let businessIdeas = this.state.keywords.filter(businessIdea => businessIdea.name.toLowerCase().indexOf(name.toLowerCase()) !== -1);
+  //   console.log(businessIdeas)
+  //   return businessIdeas;
+  //   // const id = this.props.sortedIdeas.id;
+  // };
 
   handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value })
   };
 
-  searchBI = (name) => {
-    let matchingIdeas = this.state.ideas.filter(idea => idea.name.toLowerCase().indexOf(name.toLowerCase()) > -1);
-    this.setState({ foundIdeas: matchingIdeas })
-  }
-
   backToPageOne = () => { this.child.current.handlePageChange(1) };
 
   render() {
-    let filterIdeas = this.props.ideas;
+    // console.log(this.searchByname("hello"));
+    // console.log(this.searchByname("test"));
+    const { classes } = this.props;
 
-    const { name } = this.props;
     return (
-      <div>
-      {/*
-        <h5>Search By Name</h5>
-        <input list="IdeaList" type="text" placeholder="name" value={name} onChange={this.updateState}></input>
-        
-        <datalist id="IdeaList">
-          {filterIdeas.map(
-            (name, i) => <option value={name} key={i}></option>
-          )}
-        </datalist>
+      <div className={classes}>
+        <div className="container">
+          <h1 className=""> Search for An Idea</h1>
+          <form id="searchForm">
+            <TextField id="standard-basic" label="Standard" onChange={this.props.handleChange} value={this.props.name} />
+            <button type="submit" className="btn btn-primary btn-bg mt-3" onClick={this.props.triggerParentUpdate}>
+              Search
+            </button>
 
-        <button className="btn btn-primary" onClick={() => { filterIdeas.searchBI(name); filterIdeas.setFound(); this.backToPageOne() }}>Search</button>
-        <br /><br />
-          */}
+          </form>
+        </div>
       </div>
-
     )
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   fetchBI: () => dispatch(fetchBI()),
-  updateBI: (businessIdea, id) => dispatch(updateBI(businessIdea, id))
+
 });
 
 const mapStateToProps = state => ({
   businessIdeas: state.businessIdeas.businessIdeas,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(BIsearch));
+export default connect(mapStateToProps, mapDispatchToProps)((BIsearch));

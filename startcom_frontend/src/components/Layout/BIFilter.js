@@ -1,147 +1,100 @@
 import React, { Component, useContext } from 'react'
 import { fetchBI, deleteBI, updateBI } from "../../actions/businessideas/BIActions";
+import { connect } from "react-redux";
+import withStyles from '@material-ui/core/styles/withStyles';
 
 const IdeaContext = React.createContext();
 
-export default class BIFilter extends Component {
-    state = {
-        ideas: [],
-        sortedIdeas: [],
-        featuredIdeas: [],
-        category: "all",
-        targerFunding: 0,
-        minFunding: 0,
-        maxFunding: 0,
-        needConsultant: false,
-        needInvestor: false
-    };
+class BIFilter extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            ideas: [],
+            items: [],
+            sortedIdeas: [],
+            foundIdeas: [],
+            category: "",
+            targerFunding: "",
+            minFunding: "",
+            maxFunding: "",
+            needConsultant: false,
+            needInvestor: false
+        };
+        this.handleChange = this.handleChange.bind(this);
+    }
 
     componentDidMount() {
         this.props.fetchBI();
-        
-        let ideas = this.formatData(items)
-        let featuredIdeas = ideas.filter(idea => idea.featured === true);
-        let maxFunding = Math.max(...ideas.map(idea => idea.targerFunding));
 
-        this.setState({
-            ideas,
-            featuredIdeas,
-            sortedIdeas: ideas,
-            targerFunding: maxFunding,
-            maxFunding,
-        })
     };
 
-    formatData(ideas) {
-        let tempIdeas = ideas.map(idea => {
-            let name = idea.sys.name;
-            let idea = { ...idea.field, name };
-
-            return idea;
-        });
-        return tempIdeas;
+    componentDidUpdate(prevProps) {
+        console.log(JSON.stringify(this.props.businessIdeas))
+        if (this.props.businessIdeas !== prevProps.businessIdeas) {
+            this.setState({
+                items: this.props.businessIdeas
+            })
+        }
     };
 
-    getIdea = category => {
-        let tempIdeas = [...this.state.ideas];
-        const idea = tempIdeas.find(idea => idea.category === category);
-        return idea;
+    handleChange = (event) => {
+        this.setState({ [event.target.name]: event.target.value })
     };
 
-    handleChange = event => {
-        const target = event.target;
-        const value = target.category === "checkbox" ? target.checked : target.value;
-        const name = target.name;
+    // getIdea = category => {
+    //     console.log("abcxyz")
+    //     // let tempIdeas = this.state.ideas;
+    //     const idea = this.state.items.find(idea => idea.category === category);
+    //     console.log(idea)
+    //     return idea;
 
-        this.setState(
-            {
-                [name]: value
-            },
-            this.filterIdeas
-        );
+    // };
+
+    //filter Idea by Category
+    filterCategory = (category) => {
+        const sortedIdeas = this.state.items.filter(idea => idea.category === category);
+        return sortedIdeas;
     };
-    filterIdeas = () => {
-        let {
-            ideas,
-            name,
-            category,
-            description,
-            date,
-            targetFunding,
-            needConsultant,
-            needInvestor
-        } = this.state;
 
-        let tempIdeas = [...ideas];
+    //filter idea by target funding
+    filterTargerFunding = (minFunding, maxFunding) => {
+        let sortedIdeas = this.state.items.filter(idea => parseFloat(idea.targerFunding) >= minFunding && parseFloat(idea.targerFunding) <= maxFunding);
+        return sortedIdeas;
 
-        //filter by category 
-        if (category !== "all") {
-            tempIdeas = tempIdeas.filter(idea => idea.category === category);
-        };
+    };
 
-        //filter by targetFunding
-        tempIdeas = tempIdeas.filter(idea => idea.targerFunding <= targetFunding);
+    //filter idea by consultants 
+    filterConsultant = (needConsultant) => {
+        let sortedIdeas = this.state.items.filter(idea => idea.needConsultant === true);
+        return sortedIdeas;
+    };
 
-        //filter by consultant
-        if (needConsultant) {
-            tempIdeas = tempIdeas.filter(idea => idea.needConsultant === true);
-        };
-
-        //filter by investor 
-        if (needInvestor){
-            tempIdeas = tempIdeas.filter(idea => idea.needInvestor === true);
-        };
-        this.setState({
-            sortedIdeas: tempIdeas
-        });
+    //filter idea by investor 
+    filterInvestor = (needInvestor) => {
+        let sortedIdeas = this.state.items.filter(idea => idea.needInvestor === true);
+        return sortedIdeas;
     };
 
     render() {
-        const {handleChange, categories} = this.props;
+
         return (
-            <section className = "filter-container">
-                <form className ="filter-form">
-                    {/*Filter by Category*/}
-                    <div>
-                        <label>Category</label>
-                        <select name = "category" 
-                        id ="category" 
-                        onChange ={handleChange} 
-                        className ="form-control" 
-                        value ={categories}> {categories} </select>
-                    </div>
-                </form>
-            </section>
+            <div>
+                <label>Idea Category</label>
+                <select name="category" id="category" onChange={this.handleChange} value={this.state.category}> {this.state.category}</select>
+            </div>
+
         )
     }
 }
 
-//get all unique value
-const getUnique = (items, value) => {
-    return [...new Set(items.map(item => item[value]))];
-  };
 
-const IdeaFilter = ({ideas}) => {
-    const context = useContext(IdeaContext);
-    const {
-        handleChange,
-        category,
-        name, 
-        targerFunding,
-        minFunding,
-        maxFunding,
-        needConsultant,
-        needInvestor
-    } = context;
+const mapDispatchToProps = dispatch => ({
+    fetchBI: () => dispatch(fetchBI()),
+});
 
-    //get unique types
-    let categories = getUnique(ideas, "category");
-    //add all 
-    categories = ["all", ...categories];
-    //map
-    categories = categories.map((item, index)=>(
-        <option key ={index} value ={name}> 
-        {name}
-        </option>
-    ))
-}
+const mapStateToProps = state => ({
+    businessIdeas: state.businessIdeas.businessIdeas,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)((BIFilter));
+

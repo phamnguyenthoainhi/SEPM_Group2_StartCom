@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import withStyles from '@material-ui/core/styles/withStyles'
+import withStyles from '@material-ui/core/styles/withStyles';
 //Material UI
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -24,8 +24,8 @@ const styles = (theme) => ({
 
     },
     media: {
-        width: 200,
-        height: 100
+        width: "200px",
+        height: "100px"
     }
 
 });
@@ -42,7 +42,6 @@ class BITemplate extends Component {
             description: "",
             date: "",
             targetFunding: "",
-            
         }
     }
 
@@ -91,9 +90,9 @@ class BITemplate extends Component {
     };
 
     render() {
-
         const { classes, idea } = this.props;
         const { open } = this.state;
+        
         return (
             <Card className={classes.cardWrapper}>
                 <CardMedia
@@ -112,6 +111,9 @@ class BITemplate extends Component {
                         {idea.description}
                     </Typography>
                     <br />
+                    <Typography>
+                        Date: {idea.date}
+                    </Typography>
                     <Typography variant="h6" component="h2">
                         Funding Target: $ {idea.targetFunding}
                     </Typography>
