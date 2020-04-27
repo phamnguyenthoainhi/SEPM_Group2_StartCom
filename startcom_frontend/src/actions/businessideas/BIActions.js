@@ -6,7 +6,7 @@ import {
     UPDATE_BI,
     DELETE_BI,
     UPDATING_BI,
-    UPDATE_BI_SUCCESS, RESET_UI_STATE, GET_ALL_BIS_SUCCESS, LOADING_DATA, STOP_LOADING_DATA
+    UPDATE_BI_SUCCESS, RESET_UI_STATE, LOADING_DATA, STOP_LOADING_DATA
 
 } from '../actionTypes';
 
@@ -14,22 +14,28 @@ import {
 export const getAllBIS = () => dispatch =>  {
     dispatch({ type: LOADING_DATA});
     fetch('https://asia-east2-startcom-sepm.cloudfunctions.net/api/get_all_business_ideas')
-        .then (res => res.json())
-        .then(res =>
-            dispatch({
-                type: GET_ALL_BIS,
-                payload: res
-            }));
+        .then (res =>
+            res.json().then(function (data) {
+                dispatch({
+                    type: GET_ALL_BIS,
+                    payload: data
+                })
+            })
+                // .then(dispatch({type:STOP_LOADING_DATA}))
+        )
+
 };
 
 export const getBI = (id) => dispatch => {
     fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/get_business_idea/${id}`)
-        .then (res => res.json())
-        .then(businessIdea =>
-            dispatch({
-                type: GET_BI,
-                payload: businessIdea
-            }))
+        .then (res =>
+                res.json().then(function (data) {
+                    dispatch({
+                        type: GET_BI,
+                        payload: data
+                    })
+                })
+        )
 };
 
 export const resetRegisterStatus = () => dispatch => {

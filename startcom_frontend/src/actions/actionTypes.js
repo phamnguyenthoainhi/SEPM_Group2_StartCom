@@ -6,11 +6,9 @@ export const LOGIN = 'LOGIN';
 //Business Idea CRUD Types
 export const GET_ALL_BIS = 'GET_ALL_BIS';
 export const GETTING_ALL_BIS = 'GETTING_ALL_BIS';
-export const GET_ALL_BIS_SUCCESS = 'GET_ALL_BIS_SUCCESS';
+
 export const GET_BI = 'GET_BI';
 export const GETTING_BI = 'GETTING_BI';
-export const GET_BI_SUCCESS = 'GET_BI_SUCCESS';
-
 
 export const UPDATING_BI = 'UPDATING_BI';
 export const UPDATE_BI = 'UPDATE_BI';

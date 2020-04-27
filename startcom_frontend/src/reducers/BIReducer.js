@@ -4,7 +4,8 @@ import {
     IS_REGISTERED_SUCCESS,
     RESET_REGISTER,
     UPDATE_BI,
-    DELETE_BI, LOADING_DATA
+    DELETE_BI,
+    LOADING_DATA
 } from '../actions/actionTypes';
 
 const initialState = {

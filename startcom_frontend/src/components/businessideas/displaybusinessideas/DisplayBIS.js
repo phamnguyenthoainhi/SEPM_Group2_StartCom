@@ -70,8 +70,8 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = (state) => ({
-    businessIdeas: state.businessIdeas.businessIdeas,
-    loading: state.businessIdeas.loading
+    businessIdeas: state.businessIdeasData.businessIdeas,
+    loading: state.businessIdeasData.loading
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(DisplayBIS));

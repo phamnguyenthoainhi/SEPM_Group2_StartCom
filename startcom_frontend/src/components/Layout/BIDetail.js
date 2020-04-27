@@ -202,11 +202,6 @@ class BIDetail extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps, nextContext) {
-        this.setState({
-            idea: nextProps.businessIdeas.businessIdea
-        })
-    }
 
     componentDidMount() {
         const businessID = this.props.match.params.id;
@@ -236,8 +231,6 @@ class BIDetail extends Component {
         this.props.deleteBI(id);
         console.log("Delete successfully")
     };
-
-
 
     render() {
         // console.log(this.props.businessIdea);
@@ -354,7 +347,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-    businessIdea: state.businessIdeas.businessIdea
+    businessIdea: state.businessIdeasData.businessIdea
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(BIDetail));

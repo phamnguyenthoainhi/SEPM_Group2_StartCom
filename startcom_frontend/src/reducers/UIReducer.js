@@ -1,7 +1,5 @@
 import {
     GETTING_ALL_BIS,
-    GET_ALL_BIS_SUCCESS,
-    GET_BI_SUCCESS,
     GETTING_BI,
     UPDATING_BI,
     UPDATE_BI_SUCCESS,
@@ -29,6 +27,7 @@ export default function (state = initialState, action) {
     switch (action.type) {
 
 
+
         case STOP_LOADING_DATA:
             return {
                 ...state,
@@ -42,22 +41,12 @@ export default function (state = initialState, action) {
             };
 
 
-        case GET_ALL_BIS_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-            };
         case GETTING_BI:
             return {
                 ...state,
                 loading: true
             };
-        case GET_BI_SUCCESS:
-            return {
-                ... state,
-                loading: false,
-                doneGettingBI: true
-            };
+
         case UPDATING_BI:
             return {
                 ...state,
