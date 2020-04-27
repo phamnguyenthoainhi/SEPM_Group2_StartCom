@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 //import { connect } from 'react-redux';
 import { fetchBI, updateBI } from '../../../actions/businessideas/BIActions';
 import BITemplate from '../../Layout/BITemplate';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Navbar from "../../Layout/Navbar";
 import Footer from "../../Layout/Footer";
+import BISearch from "../../Layout/BISearch"
+import BIFilter from "../../Layout/BIFilter"
+
 import { withStyles } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import Grid from "@material-ui/core/Grid";
 
 //import { withStyles } from '@material-ui/core';
@@ -24,7 +27,7 @@ import Grid from "@material-ui/core/Grid";
 
 const styles = (theme) => ({
     gridContainer: {
-        padding: 20
+        padding: 40
     },
     bullet: {
         display: 'inline-block',
@@ -37,7 +40,7 @@ const styles = (theme) => ({
     pos: {
         marginBottom: 12,
     },
-    padding: 20
+
 });
 
 class DisplayBIS extends Component {
@@ -47,31 +50,49 @@ class DisplayBIS extends Component {
             name: '',
             date: ' ',
             description: '',
-            imgSc: '',
+            image: '',
+            category: '',
             targetFunding: '',
             needInvestor: false,
             needConsultant: false,
-        }
+            foundIdeas: [],
+        };
+        this.searchByname = this.searchByname.bind(this)
+        // this.filterIdeas = this.filter.bind(this)
     }
 
-    componentDidMount (){
+    componentDidMount() {
         this.props.fetchBI();
     };
+
     onBICardClick = (id) => {
         console.log(`Clicked card: ${id}`)
     };
 
+    searchByname = (name) => {
+        let businessIdeas = this.state.keywords.filter(businessIdea => businessIdea.name.toLowerCase().indexOf(name.toLowerCase()) !== -1);
+        console.log(businessIdeas)
+        return businessIdeas;
+        // const id = this.props.sortedIdeas.id;
+    };
+
     render() {
-        const { classes, businessIdeas} = this.props;
+        const { classes, businessIdeas } = this.props;
+
         return (
             <Grid container className={classes.gridContainer}>
-                <Navbar/>
-                {businessIdeas.map((idea,index) => (
-                    <Grid item md={4} key={index} onClick={() => this.onBICardClick(idea.id)} style={{padding: 20}}>
-                        <BITemplate  idea={idea}  />
+                <Navbar />
+
+                <BISearch triggerParentUpdate={this.searchByname} />
+                <BIFilter triggerParentUpdate={this.filterIdeas} />
+
+                {businessIdeas.map((idea, index) => (
+                    <Grid item md={4} key={index} onClick={() => this.onBICardClick(idea.name)} style={{ padding: 20 }}>
+                        <BITemplate idea={idea} />
                     </Grid>
                 ))}
-                <Footer/>
+
+                <Footer />
             </Grid>
         )
     }
