@@ -202,10 +202,17 @@ class BIDetail extends Component {
         }
     }
 
+    componentWillReceiveProps(nextProps, nextContext) {
+        this.setState({
+            idea: nextProps.businessIdeas.businessIdea
+        })
+    }
+
     componentDidMount() {
         const businessID = this.props.match.params.id;
         this.props.getBI(businessID);
     }
+
 
     toggleUpdateForm = () => {
         this.setState({

@@ -22,12 +22,6 @@ const styles = (theme) => ({
 });
 
 class DisplayBIS extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-
-        };
-    }
 
     componentDidMount() {
         this.props.getAllBIS();
@@ -39,22 +33,31 @@ class DisplayBIS extends Component {
 
     render() {
         const { classes, businessIdeas, loading } = this.props;
+
+        let ideaMarkup = loading ? (
+                <Grid container className={classes.contentContainer}>
+                    {businessIdeas.map((idea,index) => (
+                        <Grid item md={4} lg={3} sm={4} xs={6} key={index} onClick={() => this.onBICardClick(idea.id)} style={{padding: 20}}>
+                            <BITemplate  idea={idea} loading={loading} />
+                        </Grid>
+                    ))}
+                </Grid>
+        ) : ( <BISkeleton />);
         return (
             <Grid container className={classes.gridContainer}>
                 <Navbar/>
-                {loading ? (
-                    <BISkeleton/>
-                ) : (
-                    <Grid container className={classes.contentContainer}>
-                        {businessIdeas.map((idea,index) => (
-                            <Grid item md={4} lg={3} sm={4} xs={6} key={index} onClick={() => this.onBICardClick(idea.id)} style={{padding: 20}}>
-                                <BITemplate  idea={idea} loading={loading} />
-                            </Grid>
-                        ))}
-                    </Grid>
-                )}
-
-
+                {ideaMarkup}
+                {/*{loading ? (*/}
+                {/*    <BISkeleton/>*/}
+                {/*) : (*/}
+                {/*    <Grid container className={classes.contentContainer}>*/}
+                {/*        {businessIdeas.map((idea,index) => (*/}
+                {/*            <Grid item md={4} lg={3} sm={4} xs={6} key={index} onClick={() => this.onBICardClick(idea.id)} style={{padding: 20}}>*/}
+                {/*                <BITemplate  idea={idea} loading={loading} />*/}
+                {/*            </Grid>*/}
+                {/*        ))}*/}
+                {/*    </Grid>*/}
+                {/*)}*/}
                 <Footer/>
             </Grid>
         )
@@ -65,11 +68,9 @@ const mapDispatchToProps = dispatch => ({
     getAllBIS: () => dispatch(getAllBIS())
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     businessIdeas: state.businessIdeas.businessIdeas,
     loading: state.UI.loading
 });
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(DisplayBIS));

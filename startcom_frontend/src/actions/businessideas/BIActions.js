@@ -6,21 +6,22 @@ import {
     UPDATE_BI,
     DELETE_BI,
     UPDATING_BI,
-    UPDATE_BI_SUCCESS, RESET_UI_STATE, GETTING_ALL_BIS, GET_ALL_BIS_SUCCESS
+    UPDATE_BI_SUCCESS, RESET_UI_STATE, GET_ALL_BIS_SUCCESS, LOADING_DATA, STOP_LOADING_DATA
 
 } from '../actionTypes';
 
 
 export const getAllBIS = () => dispatch =>  {
-    dispatch({ type: GETTING_ALL_BIS});
+    dispatch({ type: LOADING_DATA});
     fetch('https://asia-east2-startcom-sepm.cloudfunctions.net/api/get_all_business_ideas')
-        .then (res => res.json())
-        .then(businessIdeas =>
+        // .then (res => res.json())
+        .then(res =>
             dispatch({
                 type: GET_ALL_BIS,
-                payload: businessIdeas
+                payload: res
             }));
-            dispatch({ type: GET_ALL_BIS_SUCCESS })
+            dispatch({ type: STOP_LOADING_DATA })
+
 };
 
 export const getBI = (id) => dispatch => {
@@ -83,7 +84,7 @@ export const updateBI = (BIData, id) => dispatch => {
         .then((res) => {
             dispatch({
                 type: UPDATE_BI,
-                payload: res.data
+                payload: res
             });
             dispatch({type: UPDATE_BI_SUCCESS});
         })

@@ -13,7 +13,7 @@ export default function (state = initialState, action) {
                 ...state,
                 registerMessage: action.payload
                 
-            }
+            };
             
         default:
             return state;

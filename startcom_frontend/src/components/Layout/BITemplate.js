@@ -163,7 +163,6 @@ class BITemplate extends Component {
 
 
     render() {
-
         const { classes, idea } = this.props;
         const { cardElevation } = this.state;
         return (

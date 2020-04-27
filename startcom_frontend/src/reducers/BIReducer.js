@@ -15,16 +15,19 @@ const initialState = {
 
 export default function (state = initialState, action) {
     switch(action.type) {
+
         case GET_ALL_BIS:
             return {
                 ...state,
                 businessIdeas: action.payload
             };
+
         case GET_BI:
             return {
                 ...state,
                 businessIdea: action.payload,
             };
+
         case IS_REGISTERED_SUCCESS:
             return {
                 ...state,

@@ -23,4 +23,6 @@ export const DELETE_BI_SUCCESS = 'DELETE_BI_SUCCESS';
 
 //UI Types
 export const RESET_UI_STATE = 'RESET_UI_STATE';
+export const LOADING_DATA = 'LOADING_DATA';
+export const STOP_LOADING_DATA = 'STOP_LOADING_DATA';
 
