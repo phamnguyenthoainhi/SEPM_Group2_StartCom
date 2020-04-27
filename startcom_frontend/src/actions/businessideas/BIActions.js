@@ -14,14 +14,12 @@ import {
 export const getAllBIS = () => dispatch =>  {
     dispatch({ type: LOADING_DATA});
     fetch('https://asia-east2-startcom-sepm.cloudfunctions.net/api/get_all_business_ideas')
-        // .then (res => res.json())
+        .then (res => res.json())
         .then(res =>
             dispatch({
                 type: GET_ALL_BIS,
                 payload: res
             }));
-            dispatch({ type: STOP_LOADING_DATA })
-
 };
 
 export const getBI = (id) => dispatch => {

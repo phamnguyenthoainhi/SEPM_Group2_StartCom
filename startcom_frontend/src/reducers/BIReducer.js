@@ -4,7 +4,8 @@ import {
     IS_REGISTERED_SUCCESS,
     RESET_REGISTER,
     UPDATE_BI,
-    DELETE_BI} from '../actions/actionTypes';
+    DELETE_BI, LOADING_DATA
+} from '../actions/actionTypes';
 
 const initialState = {
     loading: false,
@@ -16,10 +17,17 @@ const initialState = {
 export default function (state = initialState, action) {
     switch(action.type) {
 
+        case LOADING_DATA:
+            return {
+                ...state,
+                loading: true
+            };
+
         case GET_ALL_BIS:
             return {
                 ...state,
-                businessIdeas: action.payload
+                businessIdeas: action.payload,
+                loading: false
             };
 
         case GET_BI:

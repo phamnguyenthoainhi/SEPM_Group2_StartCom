@@ -28,11 +28,6 @@ const defaultState = {
 export default function (state = initialState, action) {
     switch (action.type) {
 
-        case LOADING_DATA:
-            return {
-                ...state,
-                loading: true
-            };
 
         case STOP_LOADING_DATA:
             return {

@@ -32,9 +32,10 @@ class DisplayBIS extends Component {
     };
 
     render() {
+        console.log(this.props);
         const { classes, businessIdeas, loading } = this.props;
 
-        let ideaMarkup = loading ? (
+        let ideaMarkup = !loading ? (
                 <Grid container className={classes.contentContainer}>
                     {businessIdeas.map((idea,index) => (
                         <Grid item md={4} lg={3} sm={4} xs={6} key={index} onClick={() => this.onBICardClick(idea.id)} style={{padding: 20}}>
@@ -70,7 +71,7 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = (state) => ({
     businessIdeas: state.businessIdeas.businessIdeas,
-    loading: state.UI.loading
+    loading: state.businessIdeas.loading
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(DisplayBIS));
