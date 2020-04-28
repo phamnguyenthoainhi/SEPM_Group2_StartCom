@@ -79,22 +79,21 @@ class BIFilter extends Component {
         return (
             <div>
                 <label>Idea Category</label>
-                <select name="category" id="category" onChange={(e) => this.props.filterBICategory(this.props.items, e.target.value)} value={this.state.category}> {this.state.category}
+                <select name="category" id="category" onChange={(e) => this.props.filterBICategory(this.props.businessIdeas, e.target.value)} value={this.state.category}> {this.state.category}
                     <option value= "">All</option>
                     <option value= "techno">Technology</option>
                     <option vlaue= "business">Business</option>
-
                 </select>
 
                 <label>Need Consultant</label>
-                <select name="Need Consultant" id="needConsultant" onChange={(e) => this.props.filterBIConsultant(this.props.items, e.target.value)} value={this.state.category}> {this.state.category}
+                <select name="Need Consultant" id="needConsultant" onChange={(e) => this.props.filterBIConsultant(this.props.businessIdeas, e.target.value)} value={this.state.needConsultant}> {this.state.needConsultant}
                     <option value= "">All</option>
                     <option value= "true">Available</option>
                     <option vlaue= "false">UNavailable</option>
                 </select>
 
                 <label>Need Investor</label>
-                <select name="Need Investor" id="needInvestor" onChange={(e) => this.props.filterBIInvestor(this.props.items, e.target.value)} value={this.state.category}> {this.state.category}
+                <select name="Need Investor" id="needInvestor" onChange={(e) => this.props.filterBIInvestor(this.props.businessIdeas, e.target.value)} value={this.state.needConsultant}> {this.state.needConsultant}
                     <option value= "">All</option>
                     <option value= "true">Available</option>
                     <option vlaue= "false">UNavailable</option>

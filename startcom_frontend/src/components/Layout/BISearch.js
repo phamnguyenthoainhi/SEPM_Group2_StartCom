@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { fetchBI, updateBI } from "../../actions/businessideas/BIActions";
+import { fetchBI, updateBI, searchBI } from "../../actions/businessideas/BIActions";
 import { connect } from 'react-redux';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -108,6 +108,7 @@ class BIsearch extends Component {
 
 const mapDispatchToProps = dispatch => ({
   fetchBI: () => dispatch(fetchBI()),
+  searchBI: () => dispatch(searchBI())
 
 });
 
