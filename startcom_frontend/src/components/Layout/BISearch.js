@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 import React, { Component } from 'react';
 import { fetchBI, updateBI } from "../../actions/businessideas/BIActions";
 import { connect } from 'react-redux';
@@ -57,7 +56,7 @@ class BIsearch extends Component {
     this.handleChange = this.handleChange.bind(this);
     // this.searchByname = this.searchByname.bind(this);
   };
-  
+
 
   componentDidMount() {
     this.props.fetchBI();
@@ -88,6 +87,7 @@ class BIsearch extends Component {
   render() {
     // console.log(this.searchByname("hello"));
     // console.log(this.searchByname("test"));
+    const { foundIdeas } = this.state;
     const { classes } = this.props;
 
     return (
@@ -95,11 +95,10 @@ class BIsearch extends Component {
         <div className="container">
           <h1 className=""> Search for An Idea</h1>
           <form id="searchForm">
-            <TextField id="standard-basic" label="Standard" onChange={this.props.handleChange} value={this.props.name} />
+            <TextField id="standard-basic" label="Search" onChange={this.props.handleChange} value={this.props.name} />
             <button type="submit" className="btn btn-primary btn-bg mt-3" onClick={this.props.triggerParentUpdate}>
-              Search
+              Search  
             </button>
-
           </form>
         </div>
       </div>
