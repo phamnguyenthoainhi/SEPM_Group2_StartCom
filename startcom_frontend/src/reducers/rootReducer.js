@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
 import BIReducer from './BIReducer';
-import UsersReducer from './UsersReducer';
+import businessIdeas from './BIReducer';
+
 export default combineReducers({
-    businessIdeas: BIReducer,
-    registerMessage: UsersReducer
+    businessIdeas: BIReducer
     
 });
