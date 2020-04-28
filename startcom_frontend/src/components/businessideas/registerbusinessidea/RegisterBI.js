@@ -126,7 +126,7 @@ class RegisterBI extends Component {
             })
 
         } 
-        console.log(this.state.terms)
+        
     }
 
     getBase64 = (file, callback) => {
@@ -160,6 +160,7 @@ class RegisterBI extends Component {
 
     onSubmit(e) {
         e.preventDefault();
+       
         if (this.state.terms === true) {
             if (!(this.state.image === '' || this.state.image === null || this.state.image === undefined)) {
                 this.getBase64(this.state.image, this.handleRegisterBI)
@@ -266,7 +267,7 @@ class RegisterBI extends Component {
                                
                                 <FormControl className={classes.formControl}>
                                    
-                                    <TextField type ='tetx' id="select" label ='Choose your business category' value =''select className ={classes.input} onChange={this.onChange} name ='category'>
+                                    <TextField type ='text' id="select" label ='Choose your business category' value =''select className ={classes.input} onChange={this.onChange} name ='category'>
                                     <MenuItem value = 'Technology' >Techology</MenuItem>
                                         <MenuItem value = 'Art' >Art</MenuItem>
                                         <MenuItem value = 'Community'>Community</MenuItem>

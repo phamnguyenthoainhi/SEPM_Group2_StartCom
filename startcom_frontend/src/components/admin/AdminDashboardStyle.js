@@ -18,7 +18,12 @@ const style = (theme) => ({
         paddingLeft: 20,
         paddingRight: 20,
         fontSize: 13,
-        fontFamily: theme.font
+        fontFamily: theme.font,
+        [theme.breakpoints.down('md','sm')]: {
+        paddingLeft: 0,
+        paddingRight: 0,
+        fontSize: 12,
+        },
         
     },
     deleteBtn: {
@@ -32,19 +37,33 @@ const style = (theme) => ({
         paddingRight: 20,
         fontSize: 13,
         fontFamily: theme.font,
-        marginLeft: 50
+        marginLeft: 50,
+        [theme.breakpoints.down('md','sm')]: {
+            paddingLeft: 0,
+            paddingRight: 0,
+            fontSize: 12,
+            marginLeft: 0,
+        },
     },
     container: {
         marginLeft: 100,
         marginRight: 100,
         marginTop: 30,
+        [theme.breakpoints.down('md','sm')]: {
+            marginLeft: 20,
+            marginRight: 20,
+            marginTop: 10,
+        },
     },
     title: {
         textAlign: "center",
         marginBottom: 50,
         marginTop: 50,
         fontFamily: theme.font,
-        fontSize: 25
+        fontSize: 25,
+        [theme.breakpoints.down('md','sm')]: {
+            fontSize: 20,
+        },
     },
     cell: {
         fontFamily: theme.font

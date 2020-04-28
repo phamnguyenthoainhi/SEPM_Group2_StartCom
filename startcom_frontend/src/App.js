@@ -14,7 +14,9 @@ import Authentication from './components/authentication/Authentication';
 import Login from './components/authentication/login/Login';
 import SignUp from './components/authentication/register/SignUp';
 import AdminDashboard from './components/admin/AdminDashboard.js';
+import Contact from './components/contact/Contact';
 import './custom.css';
+import Container  from './components/contact/Container';
 class App extends Component {
   render() {
   const theme = createMuiTheme(themeFile);
@@ -32,8 +34,8 @@ class App extends Component {
                       <Route exact path={'/login'} render={(props) => <Login {...props} />} />
                       <Route exact path={'/signup'} render={(props) => <SignUp {...props} />} />
                       <Route exact path={'/admin'} render={(props) => <AdminDashboard {...props} />} />
-
-
+                      <Route exact path={'/contact'} render={(props) => <Contact {...props} />} />
+                      <Route exact path={'/container'} render={(props) => <Container {...props} />} />
 
                     </div>
                 </ThemeProvider>
