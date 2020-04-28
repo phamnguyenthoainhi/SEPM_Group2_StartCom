@@ -1,9 +1,9 @@
-import {READ_BI, IS_REGISTERED_SUCCESS, RESET_REGISTER, UPDATE_BI, DELETE_BI} from '../actionTypes';
+import { READ_BI, IS_REGISTERED_SUCCESS, RESET_REGISTER, UPDATE_BI, DELETE_BI, FILTER_BI_BY_CATEGORY, FILTER_BI_BY_CONSULTANT, FILTER_BI_BY_INVESTOR } from '../actionTypes';
 
 
-export const fetchBI = () => dispatch =>  {
+export const fetchBI = () => dispatch => {
     fetch('https://asia-east2-startcom-sepm.cloudfunctions.net/api/get_all_business_ideas')
-        .then (res => res.json())
+        .then(res => res.json())
         .then(businessIdeas =>
             dispatch({
                 type: READ_BI,
@@ -25,27 +25,27 @@ export const registerBI = (BIData) => dispatch => {
             'Content-type': 'application/json'
         },
         body: JSON.stringify(BIData)
-        
+
     })
-    .then((res) => {
-        console.log("res "+ res.status);
-        if(res.status === 200) {
-            dispatch({
-                type: IS_REGISTERED_SUCCESS,
-                payload: true
-            });
-            return res.json();
-        } else {
-            dispatch({
-                type: IS_REGISTERED_SUCCESS,
-                payload: false
-            });
-            return null;
-        }
-    })
-    .then(() => dispatch(
-        fetchBI()
-    )) 
+        .then((res) => {
+            console.log("res " + res.status);
+            if (res.status === 200) {
+                dispatch({
+                    type: IS_REGISTERED_SUCCESS,
+                    payload: true
+                });
+                return res.json();
+            } else {
+                dispatch({
+                    type: IS_REGISTERED_SUCCESS,
+                    payload: false
+                });
+                return null;
+            }
+        })
+        .then(() => dispatch(
+            fetchBI()
+        ))
 };
 
 export const updateBI = (BIData, id) => dispatch => {
@@ -58,8 +58,8 @@ export const updateBI = (BIData, id) => dispatch => {
         body: JSON.stringify(BIData)
     })
         .then((res) => {
-            console.log("res "+ res.status);
-            if(res.status === 200) {
+            console.log("res " + res.status);
+            if (res.status === 200) {
                 dispatch({
                     type: UPDATE_BI,
                     payload: res.data
@@ -84,8 +84,8 @@ export const deleteBI = (id) => dispatch => {
         },
     })
         .then((res) => {
-            console.log("res "+ res.status);
-            if(res.status === 200) {
+            console.log("res " + res.status);
+            if (res.status === 200) {
                 dispatch({
                     type: DELETE_BI,
                     payload: id
@@ -96,6 +96,45 @@ export const deleteBI = (id) => dispatch => {
         .then(() => dispatch(
             fetchBI()
         ))
+};
+
+export const filterBICategory = (BIData, category) => dispatch => {
+    fetch('https://asia-east2-startcom-sepm.cloudfunctions.net/api/get_all_business_ideas')
+        .then(res => res.json())
+        .then(businessIdeas =>
+            dispatch({
+                type: FILTER_BI_BY_CATEGORY,
+                payload: {
+                    category: category,
+                    items: category === ""? businessIdeas: businessIdeas.filter( a => a.avaiableConsultant.indexOf(category.toLowerCase())>=0)
+                }
+            }))
+};
+
+export const filterBIConsultant = (BIData, needConsultant) => dispatch => {
+    fetch('https://asia-east2-startcom-sepm.cloudfunctions.net/api/get_all_business_ideas')
+        .then(res => res.json())
+        .then(businessIdeas =>
+            dispatch({
+                type: FILTER_BI_BY_CONSULTANT,
+                payload: {
+                    needConsultant: needConsultant,
+                    items: needConsultant === ""? businessIdeas: businessIdeas.filter(b => b.avaiableConsultant(needConsultant) === true)
+                }
+            }))
+};
+
+export const filterBIInvestor = (BIData, needInvestor) => dispatch => {
+    fetch('https://asia-east2-startcom-sepm.cloudfunctions.net/api/get_all_business_ideas')
+        .then(res => res.json())
+        .then(businessIdeas =>
+            dispatch({
+                type: FILTER_BI_BY_INVESTOR,
+                payload: {
+                    needInvestor: needInvestor,
+                    items: needInvestor === ""? businessIdeas: businessIdeas.filter(c => c.avaiableInvestor(needInvestor) === true)
+                }
+            }))
 };
 
 
