@@ -67,7 +67,7 @@ class BISkeleton extends Component {
         const { classes } = this.props;
         return (
             <Grid container className={classes.container}>
-                {Array.from({length: 3}).map((item, index) => (
+                {Array.from({length: 4}).map((item, index) => (
                     <Grid item md={4} lg={3} sm={4} xs={6} key={index} style={{padding: 20}}>
                         <Card className={classes.cardWrapper}>
                             <Skeleton variant="rect" className={classes.imageSke}/>

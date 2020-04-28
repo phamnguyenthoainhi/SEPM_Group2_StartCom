@@ -48,17 +48,6 @@ class DisplayBIS extends Component {
             <Grid container className={classes.gridContainer}>
                 <Navbar/>
                 {ideaMarkup}
-                {/*{loading ? (*/}
-                {/*    <BISkeleton/>*/}
-                {/*) : (*/}
-                {/*    <Grid container className={classes.contentContainer}>*/}
-                {/*        {businessIdeas.map((idea,index) => (*/}
-                {/*            <Grid item md={4} lg={3} sm={4} xs={6} key={index} onClick={() => this.onBICardClick(idea.id)} style={{padding: 20}}>*/}
-                {/*                <BITemplate  idea={idea} loading={loading} />*/}
-                {/*            </Grid>*/}
-                {/*        ))}*/}
-                {/*    </Grid>*/}
-                {/*)}*/}
                 <Footer/>
             </Grid>
         )
