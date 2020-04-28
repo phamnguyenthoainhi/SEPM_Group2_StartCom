@@ -7,13 +7,33 @@ import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Contact from './Contact';
+import {getProfile} from '../../actions/users/UserActions';
 class Container extends Component {
     constructor(props){
         super(props);
         this.state = {
-            contactOpen: false
+            contactOpen: false,
+            
+            profileReceiver: {},
+            profileLoadingReceiver: false,
+            sender: '',
+            receiver: ''
         }
         this.handleClose = this.handleClose.bind(this)
+    }
+
+    componentDidUpdate(prevProps) {
+       console.log(this.props)
+        if (this.props.profileLoading !== prevProps.profileLoading) {
+            this.setState({
+                loading: this.props.profileLoading
+            })
+        }
+        if (this.props.profileReceiver !== prevProps.profileReceiver) {
+            this.setState({
+                profileReceiver: this.props.profileReceiver
+            })
+        }
     }
 
     handleOpen() {
@@ -21,9 +41,13 @@ class Container extends Component {
         var x = document.getElementById("mydiv");
         x.style.display = 'block'
         this.setState({
-            contactOpen: true
+            contactOpen: true,
+           
         })
+
+        this.props.getProfile('rxUdzWLlcdgiwszQwicMrjhPSQR2', 'receiver');
     }
+    
 
     handleClose() {
         
@@ -34,6 +58,10 @@ class Container extends Component {
         })
         
     }
+
+
+
+
 
 
     render() {
@@ -79,7 +107,13 @@ class Container extends Component {
                                 </Grid>
                     </Grid>
                     <Grid item xs={3}>
-                                <Contact id='mydiv' handleClose={this.handleClose}/>
+                
+                                {/* } */}
+                                <Contact id='mydiv' handleClose={this.handleClose} profileReceiver = {this.state.profileReceiver} 
+                                
+                                />
+
+                                
                     </Grid>
                     
                 </Grid>
@@ -132,14 +166,13 @@ class Container extends Component {
     }
 }
 const mapDispatchToProps = dispatch => ({
-    // registerBI: (businessIdea) => dispatch(registerBI(businessIdea)),
-    // resetRegisterStatus: () => dispatch(resetRegisterStatus())
+    getProfile: (id, type) => dispatch(getProfile(id, type))
   
 })
 
 const mapStateToProps = state => ({
-//   isRegisteredSuccess: state.businessIdeas.isRegisteredSuccess,
-//   isRegisteredLoading: state.businessIdeas.isRegisteredLoading
+    profileLoading: state.profileLoading.profileLoading,
+    profileReceiver: state.profileReceiver.profileReceiver
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(Container));

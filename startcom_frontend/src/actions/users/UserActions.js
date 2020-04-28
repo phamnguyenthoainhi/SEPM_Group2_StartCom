@@ -1,11 +1,11 @@
-import {SEND_MESSAGE_LOADING, SEND_MESSAGE_SUCCESS} from '../actionTypes';
+import {SEND_MESSAGE_LOADING, SEND_MESSAGE_SUCCESS, GET_PROFILE_RECEIVER, GET_PROFILE_LOADING, GET_PROFILE_SENDER} from '../actionTypes';
 
 export const sendMessage = (message) => dispatch => {
     
     dispatch({
         type: SEND_MESSAGE_LOADING
     })
-    
+
     fetch('https://asia-east2-startcom-sepm.cloudfunctions.net/api/send_email',{
             method: 'POST',
             headers: {
@@ -25,3 +25,41 @@ export const sendMessage = (message) => dispatch => {
     })  
     
 }
+export const getProfile = (id, type) => dispatch => {
+    
+    dispatch({
+        type: GET_PROFILE_LOADING
+    })
+
+    fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/get_profile/${id}`,{
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json'
+            }
+            
+    })
+    .then (res => res.json())
+    .then(profile => 
+        {
+            if(type === 'receiver') {
+                dispatch({
+                    type: GET_PROFILE_RECEIVER,
+                    payload: profile
+                })
+            } else if(type === 'sender') {
+                dispatch({
+                    type: GET_PROFILE_SENDER,
+                    payload: profile
+                })
+            }
+
+                
+        
+           
+
+ 
+    
+    })
+}   
+

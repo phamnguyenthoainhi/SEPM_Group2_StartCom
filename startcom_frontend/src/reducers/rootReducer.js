@@ -15,7 +15,10 @@ export default combineReducers({
     deleteLoading: AdminReducer,
     deleteSuccess: AdminReducer,
     sendMessageLoading: UsersReducer,
-    sendMessageSuccess: UsersReducer
+    sendMessageSuccess: UsersReducer,
+    profileLoading: UsersReducer,
+    profileReceiver: UsersReducer,
+    profileSender: UsersReducer,
 
     
 });

@@ -17,9 +17,9 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 import '../../custom.css'
-import {sendMessage} from '../../actions/users/UserActions';
+import {sendMessage, getProfile} from '../../actions/users/UserActions';
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Grid from '@material-ui/core/Grid';
+
 const ColorCircularProgress = withStyles({
     root: {
       color: '#3C5155'
@@ -32,11 +32,14 @@ class Contact extends Component {
         this.state = {
             contactOpen: false,
             sender: '',
-            receiver: '',
+            profileSender: '',
+            profileReceiver: '',
+            profileLoading: false,
             subject: '',
             text: '',
             loading: false,
-            success: false
+            success: false,
+            
         }
         
     }
@@ -44,10 +47,25 @@ class Contact extends Component {
         this.props.handleClose()
     }
 
+    componentDidMount() {
+        this.props.getProfile('i0BP7qPsDCOEFos3BxoxSAz6aZm1', 'sender')
+    }
+
     componentDidUpdate(prevProps) {
+        
         if (this.props.sendMessageLoading !== prevProps.sendMessageLoading) {
             this.setState({
                 loading: this.props.sendMessageLoading
+            })
+        }
+        if (this.props.profileSender !== prevProps.profileSender) {
+            this.setState({
+                profileSender: this.props.profileSender 
+            })
+        }
+        if (this.props.profileLoading !== prevProps.profileLoading) {
+            this.setState({
+                profileLoading: this.props.profileLoading
             })
         }
         if (this.props.sendMessageSuccess !== prevProps.sendMessageSuccess && this.props.sendMessageSuccess === true) {
@@ -56,16 +74,27 @@ class Contact extends Component {
             })
             
         }
-    }
-    onSubmit = (e) => {
-        e.preventDefault();
-        const message = {
-            sender: 'i0BP7qPsDCOEFos3BxoxSAz6aZm1',
-            receiver: 'rxUdzWLlcdgiwszQwicMrjhPSQR2',
-            subject: this.state.subject,
-            text: this.state.text,
+        if (this.props.profileReceiver !== prevProps.profileReceiver) {
+            this.setState({
+                profileReceiver: this.props.profileReceiver
+            })
         }
-        this.props.sendMessage(message)
+    }
+    
+    onSubmit = (e, receiverid) => {
+        e.preventDefault();
+        if (receiverid !== undefined || receiverid !== '') {
+            const message = {
+                sender: this.state.profileSender.id,
+                receiver: receiverid,
+                subject: this.state.subject,
+                text: this.state.text,
+            }
+            console.log(JSON.stringify(message))
+        }
+        
+        
+        // this.props.sendMessage(message)
     }
 
     onChange = (e) => {
@@ -76,6 +105,8 @@ class Contact extends Component {
 
     render() {
         const {classes} = this.props;
+        
+        
         return (
             <div className={classes.right} >  
                             <Card className={classes.rootcontact} id='mydiv' style={{display: 'block'}}>
@@ -95,7 +126,6 @@ class Contact extends Component {
                                             value = {this.state.subject} 
                                             name = 'subject'  
                                             fullWidth
-                
                                             required 
                                             className ={classes.input}
                                             
@@ -114,8 +144,8 @@ class Contact extends Component {
                                                                     <ImageIcon />
                                                                 </Avatar>
                                                                 </ListItemAvatar>
-                                                                <ListItemText primary="Photos"
-                                                            
+                                                                <ListItemText primary=
+                                                                 {this.state.profileSender === undefined ? null : this.state.profileSender.email}
                                                                 />
                                                             </ListItem>
                                                             <Divider variant="inset" component="li" />
@@ -133,7 +163,10 @@ class Contact extends Component {
                                                             <ImageIcon />
                                                         </Avatar>
                                                         </ListItemAvatar>
-                                                        <ListItemText primary="Photos" 
+                                                        <ListItemText primary=
+                                                        
+                                                        {this.state.profileReceiver === undefined ? null: this.state.profileReceiver.email}
+                                                       
                                                         
                                                         />
                                                     </ListItem>
@@ -182,7 +215,12 @@ class Contact extends Component {
                                             
                                             
                                             (<div className={classes.action}>
-                                                <Button variant="outlined" className={classes.send} onClick ={(e)=>this.onSubmit(e)}>Send</Button>
+                                                <Button variant="outlined" className={classes.send} 
+                                               
+                                                onClick ={(e, receiverid )=>this.onSubmit(e, this.props.profileReceiver.id)}
+                                                
+                                                
+                                                >Send</Button>
                                             </div>)}
                                            
                     
@@ -197,13 +235,16 @@ class Contact extends Component {
 }
 const mapDispatchToProps = dispatch => ({
     sendMessage: (message) => dispatch(sendMessage(message)),
-    // resetRegisterStatus: () => dispatch(resetRegisterStatus())
+    getProfile: (id, type) => dispatch(getProfile(id, type))
   
 })
 
 const mapStateToProps = state => ({
     sendMessageLoading: state.sendMessageLoading.sendMessageLoading,
-    sendMessageSuccess: state.sendMessageSuccess.sendMessageSuccess
+    sendMessageSuccess: state.sendMessageSuccess.sendMessageSuccess,
+    profileLoading: state.profileLoading.profileLoading,
+    profileSender: state.profileSender.profileSender
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(Contact));
