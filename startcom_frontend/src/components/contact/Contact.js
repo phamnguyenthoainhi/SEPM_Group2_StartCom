@@ -70,7 +70,9 @@ class Contact extends Component {
         }
         if (this.props.sendMessageSuccess !== prevProps.sendMessageSuccess && this.props.sendMessageSuccess === true) {
             this.setState({
-                success: this.props.sendMessageSuccess
+                success: this.props.sendMessageSuccess,
+                profileSender: '',
+                profileReceiver: '',
             })
             
         }
@@ -83,18 +85,19 @@ class Contact extends Component {
     
     onSubmit = (e, receiverid) => {
         e.preventDefault();
-        if (receiverid !== undefined || receiverid !== '') {
+       
             const message = {
                 sender: this.state.profileSender.id,
-                receiver: receiverid,
+                receiver: this.state.profileReceiver.id,
                 subject: this.state.subject,
                 text: this.state.text,
             }
             console.log(JSON.stringify(message))
-        }
+            this.props.sendMessage(message)
         
         
-        // this.props.sendMessage(message)
+        
+        
     }
 
     onChange = (e) => {
