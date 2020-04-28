@@ -81,9 +81,6 @@ class RegisterBI extends Component {
             
         }
 
-        else if (this.props.isRegisteredSuccess === false) {
-            
-        }
 
     }
 

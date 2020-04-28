@@ -17,12 +17,26 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 import '../../custom.css'
-
+import {sendMessage} from '../../actions/users/UserActions';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Grid from '@material-ui/core/Grid';
+const ColorCircularProgress = withStyles({
+    root: {
+      color: '#3C5155'
+      
+    },
+  })(CircularProgress);
 class Contact extends Component {
     constructor(props){
         super(props);
         this.state = {
-            contactOpen: false
+            contactOpen: false,
+            sender: '',
+            receiver: '',
+            subject: '',
+            text: '',
+            loading: false,
+            success: false
         }
         
     }
@@ -30,13 +44,41 @@ class Contact extends Component {
         this.props.handleClose()
     }
 
-    
+    componentDidUpdate(prevProps) {
+        if (this.props.sendMessageLoading !== prevProps.sendMessageLoading) {
+            this.setState({
+                loading: this.props.sendMessageLoading
+            })
+        }
+        if (this.props.sendMessageSuccess !== prevProps.sendMessageSuccess && this.props.sendMessageSuccess === true) {
+            this.setState({
+                success: this.props.sendMessageSuccess
+            })
+            
+        }
+    }
+    onSubmit = (e) => {
+        e.preventDefault();
+        const message = {
+            sender: 'i0BP7qPsDCOEFos3BxoxSAz6aZm1',
+            receiver: 'rxUdzWLlcdgiwszQwicMrjhPSQR2',
+            subject: this.state.subject,
+            text: this.state.text,
+        }
+        this.props.sendMessage(message)
+    }
+
+    onChange = (e) => {
+        this.setState({
+            [e.target.name] : e.target.value
+        })
+    }
 
     render() {
         const {classes} = this.props;
         return (
             <div className={classes.right} >  
-                            <Card className={classes.rootcontact} id='mydiv' style={{display: 'none'}}>
+                            <Card className={classes.rootcontact} id='mydiv' style={{display: 'block'}}>
                                 <CardContent >
                                 
                                             <div className={classes.closesection}>
@@ -49,8 +91,8 @@ class Contact extends Component {
                                             </Typography>
                                             <TextField 
                                             
-                                            // onChange={this.onChange} 
-                                            // value = {this.state.name} 
+                                            onChange={(e) => this.onChange(e)} 
+                                            value = {this.state.subject} 
                                             name = 'subject'  
                                             fullWidth
                 
@@ -109,15 +151,41 @@ class Contact extends Component {
                                                         <div className="form-group">
                                                             
                                                             <div className={classes.messagearea}>
-                                                                <textarea className="form-control" id="exampleFormControlTextarea1" rows="10" cols="100"></textarea>
+                                                                <textarea className="form-control" id="exampleFormControlTextarea1" rows="10" cols="100"
+                                                                 onChange={(e) => this.onChange(e)} 
+                                                                value = {this.state.text} 
+                                                                name = 'text' 
+                                                                ></textarea>
                                                             </div>
                                                         </div>
                                             </div>
 
-                                            <div className={classes.action}>
-                                                <Button variant="outlined" className={classes.send} id ='closeBtn'>Send</Button>
-                                            </div>
-                                    
+                                            {this.state.loading ? (
+                                                <div className={classes.action}>
+                                            <ColorCircularProgress variant="indeterminate" size={32} style={{marginTop: "0%"}}/>
+
+                                                </div>
+                                            ): 
+                                            this.state.success ? (
+                                                <div className={classes.action}>
+                                                    
+                                                            <img src='https://image.flaticon.com/icons/svg/561/561226.svg'height ='40' weight='40' alt="send icon"/>
+                                                        
+                                                            <Typography className={classes.sendtext} color="textSecondary" gutterBottom>
+                                                            Message Sent!
+                                                        </Typography>
+                                                        
+                                                    
+                                                </div>
+                                            
+                                            ) :
+                                            
+                                            
+                                            (<div className={classes.action}>
+                                                <Button variant="outlined" className={classes.send} onClick ={(e)=>this.onSubmit(e)}>Send</Button>
+                                            </div>)}
+                                           
+                    
                                 </CardContent>
                                     
                             </Card>
@@ -128,14 +196,14 @@ class Contact extends Component {
     }
 }
 const mapDispatchToProps = dispatch => ({
-    // registerBI: (businessIdea) => dispatch(registerBI(businessIdea)),
+    sendMessage: (message) => dispatch(sendMessage(message)),
     // resetRegisterStatus: () => dispatch(resetRegisterStatus())
   
 })
 
 const mapStateToProps = state => ({
-//   isRegisteredSuccess: state.businessIdeas.isRegisteredSuccess,
-//   isRegisteredLoading: state.businessIdeas.isRegisteredLoading
+    sendMessageLoading: state.sendMessageLoading.sendMessageLoading,
+    sendMessageSuccess: state.sendMessageSuccess.sendMessageSuccess
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(Contact));

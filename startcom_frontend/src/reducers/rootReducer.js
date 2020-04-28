@@ -13,7 +13,9 @@ export default combineReducers({
     verifySuccess: AdminReducer,
     loadingVerify: AdminReducer,
     deleteLoading: AdminReducer,
-    deleteSuccess: AdminReducer
+    deleteSuccess: AdminReducer,
+    sendMessageLoading: UsersReducer,
+    sendMessageSuccess: UsersReducer
 
     
 });

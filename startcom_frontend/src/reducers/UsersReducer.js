@@ -1,15 +1,17 @@
-import {REGISTER_ACCOUNT, LOGIN, REGISTER_LOADING, LOGIN_LOADING} from '../actions/actionTypes';
+import {REGISTER_ACCOUNT, LOGIN, REGISTER_LOADING, LOGIN_LOADING, SEND_MESSAGE_LOADING, SEND_MESSAGE_SUCCESS} from '../actions/actionTypes';
 const initialState = {
     registerMessage: {},
     loginMessage: {},
     registerLoading: {},
-    loginLoading: {}
+    loginLoading: {},
+    sendMessageLoading: false,
+    sendMessageSuccess: false
 }
 
 export default function (state = initialState, action) {
     switch(action.type) {
         case REGISTER_ACCOUNT:
-            // console.log('reducer '+ action.payload.message)
+            
 
             return {
 
@@ -31,6 +33,17 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 registerLoading: true
+            }
+        case SEND_MESSAGE_LOADING: 
+            return {
+                ...state,
+                sendMessageLoading: true
+            }
+        case SEND_MESSAGE_SUCCESS: 
+            return {
+                ...state,
+                sendMessageLoading: false,
+                sendMessageSuccess: true
             }
         case LOGIN_LOADING: 
         return {

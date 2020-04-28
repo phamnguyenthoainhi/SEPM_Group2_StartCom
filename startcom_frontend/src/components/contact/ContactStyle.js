@@ -97,6 +97,11 @@ const style = (theme) => ({
             "&:focus": {
                 outline: "none"
             }
+    },
+    sendtext: {
+      fontSize: 20,
+      color: theme.color.contrast,
+      
     }
     
 

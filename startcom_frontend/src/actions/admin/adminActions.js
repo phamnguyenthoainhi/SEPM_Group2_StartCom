@@ -23,14 +23,19 @@ export const VerifiedEmails = (id) => dispatch => {
     fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/verify/${id}`, {
         method: 'GET'
     })
-   
-    .then(res => 
-        res.json())
-    .then(
-        dispatch({
-            type: VERIFY_SUCCESS
-        })) 
-    .then(dispatch(fetchUnverifiedEmails()) )
+    .then ((res) => {
+        
+        if (res.status === 200) {
+                dispatch({
+                    type: VERIFY_SUCCESS,
+                })
+                
+                             
+        }  
+
+    })  
+    
+    
 }
 
 export const deleteUser = (id) => dispatch => {
@@ -51,7 +56,9 @@ export const deleteUser = (id) => dispatch => {
             dispatch({
                 type: DELETE_USER_SUCCESS
             })
+            dispatch(fetchUnverifiedEmails()) 
         }
+
     })
-    .then(dispatch(fetchUnverifiedEmails()) )
+    
 }
