@@ -1,11 +1,14 @@
 const style = (theme) => ({
     root: {
-        minWidth: 275,
-        width: 300,
-        minHeight: 625,
-        height: 650,
-        backgroundColor: 'whitesmoke'
+        minWidth: 300,
+        backgroundColor: 'white'
       },
+    rootcontact: {
+        minWidth: 290,
+        minHeight: 625,
+        height: '100vh',
+        backgroundColor: 'whitesmoke',
+    },
       bullet: {
         display: 'inline-block',
         margin: '0 2px',
@@ -19,11 +22,11 @@ const style = (theme) => ({
       },
     grid: {
         [theme.breakpoints.down('md')]: {
-            backgroundColor: 'red',
+            maxWidth: "50%",
           },
           [theme.breakpoints.down('sm')]: {
-            backgroundColor: 'yellow',
-            maxWidth: "50%"
+            
+            maxWidth: "100%"
           },
     },
     messagearea: {
@@ -31,7 +34,8 @@ const style = (theme) => ({
         paddingTop: 10
     },
     right: {
-        padding: 30
+       
+        // padding: 30
     },
     closesection: {
         position: 'relative',
@@ -47,33 +51,48 @@ const style = (theme) => ({
         }
     },
     sender: {
-        paddingTop: 30
+        paddingTop: 15
+    },
+    input: {
+        '& .MuiInput-underline:after': {
+            borderBottomColor: "#e0e0e0",
+            
+          },
+          '& .MuiInput-underline:hover': {
+            borderBottomColor: theme.color.primary3,
+          },
+          '& .MuiInput-underline': {
+            borderBottomColor: theme.color.primary1,
+          },
+    },
+    subject: {
+        paddingTop: 20,
+        fontSize: 14
     },
     action :{
         textAlign: 'center'
     },
     send: {
+        
+        fontFamily: theme.font,
+        backgroundColor: theme.color.primary3,
+        opacity: 0.8,
         color: theme.color.primary1,
-            fontFamily: theme.font,
-            outline: "none",
         
-          backgroundColor: theme.color.primary3,
-                
-                border: "1px",
-                borderColor: theme.color.primary3,
         
-            padding: "10px 30px",
-            letterSpacing: 1,
-            textTransform: "uppercase",
-            transition: "all 350mx ease-in-out",
+        padding: "10px 30px",
+        letterSpacing: 1,
+        textTransform: "uppercase",
+        transition: "all 350mx ease-in-out",
             
-            "&:hover": {
-                transition: "all 350ms ease-in-out",
-                backgroundColor: theme.color.primary3,
-                color: 'white',
-                border: "1px",
-                borderColor: theme.color.primary3,
-                outline: "none"
+        "&:hover": {
+            transition: "all 350ms ease-in-out",
+            backgroundColor: theme.color.primary3,
+            opacity: 1,
+            color: theme.color.primary1,
+        
+            borderWidth:  "1.2px",
+            borderColor: theme.color.primary3,
             },
             "&:focus": {
                 outline: "none"

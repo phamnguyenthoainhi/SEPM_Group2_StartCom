@@ -7,88 +7,128 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+
 import Grid from '@material-ui/core/Grid';
 import Contact from './Contact';
 class Container extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            contactOpen: false
+        }
+        this.handleClose = this.handleClose.bind(this)
+    }
+
+    handleOpen() {
+
+        var x = document.getElementById("mydiv");
+        x.style.display = 'block'
+        this.setState({
+            contactOpen: true
+        })
+    }
+
+    handleClose() {
+        
+        var x = document.getElementById("mydiv");
+        x.style.display = 'none';
+        this.setState({
+            contactOpen: false
+        })
+        
+    }
+
+
     render() {
         const {classes} = this.props;
-        
         return (
             <div>
+                {this.state.contactOpen ? 
+                (
                 <Grid container  spacing={2}>
-                <Grid item xs={4} className={classes.grid} >
-                <Card className={classes.root}>
-                    <CardContent>
-                        <Typography className={classes.title} color="textSecondary" gutterBottom>
-                        Word of the Day
-                        </Typography>
-                        <Typography variant="h5" component="h2">
-                        {/* be{bull}nev{bull}o{bull}lent */}
-                        </Typography>
-                        <Typography className={classes.pos} color="textSecondary">
-                        adjective
-                        </Typography>
-                        <Typography variant="body2" component="p">
-                        well meaning and kindly.
-                        <br />
-                        {'"a benevolent smile"'}
-                        </Typography>
-                    </CardContent>
-                    <CardActions>
-                        <Button size="small">Learn More</Button>
-                    </CardActions>
-                </Card>
-                </Grid>
-                <Grid item xs={4} className={classes.grid} >
-                <Card className={classes.root}>
-                    <CardContent>
-                        <Typography className={classes.title} color="textSecondary" gutterBottom>
-                        Word of the Day
-                        </Typography>
-                        <Typography variant="h5" component="h2">
-                        {/* be{bull}nev{bull}o{bull}lent */}
-                        </Typography>
-                        <Typography className={classes.pos} color="textSecondary">
-                        adjective
-                        </Typography>
-                        <Typography variant="body2" component="p">
-                        well meaning and kindly.
-                        <br />
-                        {'"a benevolent smile"'}
-                        </Typography>
-                    </CardContent>
-                    <CardActions>
-                        <Button size="small">Learn More</Button>
-                    </CardActions>
-                </Card>
-                </Grid>
-                <Grid item xs={4} className={classes.grid}>
-                <Card className={classes.root}>
-                    <CardContent>
-                        <Typography className={classes.title} color="textSecondary" gutterBottom>
-                        Word of the Day
-                        </Typography>
-                        <Typography variant="h5" component="h2">
-                        {/* be{bull}nev{bull}o{bull}lent */}
-                        </Typography>
-                        <Typography className={classes.pos} color="textSecondary">
-                        adjective
-                        </Typography>
-                        <Typography variant="body2" component="p">
-                        well meaning and kindly.
-                        <br />
-                        {'"a benevolent smile"'}
-                        </Typography>
-                    </CardContent>
-                    <CardActions>
-                        <Button size="small">Learn More</Button>
-                    </CardActions>
-                </Card>
-                </Grid>
+                    <Grid item xs={9} >
+                            <Grid container  spacing={2}>
+                                    <Grid item xs={4} className={classes.grid} >
+                                    <Card className={classes.root}>
+                                       
+                                           
+                                        <CardActions>
+                                            <Button size="small" onClick={
+                                        () => this.handleOpen()}>Contact</Button>
+                                        </CardActions>
+                                    </Card>
+                                    </Grid>
+                                    <Grid item xs={4} className={classes.grid} >
+                                    <Card className={classes.root}>
+                                       
+                                           
+                                        <CardActions>
+                                            <Button size="small" onClick={
+                                        () => this.handleOpen()}>Contact</Button>
+                                        </CardActions>
+                                    </Card>
+                                    </Grid>
+                                    <Grid item xs={4} className={classes.grid}>
+                                    <Card className={classes.root}>
+                                       
+                                           
+                                        <CardActions>
+                                            <Button size="small"onClick={
+                                        () => this.handleOpen()} >Contact</Button>
+                                        </CardActions>
+                                    </Card>
+                                    </Grid>
 
-
+                                </Grid>
+                    </Grid>
+                    <Grid item xs={3}>
+                                <Contact id='mydiv' handleClose={this.handleClose}/>
+                    </Grid>
+                    
                 </Grid>
+                )
+                :
+                (
+                <Grid container  spacing={2}>
+                    <Grid item xs={12}>
+                            <Grid container  spacing={2}>
+                                    <Grid item xs={4} className={classes.grid} >
+                                    <Card className={classes.root}>
+                                        <CardActions>
+                                            <Button size="small" onClick={
+                                        () => this.handleOpen()}>Contact</Button>
+                                        </CardActions>
+                                    </Card>
+                                    </Grid>
+                                    <Grid item xs={4} className={classes.grid} >
+                                    <Card className={classes.root}>
+                                        <CardActions>
+                                            <Button size="small" onClick={
+                                        () => this.handleOpen()}>Contact</Button>
+                                        </CardActions>
+                                    </Card>
+                                    </Grid>
+                                    <Grid item xs={4} className={classes.grid}>
+                                    <Card className={classes.root}>
+                                    <CardActions>
+                                            <Button size="small" onClick={
+                                        () => this.handleOpen()}>Contact</Button>
+                                        </CardActions>
+                                    </Card>
+                                    </Grid>
+
+                                </Grid>
+                    </Grid>
+                    <Grid item xs={false}>
+                                <Contact id='mydiv' handleClose={this.handleClose}/>
+                    </Grid>
+                    
+                </Grid>
+                )
+            }
+                
+                
+               
                 
             </div>
         )
