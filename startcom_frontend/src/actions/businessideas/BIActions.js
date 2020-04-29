@@ -21,7 +21,6 @@ export const getAllBIS = () => dispatch =>  {
                     payload: data
                 })
             })
-                // .then(dispatch({type:STOP_LOADING_DATA}))
         )
 
 };
