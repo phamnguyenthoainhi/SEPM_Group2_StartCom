@@ -35,6 +35,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 businessIdea: action.payload,
+                loading: false
             };
 
         case IS_REGISTERED_SUCCESS:

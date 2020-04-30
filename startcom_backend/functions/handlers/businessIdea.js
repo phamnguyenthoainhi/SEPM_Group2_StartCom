@@ -1,12 +1,13 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const db = admin.firestore();
+const { uploadImage, uploadMultipleImages } = require('./utilities')
 
 //get all business ideas
-exports.getAllBusinessIdeas = (req,res)=>{
+exports.getAllBusinessIdeas = (req, res) => {
     const businessIdeas = []
     return db.collection('BusinessIdea').get()
-        .then((query)=>{
+        .then((query) => {
             query.forEach(doc => {
                 var idea = doc.data();
                 idea.id = doc.id;
@@ -14,63 +15,129 @@ exports.getAllBusinessIdeas = (req,res)=>{
             })
             return res.json(businessIdeas)
         })
-        .catch((error)=>{
+        .catch((error) => {
             console.log(error);
-            return res.json({error:error})
+            return res.json(error)
         })
 }
 
 //get business idea by id
-exports.getBusinessIdeaById = (req,res) =>{
+exports.getBusinessIdeaById = (req, res) => {
     return db.collection('BusinessIdea').doc(req.params.id).get()
-        .then((doc)=>{
-            if(doc!==null){
+        .then((doc) => {
+            if (doc !== null) {
                 var idea = doc.data();
                 idea.id = doc.id;
                 return res.json(idea);
             }
-            return res.json({error: "Business Idea does not exist."});
+            return res.json({ error: "Business Idea does not exist." });
         })
-        .catch((error)=>{
+        .catch((error) => {
             console.log(error);
-            return res.json({error:error});
+            return res.json(error);
         })
 }
 
 //post business idea
-exports.postBusinessIdea = (req,res)=>{
+exports.postBusinessIdea = async (req, res) => {
     var businessIdea = req.body
-    return db.collection('BusinessIdea').add(businessIdea)
-        .then((doc)=>{
-            businessIdea.id = doc.id;
-            return res.json(businessIdea);
-        })
-        .catch((error)=>{
-            console.log(error);
-            return res.json({error:error});
-        })
+    if (businessIdea.image) {
+        try {
+            const imageUpload = await uploadImage(businessIdea.image, businessIdea.name)
+            businessIdea.image = imageUpload
+            return db.collection('BusinessIdea').add(businessIdea)
+                .then((doc) => {
+                    businessIdea.id = doc.id
+                    return res.json(businessIdea)
+                })
+                .catch(error => {
+                    console.log(error)
+                    return res.json(error)
+                })
+        }
+        catch (error) {
+            console.log(error)
+            return res.json(error)
+        }
+
+    }
+    else {
+        return db.collection('BusinessIdea').add(businessIdea)
+            .then((doc) => {
+                businessIdea.id = doc.id;
+                return res.json(businessIdea);
+            })
+            .catch((error) => {
+                console.log(error);
+                return res.json(error);
+            })
+    }
+
 }
 
 //edit business idea
-exports.editBusinessIdea = (req,res)=>{
-    return db.collection('BusinessIdea').doc(req.params.id).update(req.body)
-        .then(()=>{
-            return res.json(req.body);
-        })
-        .catch((error)=>{
+exports.editBusinessIdea = async (req, res) => {
+    var businessIdea = req.body
+    if (businessIdea.image && !businessIdea.image.includes("https://storage.googleapis.com/startcom-sepm.appspot.com/images/")) {
+        try {
+            const imageUpdate = await uploadImage(businessIdea.image, businessIdea.name)
+            businessIdea.image = imageUpdate
+            return db.collection('BusinessIdea').doc(req.params.id).update(req.body)
+                .then(() => {
+                    businessIdea.id = req.params.id
+                    return res.json(businessIdea)
+                })
+                .catch(error => {
+                    console.log(error)
+                    return res.json(error)
+                })
+        }
+        catch (error) {
             console.log(error)
-            return res.json({error:error})
-        })
+            return res.json(error)
+        }
+
+    }
+    else {
+        try{
+            const update = await db.collection('BusinessIdea').doc(req.params.id).update(businessIdea)
+            return db.collection('BusinessIdea').doc(req.params.id).get()
+            .then((doc) => {
+                const idea = doc.data()
+                idea.id = req.params.id
+                return res.json(idea);
+            })
+            .catch((error) => {
+                console.log(error)
+                return res.json(error)
+            })
+        }
+        catch(error){
+            console.log(error)
+            return res.json(error)
+        }
+    }
 }
 
 //delete business idea
-exports.deleteBusinessIdea = (req,res)=>{
+exports.deleteBusinessIdea = (req, res) => {
     return db.collection('BusinessIdea').doc(req.params.id).delete()
-        .then(()=>{
-            return res.json({message:'successfully deleted'});
+        .then(() => {
+            return res.json({ message: 'successfully deleted' });
         })
-        .catch((error)=>{
+        .catch((error) => {
             console.log(error);
-            return res.json({error:error})
+            return res.json(error)
+        })
+}
+
+exports.testUploadMultipleImages = (req,res)=>{
+    return uploadMultipleImages(req.body.list, req.body.name)
+        .then((urlList)=>{
+            return res.json(urlList)
+        })
+        .catch(error=>{
+            console.log(error)
+            return res.json(error)
         })
 }

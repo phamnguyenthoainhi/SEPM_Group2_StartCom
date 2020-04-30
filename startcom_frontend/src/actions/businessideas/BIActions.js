@@ -26,6 +26,7 @@ export const getAllBIS = () => dispatch =>  {
 };
 
 export const getBI = (id) => dispatch => {
+    dispatch({ type: LOADING_DATA});
     fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/get_business_idea/${id}`)
         .then (res =>
                 res.json().then(function (data) {

@@ -6,7 +6,7 @@ import BITemplate from '../../Layout/BITemplate';
 import Grid from "@material-ui/core/Grid";
 import Navbar from '../../Layout/Navbar';
 import Footer from '../../Layout/Footer';
-import BISkeleton from "../../Layout/BISkeleton";
+import BISkeleton from "../../skeleton/BISkeleton";
 
 const styles = (theme) => ({
     gridContainer: {
@@ -32,7 +32,6 @@ class DisplayBIS extends Component {
     };
 
     render() {
-        console.log(this.props);
         const { classes, businessIdeas, loading } = this.props;
 
         let ideaMarkup = !loading ? (

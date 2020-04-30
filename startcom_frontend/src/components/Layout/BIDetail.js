@@ -8,18 +8,20 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import defaultLogo from '../../images/company_logo.png';
 import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
 import Typography from "@material-ui/core/Typography";
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import UpdateBIForm from "./UpdateBIForm";
+import Chip from '@material-ui/core/Chip';
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import BITemplate from "./BITemplate";
+import BIDetailSkeleton from "../skeleton/BIDetailSkeleton";
 
 
 
 const styles = (theme) => ({
-
     companyLogo: {
         objectFit: 'cover',
         width: '100%',
@@ -27,30 +29,32 @@ const styles = (theme) => ({
     },
 
     detailWrapper: {
-        padding: '50px 100px'
+        padding: '50px 100px',
+        [theme.breakpoints.down('sm')]: {
+            padding: '50px 60px',
+        },
     },
     title: {
-        fontFamily: theme.font1,
-        fontWeight: 400,
+        fontFamily: theme.font2,
+        fontWeight: 700,
         [theme.breakpoints.down('sm')]: {
-            fontSize: 22
+            fontSize: 32
         },
         [theme.breakpoints.down('xs')]: {
-            fontSize: 20
+            fontSize: 30
         }
     },
     description: {
-        fontWeight: 300,
+        fontFamily: theme.font2,
         [theme.breakpoints.down('sm')]: {
-            fontSize: 13
+            fontSize: 15
         },
         [theme.breakpoints.down('xs')]: {
-            fontSize: 12
+            fontSize: 14
         }
     },
     date: {
-        fontWeight: 300,
-        fontSize: 18
+        fontFamily: theme.font2,
     },
 
     category: {
@@ -66,66 +70,114 @@ const styles = (theme) => ({
     },
 
     investorTrue: {
-        textTransform: 'uppercase',
-        fontFamily: theme.font1,
-        color: theme.color.secondary,
+        border: 'none',
+        margin: "10px 0",
+        fontSize: 20,
+        padding: "10px 0",
+        textTransform: "inherit",
+        fontFamily: theme.font2,
+        fontWeight: 700,
+        backgroundColor: theme.color.secondary,
+        color: theme.color.primary2,
+        "&:hover": {
+            backgroundColor: theme.color.secondary,
+        },
         [theme.breakpoints.down('sm')]: {
-            fontSize: 14
+            fontSize: 16
         },
         [theme.breakpoints.down('xs')]: {
             fontSize: 13
         }
     },
     investorFalse: {
-        textTransform: 'uppercase',
-        fontFamily: theme.font1,
+        border: 'none',
+        margin: "10px 0",
+        fontSize: 20,
+        padding: "10px 0",
+        textTransform: "inherit",
+        fontFamily: theme.font2,
+        fontWeight: 700,
         color: '#C75D5D',
         [theme.breakpoints.down('sm')]: {
-            fontSize: 14
+            fontSize: 16
         },
         [theme.breakpoints.down('xs')]: {
             fontSize: 13
         }
     },
     consultantTrue: {
-        fontFamily: theme.font1,
-        fontWeight: 600,
+        border: 'none',
+        padding: "10px 0",
+        fontSize: 20,
+        textTransform: "inherit",
+        fontFamily: theme.font2,
+        fontWeight: 700,
         backgroundColor: theme.color.secondary,
-        marginBottom: 20
+        color: theme.color.primary2,
+        "&:hover": {
+            backgroundColor: theme.color.secondary,
+        },
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 16
+        },
+        [theme.breakpoints.down('xs')]: {
+            fontSize: 13
+        }
     },
     consultantFalse: {
-        fontFamily: theme.font1,
-        fontWeight: 600,
+        border: 'none',
+        padding: "10px 0",
+        fontSize: 20,
+        textTransform: "inherit",
+        fontFamily: theme.font2,
+        fontWeight: 700,
         backgroundColor: '#C75D5D',
         color: theme.color.primary2,
-        marginBottom: 20
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 16
+        },
+        [theme.breakpoints.down('xs')]: {
+            fontSize: 13
+        }
     },
-    fundingTrue: {
-        textAlign: 'center',
+    funding: {
+        fontWeight: 300,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 28
+        },
+        [theme.breakpoints.down('xs')]: {
+            fontSize: 13,
+            textAlign: 'center'
+        }
+    },
+    currencyTrue: {
+        fontFamily: theme.font2,
+        fontWeight: 700,
         color: theme.color.secondary,
-        fontWeight: 300,
         [theme.breakpoints.down('sm')]: {
-            fontSize: 15
+            fontSize: 32
         },
         [theme.breakpoints.down('xs')]: {
-            fontSize: 14
+            fontSize: 28,
+            textAlign: 'center'
         }
     },
-    fundingFalse: {
-        textAlign: 'center',
+    currencyFalse: {
+        fontFamily: theme.font2,
+        fontWeight: 700,
         color: '#C75D5D',
-        fontWeight: 300,
         [theme.breakpoints.down('sm')]: {
-            fontSize: 15
+            fontSize: 32
         },
         [theme.breakpoints.down('xs')]: {
-            fontSize: 14
+            fontSize: 28,
+            textAlign: 'center'
         }
     },
+
     buttonGroup: {
         textAlign: 'center',
         justifyContent: 'center'
-        // padding: 20
     },
     donateBtn: {
         margin: 10,
@@ -187,6 +239,21 @@ const styles = (theme) => ({
         "&:hover": {
             backgroundColor: 'transparent',
         },
+    },
+    chip: {
+        padding: "20px 0",
+        border: "none",
+        fontFamily: theme.font2,
+        fontWeight: 700,
+        fontSize: 16
+    },
+    dividerTrue: {
+        padding: 3,
+        backgroundColor: theme.color.secondary
+    },
+    dividerFalse: {
+        padding: 3,
+        backgroundColor: '#C75D5D'
     }
 
 });
@@ -202,10 +269,13 @@ class BIDetail extends Component {
         }
     }
 
-
     componentDidMount() {
         const businessID = this.props.match.params.id;
         this.props.getBI(businessID);
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+
     }
 
 
@@ -234,103 +304,139 @@ class BIDetail extends Component {
 
     render() {
         // console.log(this.props.businessIdea);
-        const { classes, businessIdea } = this.props;
+        const { classes, businessIdea, loading } = this.props;
         const { openDeleteDialog, toggleUpdate } = this.state;
+
+        let detailMarkup = !loading ? (
+            <Grid container className={classes.detailWrapper}>
+                <Grid container>
+                    <Grid item md={7} sm={6}>
+                        <Typography variant="h4" component="h4"  gutterBottom className={classes.title}>
+                            {businessIdea.name}
+                        </Typography>
+                        <Typography variant="subtitle1"  component="p" gutterBottom className={classes.description}>
+                            {businessIdea.description}
+                        </Typography>
+                        <Chip variant="outlined" icon={<LocalOfferIcon/>} label={businessIdea.category}  className={classes.chip}/>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={5}>
+                    <Grid item md={7} sm={6}>
+                        {businessIdea.image === '' ? (
+                                <img src={defaultLogo} className={classes.companyLogo}/>
+                            ) :
+                            <img src={businessIdea.image} className={classes.companyLogo} />
+                        }
+                    </Grid>
+
+                    <Grid item md={5} sm={6} xs={12}>
+                        {businessIdea.needInvestor ? (
+                            <div className={classes.dividerTrue}/>
+                        ) : (
+                            <div className={classes.dividerFalse}/>
+                        )}
+                        <Grid container style={{padding: "20px 0"}} direction='column'>
+                            <Typography variant="h4" className={classes.funding}>
+                                Target funding
+                            </Typography>
+                            {businessIdea.needInvestor ? (
+                                <Typography variant="h3" className={classes.currencyTrue}>
+                                    ${businessIdea.targetFunding}
+                                </Typography>
+                            ) : (
+                                <Typography variant="h3" className={classes.currencyFalse}>
+                                    ${businessIdea.targetFunding}
+                                </Typography>
+                            )}
+
+                        </Grid>
+
+                        <Grid container direction='column' justify='space-between'>
+                            {businessIdea.needConsultant ? (
+                                <Button
+                                    variant='outlined'
+                                    className={classes.consultantTrue}
+                                >
+                                    Consultancy in need
+                                </Button>
+                            ) : (
+                                <Button
+                                    variant='outlined'
+                                    className={classes.consultantFalse}
+                                    disabled
+                                >
+                                    Consultancy occupied
+                                </Button>
+                            )}
+
+                            {businessIdea.needInvestor ? (
+                                <Button
+                                    variant='outlined'
+                                    className={classes.investorTrue}
+                                >
+                                    Back this project
+                                </Button>
+                            ) : (
+                                <Button
+                                    variant='outlined'
+                                    className={classes.investorFalse}
+                                    disabled
+                                >
+                                    Funding closed
+                                </Button>
+                            )}
+
+                        </Grid>
+
+
+
+
+
+                        {/*<Grid container className={classes.buttonGroup}>*/}
+                        {/*    <Button className={classes.donateBtn}>Back it</Button>*/}
+                        {/*    <Button className={classes.updateBtn} onClick={this.toggleUpdateForm}>Update</Button>*/}
+                        {/*    <Button className={classes.deleteBtn} onClick={this.openDeleteDialog}>Delete</Button>*/}
+                        {/*</Grid>*/}
+                    </Grid>
+                </Grid>
+            </Grid>
+
+        ) : ( <BIDetailSkeleton />);
+
         return (
             <Grid container>
                 <Navbar/>
-                <Grid container className={classes.detailWrapper}>
-                    <Grid container spacing={5}>
-                        <Grid item md={7} sm={6}>
-                            {businessIdea.image === '' ? (
-                                <img src={defaultLogo} className={classes.companyLogo}/>
-                            ) :
-                                <img src={businessIdea.image} className={classes.companyLogo} />
-                            }
-                        </Grid>
-                        <Grid item md={5} sm={6}>
-                            {businessIdea.needInvestor ? (
-                                <Typography className={classes.investorTrue} variant="subtitle1" gutterBottom>
-                                    Funding
-                                </Typography>
-                            ) : (
-                                <Typography className={classes.investorFalse} variant="subtitle1" gutterBottom>
-                                    Funding Closed
-                                </Typography>
-                            )}
-                            <Typography variant="h4" component="h4" className={classes.title}>
-                                {businessIdea.name}
-                            </Typography>
-                            <Typography variant="subtitle1"  component="p" gutterBottom className={classes.description}>
-                                {businessIdea.description}
-                            </Typography>
-                            <Divider style={{margin: "20px 70px", backgroundColor: '#718F94'}} variant="middle"/>
-                            <Typography  variant="subtitle1" className={classes.category}>
-                                Category: {businessIdea.category}
-                            </Typography>
-                            <Typography variant="subtitle1" className={classes.date}>
-                                Founded: {businessIdea.date}
-                            </Typography>
-                            <Divider style={{margin: "20px 70px", backgroundColor: "#718F94"}} variant="middle"/>
+                {detailMarkup}
+                {/*<Dialog*/}
+                {/*    keepMounted*/}
+                {/*    className={classes.dialog}*/}
+                {/*    open={openDeleteDialog}*/}
+                {/*    onClose={this.closeDeleteDialog}*/}
+                {/*    aria-labelledby="alert-dialog-title"*/}
+                {/*    aria-describedby="alert-dialog-description"*/}
+                {/*    PaperProps={{*/}
+                {/*        style: {*/}
+                {/*            backgroundColor: '#90B494',*/}
+                {/*        },*/}
+                {/*    }}*/}
+                {/*>*/}
+                {/*    <Typography variant="h6" className={classes.dialogTitle}>Do you want to discard this business idea ?</Typography>*/}
+                {/*    <DialogContent>*/}
+                {/*        <Typography variant="subtitle1" className={classes.dialogSubtitle}>*/}
+                {/*            If you delete this business idea. All of its credential will be permanently delete from the database.*/}
+                {/*        </Typography>*/}
+                {/*    </DialogContent>*/}
+                {/*    <DialogActions>*/}
+                {/*        <Button onClick={this.closeDeleteDialog} className={classes.cancelBtn}>*/}
+                {/*            Cancel*/}
+                {/*        </Button>*/}
+                {/*        <Button onClick={() => this.delete(businessIdea.id)} className={classes.confirmBtn}  >*/}
+                {/*            Confirm*/}
+                {/*        </Button>*/}
+                {/*    </DialogActions>*/}
+                {/*</Dialog>*/}
 
-                            {/*{businessIdea.needConsultant ? (*/}
-                            {/*    <Chip*/}
-                            {/*        className={classes.consultantTrue}*/}
-                            {/*        label="Consultancy Required"*/}
-                            {/*    />*/}
-                            {/*) : (*/}
-                            {/*    <Chip*/}
-                            {/*        className={classes.consultantFalse}*/}
-                            {/*        label="Consultancy Occupied"/>*/}
-                            {/*)}*/}
-                            {businessIdea.needInvestor ? (
-                                <Typography variant="h5" className={classes.fundingTrue}>
-                                    Target funding: ${businessIdea.targetFunding}
-                                </Typography>
-                                ) : (
-                                <Typography variant="h5" className={classes.fundingFalse}>
-                                    Target funding: ${businessIdea.targetFunding}
-                                </Typography>
-                            )}
-
-                            <Grid container className={classes.buttonGroup}>
-                                <Button className={classes.donateBtn}>Back it</Button>
-                                <Button className={classes.updateBtn} onClick={this.toggleUpdateForm}>Update</Button>
-                                <Button className={classes.deleteBtn} onClick={this.openDeleteDialog}>Delete</Button>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Grid>
-                <Dialog
-                    keepMounted
-                    className={classes.dialog}
-                    open={openDeleteDialog}
-                    onClose={this.closeDeleteDialog}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                    PaperProps={{
-                        style: {
-                            backgroundColor: '#90B494',
-                        },
-                    }}
-                >
-                    <Typography variant="h6" className={classes.dialogTitle}>Do you want to discard this business idea ?</Typography>
-                    <DialogContent>
-                        <Typography variant="subtitle1" className={classes.dialogSubtitle}>
-                            If you delete this business idea. All of its credential will be permanently delete from the database.
-                        </Typography>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.closeDeleteDialog} className={classes.cancelBtn}>
-                            Cancel
-                        </Button>
-                        <Button onClick={() => this.delete(businessIdea.id)} className={classes.confirmBtn}  >
-                            Confirm
-                        </Button>
-                    </DialogActions>
-                </Dialog>
-
-                <UpdateBIForm open={toggleUpdate} close={this.toggleUpdateForm} businessIdea={businessIdea}/>
+                {/*<UpdateBIForm open={toggleUpdate} close={this.toggleUpdateForm} businessIdea={businessIdea}/>*/}
 
                 <Footer/>
             </Grid>
@@ -347,7 +453,8 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-    businessIdea: state.businessIdeasData.businessIdea
+    businessIdea: state.businessIdeasData.businessIdea,
+    loading: state.businessIdeasData.loading
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(BIDetail));
