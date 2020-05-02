@@ -3,7 +3,7 @@ import { fetchBI, deleteBI, updateBI, filterBICategory, filterBIConsultant, filt
 import { connect } from "react-redux";
 import withStyles from '@material-ui/core/styles/withStyles';
 
-const IdeaContext = React.createContext();
+// const IdeaContext = React.createContext();
 
 class BIFilter extends Component {
     constructor(props) {
@@ -20,7 +20,7 @@ class BIFilter extends Component {
             needConsultant: false,
             needInvestor: false
         };
-        this.handleChange = this.handleChange.bind(this);
+//        this.handleChange = this.handleChange.bind(this);
     }
 
     componentDidMount() {
@@ -36,9 +36,9 @@ class BIFilter extends Component {
         }
     };
 
-    handleChange = (event) => {
-        this.setState({ [event.target.name]: event.target.value })
-    };
+    // handleChange = (event) => {
+    //     this.setState({ [event.target.name]: event.target.value })
+    // };
 
     // getIdea = category => {
     //     console.log("abcxyz")
@@ -49,75 +49,76 @@ class BIFilter extends Component {
 
     // };
 
-    //filter Idea by Category
-    filterCategory = (category) => {
-        const sortedIdeas = this.state.items.filter(idea => idea.category === category);
-        return sortedIdeas;
-    };
+    // //filter Idea by Category
+    // filterCategory = (category) => {
+    //     const sortedIdeas = this.state.items.filter(idea => idea.category === category);
+    //     return sortedIdeas;
+    // };
 
-    //filter idea by target funding
-    filterTargerFunding = (minFunding, maxFunding) => {
-        let sortedIdeas = this.state.items.filter(idea => parseFloat(idea.targerFunding) >= minFunding && parseFloat(idea.targerFunding) <= maxFunding);
-        return sortedIdeas;
+    // //filter idea by target funding
+    // filterTargerFunding = (minFunding, maxFunding) => {
+    //     let sortedIdeas = this.state.items.filter(idea => parseFloat(idea.targerFunding) >= minFunding && parseFloat(idea.targerFunding) <= maxFunding);
+    //     return sortedIdeas;
 
-    };
+    // };
 
-    //filter idea by consultants 
-    filterConsultant = (needConsultant) => {
-        let sortedIdeas = this.state.items.filter(idea => idea.needConsultant === true);
-        return sortedIdeas;
-    };
+    // //filter idea by consultants 
+    // filterConsultant = (needConsultant) => {
+    //     let sortedIdeas = this.state.items.filter(idea => idea.needConsultant === true);
+    //     return sortedIdeas;
+    // };
 
-    //filter idea by investor 
-    filterInvestor = (needInvestor) => {
-        let sortedIdeas = this.state.items.filter(idea => idea.needInvestor === true);
-        return sortedIdeas;
-    };
+    // //filter idea by investor 
+    // filterInvestor = (needInvestor) => {
+    //     let sortedIdeas = this.state.items.filter(idea => idea.needInvestor === true);
+    //     return sortedIdeas;
+    // };
 
     render() {
+        const {foundIdeas} = this.props
 
         return (
+
             <div>
                 <label>Idea Category</label>
-                <select name="category" id="category" onChange={(e) => this.props.filterBICategory(this.props.businessIdeas, e.target.value)} value={this.state.category}> {this.state.category}
+                <select name="category" id="category" onChange={(e) => this.props.filterBICategory(this.props.foundIdeas, e.target.value)} value={this.state.category}> {this.state.category}
                     <option value= "">All</option>
                     <option value= "techno">Technology</option>
                     <option vlaue= "business">Business</option>
                 </select>
 
                 <label>Need Consultant</label>
-                <select name="Need Consultant" id="needConsultant" onChange={(e) => this.props.filterBIConsultant(this.props.businessIdeas, e.target.value)} value={this.state.needConsultant}> {this.state.needConsultant}
+                <select name="Need Consultant" id="needConsultant" onChange={(e) => this.props.filterBIConsultant(this.props.foundIdeas, e.target.value)} value={this.state.needConsultant}> {this.state.needConsultant}
                     <option value= "">All</option>
                     <option value= "true">Available</option>
-                    <option vlaue= "false">UNavailable</option>
+                    <option vlaue= "false">Unavailable</option>
                 </select>
 
                 <label>Need Investor</label>
-                <select name="Need Investor" id="needInvestor" onChange={(e) => this.props.filterBIInvestor(this.props.businessIdeas, e.target.value)} value={this.state.needConsultant}> {this.state.needConsultant}
+                <select name="Need Investor" id="needInvestor" onChange={(e) => this.props.filterBIInvestor(this.props.foundIdeas, e.target.value)} value={this.state.needConsultant}> {this.state.needConsultant}
                     <option value= "">All</option>
                     <option value= "true">Available</option>
-                    <option vlaue= "false">UNavailable</option>
+                    <option vlaue= "false">Unavailable</option>
                 </select>
-                
             </div>
 
         )
     }
 }
 
-
 const mapDispatchToProps = dispatch => ({
     fetchBI: () => dispatch(fetchBI()),
-    filterBICategory: () => dispatch(filterBICategory()),
-    filterBIConsultant: () => dispatch(filterBIConsultant()),
-    filterBIInvestor: () => dispatch(filterBIInvestor()),
+    filterBICategory: (category) => dispatch(filterBICategory(category)),
+    filterBIConsultant: (needConsultant) => dispatch(filterBIConsultant(needConsultant)),
+    filterBIInvestor: (needInvestor) => dispatch(filterBIInvestor(needInvestor)),
 });
 
 const mapStateToProps = state => ({
     businessIdeas: state.businessIdeas.items,
     category: state.businessIdeas.category,
     needConsultant: state.businessIdeas.needConsultant,
-    needInvestor: state.businessIdeas.needInvestor
+    needInvestor: state.businessIdeas.needInvestor,
+    foundIdeas: state.businessIdeas.items
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)((BIFilter));

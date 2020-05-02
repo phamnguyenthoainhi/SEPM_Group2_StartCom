@@ -1,11 +1,14 @@
-import { READ_BI, IS_REGISTERED_SUCCESS, RESET_REGISTER, UPDATE_BI, DELETE_BI, FETCH_BI, SEARCH_BI, FILTER_BI_BY_CATEGORY } from '../actions/actionTypes';
+import { READ_BI, IS_REGISTERED_SUCCESS, RESET_REGISTER, UPDATE_BI, DELETE_BI, FETCH_BI, SEARCH_BI, FILTER_BI_BY_CATEGORY, FILTER_BI_BY_INVESTOR, FILTER_BI_BY_CONSULTANT } from '../actions/actionTypes';
 
 const initialState = {
     businessIdea: {},
     businessIdeas: [],
     isRegisteredSuccess: false,
     filteredIdeas: [],
-    category: ''
+    category: '',
+    needInvestor: false,
+    needConsultant: false,
+    name: "",
 };
 
 export default function (state = initialState, action) {
@@ -39,12 +42,14 @@ export default function (state = initialState, action) {
         case FETCH_BI:
             return {
                 ...state,
-                businessIdeas: action.payload
+                businessIdeas: action.payload,
+                filteredIdeas: action.payload.items,
             };
         case SEARCH_BI:
             return {
                 ...state,
                 businessIdea: action.payload,
+                name: action.payload.name,
                 loading: false
             };
         case FILTER_BI_BY_CATEGORY:
@@ -54,7 +59,20 @@ export default function (state = initialState, action) {
                 category: action.payload.category,
                 loading: false
             };
-
+        case FILTER_BI_BY_CONSULTANT:
+            return {
+                ...state,
+                filteredIdeas: action.payload.items,
+                needConsultant: action.payload.needConsultant,
+                loading: false
+            };
+        case FILTER_BI_BY_INVESTOR:
+            return {
+                ...state,
+                filteredIdeas: action.payload.items,
+                needInvestor: action.payload.needInvestor,
+                loading: false
+            };
         default:
             return state;
     }

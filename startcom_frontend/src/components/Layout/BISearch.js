@@ -95,11 +95,11 @@ class BIsearch extends Component {
         <div className="container">
           <h1 className=""> Search for An Idea</h1>
           <form id="searchForm">
-            <TextField id="standard-basic" label="Search" onChange={this.props.handleChange} value={this.props.name} />
-            <button type="submit" className="btn btn-primary btn-bg mt-3" onClick={this.props.triggerParentUpdate}>
-              Search  
-            </button>
+            <TextField id="standard-basic" label="Search" onChange={this.props.searchBI} value={this.props.name} />
           </form>
+          <button type="submit" className="btn btn-primary btn-bg mt-3" onClick={this.props.triggerParentUpdate}>
+            Search
+            </button>
         </div>
       </div>
     )
@@ -108,12 +108,17 @@ class BIsearch extends Component {
 
 const mapDispatchToProps = dispatch => ({
   fetchBI: () => dispatch(fetchBI()),
-  searchBI: () => dispatch(searchBI())
+  searchBI: () => dispatch(searchBI()),
+  filterBICategory: () => dispatch()
+
 
 });
 
 const mapStateToProps = state => ({
-  businessIdeas: state.businessIdeas.businessIdeas,
+  businessIdeas: state.businessIdeas.items  ,
+  foundIdeas: state.businessIdeas.items,
+  name: state.businessIdeas.name,
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)((BIsearch));
