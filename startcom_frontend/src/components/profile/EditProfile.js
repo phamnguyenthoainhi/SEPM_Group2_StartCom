@@ -15,8 +15,8 @@ import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import IconButton from "@material-ui/core/IconButton";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
-import BITemplateProfile from "../Layout/BITemplateProfile";
+import defaultLogo from "../../images/company_logo.png";
+import Chip from '@material-ui/core/Chip';
 
 
 const styles = (theme) => ({
@@ -36,6 +36,9 @@ const styles = (theme) => ({
             justifyContent: 'center',
             alignContent: 'center',
         },
+    },
+    ideaCard: {
+        border: '.5px solid grey',
     },
     avatar: {
         borderRadius: '50%',
@@ -94,18 +97,38 @@ const styles = (theme) => ({
         fontFamily: theme.font2,
         fontWeight: 700,
     },
-
+    text: {
+        fontFamily: theme.font2,
+        fontWeight: 400,
+    },
     progressContainer: {
         padding: 30,
         justifyContent: 'center',
         alignContent: 'center',
     },
-
-
+    ideaContainer: {
+        padding: "15px 0"
+    },
+    ideaImage: {
+        objectFit: 'cover',
+        width: '100%',
+        maxHeight: '100%'
+    },
+    chipTrue: {
+        color: theme.color.primary2,
+        backgroundColor: theme.color.secondary,
+        fontFamily: theme.font2,
+        marginRight: 10
+    },
+    chipFalse: {
+        backgroundColor: '#C75D5D',
+        fontFamily: theme.font2,
+        marginRight: 10
+    }
 
 });
 
-class Profile extends Component {
+class EditProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -189,7 +212,7 @@ class Profile extends Component {
                                             Email
                                         </Typography>
                                         <Typography variant="subtitle2" className={classes.email}>
-                                           manhtrietvt@gmail.com
+                                            manhtrietvt@gmail.com
                                         </Typography>
                                     </Grid>
 
@@ -232,7 +255,117 @@ class Profile extends Component {
                                             <CircularProgress variant="indeterminate" size={40}/>
                                         </Grid>
                                     ): (
-                                       <BITemplateProfile businessIdea={businessIdea}/>
+                                        <Card elevation={3} className={classes.ideaCard}>
+                                            <CardContent style={{padding: '10px 30px'}}>
+                                                <Grid container className={classes.ideaContainer} direction='row'>
+                                                    <Grid item md={4} sm={4} xs={4} lg={4}>
+                                                        <Typography className={classes.header} >
+                                                            Image:
+                                                        </Typography>
+                                                    </Grid>
+
+                                                    <Grid item md={8}>
+                                                        {businessIdea.image === '' ? (
+                                                                <img src={defaultLogo} className={classes.ideaImage}/>
+                                                            ) :
+                                                            <img src={businessIdea.image} className={classes.ideaImage} />
+                                                        }
+                                                    </Grid>
+                                                </Grid>
+
+                                                <Grid container className={classes.ideaContainer} direction='row'>
+                                                    <Grid item md={4} sm={4} xs={4} lg={4}>
+                                                        <Typography className={classes.header} >
+                                                            Name:
+                                                        </Typography>
+                                                    </Grid>
+
+                                                    <Grid item md={8}>
+                                                        <Typography className={classes.text}>
+                                                            {businessIdea.name}
+                                                        </Typography>
+                                                    </Grid>
+                                                </Grid>
+
+                                                <Grid container className={classes.ideaContainer} direction='row'>
+                                                    <Grid item md={4} sm={4} xs={4} lg={4}>
+                                                        <Typography className={classes.header} >
+                                                            Description:
+                                                        </Typography>
+                                                    </Grid>
+
+                                                    <Grid item md={8}>
+                                                        <Typography className={classes.text}>
+                                                            {businessIdea.description}
+                                                        </Typography>
+                                                    </Grid>
+                                                </Grid>
+
+                                                <Grid container className={classes.ideaContainer} direction='row'>
+                                                    <Grid item md={4} sm={4} xs={4} lg={4}>
+                                                        <Typography className={classes.header} >
+                                                            Date created:
+                                                        </Typography>
+                                                    </Grid>
+
+                                                    <Grid item md={8}>
+                                                        <Typography className={classes.text}>
+                                                            {businessIdea.date}
+                                                        </Typography>
+                                                    </Grid>
+                                                </Grid>
+
+                                                <Grid container className={classes.ideaContainer} direction='row'>
+                                                    <Grid item md={4} sm={4} xs={4} lg={4}>
+                                                        <Typography className={classes.header} >
+                                                            Category:
+                                                        </Typography>
+                                                    </Grid>
+
+                                                    <Grid item md={8}>
+                                                        <Typography className={classes.text}>
+                                                            {businessIdea.category}
+                                                        </Typography>
+                                                    </Grid>
+                                                </Grid>
+
+                                                <Grid container className={classes.ideaContainer} direction='row'>
+                                                    <Grid item md={4} sm={4} xs={4} lg={4}>
+                                                        <Typography className={classes.header} >
+                                                            Status:
+                                                        </Typography>
+                                                    </Grid>
+
+                                                    <Grid item md={8}>
+                                                        {businessIdea.needConsultant ? (
+                                                            <Chip label="Consultancy Required" className={classes.chipTrue}/>
+                                                        ) : (
+                                                            <Chip label="Consultancy Occupied" className={classes.chipFalse}/>
+                                                        )}
+
+                                                        {businessIdea.needInvestor ? (
+                                                            <Chip label="Funding" className={classes.chipTrue}/>
+                                                        ) : (
+                                                            <Chip label="Funding Closed" className={classes.chipFalse}/>
+                                                        )}
+                                                    </Grid>
+                                                </Grid>
+
+                                                <Grid container className={classes.ideaContainer} direction='row'>
+                                                    <Grid item md={4} sm={4} xs={4} lg={4}>
+                                                        <Typography className={classes.header} >
+                                                            Funding target:
+                                                        </Typography>
+                                                    </Grid>
+
+                                                    <Grid item md={8}>
+                                                        <Typography className={classes.text}>
+                                                            ${businessIdea.targetFunding}
+                                                        </Typography>
+                                                    </Grid>
+                                                </Grid>
+                                            </CardContent>
+                                        </Card>
                                     )}
                                 </Grid>
 
@@ -261,4 +394,4 @@ const mapStateToProps = state => ({
     loading: state.businessIdeasData.loading
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Profile));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(EditProfile));
