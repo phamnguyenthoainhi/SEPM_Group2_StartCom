@@ -18,7 +18,8 @@ export const DELETE_BI = 'DELETE_BI';
 export const DELETE_BI_SUCCESS = 'DELETE_BI_SUCCESS';
 
 //Profile CRUD types
-export const GET_PROFILE = 'GET_PROFILE';
+export const GET_USER = 'GET_USER';
+export const UPDATE_USER = 'UPDATE_USER';
 
 //UI Types
 export const RESET_UI_STATE = 'RESET_UI_STATE';

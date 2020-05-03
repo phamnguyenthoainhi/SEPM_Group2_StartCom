@@ -11,6 +11,8 @@ import CardMedia from "@material-ui/core/CardMedia";
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Grid from "@material-ui/core/Grid";
 
+
+
 const styles = (theme) => ({
     cardWrapper: {
         border: '.5px solid grey',
@@ -215,7 +217,7 @@ class BITemplate extends Component {
                                 Target Funding:
                             </Typography>
                             <Typography variant="subtitle2" className={classes.value}>
-                               ${idea.targetFunding}
+                                ${idea.targetFunding}
                             </Typography>
                         </Grid>
 

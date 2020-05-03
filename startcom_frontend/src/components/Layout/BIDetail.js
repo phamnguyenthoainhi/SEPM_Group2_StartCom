@@ -150,10 +150,9 @@ const styles = (theme) => ({
             textAlign: 'center'
         }
     },
-    currencyTrue: {
+    currency: {
         fontFamily: theme.font2,
         fontWeight: 700,
-        color: theme.color.secondary,
         [theme.breakpoints.down('sm')]: {
             fontSize: 32
         },
@@ -162,19 +161,6 @@ const styles = (theme) => ({
             textAlign: 'center'
         }
     },
-    currencyFalse: {
-        fontFamily: theme.font2,
-        fontWeight: 700,
-        color: '#C75D5D',
-        [theme.breakpoints.down('sm')]: {
-            fontSize: 32
-        },
-        [theme.breakpoints.down('xs')]: {
-            fontSize: 28,
-            textAlign: 'center'
-        }
-    },
-
     buttonGroup: {
         textAlign: 'center',
         justifyContent: 'center'
@@ -221,7 +207,6 @@ const styles = (theme) => ({
         fontWeight: 500,
     },
     cancelBtn: {
-
         fontSize: 15,
         fontFamily: theme.font1,
         color: "#C75D5D",
@@ -339,15 +324,10 @@ class BIDetail extends Component {
                             <Typography variant="h4" className={classes.funding}>
                                 Target funding
                             </Typography>
-                            {businessIdea.needInvestor ? (
-                                <Typography variant="h3" className={classes.currencyTrue}>
-                                    ${businessIdea.targetFunding}
-                                </Typography>
-                            ) : (
-                                <Typography variant="h3" className={classes.currencyFalse}>
-                                    ${businessIdea.targetFunding}
-                                </Typography>
-                            )}
+                            <Typography variant="h3" className={classes.currency}>
+                                ${businessIdea.targetFunding}
+                            </Typography>
+
 
                         </Grid>
 
@@ -387,11 +367,6 @@ class BIDetail extends Component {
                             )}
 
                         </Grid>
-
-
-
-
-
                         {/*<Grid container className={classes.buttonGroup}>*/}
                         {/*    <Button className={classes.donateBtn}>Back it</Button>*/}
                         {/*    <Button className={classes.updateBtn} onClick={this.toggleUpdateForm}>Update</Button>*/}
