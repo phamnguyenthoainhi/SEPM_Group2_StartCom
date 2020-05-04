@@ -112,7 +112,7 @@ class Contact extends Component {
         
         return (
             <div className={classes.right} >  
-                            <Card className={classes.rootcontact} id='mydiv' style={{display: 'block'}}>
+                            <Card className={classes.rootcontact} id='mydiv' style={{display: 'none'}}>
                                 <CardContent >
                                 
                                             <div className={classes.closesection}>
