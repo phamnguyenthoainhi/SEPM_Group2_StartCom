@@ -104,7 +104,7 @@ class Navbar extends Component {
     };
     logout = () => {
         sessionStorage.removeItem("id");
-        window.location.reload();
+        location.reload();
     }
 
     render() {

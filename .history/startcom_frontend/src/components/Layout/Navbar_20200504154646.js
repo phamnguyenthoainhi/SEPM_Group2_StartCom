@@ -103,8 +103,9 @@ class Navbar extends Component {
         })
     };
     logout = () => {
-        sessionStorage.removeItem("id");
-        window.location.reload();
+        <Button variant='outlined' className={classes.signUpBtn} component={Link} to="/auth">Sign Up
+                            
+                        </Button>
     }
 
     render() {

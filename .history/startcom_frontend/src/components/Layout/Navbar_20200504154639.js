@@ -102,10 +102,9 @@ class Navbar extends Component {
             openDrawer: !this.state.openDrawer
         })
     };
-    logout = () => {
-        sessionStorage.removeItem("id");
-        window.location.reload();
-    }
+    logout( {
+        
+    })
 
     render() {
         const { classes } = this.props;

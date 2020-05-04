@@ -129,7 +129,7 @@ class Navbar extends Component {
                             {(sessionStorage.getItem("id") !== null && sessionStorage.getItem("id") !== undefined && sessionStorage.getItem("id") !== '') ?
                             <Button variant='outlined' className={classes.signUpBtn} onClick={() => this.logout()}>Log out
                             
-                            </Button>: <Button variant='outlined' className={classes.signUpBtn} component={Link} to="/auth">Sign Up
+                            </Button>: <Button variant='outlined' className={classes.signUpBtn} component={Link} to="/auth">Lo
                             
                             </Button>
                         }
