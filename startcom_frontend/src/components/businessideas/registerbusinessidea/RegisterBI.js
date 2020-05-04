@@ -280,7 +280,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-    isRegisteredSuccess: state.businessIdeas.isRegisteredSuccess,
+    isRegisteredSuccess: state.businessIdeasData.isRegisteredSuccess,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(RegisterBI));

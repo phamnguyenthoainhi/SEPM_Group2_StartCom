@@ -16,6 +16,7 @@ import DisplayBIS from "./components/businessideas/displaybusinessideas/DisplayB
 import BIDetail from './components/Layout/BIDetail';
 import BIDetailSkeleton from "./components/skeleton/BIDetailSkeleton";
 import Profile from "./components/profile/Profile";
+import EditProfile from "./components/profile/EditProfile";
 
 class App extends Component {
   render() {
@@ -33,7 +34,8 @@ class App extends Component {
                   <Route exact path={'/displayBIS'} render={(props) => <DisplayBIS {...props} />} />
                   <Route exact path={'/detail/:id'} render={(props) => <BIDetail {...props} />} />
                   <Route exact path={'/skeleton'} render={(props) => <BIDetailSkeleton {...props} />} />
-                    <Route exact path={'/profile'} render={(props) => <Profile {...props} />} />
+                  <Route exact path={'/profile'} render={(props) => <Profile {...props} />} />
+                  <Route exact path={'/edit_profile'} render={(props) => <EditProfile {...props} />} />
                 </ThemeProvider>
           </Provider>
       </BrowserRouter>
