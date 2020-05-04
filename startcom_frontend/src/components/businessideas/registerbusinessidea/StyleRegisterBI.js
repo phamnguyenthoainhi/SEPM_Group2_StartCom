@@ -1,5 +1,11 @@
-const styles = (theme) => ({
+const style = (theme) => ({
+
+    formControl: {
+        // margin: theme.spacing(1),
+        width: '100%',
+    },
     formContainer: {
+        
         textAlign: 'center',
         padding: 50
     },
@@ -9,7 +15,7 @@ const styles = (theme) => ({
         
     },
     button: {
-        marginTop: "20px",
+        marginTop: "40px",
         paddingLeft: "20px",
         paddingRight: "20px",
         backgroundColor: theme.color.primary3,
@@ -34,7 +40,9 @@ const styles = (theme) => ({
           },
           '& .MuiInput-underline:hover': {
             borderBottomColor: theme.color.primary3,
-          }
+          },
+       
+    
     },
     content: {
         marginTop: '30px'
@@ -66,7 +74,7 @@ const styles = (theme) => ({
         maxWidth: 600
     },
     
-    buttonFile: {
+    buttonfile: {
         color: theme.color.primary3,
         
         '&:hover':{
@@ -75,7 +83,7 @@ const styles = (theme) => ({
             
         }
     },
-    chosenFile: {
+    chosenfile: {
         float: 'left',
         color: theme.color.contrast,
         fontSize: '14px',
@@ -98,17 +106,12 @@ const styles = (theme) => ({
         display: 'block',
         clear:'center'
     },
-    leftcolumn: {
-        
-        
-        paddingTop: 12
-    },
-    rightcolumn: {
-       
-    },
+    
     radiogroup: {
-        float: 'left'
+     
+        textAlign: 'left'
     }
 
-});
-export default styles;
+
+})
+export default style;
