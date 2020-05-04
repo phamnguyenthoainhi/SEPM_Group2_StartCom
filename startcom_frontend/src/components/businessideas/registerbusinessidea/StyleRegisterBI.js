@@ -16,7 +16,9 @@ const styles = (theme) => ({
         color: theme.color.primary1,
         '&:hover':{
             backgroundColor: theme.color.contrast
-        }
+        },
+        clear: 'left',
+
     
     },
     input: {
@@ -27,6 +29,7 @@ const styles = (theme) => ({
           },
           '& .MuiInput-underline:after': {
             borderBottomColor: theme.color.primary1,
+
           },
           '& .MuiInput-underline:hover': {
             borderBottomColor: theme.color.primary3,
@@ -40,7 +43,9 @@ const styles = (theme) => ({
         marginTop:'5px',
         marginLeft: '10px',
         marginRight: '10px',
-        marginBottom: '10px'
+        marginBottom: '10px',
+
+        color: theme.color.primary3
     },
     image: {
         height: 300,
@@ -71,8 +76,32 @@ const styles = (theme) => ({
     },
     chosenFile: {
         float: 'left',
+        color: theme.color.contrast,
+        fontSize: '14px',
+        marginTop: '7px'
+
+    },
+    formcontrollabel: {
         color: theme.color.primary3,
-        fontSize: '14px'
+        fontFamily: theme.font,
+
+    },
+    terms: {
+        color: theme.color.contrast,
+        fontSize: '14px',
+        fontFamily: theme.font,
+
+    },
+    floatitem: {
+        float: 'left',
+        display: 'block',
+        clear:'center'
+    },
+    leftcolumn: {
+        paddingTop: 12
+    },
+    radiogroup: {
+        float: 'left'
     }
 
 });

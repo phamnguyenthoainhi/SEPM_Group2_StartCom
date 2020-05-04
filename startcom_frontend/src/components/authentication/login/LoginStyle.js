@@ -12,33 +12,44 @@ const style = (theme) => ({
                 border: "none"
             },
         },
+        label: {
+            color: theme.color.primary3,
+            fontFamily: theme.font
+        },
         formInput: {
-            backgroundColor: "#eee",
+            
             border: "none",
             padding: "12px 15px",
             margin: "5px 10px ",
             width: "80%",
             outline: "none",
-            "&&&:before": {
-                borderBottom: "none"
-            },
-            "&&:after": {
-                borderBottom: "none"
-            }
+            '& label.Mui-focused': {
+                color: theme.color.primary1,
+              },
+              '& .MuiInput-underline:after': {
+                borderBottomColor: theme.color.primary1,
+              },
+              '& .MuiInput-underline:hover:before': {
+                borderBottomColor: theme.color.primary3,
+              }
         },
         successBtn: {
             outline: "none",
-            fontFamily: "inherit",
-            borderRadius: 20,
-            color: "black",
+            fontFamily: theme.font,
+            
+            color: theme.color.primary3,
             fontSize: 13,
             padding: "10px 30px",
-            letterSpacing: 1,
+            // letterSpacing: 1,
             textTransform: "uppercase",
             margin: "10px 0",
-            backgroundColor: "rgb(99,151,68)",
+
+            backgroundColor: 'transparent',
             "&:focus": {
                 outline: "none"
+            },
+            "&:hover":{
+              backgroundColor: 'transparent',
             }
         },
         progress: {
@@ -48,21 +59,26 @@ const style = (theme) => ({
             color: "white"
         },
         registerBtn: {
-            fontFamily: "inherit",
+            color: theme.color.primary1,
+            fontFamily: theme.font,
             outline: "none",
-            borderRadius: 20,
-            border: "1px solid #DDDDDD",
-            backgroundColor: "white",
+        
+          backgroundColor: theme.color.primary3,
+                
+                border: "1px",
+                borderColor: theme.color.primary3,
+        
             padding: "10px 30px",
             letterSpacing: 1,
             textTransform: "uppercase",
             transition: "all 350mx ease-in-out",
-            margin: "10px 0",
+            margin: "20px 0",
             "&:hover": {
                 transition: "all 350ms ease-in-out",
-                backgroundColor: "black",
-                color: "white",
-                border: "1px solid black",
+                backgroundColor: theme.color.primary3,
+                color: 'white',
+                border: "1px",
+                borderColor: theme.color.primary3,
                 outline: "none"
             },
             "&:focus": {

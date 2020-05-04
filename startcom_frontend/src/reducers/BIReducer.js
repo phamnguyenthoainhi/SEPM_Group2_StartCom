@@ -5,15 +5,18 @@ import {
     RESET_REGISTER,
     UPDATE_BI,
     DELETE_BI,
-    LOADING_DATA
+    LOADING_DATA,
+    REGISTER_BI_LOADING
 } from '../actions/actionTypes';
 
 const initialState = {
     loading: false,
     businessIdea: {},
     businessIdeas: [],
-    isRegisteredSuccess: false
+    isRegisteredSuccess: false,
+    isRegisteredLoading: false
 };
+
 
 export default function (state = initialState, action) {
     switch(action.type) {
@@ -41,12 +44,19 @@ export default function (state = initialState, action) {
         case IS_REGISTERED_SUCCESS:
             return {
                 ...state,
-                isRegisteredSuccess: action.payload
+                isRegisteredSuccess: action.payload,
+                isRegisteredLoading: false
             };
         case RESET_REGISTER:
             return {
                 ...state,
-                isRegisteredSuccess: false
+                isRegisteredSuccess: false,
+                isRegisteredLoading: false
+            };
+        case REGISTER_BI_LOADING:
+            return {
+                ...state,
+                isRegisteredLoading: true
             };
         case UPDATE_BI:
             return {

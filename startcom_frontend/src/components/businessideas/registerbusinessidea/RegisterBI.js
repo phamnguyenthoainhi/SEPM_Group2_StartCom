@@ -9,14 +9,18 @@ import DialogContent from '@material-ui/core/DialogContent';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
+import CircularProgress from "@material-ui/core/CircularProgress";
 
+import FormControl from '@material-ui/core/FormControl';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Typography from '@material-ui/core/Typography';
 import Navbar from '../../Layout/Navbar';
-import Grid from "@material-ui/core/Grid";
 import Footer from "../../Layout/Footer";
 import { MuiPickersUtilsProvider, DatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
+import Box from '@material-ui/core/Box';
+import MenuItem from '@material-ui/core/MenuItem';
+import Grid from '@material-ui/core/Grid';
 
 const CustomCheckbox = withStyles({
     root: {
@@ -28,6 +32,13 @@ const CustomCheckbox = withStyles({
     checked: {},
   })((props) => <Checkbox color="default" {...props} />);
 
+  const ColorCircularProgress = withStyles({
+    root: {
+      color: '#3C5155'
+
+    },
+  })(CircularProgress);
+
 class RegisterBI extends Component {
     constructor(props) {
         super(props);
@@ -36,13 +47,17 @@ class RegisterBI extends Component {
             name: '',
             date:' ',
             description: '',
-            targetFunding: '',
+            targetFunding: 0,
             needInvestor: false,
             needConsultant: false,
             open: false,
             setOpen: false,
             image:'',
-            chosenFile: ''
+            chosenFile: '',
+            category: '',
+            terms: false,
+            loading: false
+
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this); 
@@ -50,29 +65,16 @@ class RegisterBI extends Component {
     }
     
     componentDidUpdate(prevProps) {
+
+        if (this.props.isRegisteredLoading !== prevProps.isRegisteredLoading) {
+            this.setState({
+                loading: this.props.isRegisteredLoading
+            })
+        }
         if (this.props.isRegisteredSuccess !== prevProps.isRegisteredSuccess && this.props.isRegisteredSuccess === true) {
             this.handleClickOpen();
-            
-            // this.setState({
-            //     isRegisteredSuccess: '',
-            //     name: '',
-            //     date:' ',
-            //     description: '',
-            //     targetFunding: '',
-            //     needInvestor: false,
-            //     needConsultant: false,
-            //     open: false,
-            //     setOpen: false,
-            //     file:'',
-            //     chosenfile: ''
-            // })  
 
         }
-
-        else if (this.props.isRegisteredSuccess === false) {
-            console.log('false');
-        }
-
     }
 
     handleClickOpen = () => {
@@ -84,12 +86,13 @@ class RegisterBI extends Component {
     handleClose = () => {
         this.setState({
             open: false
-        })
+        });
         
         setTimeout(this.props.resetRegisterStatus(), 5000);
         this.props.history.push('/');
     
     };
+
     chooseFile = event => {
         console.log(event.target.files[0].name);
         this.setState({
@@ -98,14 +101,14 @@ class RegisterBI extends Component {
         })
     };
 
-    
     onChange(e) {
-        if (e.target.name === 'needInvestor' || e.target.name === 'needConsultant') {
+        if (e.target.name === 'needInvestor' || e.target.name === 'needConsultant' || e.target.name === 'terms') {
             this.setState({
                 [e.target.name] : e.target.checked
 
             })
-        }  else {
+        }
+        else {
             this.setState({
                 [e.target.name] : e.target.value,
             })
@@ -123,7 +126,7 @@ class RegisterBI extends Component {
         reader.onerror = function (error) {
           console.log('Error: ', error);
         };
-     }
+     };
 
      handleRegisterBI = (encodedimage) => {
          
@@ -134,30 +137,35 @@ class RegisterBI extends Component {
             targetFunding: this.state.targetFunding,
             image: encodedimage,
             needInvestor: this.state.needInvestor,
-            needConsultant: this.state.needConsultant
+            needConsultant: this.state.needConsultant,
+            category: this.state.category
         };
-        console.log(JSON.stringify(businessIdea));
         this.props.registerBI(businessIdea);
-        // this.handleClickOpen()
-
      };
 
     onSubmit(e) {
         e.preventDefault();
-        if (!(this.state.image === '' || this.state.image === null || this.state.image === undefined)) {
-            this.getBase64(this.state.image, this.handleRegisterBI)
+
+        if (this.state.terms === true) {
+            if (!(this.state.image === '' || this.state.image === null || this.state.image === undefined)) {
+                this.getBase64(this.state.image, this.handleRegisterBI)
+            } else {
+                const businessIdea = {
+                    name: this.state.name,
+                    date: this.state.date,
+                    description: this.state.description,
+                    targetFunding: this.state.targetFunding,
+                    image: '',
+                    needInvestor: this.state.needInvestor,
+                    needConsultant: this.state.needConsultant,
+                    category: this.state.category
+                };
+
+                this.props.registerBI(businessIdea);
+
+            }
         } else {
-            const businessIdea = {
-                name: this.state.name,
-                date: this.state.date,
-                description: this.state.description,
-                targetFunding: this.state.targetFunding,
-                image: '',
-                needInvestor: this.state.needInvestor,
-                needConsultant: this.state.needConsultant
-            };
-            // this.handleClickOpen();
-            this.props.registerBI(businessIdea); 
+
         }
                 
     }
@@ -196,7 +204,7 @@ class RegisterBI extends Component {
                                 required
                                 InputLabelProps={{
                                     shrink: true,
-                                  }}
+                                }}
                             />
 
                             <TextField label="Description of Business Idea"
@@ -216,54 +224,87 @@ class RegisterBI extends Component {
                                 type='number'
                                 required
                             />
-
-                            <Button color="default"  className={classes.buttonFile}
-                            label='My Label'startIcon={<CloudUploadIcon />}  >
-                                   <input type="file" accept="image/*" id='file' style={{display:'none'}} name='image'  onChange={this.chooseFile}/>
-                                   <label htmlFor='file' >
-
-                                           Upload Business Idea Image
-                                   </label>
-                            </Button><br/>
+                            <div className={classes.floatitem}>
+                            <Typography className={classes.chosenfile}>{this.state.chosenile}</Typography>
                             <br/>
-                            <br/>
-                                <Typography className={classes.chosenFile}>{this.state.chosenFile}</Typography>
-                                <br/>
-                                <br/>
-                            <FormControlLabel control={<CustomCheckbox checked={this.state.needInvestor} onChange={this.onChange} name="needInvestor" />}
-                            label="Looking for an investor" className={classes.checkbox} />
-                            <FormControlLabel control={<CustomCheckbox checked={this.state.needConsultant} onChange={this.onChange} name="needConsultant" />}
-                            label="Looking for an consultant" className={classes.checkbox}/>
-                            <br/>
+                                <Button color="default"  className={classes.buttonfile}
+                                label='My Label'startIcon={<CloudUploadIcon />}  >
+                                    <input type="file" accept="image/*" id='file' style={{display:'none'}} name='image'  onChange={this.chooseFile}/>
+                                    <label htmlFor='file' >
 
+                                            Upload Business Idea Image
+                                    </label>
+                                </Button>
+
+
+
+                            </div>
+
+
+                            <Grid container spacing={0} className={classes.grid}>
+                                <Grid item xs={6}className={classes.leftcolumn}>
+
+                                    <Box className={classes.radiogroup}>
+                                        <FormControlLabel control={<CustomCheckbox checked={this.state.needInvestor} onChange={this.onChange} name="needInvestor" />}
+                                        label="Looking for an investor" className={classes.checkbox} />
+                                        <FormControlLabel control={<CustomCheckbox checked={this.state.needConsultant} onChange={this.onChange} name="needConsultant" />}
+                                        label="Looking for an consultant" className={classes.checkbox}/>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={6} className={classes.rightcolumn}>
+
+                                <FormControl className={classes.formControl}>
+
+                                    <TextField type ='text' id="select" label ='Choose your business category' value =''select className ={classes.input} onChange={this.onChange} name ='category'>
+                                    <MenuItem value = 'Technology' >Techology</MenuItem>
+                                        <MenuItem value = 'Art' >Art</MenuItem>
+                                        <MenuItem value = 'Community'>Community</MenuItem>
+                                        <MenuItem value = 'Food & Beverage'>Food & Beverage</MenuItem>
+                                        <MenuItem value = 'Education'>Education</MenuItem>
+                                        <MenuItem value = 'Medical'>Medical</MenuItem>
+                                        <MenuItem value = 'Transportation'>Transportation</MenuItem>
+                                    </TextField>
+
+
+
+                                </FormControl>
+
+                                </Grid>
+                                <Grid item xs={12} >
+                                    <FormControl component="fieldset" className={classes.floatitem}>
+                                    <FormControlLabel control={<CustomCheckbox checked={this.state.terms} onChange={this.onChange} name="terms" required/>}
+                                        label="I agree that all information about my business idea is published" className={classes.terms} />
+
+                                    </FormControl>
+                                </Grid>
+                            </Grid>
+
+
+                           {this.state.loading ? (<ColorCircularProgress variant="indeterminate" size={32} style={{marginTop: "5%"}}/>)
+                           :
+                           <div>
                             <Button variant="contained" type='submit' className={classes.button}>Submit</Button>
 
-                            <Dialog
+                           </div>}
+
+                            <Dialog 
                             className={classes.dialog}
                                 open={this.state.open}
                                 onClose={this.handleClose}
                                 aria-labelledby="alert-dialog-title"
                                 aria-describedby="alert-dialog-description"
-                                >
+                                > 
                                 <DialogContent>
-                                    {/* <Card className={classes.card}>
-                                        <CardActionArea> */}
-                                            {/* <CardMedia className={classes.image}
-                                            image={require("../../images/registersuccess.svg")}
-                                            /> */}
-                                            {/* <CardContent> */}
+
                                                 <Typography gutterBottom className={classes.text}>
-                                                Congratulations, your business idea has been registered successfully!
+                                                Congratulations, your business idea has been registered sucessfully!
                                                 </Typography>
-                                            {/* </CardContent>
 
-                                        </CardActionArea>
-                                    </Card> */}
-
+                                    
                                 </DialogContent>
-
-                            </Dialog>
-                            </div>
+    
+                            </Dialog>   
+                            </div> 
                     </form>
                 </Grid>
                 <Grid item md={2}/>
@@ -276,10 +317,10 @@ class RegisterBI extends Component {
 const mapDispatchToProps = dispatch => ({
       registerBI: (businessIdea) => dispatch(registerBI(businessIdea)),
       resetRegisterStatus: () => dispatch(resetRegisterStatus())
-    
 });
 
 const mapStateToProps = state => ({
+    isRegisteredLoading: state.businessIdeasData.isRegisteredLoading,
     isRegisteredSuccess: state.businessIdeasData.isRegisteredSuccess,
 });
 

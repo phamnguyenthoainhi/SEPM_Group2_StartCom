@@ -1,22 +1,29 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import Button from "@material-ui/core/Button";
-// import CircularProgress from "@material-ui/core/CircularProgress";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import TextField from "@material-ui/core/TextField";
 // import CheckIcon from "@material-ui/icons/Check";
 import withStyles from "@material-ui/core/styles/withStyles";
 import styles from './signUpStyle';
 import {registerAccount} from '../../../actions/anonymoususers/AnonymoususersActions';
 import Radio from '@material-ui/core/Radio';
+import FormControl from '@material-ui/core/FormControl';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
 // import FormLabel from '@material-ui/core/FormLabel';
+import DoneIcon from '@material-ui/icons/Done';
 
+const ColorCircularProgress = withStyles({
+    root: {
+      color: '#3C5155'
+      
+    },
+  })(CircularProgress);
 
 const CustomRadio = withStyles({
     root: {
-      color: '#718F94',
+      color: '#3C5155',
       '&$checked': {
         color: '#E3CFB5',
       },
@@ -35,7 +42,9 @@ class SignUp extends Component {
             signUpEmail: "",
             signUpPassword: "",
             signUpConfirmPassword: "",
-            type: '',
+            type: 'startupowner',
+            loading: '',
+            success: false,
 
             formSignUpErrors: {
                 emailError: "",
@@ -45,17 +54,15 @@ class SignUp extends Component {
         }
     }
 
-    // static getDerivedStateFromProps(props, state) {
-    //     if (props.UI.errors !== state.errors) {
-    //         return {
-    //             errors: props.UI.errors
-    //         }
-    //     }
-    //     return null;
-    // }
 
     componentDidUpdate(prevProps) {
+        if (this.props.registerLoading !== prevProps.registerLoading) {
+            this.setState({
+                loading: this.props.registerLoading
+            })
+        }
         if (this.props.registerMessage !== prevProps.registerMessage) {
+           
             if (this.props.registerMessage.code === 'auth/email-already-in-use') {
                 this.setState({
                     formSignUpErrors: {
@@ -72,8 +79,26 @@ class SignUp extends Component {
                         confirmPassError: ""
                     },
                 })
-            } else if (this.props.registerMessage.code === undefined) {
-                console.log('Success');
+            } else if (this.props.registerMessage.code === "auth/invalid-email") {
+                
+                this.setState({
+                    formSignUpErrors: {
+                        emailError: this.props.registerMessage.message,
+                        passwordError: '',
+                        confirmPassError: ""
+                    },
+                })
+            }
+            else if (this.props.registerMessage.code === undefined) {
+                console.log('sucess')
+                this.setState({
+                    signUpEmail: "",
+                    signUpPassword: "",
+                    signUpConfirmPassword: "",
+                    type: '',
+                    success: true,
+                    loading: false
+                })
             }
         }
     }
@@ -100,8 +125,7 @@ class SignUp extends Component {
                 password: this.state.signUpPassword,
                 type: this.state.type
             }
-            console.log(JSON.stringify(user));
-            // this.props.registerAccount(user);
+            this.props.registerAccount(user);
         }
        
     };
@@ -109,10 +133,11 @@ class SignUp extends Component {
 
     render() {
         const {classes} = this.props;
+
         return (
             <div className="form-container sign-up-container">
                 <form>
-                    <h1>Create your account</h1>
+                    <h1 className={classes.label} style ={{color: '#3C5155'}}>Create your account</h1>
                     <TextField
                         type="email"
                         name="signUpEmail"
@@ -123,12 +148,7 @@ class SignUp extends Component {
                         onChange={this.handleChange}
                         value={this.state.signUpEmail}
                         fullWidth
-                        InputLabelProps={{className: classes.input}}
-                        InputProps={
-                            {
-                                disableUnderline: true,
-                                className: classes.input
-                            }}
+                     
                     >
                     </TextField>
                     <TextField
@@ -141,12 +161,7 @@ class SignUp extends Component {
                         onChange={this.handleChange}
                         value={this.state.signUpPassword}
                         fullWidth
-                        InputLabelProps={{className: classes.input}}
-                        InputProps={
-                            {
-                                disableUnderline: true,
-                                className: classes.input
-                            }}
+                
                     >
                     </TextField>
                     <TextField
@@ -159,35 +174,41 @@ class SignUp extends Component {
                         onChange={this.handleChange}
                         value={this.state.signUpConfirmPassword}
                         fullWidth
-                        InputLabelProps={{className: classes.input}}
-                        InputProps={
-                            {disableUnderline: true, className: classes.input}}
+                       
                     >
                     </TextField>
                     <FormControl component="fieldset">
-                        {/* <FormLabel component="legend" className={classes.formlabel}>You want to register as</FormLabel> */}
-                            <RadioGroup row aria-label="type" name="type" value={this.state.type} onChange={this.handleChange}>
-                                <FormControlLabel value="startupowner" control={<CustomRadio />}  label="Startup Owner" className={classes.formcontrollabel}/>
+                            <RadioGroup row aria-label="type" name="type" value={this.state.type} onChange={this.handleChange} required>
+                                <FormControlLabel  value="startupowner" control={<CustomRadio />}  label="Startup Owner" className={classes.formcontrollabel}/>
                                 <FormControlLabel value="investor" control={<CustomRadio />} label="Investor" className={classes.formcontrollabel} />
                                 <FormControlLabel value="consultant" control={<CustomRadio />} label="Consultant" className={classes.formcontrollabel}/>
                             </RadioGroup>
-                    </FormControl>
-                    {/* {
-                    loading ? (<CircularProgress variant="indeterminate" size={32} style={{marginTop: "5%"}}/>)
-                    : doneSignUp ? (<CheckIcon fontSize="large" style={{marginTop: "5%"}}/>) : (<Button
-                        variant="contained"
-                       onClick={this.signUpWithEmail}
-                       className={classes.registerBtn}
-                        disabled={loading}
-                    > Đăng Kí </Button>)
-                    } */}
+                </FormControl>
 
-                    <Button
-                        variant="contained"
-                       onClick={this.signUpWithEmail}
-                       className={classes.registerBtn}
-                        // disabled={loading}
-                    > Register </Button>
+                    {
+                    this.state.loading === true ? (<ColorCircularProgress variant="indeterminate" size={32} style={{marginTop: "5%"}}/>)
+                    :
+                    
+                    ((this.state.success === false && (this.state.loading === '' || this.state.loading === false)) ? 
+                    (<Button
+                            variant="contained"
+                           onClick={this.signUpWithEmail}
+                           className={classes.registerBtn}
+
+                        > Register </Button>)
+                    : 
+                    
+                    (<Button
+                            variant="contained"
+                           
+                           className={classes.successBtn}
+                            startIcon={<DoneIcon />}
+    
+                        > Registered</Button>))
+                    }
+                           
+
+                  
                 </form>
             </div>
         );
@@ -197,7 +218,8 @@ class SignUp extends Component {
 
 
 const mapStateToProps = (state) => ({
-    registerMessage: state.registerMessage.registerMessage
+    registerMessage: state.registerMessage.registerMessage,
+    registerLoading: state.registerLoading.registerLoading
 });
 
 const mapDispatchToProps = dispatch => ({
