@@ -2,7 +2,6 @@ const style = (theme) => ({
     root: {
         flexGrow: 1,
         fontFamily: theme.font
-        
     },
     rightColumn: {
       objectFit: 'cover'

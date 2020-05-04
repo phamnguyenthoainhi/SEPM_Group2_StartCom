@@ -7,9 +7,7 @@ app.use(cors())
 
 const {
     getAllBusinessIdeas,getBusinessIdeaById,
-
     postBusinessIdea,editBusinessIdea,deleteBusinessIdea, testUploadMultipleImages
-
 } = require('./handlers/businessIdea')
 
 const {
@@ -25,7 +23,6 @@ app.post("/post_business_idea",postBusinessIdea);
 app.put("/edit_business_idea/:id",editBusinessIdea);
 app.delete("/delete_business_idea/:id",deleteBusinessIdea);
 app.post("/test_multiple_images",testUploadMultipleImages)
-
 
 app.post("/signup",signUp);
 app.post("/signin",signIn);

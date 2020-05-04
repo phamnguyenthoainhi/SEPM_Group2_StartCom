@@ -67,10 +67,12 @@ exports.editProfile = async (req, res) => {
 
         }
         else {
-            return db.collection('User').doc(req.params.id).update(user)
-                .then(() => {
-                    user.id = req.params.id
-                    return res.json(req.body)
+            const update = await db.collection('User').doc(req.params.id).update(user)
+            return db.collection('User').doc(req.params.id).get()
+                .then((doc) => {
+                    const editedUser = doc.data()
+                    editedUser.id = req.params.id
+                    return res.json(editedUser)
                 })
                 .catch((error) => {
                     console.log(error);

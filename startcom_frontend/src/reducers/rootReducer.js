@@ -1,10 +1,15 @@
 import {combineReducers} from 'redux';
 import BIReducer from './BIReducer';
 import UsersReducer from './UsersReducer';
+import UIReducer from "./UIReducer";
+
 import AdminReducer from './AdminReducer';
 export default combineReducers({
-    businessIdeas: BIReducer,
+
+    businessIdeasData: BIReducer,
     registerMessage: UsersReducer,
+    UI: UIReducer,
+
     loginMessage: UsersReducer,
     registerLoading: UsersReducer,
     loginLoading: UsersReducer,
@@ -21,4 +26,5 @@ export default combineReducers({
     profileSender: UsersReducer,
 
     
+
 });

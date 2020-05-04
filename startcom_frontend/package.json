@@ -3,14 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@date-io/date-fns": "^1.3.13",
     "@material-ui/core": "^4.9.10",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.50",
+<<<<<<< HEAD
+=======
+    "@material-ui/pickers": "^3.2.10",
+>>>>>>> triet-navbar-footer
     "@material-ui/styles": "^4.9.10",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+<<<<<<< HEAD
     "clsx": "^1.1.0",
+=======
+    "date-fns": "^2.12.0",
+>>>>>>> triet-navbar-footer
     "firebase": "^7.14.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -18,6 +27,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0"
   },
   "scripts": {

@@ -9,9 +9,8 @@ const theme = createMuiTheme({
 
         secondary: "#90B494",
         contrast: "#718F94",
-        
-
     },
-    font: "'Raleway', sans-serif;"
+    font1: "'Raleway', sans-serif;",
+    font2: "'Manrope', sans-serif;",
 });
 export default theme;

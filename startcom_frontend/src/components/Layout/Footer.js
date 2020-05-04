@@ -36,7 +36,7 @@ const styles = (theme) => ({
     footerWrapper: {
         backgroundColor: theme.color.primary3,
         bottom: 0,
-        padding: '50px 100px',
+        padding: '30px 50px',
         [theme.breakpoints.down('sm')]: {
             padding: '30px 50px'
         }
