@@ -61,10 +61,12 @@ class Login extends Component {
                     }
                 })
             }
-            else if (this.props.loginMessage.code === undefined) {
+            else if (this.props.loginMessage.id !== undefined) {
                 this.setState({
                     success: true
                 })
+                sessionStorage.setItem("id", this.props.loginMessage.id);
+                
                 window.location.replace("http://localhost:3000/");
             }
         }

@@ -51,7 +51,7 @@ class RegisterBI extends Component {
             name: '',
             date:' ',
             description: '',
-            targetFunding: '',
+            targetFunding: 0,
             needInvestor: false,
             needConsultant: false,
             open: false,
@@ -60,7 +60,8 @@ class RegisterBI extends Component {
             chosenfile: '',
             category: '',
             terms: false,
-            loading: false
+            loading: false,
+            ownerError: ''
 
         }
         this.onChange = this.onChange.bind(this);
@@ -80,8 +81,6 @@ class RegisterBI extends Component {
             this.handleClickOpen();
             
         }
-
-
     }
 
     handleClickOpen = () => {
@@ -140,18 +139,25 @@ class RegisterBI extends Component {
      }
 
      handleRegisterBI = (encodedimage) => {
-         
-        const businessIdea = {
-            name: this.state.name,
-            date: this.state.date,
-            description: this.state.description,
-            targetFunding: this.state.targetFunding,
-            image: encodedimage,
-            needInvestor: this.state.needInvestor,
-            needConsultant: this.state.needConsultant,
-            category: this.state.category
-        };
-        this.props.registerBI(businessIdea);
+         if (sessionStorage.getItem("id") !== null && sessionStorage.getItem("id") !== undefined && sessionStorage.getItem("id") !== '') {
+            const businessIdea = {
+                name: this.state.name,
+                date: this.state.date,
+                description: this.state.description,
+                targetFunding: this.state.targetFunding,
+                image: encodedimage,
+                needInvestor: this.state.needInvestor,
+                needConsultant: this.state.needConsultant,
+                category: this.state.category,
+                ownerid: sessionStorage.getItem("id")
+            };
+            // console.log(JSON.stringify(businessIdea))
+            this.props.registerBI(businessIdea);
+         } else {
+             this.setState({
+                 ownerError: "There are some errors happened. Please login and try again!"
+             })
+         }
         
      }
 
@@ -162,23 +168,29 @@ class RegisterBI extends Component {
             if (!(this.state.image === '' || this.state.image === null || this.state.image === undefined)) {
                 this.getBase64(this.state.image, this.handleRegisterBI)
             } else {
-                const businessIdea = {
-                    name: this.state.name,
-                    date: this.state.date,
-                    description: this.state.description,
-                    targetFunding: this.state.targetFunding,
-                    image: '',
-                    needInvestor: this.state.needInvestor,
-                    needConsultant: this.state.needConsultant,
-                    category: this.state.category
-                };
-            
-                this.props.registerBI(businessIdea); 
+                if (sessionStorage.getItem("id") !== null && sessionStorage.getItem("id") !== undefined && sessionStorage.getItem("id") !== '') {
+                    const businessIdea = {
+                        name: this.state.name,
+                        date: this.state.date,
+                        description: this.state.description,
+                        targetFunding: this.state.targetFunding,
+                        image: '',
+                        needInvestor: this.state.needInvestor,
+                        needConsultant: this.state.needConsultant,
+                        category: this.state.category,
+                        ownerid: sessionStorage.getItem("id")
+                    };
+                    // console.log(JSON.stringify(businessIdea))
+                    this.props.registerBI(businessIdea);
+                 } else {
+                     this.setState({
+                         ownerError: "There are some errors happened. Please login and try again!"
+                     })
+                 }
+                
                
             }
-        } else {
-
-        }
+        } 
         
                 
     }
@@ -190,7 +202,14 @@ class RegisterBI extends Component {
         return (
             <div className={classes.formContainer}>
                 <Navbar/>
+                {this.state.ownerError !== '' ? 
+                <Typography gutterBottom className={classes.text} style={{textAlign: 'center', color: '#a83232'}}>
+                {this.state.ownerError}
+                </Typography>
+                : 
+                (
                     <form className={classes.form} autoComplete="off" onSubmit={this.onSubmit}>
+                        
                         <label className={classes.title}> Register Your Business Idea </label>
                             <div className={classes.content}>
                             <TextField
@@ -264,7 +283,7 @@ class RegisterBI extends Component {
                                
                                 <FormControl className={classes.formControl}>
                                    
-                                    <TextField type ='text' id="select" label ='Choose your business category' value =''select className ={classes.input} onChange={this.onChange} name ='category'>
+                                    <TextField type ='text' id="select" label ='Choose your business category' value ={this.state.category} select className ={classes.input} onChange={this.onChange} name ='category'>
                                     <MenuItem value = 'Technology' >Techology</MenuItem>
                                         <MenuItem value = 'Art' >Art</MenuItem>
                                         <MenuItem value = 'Community'>Community</MenuItem>
@@ -315,6 +334,9 @@ class RegisterBI extends Component {
                             </Dialog>   
                             </div> 
                     </form>
+                )
+                }
+                    
             </div>
         )
     }
