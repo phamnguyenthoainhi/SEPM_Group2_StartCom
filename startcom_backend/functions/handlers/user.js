@@ -40,8 +40,6 @@ exports.signIn = (req, res) => {
         })
 }
 
-
-
 exports.editProfile = async (req, res) => {
     if (req.user.uid === req.params.id) {
         var user = req.body

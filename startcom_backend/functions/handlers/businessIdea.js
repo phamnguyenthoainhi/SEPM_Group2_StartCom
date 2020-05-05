@@ -38,7 +38,7 @@ exports.getBusinessIdeaById = (req, res) => {
 }
 
 exports.getBusinessIdeaByOwnerId = (req,res)=>{
-    return db.collection('BusinessIdea').where('ownerid','==',req.params.id).get()
+    return db.collection('BusinessIdea').where('ownerId','==',req.params.id).get()
         .then((query)=>{
             if(!query.empty){
                 const idea = query.docs[0].data()
@@ -96,7 +96,7 @@ exports.editBusinessIdea = async (req, res) => {
     var businessIdea = req.body
     if (businessIdea.image && !businessIdea.image.includes("https://storage.googleapis.com/startcom-sepm.appspot.com/images/")) {
         try {
-            const imageUpdate = await uploadImage(businessIdea.image, businessIdea.name)
+            const imageUpdate = await uploadImage(businessIdea.image, req.params.id)
             businessIdea.image = imageUpdate
             return db.collection('BusinessIdea').doc(req.params.id).update(req.body)
                 .then(() => {
@@ -155,5 +155,15 @@ exports.testUploadMultipleImages = (req,res)=>{
         .catch(error=>{
             console.log(error)
             return res.json(error)
+        })
+}
+
+exports.uploadImageUser = async (req,res) =>{
+    return uploadImage(req.body.image, req.body.id)
+        .then((imageUrl)=>{
+            return res.json({url:imageUrl})
+        })
+        .catch(error=>{
+            console.log(error)
         })
 }
