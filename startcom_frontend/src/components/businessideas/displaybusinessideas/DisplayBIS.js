@@ -7,7 +7,7 @@ import Navbar from "../../Layout/Navbar";
 import Footer from "../../Layout/Footer";
 import BISearch from "../../Layout/BISearch"
 import BIFilter from "../../Layout/BIFilter"
-
+import style from '../../Layout/BIStyle'
 import { withStyles } from '@material-ui/core';
 // import { makeStyles } from '@material-ui/core/styles';
 import Grid from "@material-ui/core/Grid";
@@ -25,23 +25,6 @@ import Grid from "@material-ui/core/Grid";
 // import CardActionArea from '@material-ui/core/CardActionArea';
 // import CardHeader from '@material-ui/core/CardHeader'; 
 
-const styles = (theme) => ({
-    gridContainer: {
-        padding: 40
-    },
-    bullet: {
-        display: 'inline-block',
-        margin: '0 2px',
-        transform: 'scale(0.8)',
-    },
-    title: {
-        fontSize: 14,
-    },
-    pos: {
-        marginBottom: 12,
-    },
-
-});
 
 class DisplayBIS extends Component {
     constructor(props) {
@@ -77,38 +60,61 @@ class DisplayBIS extends Component {
     };
 
     render() {
-        const { classes, businessIdeas, filteredIdeas ,filtered} = this.props;
-        
+        const { classes, businessIdeas, filteredIdeas, filtered } = this.props;
+
         return (
-            (filtered) ? 
-            <Grid container className={classes.gridContainer}>
-                <Navbar />
+            (filtered) ?
+                <div>
+                    <Navbar />
+                    <Grid container >
+                        <Grid item xs={6} sm={6} md={4} lg={3}>
+                            <BIFilter triggerParentUpdate={this.filterIdeas} />
+                        </Grid>
+                        <Grid item xs={6} sm={6} md={8} lg={9} >
+                            <div style={{ marginRight: '30px', marginLeft: '15px', marginTop: '20px', marginBottom: '20px' }}><BISearch triggerParentUpdate={this.searchByname} /></div>
 
-                <BISearch triggerParentUpdate={this.searchByname} />
-                <BIFilter triggerParentUpdate={this.filterIdeas} />
+                            <Grid container className={classes.gridContainer}>
+                                {filteredIdeas.map((idea, index) => (
+                                    <Grid item xs={12} sm={12} md={6} lg={4} key={index} onClick={() => this.onBICardClick(idea.name)} style={{ padding: 20 }}>
+                                        <BITemplate idea={idea} />
+                                    </Grid>
+                                ))}
 
-                {filteredIdeas.map((idea, index) => (
-                    <Grid item md={4} key={index} onClick={() => this.onBICardClick(idea.name)} style={{ padding: 20 }}>
-                        <BITemplate idea={idea} />
+
+                            </Grid>
+                        </Grid>
                     </Grid>
-                ))}
 
-                <Footer />
-            </Grid>:
-            <Grid container className={classes.gridContainer}>
-                <Navbar />
+                    <Footer />
+                </div> :
+                <div>
 
-                <BISearch triggerParentUpdate={this.searchByname} />
-                <BIFilter triggerParentUpdate={this.filterIdeas} />
 
-                {businessIdeas.map((idea, index) => (
-                    <Grid item md={4} key={index} onClick={() => this.onBICardClick(idea.name)} style={{ padding: 20 }}>
-                        <BITemplate idea={idea} />
+                    <Navbar />
+                    <Grid container>
+
+                        <Grid item xs={6} sm={6} md={4} lg={3}>
+
+                            <BIFilter triggerParentUpdate={this.filterIdeas} />
+                        </Grid>
+                        <Grid item xs={6} sm={6} md={8} lg={9}>
+                            <div style={{ marginRight: '30px', marginLeft: '15px', marginTop: '20px', marginBottom: '20px' }}><BISearch triggerParentUpdate={this.searchByname} /></div>
+
+                            <Grid container className={classes.gridContainer}>
+
+
+                                {businessIdeas.map((idea, index) => (
+                                    <Grid item xs={12} sm={12} md={6} lg={4} key={index} onClick={() => this.onBICardClick(idea.name)} style={{ padding: 20 }}>
+                                        <BITemplate idea={idea} />
+                                    </Grid>
+                                ))}
+
+                            </Grid>
+                        </Grid>
                     </Grid>
-                ))}
 
-                <Footer />
-            </Grid>
+                    <Footer />
+                </div>
         )
     }
 }
@@ -125,4 +131,4 @@ const mapStateToProps = state => ({
 
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(DisplayBIS));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(DisplayBIS));

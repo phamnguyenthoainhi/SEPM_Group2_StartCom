@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { fetchBI, updateBI, searchBI } from "../../actions/businessideas/BIActions";
 import { connect } from 'react-redux';
-
+import style from './BIStyle.js'
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import Button from '@material-ui/core/Button';
@@ -9,40 +9,11 @@ import SearchBar from 'material-ui-search-bar';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import Grid from "@material-ui/core/Grid";
+import Visibility from '@material-ui/icons/Search';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
 
-const styles = (theme) => ({
-  cardWrapper: {
-    maxWidth: 275,
-    padding: 20
-
-  },
-  media: {
-    width: "200px",
-    height: "100px"
-  },
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: '25ch',
-    },
-  }
-
-});
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: '25ch',
-    },
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: '25ch',
-  },
-
-}));
 
 class BIsearch extends Component {
   constructor(props) {
@@ -76,20 +47,26 @@ class BIsearch extends Component {
   render() {
     // console.log(this.searchByname("hello"));
     // console.log(this.searchByname("test"));
-    const { foundIdeas } = this.state;
+    
     const { classes } = this.props;
 
     return (
-      <div className={classes}>
-        <div className="container">
-          <h1 className=""> Search for An Idea</h1>
-          <form id="searchForm">
-            <TextField id="standard-basic" label="Search" name='keyword' onChange={this.handleChange} value={this.state.keyword} />
-          </form>
-          <button className="btn btn-primary btn-bg mt-3" onClick={()=>this.search()}>
-            Search
-            </button>
-        </div>
+      <div>
+          <TextField
+          className={classes.searchfield}
+          id="outlined-end-adornment"
+          label="Search"
+          name='keyword' fullWidth onChange={this.handleChange} value={this.state.keyword} 
+          InputProps={{
+            endAdornment: <InputAdornment position="end">
+                  <IconButton>
+                  <Visibility onClick={()=>this.search()}/>
+                  </IconButton >
+              </InputAdornment>,
+          }}
+          
+        />
+
       </div>
     )
   }
@@ -110,4 +87,4 @@ const mapStateToProps = state => ({
 
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)((BIsearch));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(BIsearch));
