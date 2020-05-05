@@ -6,7 +6,7 @@ const cors = require('cors');
 app.use(cors())
 
 const {
-    getAllBusinessIdeas,getBusinessIdeaById,
+    getAllBusinessIdeas,getBusinessIdeaById, getBusinessIdeaByOwnerId,
     postBusinessIdea,editBusinessIdea,deleteBusinessIdea, testUploadMultipleImages
 } = require('./handlers/businessIdea')
 
@@ -19,6 +19,7 @@ const {
 
 app.get("/get_all_business_ideas",getAllBusinessIdeas);
 app.get("/get_business_idea/:id",getBusinessIdeaById);
+app.get("/get_business_idea_by_owner/:id",getBusinessIdeaByOwnerId);
 app.post("/post_business_idea",postBusinessIdea);
 app.put("/edit_business_idea/:id",editBusinessIdea);
 app.delete("/delete_business_idea/:id",deleteBusinessIdea);

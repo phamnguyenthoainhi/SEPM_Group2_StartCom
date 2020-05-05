@@ -37,6 +37,23 @@ exports.getBusinessIdeaById = (req, res) => {
         })
 }
 
+exports.getBusinessIdeaByOwnerId = (req,res)=>{
+    return db.collection('BusinessIdea').where('ownerid','==',req.params.id).get()
+        .then((query)=>{
+            if(!query.empty){
+                const idea = query.docs[0].data()
+                idea.id = query.docs[0].id
+
+                return res.json(idea)
+            }
+            return res.json({error: 'This user has not registered any business idea.'})
+        })
+        .catch((error)=>{
+            console.log(error)
+            return res.json(error)
+        })
+}
+
 //post business idea
 exports.postBusinessIdea = async (req, res) => {
     var businessIdea = req.body
