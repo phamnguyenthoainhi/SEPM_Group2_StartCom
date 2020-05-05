@@ -5,7 +5,6 @@ import {
     RESET_REGISTER,
     UPDATE_BI,
     DELETE_BI,
-    UPDATING_BI,
     UPDATE_BI_SUCCESS, RESET_UI_STATE, LOADING_DATA, STOP_LOADING_DATA
 
 } from '../actionTypes';
@@ -76,7 +75,7 @@ export const registerBI = (BIData) => dispatch => {
 };
 
 export const updateBI = (BIData, id) => dispatch => {
-    dispatch({ type: UPDATING_BI});
+    dispatch({ type: LOADING_DATA});
     fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/edit_business_idea/${id}`, {
         method: 'PUT',
         headers: {
@@ -85,13 +84,21 @@ export const updateBI = (BIData, id) => dispatch => {
         },
         body: JSON.stringify(BIData)
     })
-        .then((res) => {
-            dispatch({
-                type: UPDATE_BI,
-                payload: res
-            });
-            dispatch({type: UPDATE_BI_SUCCESS});
-        })
+        .then (res =>
+            res.json().then(function (data) {
+                dispatch({
+                    type: UPDATE_BI,
+                    payload: data
+                });
+                dispatch({type: UPDATE_BI_SUCCESS});
+                setTimeout(() => {
+                    dispatch({type: RESET_UI_STATE});
+                }, 1000);
+            })
+        )
+
+
+
 };
 
 

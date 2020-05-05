@@ -109,6 +109,20 @@ class BITemplateProfile extends Component {
                     <Grid container className={classes.ideaContainer} direction='row'>
                         <Grid item md={4} sm={4} xs={4} lg={4}>
                             <Typography className={classes.header} >
+                                Category:
+                            </Typography>
+                        </Grid>
+
+                        <Grid item md={8}>
+                            <Typography className={classes.text}>
+                                {businessIdea.category}
+                            </Typography>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container className={classes.ideaContainer} direction='row'>
+                        <Grid item md={4} sm={4} xs={4} lg={4}>
+                            <Typography className={classes.header} >
                                 Date created:
                             </Typography>
                         </Grid>
@@ -120,19 +134,7 @@ class BITemplateProfile extends Component {
                         </Grid>
                     </Grid>
 
-                    <Grid container className={classes.ideaContainer} direction='row'>
-                        <Grid item md={4} sm={4} xs={4} lg={4}>
-                            <Typography className={classes.header} >
-                                Category:
-                            </Typography>
-                        </Grid>
 
-                        <Grid item md={8}>
-                            <Typography className={classes.text}>
-                                {businessIdea.category}
-                            </Typography>
-                        </Grid>
-                    </Grid>
 
                     <Grid container className={classes.ideaContainer} direction='row'>
                         <Grid item md={4} sm={4} xs={4} lg={4}>

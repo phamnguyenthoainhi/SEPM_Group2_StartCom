@@ -61,12 +61,13 @@ export default function (state = initialState, action) {
         case UPDATE_BI:
             return {
                 ...state,
-                businessIdea: action.payload
+                businessIdea: action.payload,
+                loading: false
             };
         case DELETE_BI:
             return {
                 ...state,
-
+                loading: false
             };
 
         default:

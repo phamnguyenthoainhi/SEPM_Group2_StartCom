@@ -40,7 +40,6 @@ const styles = (theme) => ({
         borderRadius: '50%',
         height: "100px",
         width: "100px",
-        backgroundColor: 'transparent',
     },
     username: {
         fontFamily: theme.font2,

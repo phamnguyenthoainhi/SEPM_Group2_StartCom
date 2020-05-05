@@ -128,14 +128,13 @@ class RegisterBI extends Component {
         };
      };
 
-     handleRegisterBI = (encodedimage) => {
-         
+     handleRegisterBI = (encodedImage) => {
         const businessIdea = {
             name: this.state.name,
             date: this.state.date,
             description: this.state.description,
             targetFunding: this.state.targetFunding,
-            image: encodedimage,
+            image: encodedImage,
             needInvestor: this.state.needInvestor,
             needConsultant: this.state.needConsultant,
             category: this.state.category
@@ -225,13 +224,12 @@ class RegisterBI extends Component {
                                 required
                             />
                             <div className={classes.floatitem}>
-                            <Typography className={classes.chosenfile}>{this.state.chosenile}</Typography>
+                            <Typography className={classes.chosenfile}>{this.state.chosenFile}</Typography>
                             <br/>
                                 <Button color="default"  className={classes.buttonfile}
                                 label='My Label'startIcon={<CloudUploadIcon />}  >
                                     <input type="file" accept="image/*" id='file' style={{display:'none'}} name='image'  onChange={this.chooseFile}/>
                                     <label htmlFor='file' >
-
                                             Upload Business Idea Image
                                     </label>
                                 </Button>
@@ -254,8 +252,7 @@ class RegisterBI extends Component {
                                 <Grid item xs={6} className={classes.rightcolumn}>
 
                                 <FormControl className={classes.formControl}>
-
-                                    <TextField type ='text' id="select" label ='Choose your business category' value =''select className ={classes.input} onChange={this.onChange} name ='category'>
+                                    <TextField type ='text' id="select" label ='Choose your business category' value ='' select className ={classes.input} onChange={this.onChange} name ='category'>
                                     <MenuItem value = 'Technology' >Techology</MenuItem>
                                         <MenuItem value = 'Art' >Art</MenuItem>
                                         <MenuItem value = 'Community'>Community</MenuItem>
@@ -297,7 +294,7 @@ class RegisterBI extends Component {
                                 <DialogContent>
 
                                                 <Typography gutterBottom className={classes.text}>
-                                                Congratulations, your business idea has been registered sucessfully!
+                                                Congratulations, your business idea has been registered successfully!
                                                 </Typography>
 
                                     

@@ -18,8 +18,6 @@ const styles = (theme) => ({
             backgroundColor: theme.color.contrast
         },
         clear: 'left',
-
-    
     },
     input: {
         marginBottom: "30px",
