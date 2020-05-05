@@ -1,5 +1,5 @@
 import  {REGISTER_ACCOUNT, LOGIN, REGISTER_LOADING, LOGIN_LOADING} from '../actionTypes';
-
+import {editProfile} from '../users/UserActions';
 export const registerAccount = (account) => dispatch => {
     dispatch({
         type: REGISTER_LOADING
@@ -42,6 +42,12 @@ export const login = (account) => dispatch => {
         if (res.status === 200) {
 
             res.json().then(function(data) {
+                const user = {
+                    id: data.id,
+                    token: data.token
+                }
+                console.log(JSON.stringify(user))
+                dispatch(editProfile(user))
                 dispatch ({
                     type: LOGIN,
                     payload: data

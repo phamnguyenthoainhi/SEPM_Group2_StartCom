@@ -113,7 +113,7 @@ class UpdateBIForm extends Component {
 
 
     render() {
-        const { classes, open, businessIdea, loading, doneUpdateBI } = this.props;
+        const { classes, open, loading, doneUpdateBI } = this.props;
         const { errors } = this.state;
         return (
             <Dialog

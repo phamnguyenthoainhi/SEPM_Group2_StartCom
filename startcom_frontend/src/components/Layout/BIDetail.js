@@ -10,13 +10,13 @@ import defaultLogo from '../../images/company_logo.png';
 import Button from '@material-ui/core/Button';
 import Typography from "@material-ui/core/Typography";
 
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import UpdateBIForm from "./UpdateBIForm";
+// import Dialog from '@material-ui/core/Dialog';
+// import DialogActions from '@material-ui/core/DialogActions';
+// import DialogContent from '@material-ui/core/DialogContent';
+// import UpdateBIForm from "./UpdateBIForm";
 import Chip from '@material-ui/core/Chip';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-import BITemplate from "./BITemplate";
+// import BITemplate from "./BITemplate";
 import BIDetailSkeleton from "../skeleton/BIDetailSkeleton";
 
 
