@@ -6,9 +6,9 @@ export const LOGIN = 'LOGIN';
 
 //filter business idea
 export const FETCH_BI = 'FETCH_BI';
-export const FILTER_BI_BY_CATEGORY = "FILTER_BI_BY_CATEGORY"
-export const FILTER_BI_BY_INVESTOR = "FILTER_BI_BY_INVESTOR"
-export const FILTER_BI_BY_CONSULTANT= "FILTER_BI_BY_CONSULTANT"
+export const FILTER_BI = 'FILTER_BI'
+export const CLEAR_FILTER='CLEAR_FILTER'
+export const RESET_FILTER = 'RESET_FILTER'
 
 //search business idea
 export const SEARCH_BI = 'SEARCH_BI';

@@ -77,9 +77,24 @@ class DisplayBIS extends Component {
     };
 
     render() {
-        const { classes, businessIdeas } = this.props;
-
+        const { classes, businessIdeas, filteredIdeas ,filtered} = this.props;
+        
         return (
+            (filtered) ? 
+            <Grid container className={classes.gridContainer}>
+                <Navbar />
+
+                <BISearch triggerParentUpdate={this.searchByname} />
+                <BIFilter triggerParentUpdate={this.filterIdeas} />
+
+                {filteredIdeas.map((idea, index) => (
+                    <Grid item md={4} key={index} onClick={() => this.onBICardClick(idea.name)} style={{ padding: 20 }}>
+                        <BITemplate idea={idea} />
+                    </Grid>
+                ))}
+
+                <Footer />
+            </Grid>:
             <Grid container className={classes.gridContainer}>
                 <Navbar />
 
@@ -105,6 +120,8 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
     businessIdeas: state.businessIdeas.businessIdeas,
+    filteredIdeas: state.businessIdeas.filteredIdeas,
+    filtered: state.businessIdeas.filtered
 
 });
 

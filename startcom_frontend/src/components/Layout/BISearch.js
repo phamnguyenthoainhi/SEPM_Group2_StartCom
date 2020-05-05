@@ -51,7 +51,7 @@ class BIsearch extends Component {
       name: '',
       allOrFound: 'all',
       foundIdeas: [],
-      keywords: [],
+      keyword: '',
     };
     this.handleChange = this.handleChange.bind(this);
     // this.searchByname = this.searchByname.bind(this);
@@ -62,27 +62,16 @@ class BIsearch extends Component {
     this.props.fetchBI();
   };
 
-  componentDidUpdate(prevProps) {
-    console.log(JSON.stringify(this.props.businessIdeas))
-    if (this.props.businessIdeas !== prevProps.businessIdeas) {
-      this.setState({
-        keywords: this.props.businessIdeas
-      })
-    }
-  };
-
-  // searchByname = (name) => {
-  //   let businessIdeas = this.state.keywords.filter(businessIdea => businessIdea.name.toLowerCase().indexOf(name.toLowerCase()) !== -1);
-  //   console.log(businessIdeas)
-  //   return businessIdeas;
-  //   // const id = this.props.sortedIdeas.id;
-  // };
 
   handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value })
   };
 
   backToPageOne = () => { this.child.current.handlePageChange(1) };
+
+  search = ()=>{
+    this.props.searchBI(this.state.keyword,this.props.businessIdeas)
+  }
 
   render() {
     // console.log(this.searchByname("hello"));
@@ -95,9 +84,9 @@ class BIsearch extends Component {
         <div className="container">
           <h1 className=""> Search for An Idea</h1>
           <form id="searchForm">
-            <TextField id="standard-basic" label="Search" onChange={this.props.searchBI} value={this.props.name} />
+            <TextField id="standard-basic" label="Search" name='keyword' onChange={this.handleChange} value={this.state.keyword} />
           </form>
-          <button type="submit" className="btn btn-primary btn-bg mt-3" onClick={this.props.triggerParentUpdate}>
+          <button className="btn btn-primary btn-bg mt-3" onClick={()=>this.search()}>
             Search
             </button>
         </div>
@@ -108,14 +97,14 @@ class BIsearch extends Component {
 
 const mapDispatchToProps = dispatch => ({
   fetchBI: () => dispatch(fetchBI()),
-  searchBI: () => dispatch(searchBI()),
+  searchBI: (keyword, businessIdeas) => dispatch(searchBI(keyword,businessIdeas)),
   filterBICategory: () => dispatch()
 
 
 });
 
 const mapStateToProps = state => ({
-  businessIdeas: state.businessIdeas.items  ,
+  businessIdeas: state.businessIdeas.businessIdeas  ,
   foundIdeas: state.businessIdeas.items,
   name: state.businessIdeas.name,
 
