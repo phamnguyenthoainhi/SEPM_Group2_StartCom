@@ -22,6 +22,18 @@ exports.sendEmail = (data) => {
         .catch(error => { console.log(error) })
 }
 
+exports.createNotification = (senderId, receiverId, type, senderEmail) =>{
+    const notification = {
+        sender: senderId,
+        receiver: receiverId,
+        type: type,
+        title: `New email from ${type === 'investor' ? 'an' : 'a'} ${type}`,
+        content: `You have received an email from ${type === 'investor' ? 'an' : 'a'} ${type}: ${senderEmail}`,
+        seen: false
+    }
+    return admin.firestore().collection('Notification').add(notification)
+}
+
 exports.uploadImage = (imageString, name) => {
 
     var extension = ''

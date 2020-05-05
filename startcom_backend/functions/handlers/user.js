@@ -2,7 +2,7 @@ const admin = require('firebase-admin');
 const firebase = require('../config/config');
 const db = admin.firestore()
 
-const { sendEmail, uploadImage } = require('./utilities');
+const { sendEmail, uploadImage, createNotification } = require('./utilities');
 
 exports.signUp = async (req, res) => {
     const user = req.body
@@ -167,7 +167,7 @@ exports.verifyInvestor = async (req, res) => {
                 text: `Dear ${user.email}, we have verified that you are a legitimate investor. Thank you for your cooperation.`
             }
             return Promise.all([db.collection('User').doc(req.params.id).update({ verified: true }),
-                sendEmail(mailOption)])
+            sendEmail(mailOption)])
                 .then(() => {
                     return res.status(200).send('Success')
                 })
@@ -176,7 +176,7 @@ exports.verifyInvestor = async (req, res) => {
                     return res.json(error)
                 })
         }
-        else{
+        else {
             return res.status(404).send('User does not exist or is not an investor')
         }
     }
@@ -187,10 +187,10 @@ exports.verifyInvestor = async (req, res) => {
 
 }
 
-exports.declineInvestor = async (req,res) =>{
+exports.declineInvestor = async (req, res) => {
     try {
         const user = await (await db.collection('User').doc(req.params.id).get()).data()
-        if (user !== undefined && user !== null && user.type==='investor') {
+        if (user !== undefined && user !== null && user.type === 'investor') {
             const mailOption = {
                 from: "Startcom",
                 to: user.email,
@@ -198,7 +198,7 @@ exports.declineInvestor = async (req,res) =>{
                 text: `Dear ${user.email}, we were unable to verify your credibility as an investor. Therefore, your account has been deleted. We deeply apologize for any inconvenience caused.`
             }
             return Promise.all([admin.auth().deleteUser(req.params.id),
-                sendEmail(mailOption)])
+            sendEmail(mailOption)])
                 .then(() => {
                     return res.status(200).send('Success')
                 })
@@ -207,7 +207,7 @@ exports.declineInvestor = async (req,res) =>{
                     return res.json(error)
                 })
         }
-        else{
+        else {
             return res.status(404).send('User does not exist or is not an investor')
         }
     }
@@ -244,16 +244,27 @@ exports.deleteUser = (req, res) => {
 
 exports.sendEmailByUser = async (req, res) => {
     try {
-        const sender = await (await db.collection('User').doc(req.body.sender).get()).data().email
-        const receiver = await (await db.collection('User').doc(req.body.receiver).get()).data().email
-
+        const sender = await db.collection('User').doc(req.body.sender).get()
+        const receiver = await db.collection('User').doc(req.body.receiver).get()
         const mailOption = {
-            from: sender,
-            to: receiver,
-            subject: `From ${sender}: ${req.body.subject}`,
+            from: sender.data().email,
+            to: receiver.data().email,
+            subject: `From ${sender.data().email}: ${req.body.subject}`,
             text: req.body.text
         }
-        return sendEmail(mailOption)
+        // const notification = {
+        //     token: receiver.data().token,
+        //     data: {
+        //         sender: senderId,
+        //         receiver: receiverId,
+        //         type: type,
+        //         title: `New email from ${type === 'investor' ? 'an' : 'a'} ${type}`,
+        //         content: `You have received an email from ${type === 'investor' ? 'an' : 'a'} ${type}: ${senderEmail}`,
+        //         seen: false
+        //     }
+        // }
+
+        return Promise.all([sendEmail(mailOption), createNotification(sender.id, receiver.id, sender.data().type, sender.data().email)])
             .then(() => {
                 return res.status(200).send('Success')
             })
