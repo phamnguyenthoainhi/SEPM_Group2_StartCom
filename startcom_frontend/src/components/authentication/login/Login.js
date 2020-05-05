@@ -68,7 +68,7 @@ class Login extends Component {
                 sessionStorage.setItem("id", this.props.loginMessage.id);
                 sessionStorage.setItem("token", this.props.loginMessage.token);
 
-                // window.location.replace("http://localhost:3000/");
+                window.location.replace("http://localhost:3000/");
             }
         }
     }
@@ -142,8 +142,8 @@ class Login extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    loginMessage: state.loginMessage.loginMessage,
-    loginLoading: state.loginLoading.loginLoading
+    loginMessage: state.usersReducer.loginMessage,
+    loginLoading: state.usersReducer.loginLoading
 });
 
 const mapDispatchToProps = dispatch => ({

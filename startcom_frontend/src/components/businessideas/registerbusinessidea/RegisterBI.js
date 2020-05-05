@@ -354,8 +354,8 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-    isRegisteredSuccess: state.businessIdeasData.isRegisteredSuccess,
-    isRegisteredLoading: state.businessIdeasData.isRegisteredLoading
+    isRegisteredSuccess: state.BIReducer.isRegisteredSuccess,
+    isRegisteredLoading: state.BIReducer.isRegisteredLoading
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(RegisterBI));

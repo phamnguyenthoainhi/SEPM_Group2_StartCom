@@ -3,12 +3,12 @@ import {Provider} from 'react-redux';
 import themeFile from "./utils/theme";
 
 import store  from './store'
-import Navbar from "./components/Layout/Navbar";
-import Footer from "./components/Layout/Footer";
+// import Navbar from "./components/Layout/Navbar";
+// import Footer from "./components/Layout/Footer";
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter, Route} from 'react-router-dom';
-
+import './custom.css';
 //Import pages
 import RegisterBI from './components/businessideas/registerbusinessidea/RegisterBI';
 import HomePage from './components/anonymoususers/homepage/HomePage';
@@ -17,14 +17,13 @@ import Login from './components/authentication/login/Login';
 import SignUp from './components/authentication/register/SignUp';
 import AdminDashboard from './components/admin/AdminDashboard.js';
 import Contact from './components/contact/Contact';
-import './custom.css';
 import Container  from './components/contact/Container';
 import DisplayBIS from "./components/businessideas/displaybusinessideas/DisplayBIS";
 import BIDetail from './components/Layout/BIDetail';
 import BIDetailSkeleton from "./components/skeleton/BIDetailSkeleton";
 import Profile from "./components/profile/Profile";
 import EditProfile from "./components/profile/EditProfile";
-
+import Notification from './components/notification/Notification';
 class App extends Component {
   render() {
   const theme = createMuiTheme(themeFile);
@@ -46,6 +45,7 @@ class App extends Component {
                   <Route exact path={'/admin'} render={(props) => <AdminDashboard {...props} />} />
                   <Route exact path={'/contact'} render={(props) => <Contact {...props} />} />
                   <Route exact path={'/container'} render={(props) => <Container {...props} />} />
+                  <Route exact path={'/noti'} render={(props) => <Notification {...props} />} />
                 </ThemeProvider>
           </Provider>
       </BrowserRouter>

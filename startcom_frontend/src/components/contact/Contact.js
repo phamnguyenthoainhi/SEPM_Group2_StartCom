@@ -243,10 +243,10 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-    sendMessageLoading: state.sendMessageLoading.sendMessageLoading,
-    sendMessageSuccess: state.sendMessageSuccess.sendMessageSuccess,
-    profileLoading: state.profileLoading.profileLoading,
-    profileSender: state.profileSender.profileSender
+    sendMessageLoading: state.usersReducer.sendMessageLoading,
+    sendMessageSuccess: state.usersReducer.sendMessageSuccess,
+    profileLoading: state.usersReducer.profileLoading,
+    profileSender: state.usersReducer.profileSender
 
 });
 

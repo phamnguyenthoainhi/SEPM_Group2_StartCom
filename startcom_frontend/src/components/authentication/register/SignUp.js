@@ -218,8 +218,8 @@ class SignUp extends Component {
 
 
 const mapStateToProps = (state) => ({
-    registerMessage: state.registerMessage.registerMessage,
-    registerLoading: state.registerLoading.registerLoading
+    registerMessage: state.usersReducer.registerMessage,
+    registerLoading: state.usersReducer.registerLoading
 });
 
 const mapDispatchToProps = dispatch => ({

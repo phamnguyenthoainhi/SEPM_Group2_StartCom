@@ -182,12 +182,12 @@ const mapDispatchToProps = dispatch => ({
   
 })
 const mapStateToProps = state => ({
-    unverifiedEmails: state.unverifiedEmails.unverifiedEmails,
-    loading: state.emailLoading.emailLoading,
-    success: state.verifySuccess.verifySuccess,
-    loadingVerify: state.loadingVerify.loadingVerify,
-    deleteLoading: state.deleteLoading.deleteLoading,
-    deleteSuccess: state.deleteSuccess.deleteSuccess,
+    unverifiedEmails: state.adminReducer.unverifiedEmails,
+    loading: state.adminReducer.emailLoading,
+    success: state.adminReducer.verifySuccess,
+    loadingVerify: state.adminReducer.loadingVerify,
+    deleteLoading: state.adminReducer.deleteLoading,
+    deleteSuccess: state.adminReducer.deleteSuccess,
 });
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(AdminDashboard));
 
