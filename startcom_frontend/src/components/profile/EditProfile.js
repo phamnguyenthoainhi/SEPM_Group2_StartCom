@@ -277,14 +277,37 @@ class EditProfile extends Component {
         if (this.validateBeforeSubmit(businessIdea)) {
             this.props.updateBI(businessIdea,businessID)
         }
+        console.log(this.state);
         this.resetStates()
     };
 
     submit = () => {
         const businessID = "4sf15mY35j45BaKy6PLq";
-        if (!(this.state.chosenFile === '' || this.state.chosenFile === null || this.state.chosenFile === undefined)) {
+
+        if (!(this.state.chosenFile === '' || this.state.chosenFile === null || this.state.chosenFile === undefined) &&
+        (this.state.image === '' || this.state.image === null || this.state.image === undefined)){
             this.getBase64(this.state.chosenFile, this.handleUpdateBI)
-        } else {
+        }
+        if( !(this.state.image === '' || this.state.image === null || this.state.image === undefined)) {
+            const businessIdea = {
+                name: this.state.name,
+                date: this.state.date,
+                description: this.state.description,
+                targetFunding: this.state.targetFunding,
+                image: this.state.image,
+                needInvestor: this.state.needInvestor,
+                needConsultant: this.state.needConsultant,
+                category: this.state.category
+            };
+            if (this.validateBeforeSubmit(businessIdea)) {
+                this.props.updateBI(businessIdea,businessID);
+                console.log(this.state);
+            }
+
+            this.resetStates()
+        }
+
+        else {
             const businessIdea = {
                 name: this.state.name,
                 date: this.state.date,
@@ -297,12 +320,14 @@ class EditProfile extends Component {
             };
 
             if (this.validateBeforeSubmit(businessIdea)) {
-                this.props.updateBI(businessIdea,businessID)
+                this.props.updateBI(businessIdea,businessID);
+                console.log(this.state);
             }
+
             this.resetStates()
         }
 
-    }
+    };
 
     resetStates = () => {
         this.setState({
@@ -391,9 +416,6 @@ class EditProfile extends Component {
                                                         className={classes.removeImgBtn}
                                                         onClick={this.removeImage}
                                                     >Remove image</Button>
-                                                    {/*<Button*/}
-                                                    {/*    startIcon={<EditIcon />}*/}
-                                                    {/*    className={classes.changeImgBtn}>Change image</Button>*/}
                                                 </Grid>
 
                                             </Grid>
