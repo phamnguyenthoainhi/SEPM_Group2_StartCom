@@ -5,7 +5,7 @@ import {
     RESET_REGISTER,
     UPDATE_BI,
     DELETE_BI,
-    UPDATE_BI_SUCCESS, RESET_UI_STATE, LOADING_DATA, STOP_LOADING_DATA
+    UPDATE_BI_SUCCESS, RESET_UI_STATE, LOADING_DATA, STOP_LOADING_DATA, UPDATING_DATA
 
 } from '../actionTypes';
 
@@ -75,7 +75,7 @@ export const registerBI = (BIData) => dispatch => {
 };
 
 export const updateBI = (BIData, id) => dispatch => {
-    dispatch({ type: LOADING_DATA});
+    dispatch({ type: UPDATING_DATA});
     fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/edit_business_idea/${id}`, {
         method: 'PUT',
         headers: {
@@ -93,7 +93,7 @@ export const updateBI = (BIData, id) => dispatch => {
                 dispatch({type: UPDATE_BI_SUCCESS});
                 setTimeout(() => {
                     dispatch({type: RESET_UI_STATE});
-                }, 1000);
+                }, 2000);
             })
         )
 

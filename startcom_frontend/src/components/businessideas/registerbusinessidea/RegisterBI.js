@@ -163,8 +163,6 @@ class RegisterBI extends Component {
                 this.props.registerBI(businessIdea);
 
             }
-        } else {
-
         }
                 
     }
@@ -226,8 +224,8 @@ class RegisterBI extends Component {
                             <div className={classes.floatitem}>
                             <Typography className={classes.chosenfile}>{this.state.chosenFile}</Typography>
                             <br/>
-                                <Button color="default"  className={classes.buttonfile}
-                                label='My Label'startIcon={<CloudUploadIcon />}  >
+                                <Button color="default"  className={classes.buttonFile}
+                                label='My Label' startIcon={<CloudUploadIcon />}  >
                                     <input type="file" accept="image/*" id='file' style={{display:'none'}} name='image'  onChange={this.chooseFile}/>
                                     <label htmlFor='file' >
                                             Upload Business Idea Image

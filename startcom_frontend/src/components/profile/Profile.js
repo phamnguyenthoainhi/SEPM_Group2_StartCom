@@ -18,6 +18,12 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import BITemplateProfile from "../Layout/BITemplateProfile";
 
 
+// const ColorCircularProgress = withStyles({
+//     root: {
+//         color: '#3C5155'
+//     },
+// })(CircularProgress);
+
 const styles = (theme) => ({
     containerWrapper: {
         padding: "50px 80px",
@@ -124,33 +130,6 @@ class Profile extends Component {
 
     }
 
-
-
-
-
-    // toggleUpdateForm = () => {
-    //     this.setState({
-    //         toggleUpdate: !this.state.toggleUpdate
-    //     })
-    // };
-    //
-    // openDeleteDialog = () => {
-    //     this.setState({
-    //         openDeleteDialog: true
-    //     })
-    // };
-    //
-    // closeDeleteDialog = () => {
-    //     this.setState({
-    //         openDeleteDialog: false
-    //     })
-    // };
-    //
-    // delete = (id) => {
-    //     this.props.deleteBI(id);
-    //     console.log("Delete successfully")
-    // };
-
     render() {
         console.log(this.props.businessIdea);
         const { classes, user, businessIdea, loading } = this.props;
@@ -223,7 +202,7 @@ class Profile extends Component {
                                 <Grid item lg={12} md={12} sm={12}>
                                     {loading ? (
                                         <Grid container className={classes.progressContainer}>
-                                            <CircularProgress variant="indeterminate" size={40}/>
+                                            <CircularProgress variant="indeterminate" size={40} style={{color: '#3C5155'}}/>
                                         </Grid>
                                     ): (
                                        <BITemplateProfile businessIdea={businessIdea}/>
@@ -252,7 +231,7 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
     businessIdea: state.businessIdeasData.businessIdea,
-    loading: state.businessIdeasData.loading
+    loading: state.businessIdeasData.loading,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Profile));

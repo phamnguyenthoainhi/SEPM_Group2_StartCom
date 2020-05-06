@@ -1,17 +1,21 @@
 import {
+    UPDATING_DATA,
     UPDATE_BI_SUCCESS,
+    DELETING_DATA,
     DELETE_BI_SUCCESS,
-    RESET_UI_STATE, LOADING_DATA, STOP_LOADING_DATA
+    RESET_UI_STATE,
 } from "../actions/actionTypes";
 
 const initialState = {
-    loading: false,
+    updating: false,
+    deleting: false,
     doneUpdateBI: false,
     doneDeleteBI: false
 };
 
 const defaultState = {
-    loading: false,
+    updating: false,
+    deleting: false,
     doneUpdateBI: false,
     doneDeleteBI: false
 };
@@ -19,16 +23,22 @@ const defaultState = {
 export default function (state = initialState, action) {
     switch (action.type) {
 
-        case STOP_LOADING_DATA:
+        case UPDATING_DATA:
             return {
                 ...state,
-                loading: false
+                updating: true
             };
 
         case UPDATE_BI_SUCCESS:
             return {
                 ...state,
+                updating: false,
                 doneUpdateBI: true
+            };
+        case DELETING_DATA:
+            return {
+                ...state,
+                deleting: true
             };
 
         case DELETE_BI_SUCCESS:

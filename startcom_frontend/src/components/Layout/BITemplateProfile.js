@@ -40,10 +40,16 @@ const styles = (theme) => ({
     text: {
         fontFamily: theme.font2,
         fontWeight: 400,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 14
+        },
     },
     header: {
         fontFamily: theme.font2,
         fontWeight: 700,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 14
+        },
     },
 
 
@@ -69,7 +75,7 @@ class BITemplateProfile extends Component {
                             </Typography>
                         </Grid>
 
-                        <Grid item md={8}>
+                        <Grid item md={8} sm={8}>
                             {businessIdea.image === '' ? (
                                     <img src={defaultLogo} className={classes.ideaImage}/>
                                 ) :
@@ -85,7 +91,7 @@ class BITemplateProfile extends Component {
                             </Typography>
                         </Grid>
 
-                        <Grid item md={8}>
+                        <Grid item md={8} sm={8}>
                             <Typography className={classes.text}>
                                 {businessIdea.name}
                             </Typography>
@@ -99,7 +105,7 @@ class BITemplateProfile extends Component {
                             </Typography>
                         </Grid>
 
-                        <Grid item md={8}>
+                        <Grid item md={8} sm={8}>
                             <Typography className={classes.text}>
                                 {businessIdea.description}
                             </Typography>
@@ -113,7 +119,7 @@ class BITemplateProfile extends Component {
                             </Typography>
                         </Grid>
 
-                        <Grid item md={8}>
+                        <Grid item md={8} sm={8}>
                             <Typography className={classes.text}>
                                 {businessIdea.category}
                             </Typography>
@@ -127,7 +133,7 @@ class BITemplateProfile extends Component {
                             </Typography>
                         </Grid>
 
-                        <Grid item md={8}>
+                        <Grid item md={8} sm={8}>
                             <Typography className={classes.text}>
                                 {businessIdea.date}
                             </Typography>
@@ -143,7 +149,7 @@ class BITemplateProfile extends Component {
                             </Typography>
                         </Grid>
 
-                        <Grid item md={8}>
+                        <Grid item md={8} sm={8}>
                             {businessIdea.needConsultant ? (
                                 <Chip label="Consultancy Required" className={classes.chipTrue}/>
                             ) : (
@@ -165,7 +171,7 @@ class BITemplateProfile extends Component {
                             </Typography>
                         </Grid>
 
-                        <Grid item md={8}>
+                        <Grid item md={8} sm={8}>
                             <Typography className={classes.text}>
                                 ${businessIdea.targetFunding}
                             </Typography>

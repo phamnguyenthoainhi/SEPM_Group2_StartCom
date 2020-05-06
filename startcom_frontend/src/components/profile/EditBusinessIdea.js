@@ -11,14 +11,14 @@ import TextField from '@material-ui/core/TextField';
 import {CATEGORIES} from "../../utils/categories";
 import defaultUser from '../../images/default.png';
 import Button from '@material-ui/core/Button';
-import ImageIcon from '@material-ui/icons/Image';
+import CloudUploadIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import CheckIcon from '@material-ui/icons/Check';
 
 import Typography from "@material-ui/core/Typography";
 import InputAdornment from "@material-ui/core/InputAdornment";
-
+import Card from "@material-ui/core/Card";
+import IconButton from "@material-ui/core/IconButton";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import defaultLogo from "../../images/company_logo.png";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -53,7 +53,7 @@ const styles = (theme) => ({
         fontFamily: theme.font2,
         fontWeight: 700,
         [theme.breakpoints.down('sm')]: {
-           fontSize: 14
+            fontSize: 14
         },
     },
 
@@ -66,8 +66,6 @@ const styles = (theme) => ({
         margin: "0 15px",
         outline: "none",
         textDecoration: "none",
-        backgroundColor: theme.color.primary3,
-        color: theme.color.primary1,
         fontFamily: "'Raleway', sans-serif;",
         textTransform: "inherit",
         transition: "all 350ms ease-in-out",
@@ -77,6 +75,8 @@ const styles = (theme) => ({
             backgroundColor: theme.color.contrast,
         },
 
+        backgroundColor: theme.color.primary3,
+        color: theme.color.primary1,
     },
     btnContainer: {
         marginTop: 20,
@@ -139,32 +139,6 @@ const styles = (theme) => ({
         zIndex: theme.zIndex.drawer + 1,
         color: '#fff',
     },
-    buttonFile: {
-        border: '1px dashed black',
-        transition: "all 350ms ease-in-out",
-        color: theme.color.primary3,
-        textTransform: 'inherit',
-        '&:hover':{
-            backgroundColor: theme.color.primary2,
-            color: theme.color.primary1,
-
-        }
-    },
-    completeBtn: {
-        backgroundColor: theme.color.secondary,
-        color: theme.color.primary1,
-        textTransform: 'inherit',
-        outline: "none",
-        textDecoration: "none",
-        fontFamily: "'Raleway', sans-serif;",
-    },
-
-    label: {
-        margin: 0,
-        fontSize: 16,
-        fontFamily: theme.font2,
-        fontWeight: 400,
-    }
 
 
 
@@ -181,7 +155,7 @@ const CustomCheckbox = withStyles({
     checked: {},
 })((props) => <Checkbox color="default" {...props} />);
 
-class EditProfile extends Component {
+class EditBusinessIdea extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -193,15 +167,17 @@ class EditProfile extends Component {
             needInvestor: false,
             targetFunding: 0,
 
-            uploadImageComplete: false,
-            chosenFile: '',
+            toggleUpdate: false,
+            openUpdateForm: false,
+            openDeleteDialog: false,
+
             errors: {}
 
         }
     }
 
     componentDidMount() {
-        const businessID = "4sf15mY35j45BaKy6PLq";
+        const businessID = "V2BTqcwWe3IOgmhEAbd0";
         this.props.getBI(businessID);
 
     }
@@ -215,7 +191,7 @@ class EditProfile extends Component {
                 category: this.props.businessIdea.category,
                 needConsultant: this.props.businessIdea.needConsultant,
                 needInvestor: this.props.businessIdea.needInvestor,
-                targetFunding: this.props.businessIdea.targetFunding
+                targetFunding: parseInt(this.props.businessIdea.targetFunding)
             })
         }
     }
@@ -234,19 +210,12 @@ class EditProfile extends Component {
         }
     };
 
-    removeImage = () => {
-        this.setState({
-            image: ''
-        })
-    };
-
     chooseFile = event => {
         console.log(event.target.files[0].name);
         this.setState({
-            chosenFile: event.target.files[0],
-            uploadImageComplete: true
-        });
-        console.log(this.state.chosenFile)
+            image: event.target.files[0],
+            chosenFile: 'Uploaded file: '+ event.target.files[0].name
+        })
     };
 
     getBase64 = (file, callback) => {
@@ -262,14 +231,15 @@ class EditProfile extends Component {
         };
     };
 
-    handleUpdateBI = (encodedImage) => {
-        const businessID = "4sf15mY35j45BaKy6PLq";
+
+
+    submit = () => {
+        const businessID = "V2BTqcwWe3IOgmhEAbd0";
         const businessIdea = {
             name: this.state.name,
-            date: this.state.date,
             description: this.state.description,
             targetFunding: this.state.targetFunding,
-            image: encodedImage,
+            image: this.state.image,
             needInvestor: this.state.needInvestor,
             needConsultant: this.state.needConsultant,
             category: this.state.category
@@ -277,58 +247,8 @@ class EditProfile extends Component {
         if (this.validateBeforeSubmit(businessIdea)) {
             this.props.updateBI(businessIdea,businessID)
         }
-        this.resetStates()
+
     };
-
-    submit = () => {
-        const businessID = "4sf15mY35j45BaKy6PLq";
-        if (!(this.state.chosenFile === '' || this.state.chosenFile === null || this.state.chosenFile === undefined)) {
-            this.getBase64(this.state.chosenFile, this.handleUpdateBI)
-        } else {
-            const businessIdea = {
-                name: this.state.name,
-                date: this.state.date,
-                description: this.state.description,
-                targetFunding: this.state.targetFunding,
-                image: '',
-                needInvestor: this.state.needInvestor,
-                needConsultant: this.state.needConsultant,
-                category: this.state.category
-            };
-
-            if (this.validateBeforeSubmit(businessIdea)) {
-                this.props.updateBI(businessIdea,businessID)
-            }
-            this.resetStates()
-        }
-
-    }
-
-    resetStates = () => {
-        this.setState({
-            chosenFile: '',
-            uploadImageComplete: false
-        })
-    };
-
-
-
-    // submit = () => {
-    //     const businessID = "V2BTqcwWe3IOgmhEAbd0";
-    //     const businessIdea = {
-    //         name: this.state.name,
-    //         description: this.state.description,
-    //         targetFunding: this.state.targetFunding,
-    //         image: this.state.image,
-    //         needInvestor: this.state.needInvestor,
-    //         needConsultant: this.state.needConsultant,
-    //         category: this.state.category
-    //     };
-    //     if (this.validateBeforeSubmit(businessIdea)) {
-    //         this.props.updateBI(businessIdea,businessID)
-    //     }
-    //
-    // };
 
     validateBeforeSubmit = (data) => {
         const errors = {};
@@ -343,25 +263,14 @@ class EditProfile extends Component {
         return true;
     };
 
-    // closeDeleteDialog = () => {
-    //     this.setState({
-    //         openDeleteDialog: false
-    //     })
-    // };
-    //
-    // delete = (id) => {
-    //     this.props.deleteBI(id);
-    //     console.log("Delete successfully")
-    // };
 
     render() {
         // console.log(this.props.businessIdea);
         const { classes, user, loading, doneUpdateBI, updating } = this.props;
-        const { errors, uploadImageComplete } = this.state;
+        const { errors } = this.state;
         return (
             <Grid container>
                 <Navbar/>
-
                 <Grid container className={classes.containerWrapper}>
                     <Grid container className={classes.contentContainer}>
                         <Grid container className={classes.container} style={{marginBottom: 50}}>
@@ -388,34 +297,21 @@ class EditProfile extends Component {
                                                 <Grid container className={classes.container}>
                                                     <Button
                                                         startIcon={<DeleteIcon />}
-                                                        className={classes.removeImgBtn}
-                                                        onClick={this.removeImage}
-                                                    >Remove image</Button>
-                                                    {/*<Button*/}
-                                                    {/*    startIcon={<EditIcon />}*/}
-                                                    {/*    className={classes.changeImgBtn}>Change image</Button>*/}
+                                                        className={classes.removeImgBtn}>Remove image</Button>
+                                                    <Button
+                                                        startIcon={<EditIcon />}
+                                                        className={classes.changeImgBtn}>Change image</Button>
                                                 </Grid>
 
                                             </Grid>
 
-                                        ) :  !uploadImageComplete ? (
-                                            <Button
-                                                variant='outlined'
-                                                className={classes.buttonFile}
-                                                startIcon={<ImageIcon />}  >
-                                                <input type="file" accept="image/*" id='file' style={{display:'none'}} name='image'  onChange={this.chooseFile}/>
-                                                <label htmlFor='file' className={classes.label} >
-                                                    Upload image
-                                                </label>
-                                            </Button>
-
                                         ) : (
-                                            <Button
-                                                disabled
-                                                className={classes.completeBtn}
-                                                endIcon={<CheckIcon/>}
-                                            >
-                                                Upload Completed
+                                            <Button color="primary"
+                                                    label='My Label' startIcon={<CloudUploadIcon />}  >
+                                                <input type="file" accept="image/*" id='file' style={{display:'none'}} name='image'  onChange={this.chooseFile}/>
+                                                <label htmlFor='file' >
+                                                    Upload Business Idea Image
+                                                </label>
                                             </Button>
                                         )}
                                     </Grid>
@@ -593,7 +489,7 @@ class EditProfile extends Component {
 
                                     <Button className={classes.button} component={Link} to="/profile">Back to Profile</Button>
                                 </Grid>
-                        </Grid>
+                            </Grid>
                         )}
                     </Grid>
 
@@ -623,8 +519,7 @@ const mapStateToProps = state => ({
     businessIdea: state.businessIdeasData.businessIdea,
     loading: state.businessIdeasData.loading,
     updating: state.UI.updating,
-    doneUpdateBI: state.UI.doneUpdateBI,
-    uploadImage: state.UI.uploadImage
+    doneUpdateBI: state.UI.doneUpdateBI
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(EditProfile));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(EditBusinessIdea));

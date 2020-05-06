@@ -14,7 +14,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 const ColorCircularProgress = withStyles({
     root: {
       color: '#3C5155'
-      
     },
   })(CircularProgress);
 class AdminDashboard extends Component {
