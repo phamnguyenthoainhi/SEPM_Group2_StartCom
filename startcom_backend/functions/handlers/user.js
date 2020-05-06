@@ -250,26 +250,37 @@ exports.sendEmailByUser = async (req, res) => {
             subject: `From ${sender.data().email}: ${req.body.subject}`,
             text: req.body.text
         }
-        // const notification = {
-        //     token: receiver.data().token,
-        //     data: {
-        //         sender: senderId,
-        //         receiver: receiverId,
-        //         type: type,
-        //         title: `New email from ${type === 'investor' ? 'an' : 'a'} ${type}`,
-        //         content: `You have received an email from ${type === 'investor' ? 'an' : 'a'} ${type}: ${senderEmail}`,
-        //         seen: false
-        //     }
-        // }
+        if (receiver.data().token !== null && receiver.data().token !== undefined){
+            console.log(receiver.data().token)
+            const notif = {
+                token: receiver.data().token,
+                notification: {
+                    title: `New email from ${sender.data().type === 'investor' ? 'an' : 'a'} ${sender.data().type}`,
+                    body: `You have received an email from ${sender.data().type === 'investor' ? 'an' : 'a'} ${sender.data().type}: ${sender.data().email}`,
+                }
+            }
+            return Promise.all([sendEmail(mailOption), 
+                    createNotification(sender.id, receiver.id, sender.data().type, sender.data().email), 
+                    admin.messaging().send(notif)])
+                .then(() => {
+                    return res.status(200).send('Success')
+                })
+                .catch(error => {
+                    console.log(error)
+                    return res.json(error)
+                })
+        }
+        else{
 
-        return Promise.all([sendEmail(mailOption), createNotification(sender.id, receiver.id, sender.data().type, sender.data().email)])
-            .then(() => {
-                return res.status(200).send('Success')
-            })
-            .catch(error => {
-                console.log(error)
-                return res.json(error)
-            })
+            return Promise.all([sendEmail(mailOption), createNotification(sender.id, receiver.id, sender.data().type, sender.data().email)])
+                .then(() => {
+                    return res.status(200).send('Success')
+                })
+                .catch(error => {
+                    console.log(error)
+                    return res.json(error)
+                })
+        }
 
     }
     catch (error) {
