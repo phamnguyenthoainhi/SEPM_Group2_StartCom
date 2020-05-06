@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Provider} from 'react-redux';
-import themeFile from "./utils/theme";
-
+import theme from "./utils/theme";
+import firebase from './firebase'
 import store  from './store'
 // import Navbar from "./components/Layout/Navbar";
 // import Footer from "./components/Layout/Footer";
@@ -24,20 +24,76 @@ import BIDetailSkeleton from "./components/skeleton/BIDetailSkeleton";
 import Profile from "./components/profile/Profile";
 import EditProfile from "./components/profile/EditProfile";
 import Notification from './components/notification/Notification';
-class App extends Component {
-  render() {
-  const theme = createMuiTheme(themeFile);
+import Test from './Test.js'
 
+import * as serviceWorker from './serviceWorker';
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true,
+      error: null,
+      isUserAllow: Notification.permission,
+      pushServerSubscriptionId: '',
+      isPushNotificationSupport: ''
+
+    }
+  }
+
+
+
+  // onClickAskUserPermission = () => {
+  //   setLoading(true);
+  //   setError(false);
+  //   serviceWorker.askUserPermission().then((consent) => {
+  //     setSuserConsent(consent);
+  //     if (consent !== 'granted') {
+  //       setError({
+  //         name: 'Consent denied',
+  //         message: 'You denied the consent to receive notifications',
+  //         code: 0
+  //       });
+  //     }
+  //     setLoading(false);
+  //   });
+  // };
+
+
+  componentDidMount() {
+    // const messaging = firebase.messaging();
+    // messaging.requestPermission().then((token) => {
+    //   return messaging.getToken()
+    // }).then(token => {
+    //   console.log('Token: '+ token)
+    // }).catch(()=> {
+    //   console.log("error ")
+    // })
+  }
+  componentDidUpdate() {
+    
+  }
+  render() {
+  
+  // const pushNotificationSupported = serviceWorker.isPushNotificationSupported();
+  // this.setState({pushNotificationSupported: serviceWorker.isPushNotificationSupported()})
+  // console.log(this.state.pushNotificationSupported)
     return (
       <BrowserRouter>
             <Provider store={store}>
                 <ThemeProvider theme={theme}>
-                  <Route exact path={'/'} render={(props) => <HomePage {...props} />} />
+                  <Route exact path={'/'} render={(props) => <HomePage {...props} 
+                  
+                  />} />
                   <Route exact path={'/auth'} render={(props) => <Authentication {...props} />} />
                   <Route exact path={'/login'} render={(props) => <Login {...props} />} />
                   <Route exact path={'/signup'} render={(props) => <SignUp {...props} />} />
-                  <Route exact path={'/displayBIS'} render={(props) => <DisplayBIS {...props} />} />
-                  <Route exact path={'/detail/:id'} render={(props) => <BIDetail {...props} />} />
+                  <Route exact path={'/displayBIS'} render={(props) => <DisplayBIS {...props} 
+                  
+                  />} />
+                  <Route exact path={'/detail/:id'} render={(props) => <BIDetail {...props} />}
+                  
+                  />
                   <Route exact path={'/skeleton'} render={(props) => <BIDetailSkeleton {...props} />} />
                   <Route exact path={'/profile'} render={(props) => <Profile {...props} />} />
                   <Route exact path={'/edit_profile'} render={(props) => <EditProfile {...props} />} />
@@ -46,6 +102,7 @@ class App extends Component {
                   <Route exact path={'/contact'} render={(props) => <Contact {...props} />} />
                   <Route exact path={'/container'} render={(props) => <Container {...props} />} />
                   <Route exact path={'/noti'} render={(props) => <Notification {...props} />} />
+                  <Route exact path={'/test'} render={(props) => <Test {...props} />} />
                 </ThemeProvider>
           </Provider>
       </BrowserRouter>

@@ -10,6 +10,9 @@
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://bit.ly/CRA-PWA
 
+const pushServerPublicKey =
+  'AAAATQ3POoY:APA91bF1MeROEhWinvZ7oRD5G2b2vJe6MogCuQ3hxuNluFZFWH2JZabwXn1aR1T_xhoF6BXWrYPR4lgmszSWPFH_YrN-pJ5fxg01FqMT2pftsi2L4hXXc7_i5ZZ4xyr_UMrkC_eI4E9B';
+
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
@@ -21,6 +24,7 @@ const isLocalhost = Boolean(
 );
 
 export function register(config) {
+  
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
@@ -32,7 +36,7 @@ export function register(config) {
     }
 
     window.addEventListener('load', () => {
-      const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
+      const swUrl = `${process.env.PUBLIC_URL}/custom-service-worker.js`;
 
       if (isLocalhost) {
         // This is running on localhost. Let's check if a service worker still exists or not.
@@ -139,3 +143,38 @@ export function unregister() {
       });
   }
 }
+
+
+
+export async function askUserPermission() {
+  
+  return await Notification.requestPermission();
+}
+
+export async function createNotificationSubscription() {
+  //wait for service worker installation to be ready
+  
+  const serviceWorker = await navigator.serviceWorker.ready;
+
+  // subscribe and return the subscription
+  return await serviceWorker.pushManager.subscribe({
+    userVisibleOnly: true,
+    applicationServerKey: pushServerPublicKey
+  });
+}
+
+export function getUserSubscription() {
+  //wait for service worker installation to be ready, and then
+  return navigator.serviceWorker.ready
+    .then(function(serviceWorker) {
+      return serviceWorker.pushManager.getSubscription();
+    })
+    .then(function(pushSubscription) {
+      return pushSubscription;
+    });
+}
+
+export function isPushNotificationSupported() {
+  return 'serviceWorker' in navigator && 'PushManager' in window;
+}
+
