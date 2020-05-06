@@ -1,85 +1,85 @@
-import React, { Component } from 'react'
-import usePushNotifications from './usePushNotifications';
-// import {userConsent,
+// import React, { Component } from 'react'
+// import usePushNotifications from './usePushNotifications';
+// // import {userConsent,
     
-//     onClickAskUserPermission,
-//     onClickSusbribeToPushNotification,
-//     onClickSendSubscriptionToPushServer,
+// //     onClickAskUserPermission,
+// //     onClickSusbribeToPushNotification,
+// //     onClickSendSubscriptionToPushServer,
    
-//     onClickSendNotification,
-//    } from './usePushNotifications';
-// import pushServerSubscriptionId from './usePushNotifications'
-function Test() {
+// //     onClickSendNotification,
+// //    } from './usePushNotifications';
+// // import pushServerSubscriptionId from './usePushNotifications'
+// function Test() {
     
     
-        const {
-            userConsent,
-            pushNotificationSupported,
-            userSubscription,
-            onClickAskUserPermission,
-            onClickSusbribeToPushNotification,
-            onClickSendSubscriptionToPushServer,
-            pushServerSubscriptionId,
-            onClickSendNotification,
-            error,
-            loading
-        } = usePushNotifications();
+//         const {
+//             userConsent,
+//             pushNotificationSupported,
+//             userSubscription,
+//             onClickAskUserPermission,
+//             onClickSusbribeToPushNotification,
+//             onClickSendSubscriptionToPushServer,
+//             pushServerSubscriptionId,
+//             onClickSendNotification,
+//             error,
+//             loading
+//         } = usePushNotifications();
 
-        const Loading = ({ loading }) =>
-    loading ? <div className='app-loader'>Please wait, we are loading something...</div> : null;
-  const Error = ({ error }) =>
-    error ? (
-      <section className='app-error'>
-        <h2>{error.name}</h2>
-        <p>Error message : {error.message}</p>
-        <p>Error code : {error.code}</p>
-      </section>
-    ) : null;
+//         const Loading = ({ loading }) =>
+//     loading ? <div className='app-loader'>Please wait, we are loading something...</div> : null;
+//   const Error = ({ error }) =>
+//     error ? (
+//       <section className='app-error'>
+//         <h2>{error.name}</h2>
+//         <p>Error message : {error.message}</p>
+//         <p>Error code : {error.code}</p>
+//       </section>
+//     ) : null;
 
-  const isConsentGranted = userConsent === 'granted';
-        return (
-            <div className='App'>
-      <header className='App-header'>
-        {/* <img src={logo} className='App-logo' alt='logo' /> */}
-        <Loading loading={loading} />
+//   const isConsentGranted = userConsent === 'granted';
+//         return (
+//             <div className='App'>
+//       <header className='App-header'>
+//         {/* <img src={logo} className='App-logo' alt='logo' /> */}
+//         <Loading loading={loading} />
 
-        <p>Push notification are {!pushNotificationSupported && 'NOT'} supported by your device.</p>
+//         <p>Push notification are {!pushNotificationSupported && 'NOT'} supported by your device.</p>
 
-        <p>
-          User consent to recevie push notificaitons is <strong>{userConsent}</strong>.
-        </p>
+//         <p>
+//           User consent to recevie push notificaitons is <strong>{userConsent}</strong>.
+//         </p>
 
-        <Error error={error} />
+//         <Error error={error} />
 
-        <button
-          disabled={!pushNotificationSupported || isConsentGranted}
-          onClick={onClickAskUserPermission}>
-          {isConsentGranted ? 'Consent granted' : ' Ask user permission'}
-        </button>
+//         <button
+//           disabled={!pushNotificationSupported || isConsentGranted}
+//           onClick={onClickAskUserPermission}>
+//           {isConsentGranted ? 'Consent granted' : ' Ask user permission'}
+//         </button>
 
-        <button
-          disabled={!pushNotificationSupported || !isConsentGranted || userSubscription}
-          onClick={onClickSusbribeToPushNotification}>
-          {userSubscription ? 'Push subscription created' : 'Create Notification subscription'}
-        </button>
+//         <button
+//           disabled={!pushNotificationSupported || !isConsentGranted || userSubscription}
+//           onClick={onClickSusbribeToPushNotification}>
+//           {userSubscription ? 'Push subscription created' : 'Create Notification subscription'}
+//         </button>
 
-        <button
-          disabled={!userSubscription || pushServerSubscriptionId}
-          onClick={onClickSendSubscriptionToPushServer}>
-          {pushServerSubscriptionId
-            ? 'Subscrption sent to the server'
-            : 'Send subscription to push server'}
-        </button>
+//         <button
+//           disabled={!userSubscription || pushServerSubscriptionId}
+//           onClick={onClickSendSubscriptionToPushServer}>
+//           {pushServerSubscriptionId
+//             ? 'Subscrption sent to the server'
+//             : 'Send subscription to push server'}
+//         </button>
 
-        {pushServerSubscriptionId && (
-          <div>
-            <p>The server accepted the push subscrption!</p>
-            <button onClick={onClickSendNotification}>Send a notification</button>
-          </div>
-        )}
-      </header>
-    </div>
-        )
-    }
+//         {pushServerSubscriptionId && (
+//           <div>
+//             <p>The server accepted the push subscrption!</p>
+//             <button onClick={onClickSendNotification}>Send a notification</button>
+//           </div>
+//         )}
+//       </header>
+//     </div>
+//         )
+//     }
 
-export default Test
+// export default Test

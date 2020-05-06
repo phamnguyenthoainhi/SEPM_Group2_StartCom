@@ -14,3 +14,5 @@ firebase.initializeApp({
 })
 
 const initMessaging = firebase.messaging()
+
+initMessaging.usePublicVapidKey("BMDLINeHOjuV0lcpl1yFzjJ203eJHAO0y0Gh6SO7EBjZQTlZVvjAGJD7Co9wz1HRNNRpm1w-PY4_zQ3X7vjFbjc");

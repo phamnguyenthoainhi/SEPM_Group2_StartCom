@@ -24,9 +24,9 @@ import BIDetailSkeleton from "./components/skeleton/BIDetailSkeleton";
 import Profile from "./components/profile/Profile";
 import EditProfile from "./components/profile/EditProfile";
 import Notification from './components/notification/Notification';
-import Test from './Test.js'
+// import Test from './Test.js'
 
-import * as serviceWorker from './serviceWorker';
+// import * as serviceWorker from './serviceWorker';
 
 class App extends Component {
   constructor(props) {
@@ -102,7 +102,7 @@ class App extends Component {
                   <Route exact path={'/contact'} render={(props) => <Contact {...props} />} />
                   <Route exact path={'/container'} render={(props) => <Container {...props} />} />
                   <Route exact path={'/noti'} render={(props) => <Notification {...props} />} />
-                  <Route exact path={'/test'} render={(props) => <Test {...props} />} />
+                  {/* <Route exact path={'/test'} render={(props) => <Test {...props} />} /> */}
                 </ThemeProvider>
           </Provider>
       </BrowserRouter>

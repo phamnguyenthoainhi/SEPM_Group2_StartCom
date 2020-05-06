@@ -56,29 +56,56 @@ export const login = (account) => dispatch => {
         if (res.status === 200) {
 
             res.json().then(function(data) {
-                
-                // sessionStorage.setItems('pushServerSubscriptionId', data.token)
-                // sessionStorage.setItems('pushNotificationSupported', )
-                    const messaging = firebase.messaging();
-                        messaging.requestPermission().then((token) => {
-                        return messaging.getToken()
-                        
-                        }).then(token => {
-                            const user = {
-                                id: data.id,
-                                token: token
-                            }
-                            console.log(JSON.stringify(user))
-                            // editProfile(user)
-                            dispatch ({
-                                type: LOGIN,
-                                payload: data
-                            })
-                        }).catch(()=> {
-                        console.log("error ")
+                const messaging = firebase.messaging();
+                messaging.getToken().then((currentToken) => {
+                    
+                    if (currentToken) {
+                        const user = {
+                            id: data.id,
+                            token: currentToken,
+                            loginToken: data.token
+                        }
+
+                        // dispatch(editProfile(user).then(() => {
+                        //     dispatch ({
+                        //         type: LOGIN,
+                        //         payload: data
+                        //     })
+                        // }))
+
+
+                fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/edit_profile/${data.id}`, {
+                    method: 'PUT',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-type': 'application/json',
+                            'Authorization': 'Bearer '+ data.token
+                        },
+                        body: JSON.stringify(data)
+                }).
+                then((res) => {
+                    if(res.status === 200) {
+                        console.log("Edit success")
+                        dispatch ({
+                                    type: LOGIN,
+                                    payload: data
                         })
-                // serviceWorker.createNotificationSubscription()
-               
+                    }
+                })
+
+                        
+                        
+                    } else {
+                      // Show permission request.
+                      console.log('No Instance ID token available. Request permission to generate one.');
+                      // Show permission UI.
+                    //   updateUIForPushPermissionRequired();
+                    //   setTokenSentToServer(false);
+                    }
+                  }).catch((err) => {
+                    console.log('An error occurred while retrieving token. ', err);
+                    
+                  });
                 
               })
         }
