@@ -16,3 +16,19 @@ firebase.initializeApp({
 const initMessaging = firebase.messaging()
 
 initMessaging.usePublicVapidKey("BMDLINeHOjuV0lcpl1yFzjJ203eJHAO0y0Gh6SO7EBjZQTlZVvjAGJD7Co9wz1HRNNRpm1w-PY4_zQ3X7vjFbjc");
+
+
+
+  initMessaging.setBackgroundMessageHandler(function (payload) {
+
+  
+    return self.registration.showNotification(
+      payload.title,
+      {
+        body: payload.body,
+        tag: payload.tag
+      });
+  });
+
+  
+  

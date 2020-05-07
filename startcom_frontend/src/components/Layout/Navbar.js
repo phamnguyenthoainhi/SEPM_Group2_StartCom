@@ -112,7 +112,6 @@ class Navbar extends Component {
     render() {
         const { classes } = this.props;
         const { openDrawer} = this.state;
-        console.log (sessionStorage.getItem("id") === adminId)
         return (
             <AppBar className={classes.appBar}>
                 <Toolbar className={classes.toolbar}>

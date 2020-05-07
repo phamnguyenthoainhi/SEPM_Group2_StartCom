@@ -23,8 +23,8 @@ import BIDetail from './components/Layout/BIDetail';
 import BIDetailSkeleton from "./components/skeleton/BIDetailSkeleton";
 import Profile from "./components/profile/Profile";
 import EditProfile from "./components/profile/EditProfile";
-import Notification from './components/notification/Notification';
-// import Test from './Test.js'
+// import Notification from './components/notification/Notification';
+// import Notifications from './notifications.js'
 
 // import * as serviceWorker from './serviceWorker';
 
@@ -61,39 +61,80 @@ class App extends Component {
 
 
   componentDidMount() {
-    // const messaging = firebase.messaging();
-    // messaging.requestPermission().then((token) => {
-    //   return messaging.getToken()
-    // }).then(token => {
-    //   console.log('Token: '+ token)
-    // }).catch(()=> {
-    //   console.log("error ")
-    // })
-  }
-  componentDidUpdate() {
     
-  }
-  render() {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+    
+        const registration = navigator.serviceWorker.register('/firebase-messaging-sw.js')
+          .then(registration => {
+            
+            //Confirm user permission for notification
+            window.Notification.requestPermission()
+              .then(permission => {
   
-  // const pushNotificationSupported = serviceWorker.isPushNotificationSupported();
-  // this.setState({pushNotificationSupported: serviceWorker.isPushNotificationSupported()})
-  // console.log(this.state.pushNotificationSupported)
+                
+                firebase.messaging().getToken().then(
+                  token => {
+                    
+                  })
+    
+    
+                if (permission === 'granted') {
+                  //If notification is allowed
+                  
+                  navigator.serviceWorker.ready.then(p => {
+    
+                    p.pushManager.getSubscription().then(subscription => {
+  
+                      
+                      if (subscription === null) {
+
+                        //If there is no notification subscription, register.
+                        let re = p.pushManager.subscribe({
+                          userVisibleOnly: true
+                        })
+
+                        firebase.messaging().onMessage((payload) => {
+
+                          registration.showNotification(
+                            payload.notification.title,
+                                    {
+                                      body: payload.notification.body,
+                                      tag: payload.notification.tag
+                                    }
+                
+                          );           
+                      });
+
+
+
+                      }
+                    })
+    
+                  })
+    
+                } else {
+                  //If notification is not allowed
+                  console.log(permission)
+                }
+              })
+          })
+      })
+    }
+  }
+
+  render() {
     return (
       <BrowserRouter>
             <Provider store={store}>
                 <ThemeProvider theme={theme}>
                   <Route exact path={'/'} render={(props) => <HomePage {...props} 
-                  
                   />} />
                   <Route exact path={'/auth'} render={(props) => <Authentication {...props} />} />
                   <Route exact path={'/login'} render={(props) => <Login {...props} />} />
                   <Route exact path={'/signup'} render={(props) => <SignUp {...props} />} />
-                  <Route exact path={'/displayBIS'} render={(props) => <DisplayBIS {...props} 
-                  
-                  />} />
-                  <Route exact path={'/detail/:id'} render={(props) => <BIDetail {...props} />}
-                  
-                  />
+                  <Route exact path={'/displayBIS'} render={(props) => <DisplayBIS {...props}   />} />
+                  <Route exact path={'/detail/:id'} render={(props) => <BIDetail {...props} />}  />
                   <Route exact path={'/skeleton'} render={(props) => <BIDetailSkeleton {...props} />} />
                   <Route exact path={'/profile'} render={(props) => <Profile {...props} />} />
                   <Route exact path={'/edit_profile'} render={(props) => <EditProfile {...props} />} />
@@ -101,8 +142,8 @@ class App extends Component {
                   <Route exact path={'/admin'} render={(props) => <AdminDashboard {...props} />} />
                   <Route exact path={'/contact'} render={(props) => <Contact {...props} />} />
                   <Route exact path={'/container'} render={(props) => <Container {...props} />} />
-                  <Route exact path={'/noti'} render={(props) => <Notification {...props} />} />
-                  {/* <Route exact path={'/test'} render={(props) => <Test {...props} />} /> */}
+                  {/* <Route exact path={'/noti'} render={(props) => <Notification {...props} />} />
+                  <Route exact path={'/test'} render={(props) => <Notifications {...props} />} /> */}
                 </ThemeProvider>
           </Provider>
       </BrowserRouter>

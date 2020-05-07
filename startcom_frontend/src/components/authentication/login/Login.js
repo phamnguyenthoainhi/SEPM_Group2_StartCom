@@ -68,7 +68,7 @@ class Login extends Component {
                 sessionStorage.setItem("id", this.props.loginMessage.id);
                 sessionStorage.setItem("token", this.props.loginMessage.token);
 
-                window.location.replace("http://localhost:3000/");
+                this.props.history.push('/')
             }
         }
     }
