@@ -27,22 +27,16 @@ import Grid from "@material-ui/core/Grid";
 
 const styles = (theme) => ({
     gridContainer: {
-        padding: 40
+        flexGrow: 1,
     },
-    bullet: {
-        display: 'inline-block',
-        margin: '0 2px',
-        transform: 'scale(0.8)',
-    },
-    title: {
-        fontSize: 14,
-    },
-    pos: {
-        marginBottom: 12,
-    },
+    contentContainer: {
+        padding: 80,
+        [theme.breakpoints.down('sm')]: {
+            padding: 40
+        }
+    }
 
 });
-
 class DisplayBIS extends Component {
     constructor(props) {
         super(props);
@@ -53,9 +47,11 @@ class DisplayBIS extends Component {
             image: '',
             category: '',
             targetFunding: '',
-            needInvestor: false,
-            needConsultant: false,
+            needInvestor: '',
+            needConsultant: '',
             foundIdeas: [],
+            keywords: [],
+            afterFilter: []
         };
         this.searchByname = this.searchByname.bind(this)
         // this.filterIdeas = this.filter.bind(this)
@@ -69,24 +65,52 @@ class DisplayBIS extends Component {
         console.log(`Clicked card: ${id}`)
     };
 
+    componentDidUpdate(prevProps) {
+        if (this.props.businessIdeas !== prevProps.businessIdeas) {
+            this.setState({
+                keywords: this.props.businessIdeas,
+                afterFilter: this.props.businessIdeas
+            })
+        }
+    }
+
     searchByname = (name) => {
-        let businessIdeas = this.state.keywords.filter(businessIdea => businessIdea.name.toLowerCase().indexOf(name.toLowerCase()) !== -1);
-        console.log(businessIdeas)
+
+        let businessIdeas = this.state.keywords.filter((businessIdea) => businessIdea.name.toLowerCase().includes(name.toLowerCase()))
+
+        this.setState({
+            afterFilter: businessIdeas
+        })
         return businessIdeas;
-        // const id = this.props.sortedIdeas.id;
+
     };
 
+    filterIdeasCategory = (category) => {
+
+        let businessIdeas = this.state.keywords.filter((businessIdea) => businessIdea.category === category)
+        this.setState({
+            afterFilter: businessIdeas
+        })
+        return businessIdeas
+    };
+
+    filterIdeasConsultant = (needConsultant) => {
+
+        let businessIdeas = this.state.keywords.filter((businessIdea) => businessIdea.needConsultant === true)
+        this.setState({
+            afterFilter: businessIdeas
+        })
+        return businessIdeas
+    }
+
     render() {
-        const { classes, businessIdeas } = this.props;
+        const { classes } = this.props;
 
         return (
-            <Grid container className={classes.gridContainer}>
+            <Grid container className={classes.contentContainer}>
                 <Navbar />
-
-                <BISearch triggerParentUpdate={this.searchByname} />
-                <BIFilter triggerParentUpdate={this.filterIdeas} />
-
-                {businessIdeas.map((idea, index) => (
+            
+                {this.state.afterFilter.map((idea, index) => (
                     <Grid item md={4} key={index} onClick={() => this.onBICardClick(idea.name)} style={{ padding: 20 }}>
                         <BITemplate idea={idea} />
                     </Grid>

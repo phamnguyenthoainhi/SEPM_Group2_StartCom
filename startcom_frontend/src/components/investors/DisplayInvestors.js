@@ -12,21 +12,17 @@ import Grid from "@material-ui/core/Grid";
 
 const styles = (theme) => ({
     gridContainer: {
-        padding: 40
+        flexGrow: 1,
     },
-    bullet: {
-        display: 'inline-block',
-        margin: '0 2px',
-        transform: 'scale(0.8)',
-    },
-    title: {
-        fontSize: 14,
-    },
-    pos: {
-        marginBottom: 12,
-    },
+    contentContainer: {
+        padding: 80,
+        [theme.breakpoints.down('sm')]: {
+            padding: 40
+        }
+    }
 
 });
+
 
  class DisplayInvestors extends Component {
     constructor(props) {
@@ -56,7 +52,8 @@ const styles = (theme) => ({
         const { classes, investors } = this.props;
 
         return (
-            <Grid container className={classes.gridContainer}>
+            <Grid container className={classes.contentContainer}>
+            
                 <Navbar />
 
                 {investors.map((investor, index) => (
@@ -64,6 +61,7 @@ const styles = (theme) => ({
                         <InvestorTemplate investor={investor} />
                     </Grid>
                 ))}
+
                 <Footer />
             </Grid>
 
