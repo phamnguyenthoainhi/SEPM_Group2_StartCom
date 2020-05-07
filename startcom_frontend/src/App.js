@@ -15,7 +15,9 @@ import SignUp from './components/authentication/register/SignUp';
 import DisplayBIS from "./components/businessideas/displaybusinessideas/DisplayBIS";
 import BIFilter from './components/Layout/BIFilter';
 import BISearch from './components/Layout/BISearch';
-import DisplayInvestor from "./components/investors/DisplayInvestors"
+import DisplayInvestor from "./components/investors/DisplayInvestors";
+import DisplayConsultant from "./components/consultants/DisplayConsultant";
+
 
 class App extends Component {
   render() {
@@ -31,9 +33,9 @@ class App extends Component {
                       <Route exact path={'/login'} render={(props) => <Login {...props} />} />
                       <Route exact path={'/signup'} render={(props) => <SignUp {...props} />} />
                       <Route exact path={'/displayBIS'} render={(props) => <DisplayBIS {...props} />} />
-                      <Route exact path={'/filterBIS'} render={(props) => <BIFilter {...props} />} />
-                      <Route exact path={'/searchBIS'} render={(props) => <BISearch {...props} />} />
-                      <Route exact path={'/displayInvestor'} render={(props) => <DisplayInvestor {...props} />} />
+                      <Route exact path={'/investors'} render={(props) => <DisplayInvestor {...props} />} />
+                      <Route exact path={'/consultants'} render={(props) => <DisplayConsultant {...props} />} />
+
 
                       
                 </ThemeProvider>
