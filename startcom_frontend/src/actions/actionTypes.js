@@ -23,7 +23,13 @@ export const DELETE_BI = 'DELETE_BI';
 export const DELETE_BI_SUCCESS = 'DELETE_BI_SUCCESS';
 
 
-//Investor CRUD Types
-
+//Investor Display
 export const READ_INVESTOR = 'READ_INVESTOR';
+
+//Consultant DIsplay
+
+export const READ_CONSULTANT= 'READ_CONSULTANT';
+
+
+
 
