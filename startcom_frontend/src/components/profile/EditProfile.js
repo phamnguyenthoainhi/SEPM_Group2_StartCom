@@ -29,6 +29,7 @@ import Backdrop from '@material-ui/core/Backdrop'
 import Snackbar from '@material-ui/core/Snackbar'
 import BITemplateProfile from "../Layout/BITemplateProfile";
 import Alert from "@material-ui/lab/Alert";
+import {getUser} from "../../actions/users/UserActions";
 
 
 const styles = (theme) => ({
@@ -83,7 +84,8 @@ const styles = (theme) => ({
         alignContent: 'center',
         justifyContent: 'center'
     },
-    ideaImage: {
+    avatar: {
+        borderRadius: '50%',
         objectFit: 'cover',
         width: '100%',
         maxHeight: '100%'
@@ -185,13 +187,11 @@ class EditProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name:'',
-            description:'',
-            category: '',
+            username:'',
             image:'',
-            needConsultant: false,
-            needInvestor: false,
-            targetFunding: 0,
+            facebook: '',
+            linkedIn: '',
+            email: '',
 
             uploadImageComplete: false,
             chosenFile: '',
@@ -201,37 +201,29 @@ class EditProfile extends Component {
     }
 
     componentDidMount() {
-        const businessID = "4sf15mY35j45BaKy6PLq";
-        this.props.getBI(businessID);
+        const userID = 'rxUdzWLlcdgiwszQwicMrjhPSQR2';
+        this.props.getUser(userID);
 
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.businessIdea !== prevProps.businessIdea) {
+        if (this.props.user !== prevProps.user) {
             this.setState({
-                image: this.props.businessIdea.image,
-                name: this.props.businessIdea.name,
-                description: this.props.businessIdea.description,
-                category: this.props.businessIdea.category,
-                needConsultant: this.props.businessIdea.needConsultant,
-                needInvestor: this.props.businessIdea.needInvestor,
-                targetFunding: this.props.businessIdea.targetFunding
+                image: this.props.user.image,
+                email: this.props.user.email,
+                // username: this.props.user.name,
+                // facebook: this.props.user.facebook,
+                // linkedin: this.props.user.linkedin,
+
             })
         }
     }
 
 
     onChange = (e) => {
-        if (e.target.name === 'needInvestor' || e.target.name === 'needConsultant' || e.target.name === 'terms') {
-            this.setState({
-                [e.target.name] : e.target.checked
-            })
-        }
-        else {
-            this.setState({
-                [e.target.name]: e.target.value,
-            })
-        }
+        this.setState({
+            [e.target.name]: e.target.value,
+        })
     };
 
     removeImage = () => {
@@ -263,68 +255,68 @@ class EditProfile extends Component {
     };
 
     handleUpdateBI = (encodedImage) => {
-        const businessID = "4sf15mY35j45BaKy6PLq";
-        const businessIdea = {
+        const userID = 'rxUdzWLlcdgiwszQwicMrjhPSQR2';
+        const user = {
             name: this.state.name,
-            date: this.state.date,
-            description: this.state.description,
-            targetFunding: this.state.targetFunding,
             image: encodedImage,
-            needInvestor: this.state.needInvestor,
-            needConsultant: this.state.needConsultant,
-            category: this.state.category
+            email: this.state.email,
+            facebook: this.state.facebook,
+            linkedIn: this.state.linkedIn
         };
-        if (this.validateBeforeSubmit(businessIdea)) {
-            this.props.updateBI(businessIdea,businessID)
+        if (this.validateBeforeSubmit(user)) {
+            this.props.updateBI(user,userID)
         }
         console.log(this.state);
         this.resetStates()
     };
 
     submit = () => {
-        const businessID = "4sf15mY35j45BaKy6PLq";
-
-        if (!(this.state.chosenFile === '' || this.state.chosenFile === null || this.state.chosenFile === undefined) &&
-        (this.state.image === '' || this.state.image === null || this.state.image === undefined)){
-            this.getBase64(this.state.chosenFile, this.handleUpdateBI)
-        }
-        if( !(this.state.image === '' || this.state.image === null || this.state.image === undefined)) {
-            const businessIdea = {
-                name: this.state.name,
-                date: this.state.date,
-                description: this.state.description,
-                targetFunding: this.state.targetFunding,
-                image: this.state.image,
-                needInvestor: this.state.needInvestor,
-                needConsultant: this.state.needConsultant,
-                category: this.state.category
-            };
-            if (this.validateBeforeSubmit(businessIdea)) {
-                this.props.updateBI(businessIdea,businessID);
-                console.log(this.state);
-            }
-
-            this.resetStates()
-        }
-
-        else {
-            const businessIdea = {
-                name: this.state.name,
-                date: this.state.date,
-                description: this.state.description,
-                targetFunding: this.state.targetFunding,
-                image: '',
-                needInvestor: this.state.needInvestor,
-                needConsultant: this.state.needConsultant,
-                category: this.state.category
-            };
-
-            if (this.validateBeforeSubmit(businessIdea)) {
-                this.props.updateBI(businessIdea,businessID);
-                console.log(this.state);
-            }
-
-            this.resetStates()
+        // const userID = 'rxUdzWLlcdgiwszQwicMrjhPSQR2';
+        // if (!(this.state.chosenFile === '' || this.state.chosenFile === null || this.state.chosenFile === undefined) &&
+        // (this.state.image === '' || this.state.image === null || this.state.image === undefined)){
+        //     this.getBase64(this.state.chosenFile, this.handleUpdateBI)
+        // }
+        // if( !(this.state.image === '' || this.state.image === null || this.state.image === undefined)) {
+        //     const user = {
+        //         image: this.state.image,
+        //         name: this.state.name,
+        //         email: this.state.email,
+        //         facebook: this.state.facebook,
+        //         linkedIn: this.state.linkedIn,
+        //     };
+        //     if (this.validateBeforeSubmit(user)) {
+        //         this.props.updateBI(user,userID);
+        //         console.log(this.state);
+        //     }
+        //
+        //     this.resetStates()
+        // }
+        //
+        // else {
+        //     const user = {
+        //         image: '',
+        //         name: this.state.name,
+        //         email: this.state.email,
+        //         facebook: this.state.facebook,
+        //         linkedIn: this.state.linkedIn,
+        //     };
+        //
+        //     if (this.validateBeforeSubmit(user)) {
+        //         this.props.updateBI(user,userID);
+        //         console.log(this.state);
+        //     }
+        //
+        //     this.resetStates()
+        // }
+        const user = {
+            username: this.state.username,
+            email: this.state.email,
+            facebook: this.state.facebook,
+            linkedIn: this.state.linkedIn,
+        };
+        console.log(this.state);
+        if(this.validateBeforeSubmit(user)) {
+            console.log("Success")
         }
 
     };
@@ -337,29 +329,22 @@ class EditProfile extends Component {
     };
 
 
-
-    // submit = () => {
-    //     const businessID = "V2BTqcwWe3IOgmhEAbd0";
-    //     const businessIdea = {
-    //         name: this.state.name,
-    //         description: this.state.description,
-    //         targetFunding: this.state.targetFunding,
-    //         image: this.state.image,
-    //         needInvestor: this.state.needInvestor,
-    //         needConsultant: this.state.needConsultant,
-    //         category: this.state.category
-    //     };
-    //     if (this.validateBeforeSubmit(businessIdea)) {
-    //         this.props.updateBI(businessIdea,businessID)
-    //     }
-    //
-    // };
-
     validateBeforeSubmit = (data) => {
         const errors = {};
-        if (data.name === "") errors.name = "Cannot be empty";
-        if (data.description === "") errors.description = "Cannot be empty";
-        if (data.targetFunding === "") errors.targetFunding = "Cannot be empty";
+        let regex = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
+        if (data.username === "") errors.username = "Cannot be empty";
+
+        if(!(data.facebook === "")) {
+            if (!data.facebook.match(regex)) {
+                errors.facebook = "Incorrect URL format"
+            }
+        }
+
+        if(!(data.linkedIn === "")) {
+            if (!data.linkedIn.match(regex)) {
+                errors.linkedIn = "Incorrect URL format"
+            }
+        }
 
         if (Object.keys(errors).length !== 0) {
             this.setState({errors: errors});
@@ -367,6 +352,8 @@ class EditProfile extends Component {
         }
         return true;
     };
+
+
 
     // closeDeleteDialog = () => {
     //     this.setState({
@@ -381,7 +368,7 @@ class EditProfile extends Component {
 
     render() {
         // console.log(this.props.businessIdea);
-        const { classes, user, loading, doneUpdateBI, updating } = this.props;
+        const { classes, loading, doneUpdateProfile, updating } = this.props;
         const { errors, uploadImageComplete } = this.state;
         return (
             <Grid container>
@@ -390,7 +377,7 @@ class EditProfile extends Component {
                 <Grid container className={classes.containerWrapper}>
                     <Grid container className={classes.contentContainer}>
                         <Grid container className={classes.container} style={{marginBottom: 50}}>
-                            <Typography variant='h5' className={classes.text}>Edit Your Business Idea</Typography>
+                            <Typography variant='h5' className={classes.text}>Edit Your Profile</Typography>
                         </Grid>
 
                         {loading ? (
@@ -402,14 +389,14 @@ class EditProfile extends Component {
                                 <Grid container className={classes.ideaContainer} direction='row'>
                                     <Grid item md={4} sm={4} xs={4} lg={4}>
                                         <Typography className={classes.header} >
-                                            Image:
+                                            Avatar:
                                         </Typography>
                                     </Grid>
 
                                     <Grid item md={8} sm={8}>
                                         {this.state.image ? (
                                             <Grid container justify='center'>
-                                                <img src={this.state.image} alt="Profile" className={classes.ideaImage}/>
+                                                <img src={this.state.image} alt="Profile" className={classes.avatar}/>
                                                 <Grid container className={classes.container}>
                                                     <Button
                                                         startIcon={<DeleteIcon />}
@@ -446,7 +433,7 @@ class EditProfile extends Component {
                                 <Grid container className={classes.ideaContainer} direction='row'>
                                     <Grid item md={4} sm={4} xs={4} lg={4}>
                                         <Typography className={classes.header} >
-                                            Name:
+                                            Username:
                                         </Typography>
                                     </Grid>
 
@@ -454,17 +441,15 @@ class EditProfile extends Component {
                                         <TextField
                                             size="small"
                                             className={classes.textField}
-                                            name='name'
+                                            name='username'
                                             type="text"
                                             required
-                                            value={this.state.name}
+                                            value={this.state.username}
                                             onChange={this.onChange}
                                             variant='outlined'
                                             fullWidth
-                                            multiline
-                                            helperText={errors.name}
-                                            error={!!errors.name}
-                                            rowsMax={2}
+                                            helperText={errors.username}
+                                            error={!!errors.username}
                                             InputLabelProps={{className: classes.input}}
                                             InputProps={{className: classes.input}}
                                         >
@@ -475,24 +460,20 @@ class EditProfile extends Component {
                                 <Grid container className={classes.ideaContainer} direction='row'>
                                     <Grid item md={4} sm={4} xs={4} lg={4}>
                                         <Typography className={classes.header} >
-                                            Description:
+                                            Email
                                         </Typography>
                                     </Grid>
 
                                     <Grid item md={6} sm={6} xs={6}>
                                         <TextField
+                                            disabled
                                             size="small"
                                             className={classes.textField}
-                                            name='description'
+                                            name='email'
                                             required
                                             type="text"
-                                            value={this.state.description}
-                                            onChange={this.onChange}
+                                            value={this.state.email}
                                             variant='outlined'
-                                            multiline
-                                            helperText={errors.description}
-                                            error={!!errors.description}
-                                            rowsMax={3}
                                             fullWidth
                                             InputLabelProps={{className: classes.input}}
                                             InputProps={{className: classes.input}}
@@ -504,104 +485,55 @@ class EditProfile extends Component {
                                 <Grid container className={classes.ideaContainer} direction='row'>
                                     <Grid item md={4} sm={4} xs={4} lg={4}>
                                         <Typography className={classes.header} >
-                                            Category:
+                                            Facebook:
                                         </Typography>
                                     </Grid>
 
-                                    <Grid item md={8} sm={8} xs={8}>
+                                    <Grid item md={6} sm={6} xs={6}>
                                         <TextField
                                             size="small"
                                             className={classes.textField}
-                                            select
+                                            name='facebook'
                                             type="text"
-                                            name="category"
-                                            value={this.state.category}
-                                            onChange={this.onChange}
-                                            variant='outlined'
-                                            InputLabelProps={{className: classes.input}}
-                                            inputProps={{className: classes.input}}
-                                        >
-                                            {CATEGORIES.map(option => (
-                                                <MenuItem key={option.id} value={option.name}
-                                                          className={classes.input}>
-                                                    {option.name}
-                                                </MenuItem>
-                                            ))}
-                                        </TextField>
-                                    </Grid>
-                                </Grid>
-
-                                <Grid container className={classes.ideaContainer} direction='row'>
-                                    <Grid item md={4} sm={4} xs={4} lg={4}>
-                                        <Typography className={classes.header} >
-                                            Status:
-                                        </Typography>
-                                    </Grid>
-
-                                    <Grid item md={8} sm={8} xs={8}>
-                                        <FormControl>
-                                            <FormControlLabel
-                                                control={
-                                                    <CustomCheckbox
-                                                        checked={this.state.needInvestor}
-                                                        onChange={this.onChange}
-                                                        name="needInvestor"
-                                                    />
-                                                }
-                                                label={<Typography className={classes.input} color="textSecondary">Need Funding</Typography>}
-
-                                            />
-                                        </FormControl>
-
-                                        <FormControl>
-                                            <FormControlLabel
-                                                control={
-                                                    <CustomCheckbox
-                                                        checked={this.state.needConsultant}
-                                                        onChange={this.onChange}
-                                                        name="needConsultant"
-                                                    />
-                                                }
-                                                label={<Typography className={classes.input} color="textSecondary">Need Consultancy</Typography>}
-                                                className={classes.input}
-                                            />
-                                        </FormControl>
-                                    </Grid>
-                                </Grid>
-
-                                <Grid container className={classes.ideaContainer} direction='row'>
-                                    <Grid item md={4} sm={4} xs={4} lg={4}>
-                                        <Typography className={classes.header} >
-                                            Target funding:
-                                        </Typography>
-                                    </Grid>
-
-                                    <Grid item md={4} sm={4} xs={4}>
-                                        <TextField
-                                            size="small"
-                                            className={classes.textField}
-                                            name='targetFunding'
                                             required
-                                            type="number"
-                                            value={this.state.targetFunding}
+                                            value={this.state.facebook}
                                             onChange={this.onChange}
                                             variant='outlined'
                                             fullWidth
-                                            helperText={errors.targetFunding}
-                                            error={!!errors.targetFunding}
+                                            helperText={errors.facebook}
+                                            error={!!errors.facebook}
                                             InputLabelProps={{className: classes.input}}
-                                            InputProps={{
-                                                className: classes.input,
-                                                startAdornment: (
-                                                    <InputAdornment position="start">
-                                                        $
-                                                    </InputAdornment>
-                                                ),
-                                            }}
+                                            InputProps={{className: classes.input}}
                                         >
                                         </TextField>
                                     </Grid>
+                                </Grid>
 
+                                <Grid container className={classes.ideaContainer} direction='row'>
+                                    <Grid item md={4} sm={4} xs={4} lg={4}>
+                                        <Typography className={classes.header} >
+                                            Linkedin:
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item md={6} sm={6} xs={6}>
+                                        <TextField
+                                            size="small"
+                                            className={classes.textField}
+                                            name='linkedIn'
+                                            type="text"
+                                            required
+                                            value={this.state.linkedIn}
+                                            onChange={this.onChange}
+                                            variant='outlined'
+                                            fullWidth
+                                            helperText={errors.linkedIn}
+                                            error={!!errors.linkedIn}
+                                            InputLabelProps={{className: classes.input}}
+                                            InputProps={{className: classes.input}}
+                                        >
+                                        </TextField>
+                                    </Grid>
                                 </Grid>
 
                                 <Grid container className={classes.btnContainer}>
@@ -622,9 +554,9 @@ class EditProfile extends Component {
                 </Grid>
                 <Footer/>
 
-                <Snackbar open={doneUpdateBI} autoHideDuration={5000} style={{backgroundColor: '#90B494'}}>
+                <Snackbar open={doneUpdateProfile} autoHideDuration={5000} style={{backgroundColor: '#90B494'}}>
                     <Alert severity="success" className={classes.input}>
-                        Successfully update business idea !
+                        Successfully update profile !
                     </Alert>
                 </Snackbar>
             </Grid>
@@ -636,17 +568,15 @@ class EditProfile extends Component {
 
 const mapDispatchToProps = dispatch => ({
     updateBI: (businessIdea,id) => dispatch(updateBI(businessIdea,id)),
-    deleteBI: (id) => dispatch(deleteBI(id)),
-    getBI: (id) => dispatch(getBI(id)),
+    getUser: (id) => dispatch(getUser(id))
 
 });
 
 const mapStateToProps = state => ({
-    businessIdea: state.businessIdeasData.businessIdea,
     loading: state.businessIdeasData.loading,
+    user: state.userData.user,
     updating: state.UI.updating,
-    doneUpdateBI: state.UI.doneUpdateBI,
-    uploadImage: state.UI.uploadImage
+    doneUpdateProfile: state.UI.doneUpdateProfile,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(EditProfile));

@@ -77,6 +77,17 @@ const styles = (theme) => ({
             border: "none"
         },
     },
+    iconBtn: {
+        textDecoration: 'none',
+        backgroundColor: 'transparent',
+        "&:hover": {
+            textDecoration: 'none',
+            backgroundColor: 'transparent',
+        },
+        "&:focus": {
+            textDecoration: 'none',
+        },
+    }
 });
 
 
@@ -112,20 +123,20 @@ class Footer extends Component {
                 </Grid>
 
                 <Grid item sm={12} md={6} className={classes.mediaContainer}>
-                    <IconButton href="#" style={{ backgroundColor: "transparent" }}>
+                    <IconButton href="https://www.facebook.com/" style={{ backgroundColor: "transparent" }}>
                         <i
                             style={{color: "#E3CFB5", fontSize: "25px"}}
                             className="fab fa-facebook-square"/>
                     </IconButton>
 
-                    <IconButton href="#" style={{ backgroundColor: "transparent" }}>
+                    <IconButton href="https://www.linkedin.com/" className={classes.iconBtn}>
                         <i
                             className="fab fa-linkedin"
                             style={{color: "#E3CFB5", fontSize: "25px"}}
                         />
                     </IconButton>
 
-                    <IconButton href="#" style={{ backgroundColor: "transparent" }}>
+                    <IconButton href="https://github.com" className={classes.iconBtn}>
                         <i
                             className="fab fa-github-square"
                             style={{color: "#E3CFB5", fontSize: "25px"}}/>

@@ -9,10 +9,11 @@ import {
     GET_PROFILE_RECEIVER,
     GET_PROFILE_SENDER,
     GET_USER,
-    UPDATE_USER
+    UPDATE_USER, FETCHING_USER
 } from '../actions/actionTypes';
 
 const initialState = {
+    loading: false,
     user: {},
     registerMessage: {},
     loginMessage: {},
@@ -87,6 +88,11 @@ export default function (state = initialState, action) {
         case UPDATE_USER:
             return {
                 ...state,
+            };
+        case FETCHING_USER:
+            return {
+                ...state,
+                loading: true
             };
 
         default:

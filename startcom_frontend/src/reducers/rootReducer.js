@@ -9,6 +9,7 @@ export default combineReducers({
     businessIdeasData: BIReducer,
     registerMessage: UsersReducer,
     UI: UIReducer,
+    userData: UsersReducer,
 
     loginMessage: UsersReducer,
     registerLoading: UsersReducer,

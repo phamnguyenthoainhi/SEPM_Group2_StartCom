@@ -5,9 +5,7 @@ export const LOGIN = 'LOGIN';
 
 //Business Idea CRUD types
 export const GET_ALL_BIS = 'GET_ALL_BIS';
-export const GETTING_ALL_BIS = 'GETTING_ALL_BIS';
 export const GET_BI = 'GET_BI';
-export const GETTING_BI = 'GETTING_BI';
 
 export const UPDATING_DATA = 'UPDATING_DATA';
 export const UPDATE_BI = 'UPDATE_BI';
@@ -18,8 +16,10 @@ export const DELETE_BI = 'DELETE_BI';
 export const DELETE_BI_SUCCESS = 'DELETE_BI_SUCCESS';
 
 //Profile CRUD Types
+export const FETCHING_USER = 'FETCHING_USER';
 export const GET_USER = 'GET_USER';
 export const UPDATE_USER = 'UPDATE_USER';
+export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
 
 //UI Types
 export const RESET_UI_STATE = 'RESET_UI_STATE';

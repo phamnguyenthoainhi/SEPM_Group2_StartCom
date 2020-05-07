@@ -104,6 +104,17 @@ const styles = (theme) => ({
         justifyContent: 'center',
         alignContent: 'center',
     },
+    iconBtn: {
+        textDecoration: 'none',
+        backgroundColor: 'transparent',
+        "&:hover": {
+            textDecoration: 'none',
+            backgroundColor: 'transparent',
+        },
+        "&:focus": {
+            textDecoration: 'none',
+        },
+    }
 
 
 
@@ -171,13 +182,13 @@ class Profile extends Component {
                                             Contact
                                         </Typography>
                                         <Grid container className={classes.mediaBtn}>
-                                            <IconButton href="#" style={{ backgroundColor: "transparent" }}>
+                                            <IconButton href='#' className={classes.iconBtn}>
                                                 <i
                                                     style={{color: "#90B494", fontSize: "30px"}}
                                                     className="fab fa-facebook-square"/>
                                             </IconButton>
 
-                                            <IconButton href="#" style={{ backgroundColor: "transparent" }}>
+                                            <IconButton href='#' className={classes.iconBtn}>
                                                 <i
                                                     className="fab fa-linkedin"
                                                     style={{color: "#90B494", fontSize: "30px"}}

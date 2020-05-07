@@ -24,6 +24,7 @@ import BIDetail from './components/Layout/BIDetail';
 import BIDetailSkeleton from "./components/skeleton/BIDetailSkeleton";
 import Profile from "./components/profile/Profile";
 import EditProfile from "./components/profile/EditProfile";
+import EditBusinessIdea from "./components/profile/EditBusinessIdea";
 
 class App extends Component {
   render() {
@@ -42,6 +43,7 @@ class App extends Component {
                   <Route exact path={'/skeleton'} render={(props) => <BIDetailSkeleton {...props} />} />
                   <Route exact path={'/profile'} render={(props) => <Profile {...props} />} />
                   <Route exact path={'/edit_profile'} render={(props) => <EditProfile {...props} />} />
+                  <Route exact path={'/edit_bi'} render={(props) => <EditBusinessIdea {...props} />} />
                   <Route exact path={'/registerBI'} render={(props) => <RegisterBI {...props} />} />
                   <Route exact path={'/admin'} render={(props) => <AdminDashboard {...props} />} />
                   <Route exact path={'/contact'} render={(props) => <Contact {...props} />} />
