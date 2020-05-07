@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 // import clsx from 'clsx';
 import withStyles from '@material-ui/core/styles/withStyles'
 // import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
+
 //Material UI
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -20,9 +21,13 @@ import Grid from "@material-ui/core/Grid";
 
 
 const styles = (theme) => ({
+    appBar: {
+        backgroundColor: theme.color.primary3,
+        position: 'relative',
+    },
     toolbar: {
         backgroundColor: theme.color.primary3,
-        padding: '0 50px'
+        padding: "0 50px"
     },
     logoBtn: {
         textDecoration: 'none',
@@ -86,9 +91,6 @@ const styles = (theme) => ({
 });
 
 
-
-
-
 class Navbar extends Component {
     constructor(props) {
         super(props);
@@ -107,7 +109,7 @@ class Navbar extends Component {
         const { classes } = this.props;
         const { openDrawer} = this.state;
         return (
-            <AppBar>
+            <AppBar className={classes.appBar}>
                 <Toolbar className={classes.toolbar}>
                     <Button
                         component={Link}
@@ -160,11 +162,9 @@ class Navbar extends Component {
                                 </ListItem>
                             </List>
                         </Drawer>
-
                     </Hidden>
                 </Toolbar>
             </AppBar>
-
 
         )
     }
