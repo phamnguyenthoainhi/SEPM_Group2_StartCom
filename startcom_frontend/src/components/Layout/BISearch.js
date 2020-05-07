@@ -5,7 +5,7 @@ import style from './BIStyle.js'
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import Button from '@material-ui/core/Button';
-import SearchBar from 'material-ui-search-bar';
+//import SearchBar from 'material-ui-search-bar';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
