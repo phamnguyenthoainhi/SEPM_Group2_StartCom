@@ -66,9 +66,6 @@ export const login = (account) => dispatch => {
                             
                         }
 
-                   
-
-
                 fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/edit_profile/${data.id}`, {
                     method: 'PUT',
                         headers: {

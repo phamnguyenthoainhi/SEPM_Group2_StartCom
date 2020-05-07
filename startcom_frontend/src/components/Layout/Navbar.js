@@ -17,7 +17,7 @@ import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 import Grid from "@material-ui/core/Grid";
-
+import {adminId} from '../../actions/admin/authorization';
 
 const styles = (theme) => ({
     appBar: {
@@ -112,6 +112,7 @@ class Navbar extends Component {
     render() {
         const { classes } = this.props;
         const { openDrawer} = this.state;
+        console.log (sessionStorage.getItem("id") === adminId)
         return (
             <AppBar className={classes.appBar}>
                 <Toolbar className={classes.toolbar}>
@@ -127,10 +128,13 @@ class Navbar extends Component {
                         <Button className={classes.navBtn} component={Link} to="/startups">Startups</Button>
                         <Button className={classes.navBtn} component={Link} to="/consultants">Consultants</Button>
                         <Button className={classes.navBtn} component={Link} to="/investors">Investors</Button>
+                        {sessionStorage.getItem("id") === adminId ?  <Button className={classes.navBtn} component={Link} to="/admin">Verify Board</Button> : null}
                         {(sessionStorage.getItem("id") !== null && sessionStorage.getItem("id") !== undefined && sessionStorage.getItem("id") !== '') ?
+
+                        
                             <Button variant='outlined' className={classes.signUpBtn} onClick={() => this.logout()}>Log out
                             
-                            </Button>: <Button variant='outlined' className={classes.signUpBtn} component={Link} to="/auth">Sign Up
+                            </Button> : <Button variant='outlined' className={classes.signUpBtn} component={Link} to="/auth">Sign Up
                             
                             </Button>
                         }
@@ -170,6 +174,11 @@ class Navbar extends Component {
                                 <ListItem button component={Link} to="/investors" className={classes.mobileNavBtn}>
                                     <Typography className={classes.mobileNavText}>Investors</Typography>
                                 </ListItem>
+                           
+
+                                {sessionStorage.getItem("id") === adminId ?  <ListItem button component={Link} to="/investors" className={classes.mobileNavBtn}>
+                                    <Typography className={classes.mobileNavText}>Verify Board</Typography>
+                                </ListItem> : null}
                             </List>
                         </Drawer>
                     </Hidden>

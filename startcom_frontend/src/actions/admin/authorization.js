@@ -1,0 +1,1 @@
+export const adminId = "cg2LVnzUoDSMDmmYIoMDEinPJ362";
