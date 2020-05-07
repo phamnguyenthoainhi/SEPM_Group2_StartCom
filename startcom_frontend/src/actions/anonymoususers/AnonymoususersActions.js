@@ -63,15 +63,10 @@ export const login = (account) => dispatch => {
                         const user = {
                             id: data.id,
                             token: currentToken,
-                            loginToken: data.token
+                            
                         }
 
-                        // dispatch(editProfile(user).then(() => {
-                        //     dispatch ({
-                        //         type: LOGIN,
-                        //         payload: data
-                        //     })
-                        // }))
+                   
 
 
                 fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/edit_profile/${data.id}`, {
@@ -81,7 +76,7 @@ export const login = (account) => dispatch => {
                             'Content-type': 'application/json',
                             'Authorization': 'Bearer '+ data.token
                         },
-                        body: JSON.stringify(data)
+                        body: JSON.stringify(user)
                 }).
                 then((res) => {
                     if(res.status === 200) {
@@ -92,9 +87,6 @@ export const login = (account) => dispatch => {
                         })
                     }
                 })
-
-                        
-                        
                     } else {
                       // Show permission request.
                       console.log('No Instance ID token available. Request permission to generate one.');

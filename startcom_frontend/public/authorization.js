@@ -1,1 +1,1 @@
-const adminToken = ""
+const adminId = "cg2LVnzUoDSMDmmYIoMDEinPJ362";
