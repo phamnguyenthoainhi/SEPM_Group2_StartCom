@@ -289,6 +289,29 @@ exports.sendEmailByUser = async (req, res) => {
     }
 }
 
+exports.getAllNotifications = (req,res)=>{
+    const notificationList = []
+    return db.collection('Notification').where('receiver','==',req.params.id).get()
+        .then(query=>{
+            if(!query.empty){
+                query.forEach(doc=>{
+                    var notification = doc.data()
+                    notification.id = doc.id
+                    notificationList.push(notification)
+                })
+                return res.json(notificationList)
+            }
+            else{
+                return res.status(404).send('No notification found.')
+            }
+            
+        })
+        .catch(error=>{
+            console.log(error)
+            return res.json(error)
+        })
+}
+
 function createUser(user, id) {
     const newUser = user
     if (newUser.type && newUser.type === "investor") {
