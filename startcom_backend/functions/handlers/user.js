@@ -312,6 +312,17 @@ exports.getAllNotifications = (req,res)=>{
         })
 }
 
+exports.resetPassword = (req,res)=>{
+    return firebase.auth().sendPasswordResetEmail(req.body.email)
+        .then(()=>{
+            return res.status(200).send('Success')
+        })
+        .catch(error=>{
+            consolelog(error)
+            return res.json(error)
+        })
+}
+
 function createUser(user, id) {
     const newUser = user
     if (newUser.type && newUser.type === "investor") {
