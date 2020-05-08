@@ -93,9 +93,9 @@ class App extends Component {
                         let re = p.pushManager.subscribe({
                           userVisibleOnly: true
                         })
-
+                        
                         firebase.messaging().onMessage((payload) => {
-
+                          console.log("Message receive " + payload)
                           registration.showNotification(
                             payload.notification.title,
                                     {

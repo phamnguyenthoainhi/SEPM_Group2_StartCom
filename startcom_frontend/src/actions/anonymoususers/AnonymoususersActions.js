@@ -65,25 +65,32 @@ export const login = (account) => dispatch => {
                             token: currentToken,
                             
                         }
-
-                fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/edit_profile/${data.id}`, {
-                    method: 'PUT',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-type': 'application/json',
-                            'Authorization': 'Bearer '+ data.token
-                        },
-                        body: JSON.stringify(user)
-                }).
-                then((res) => {
-                    if(res.status === 200) {
-                        console.log("Edit success")
-                        dispatch ({
-                                    type: LOGIN,
-                                    payload: data
+                        if (data.id !== null && data.id !== undefined) {
+                            fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/edit_profile/${data.id}`, {
+                                method: 'PUT',
+                                    headers: {
+                                        'Accept': 'application/json',
+                                        'Content-type': 'application/json',
+                                        'Authorization': 'Bearer '+ data.token
+                                    },
+                                    body: JSON.stringify(user)
+                            }).
+                            then((res) => {
+                                if(res.status === 200) {
+                                    console.log("Edit success")
+                                    dispatch ({
+                                            type: LOGIN,
+                                            payload: data
+                                    })
+                                }
+                            })
+                        } else {
+                            dispatch ({
+                                type: LOGIN,
+                                payload: data
                         })
-                    }
-                })
+                        }
+                
                     } else {
                       // Show permission request.
                       console.log('No Instance ID token available. Request permission to generate one.');
