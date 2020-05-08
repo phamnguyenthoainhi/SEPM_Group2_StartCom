@@ -33,6 +33,25 @@ export const sendMessage = (message) => dispatch => {
     })  
     
 };
+export const editProfile = (user) => dispatch => {
+
+    fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/edit_profile/${user.id}`, {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+            'Authorization': 'Bearer '+ user.loginToken
+        },
+        body: JSON.stringify(user)
+    }).
+    then((res) => {
+        if(res.status === 200) {
+            console.log("Edit success")
+        }
+    })
+
+}
+
 export const getProfile = (id, type) => dispatch => {
     dispatch({
         type: GET_PROFILE_LOADING
@@ -76,6 +95,5 @@ export const getUser = (id) => dispatch => {
             })
         )
 };
-
 
 

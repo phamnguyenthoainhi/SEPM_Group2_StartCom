@@ -1,15 +1,17 @@
 import React, { Component} from 'react';
 import { Link } from "react-router-dom";
-// import clsx from 'clsx';
+
 import withStyles from '@material-ui/core/styles/withStyles'
-// import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
+import { connect } from 'react-redux';
 //Material UI
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import logo from '../../images/trans_logo.png';
+import defaultUser from '../../images/default.png';
 import Hidden from '@material-ui/core/Hidden'
 import IconButton from '@material-ui/core/IconButton'
+import Avatar from '@material-ui/core/Avatar';
 import MenuRoundedIcon from '@material-ui/icons/MenuRounded';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -17,18 +19,26 @@ import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 import Grid from "@material-ui/core/Grid";
-
+import {adminId} from '../../actions/admin/authorization';
+import {getUser} from "../../actions/users/UserActions";
+import Menu from "@material-ui/core/Menu";
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import MenuItem from "@material-ui/core/MenuItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
 
 const styles = (theme) => ({
     appBar: {
         backgroundColor: theme.color.primary3,
         position: 'relative',
+        justifyContent: 'center'
     },
     toolbar: {
         backgroundColor: theme.color.primary3,
         padding: "0 50px"
     },
     logoBtn: {
+        // marginRight: 'auto',
         textDecoration: 'none',
         outline: 'none',
         "&:hover": {
@@ -38,7 +48,7 @@ const styles = (theme) => ({
             outline: "none",
             border: "none"
         },
-        marginRight: 'auto'
+
     },
     navBtn: {
         outline: "none",
@@ -72,6 +82,18 @@ const styles = (theme) => ({
             color: theme.color.primary2
         },
     },
+    btnGroupContainer: {
+        alignContent: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        [theme.breakpoints.down('sm','xs')]: {
+            justifyContent: 'space-between'
+        },
+    },
+    avatarBtnContainer: {
+        justifyContent: 'flex-end'
+    },
+
     drawerPaper: {
         backgroundColor: theme.color.secondary,
         padding: 30,
@@ -86,15 +108,63 @@ const styles = (theme) => ({
     mobileNavBtn: {
         justifyContent: 'center',
         padding: 10
-    }
+    },
+    popoverMenu: {
+        width: 300,
+        height: 300
+    },
+    text: {
+        fontFamily: "'Raleway', sans-serif;",
+        textTransform: "inherit",
+        color: theme.color.primary1,
+        fontSize: 15,
+        fontWeight: 600,
+    },
+
+
 });
 
+const StyledMenu = withStyles({
+    paper: {
+        backgroundColor: '#3C5155',
+    },
+})((props) => (
+    <Menu
+        elevation={0}
+        getContentAnchorEl={null}
+        anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+        }}
+        transformOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+        }}
+        {...props}
+    />
+));
 
 class Navbar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            openDrawer: false
+            openDrawer: false,
+            image: '',
+            anchorEl: null,
+            open: false
+        }
+    }
+
+    componentDidMount() {
+        const userID = sessionStorage.getItem("id");
+        this.props.getUser(userID)
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.user !== prevProps.user) {
+            this.setState({
+                image: this.props.user.image,
+            })
         }
     }
 
@@ -104,64 +174,149 @@ class Navbar extends Component {
         })
     };
 
+    toggleMenu = (e) => {
+        this.setState({
+            anchorEl: e.currentTarget,
+            open: !this.state.open
+        })
+    };
+
+    handleClose = () => {
+        this.setState({
+            anchorEl: null,
+            open: false
+        })
+    };
+
+    logout = () => {
+        sessionStorage.removeItem("id");
+        window.location.reload();
+    };
+
     render() {
         const { classes } = this.props;
-        const { openDrawer} = this.state;
+        const { openDrawer, anchorEl, open } = this.state;
+        const auth = sessionStorage.getItem("token");
+        const userID = sessionStorage.getItem("id");
+
         return (
             <AppBar className={classes.appBar}>
                 <Toolbar className={classes.toolbar}>
-                    <Button
-                        component={Link}
-                        to="/#"
-                        className={classes.logoBtn}
-                    >
-                        <img src={logo} alt="logo" style={{ width: 150, height: 80}}/>
-                    </Button>
-                    <Hidden only={['sm', 'xs']}>
-                        <Button className={classes.navBtn} component={Link} to="/dashboard">Dashboard</Button>
-                        <Button className={classes.navBtn} component={Link} to="/startups">Startups</Button>
-                        <Button className={classes.navBtn} component={Link} to="/consultants">Consultants</Button>
-                        <Button className={classes.navBtn} component={Link} to="/investors">Investors</Button>
-                        <Button variant='outlined' className={classes.signUpBtn} component={Link} to="/signup">Sign Up</Button>
-                    </Hidden>
+                    <Grid container direction='row' className={classes.btnGroupContainer}>
+                        <Grid item md={3}>
+                            <Button
+                                component={Link}
+                                to="/#"
+                                className={classes.logoBtn}
+                            >
+                                <img src={logo} alt="logo" style={{ width: 150, height: 80}}/>
+                            </Button>
+                        </Grid>
 
-                    <Hidden mdUp>
-                        <IconButton style={{color: "#E3CFB5"}} onClick={this.toggleDrawer}>
-                            <MenuRoundedIcon style={{fontSize: 40}}/>
-                        </IconButton>
-                        <Drawer
-                            anchor='top'
-                            variant="temporary"
-                            open={openDrawer}
-                            onClose={this.toggleDrawer}
-                            classes={{
-                                paper: classes.drawerPaper,
-                            }}
-                            ModalProps={{
-                                keepMounted: true, // Better open performance on mobile.
-                            }}
-                        >
-                            <Grid container justify="flex-end">
-                                <IconButton onClick={this.toggleDrawer}>
-                                    <CloseRoundedIcon style={{fontSize: 30, color: "#3C5155"}} />
-                                </IconButton>
+                        <Grid item md={6}>
+                            <Grid container justify='center'>
+                                <Hidden only={['sm', 'xs']}>
+                                    <Button className={classes.navBtn} component={Link} to="/startups">Startups</Button>
+                                    <Button className={classes.navBtn} component={Link} to="/consultants">Consultants</Button>
+                                    <Button className={classes.navBtn} component={Link} to="/investors">Investors</Button>
+                                    {sessionStorage.getItem("id") === adminId ?  <Button className={classes.navBtn} component={Link} to="/admin">Verify Board</Button> : null}
+                                </Hidden>
                             </Grid>
-                            <List>
-                                <ListItem button component={Link} to="/dashboard" className={classes.mobileNavBtn}>
-                                    <Typography className={classes.mobileNavText}>Dashboard</Typography>
-                                </ListItem>
-                                <ListItem button component={Link} to="/startups" className={classes.mobileNavBtn}>
-                                    <Typography className={classes.mobileNavText}>Startups</Typography>
-                                </ListItem>
-                                <ListItem button component={Link} to="/consultants" className={classes.mobileNavBtn}>
-                                    <Typography className={classes.mobileNavText}>Consultants</Typography>
-                                </ListItem>
-                                <ListItem button component={Link} to="/investors" className={classes.mobileNavBtn}>
-                                    <Typography className={classes.mobileNavText}>Investors</Typography>
-                                </ListItem>
-                            </List>
-                        </Drawer>
-                    </Hidden>
+                        </Grid>
+
+                        <Grid item md={3}>
+
+                                <Hidden only={['sm', 'xs']}>
+                                    {(sessionStorage.getItem("id") !== null && sessionStorage.getItem("id") !== undefined && sessionStorage.getItem("id") !== '') ?
+
+                                        (
+                                            <Grid container className={classes.avatarBtnContainer}>
+                                                <IconButton onClick={this.toggleMenu}>
+                                                    <Avatar
+                                                        src={this.state.image ? this.state.image : defaultUser}
+                                                    />
+                                                </IconButton>
+
+                                                <StyledMenu
+                                                    anchorEl={anchorEl}
+                                                    open={open}
+                                                    onClose={this.handleClose}
+                                                >
+                                                    <MenuItem  to="/profile" component={Link} >
+                                                        <ListItemIcon>
+                                                            <AccountBoxIcon style={{color: '#E3CFB5'}}/>
+                                                        </ListItemIcon>
+                                                        <Typography className={classes.text}>My Profile</Typography>
+                                                    </MenuItem>
+
+                                                    <MenuItem onClick={() => this.logout()}>
+                                                        <ListItemIcon>
+                                                            <ExitToAppIcon style={{color: '#E3CFB5'}}/>
+                                                        </ListItemIcon>
+                                                        <Typography className={classes.text}>Logout</Typography>
+                                                    </MenuItem>
+                                                </StyledMenu>
+                                            </Grid>
+
+                                        ) :  (
+                                            <Grid container justify='center'>
+                                                <Button variant='outlined' className={classes.signUpBtn} component={Link} to="/auth">Login</Button>
+                                            </Grid>
+                                        )
+                                    }
+                                </Hidden>
+
+                                <Hidden mdUp>
+                                    <IconButton style={{color: "#E3CFB5"}} onClick={this.toggleDrawer}>
+                                        <MenuRoundedIcon style={{fontSize: 40}}/>
+                                    </IconButton>
+                                    <Drawer
+                                        anchor='top'
+                                        variant="temporary"
+                                        open={openDrawer}
+                                        onClose={this.toggleDrawer}
+                                        classes={{
+                                            paper: classes.drawerPaper,
+                                        }}
+                                        ModalProps={{
+                                            keepMounted: true, // Better open performance on mobile.
+                                        }}
+                                    >
+                                        <Grid container justify="flex-end">
+                                            <IconButton onClick={this.toggleDrawer}>
+                                                <CloseRoundedIcon style={{fontSize: 30, color: "#3C5155"}} />
+                                            </IconButton>
+                                        </Grid>
+                                        <List>
+                                            <ListItem button component={Link} to="/startups" className={classes.mobileNavBtn}>
+                                                <Typography className={classes.mobileNavText}>Startups</Typography>
+                                            </ListItem>
+                                            <ListItem button component={Link} to="/consultants" className={classes.mobileNavBtn}>
+                                                <Typography className={classes.mobileNavText}>Consultants</Typography>
+                                            </ListItem>
+                                            <ListItem button component={Link} to="/investors" className={classes.mobileNavBtn}>
+                                                <Typography className={classes.mobileNavText}>Investors</Typography>
+                                            </ListItem>
+
+                                            {auth ?  <ListItem button component={Link} to="/profile" className={classes.mobileNavBtn}>
+                                                <Typography className={classes.mobileNavText}>My Profile</Typography>
+                                            </ListItem> : null}
+
+                                            {auth ?  <ListItem button className={classes.mobileNavBtn}>
+                                                <Typography className={classes.mobileNavText} style={{color: '#C75D5D'}}>Logout</Typography>
+                                            </ListItem> : null}
+
+
+                                            {userID === adminId ?  <ListItem button component={Link} to="/investors" className={classes.mobileNavBtn}>
+                                                <Typography className={classes.mobileNavText}>Verify Board</Typography>
+                                            </ListItem> : null}
+                                        </List>
+                                    </Drawer>
+                                </Hidden>
+
+                        </Grid>
+                    </Grid>
+
                 </Toolbar>
             </AppBar>
 
@@ -169,5 +324,12 @@ class Navbar extends Component {
         )
     }
 }
+const mapDispatchToProps = dispatch => ({
+    getUser: (id) => dispatch(getUser(id))
+});
 
-export default withStyles(styles)(Navbar);
+const mapStateToProps = (state) => ({
+    user: state.usersReducer.user
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Navbar));

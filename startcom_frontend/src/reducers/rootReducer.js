@@ -7,25 +7,11 @@ import AdminReducer from './AdminReducer';
 export default combineReducers({
 
     businessIdeasData: BIReducer,
-    registerMessage: UsersReducer,
-    UI: UIReducer,
     userData: UsersReducer,
+    UI: UIReducer,
 
-    loginMessage: UsersReducer,
-    registerLoading: UsersReducer,
-    loginLoading: UsersReducer,
-    unverifiedEmails: AdminReducer,
-    emailLoading: AdminReducer,
-    verifySuccess: AdminReducer,
-    loadingVerify: AdminReducer,
-    deleteLoading: AdminReducer,
-    deleteSuccess: AdminReducer,
-    sendMessageLoading: UsersReducer,
-    sendMessageSuccess: UsersReducer,
-    profileLoading: UsersReducer,
-    profileReceiver: UsersReducer,
-    profileSender: UsersReducer,
-
-    
+    adminReducer: AdminReducer,
+    usersReducer: UsersReducer,
+    BIReducer: BIReducer,
 
 });

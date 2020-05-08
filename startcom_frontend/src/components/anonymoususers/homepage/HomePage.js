@@ -10,6 +10,18 @@ import Navbar from '../../Layout/Navbar';
 import Footer from '../../Layout/Footer';
 import Hidden from "@material-ui/core/Hidden";
 class HomePage extends Component {
+    compontDidMount() {
+        // if (sessionStorage.getItem('id') !== undefined && sessionStorage.getItem('id') !== null && sessionStorage.getItem('id') !== "") {
+        //     const messaging = firebase.messaging();
+        //     messaging.requestPermission().then((token) => {
+        //     return messaging.getToken()
+        //     }).then(token => {
+        //     console.log('Token: '+ token)
+        //     }).catch(()=> {
+        //     console.log("error ")
+        //     })
+        // }
+    }
     render() {
         const {classes} = this.props;
         return (

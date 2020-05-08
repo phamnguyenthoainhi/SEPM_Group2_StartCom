@@ -90,7 +90,7 @@ class SignUp extends Component {
                 })
             }
             else if (this.props.registerMessage.code === undefined) {
-                console.log('sucess')
+                console.log('success')
                 this.setState({
                     signUpEmail: "",
                     signUpPassword: "",
@@ -124,7 +124,7 @@ class SignUp extends Component {
                 email: this.state.signUpEmail,
                 password: this.state.signUpPassword,
                 type: this.state.type
-            }
+            };
             this.props.registerAccount(user);
         }
        
@@ -144,11 +144,11 @@ class SignUp extends Component {
                         placeholder="Email"
                         className={classes.formInput}
                         helperText={this.state.formSignUpErrors.emailError}
+                        error={!!this.state.formSignUpErrors.emailError}
                         id="signUpEmail"
                         onChange={this.handleChange}
                         value={this.state.signUpEmail}
                         fullWidth
-                     
                     >
                     </TextField>
                     <TextField
@@ -157,6 +157,7 @@ class SignUp extends Component {
                         placeholder="Password"
                         className={classes.formInput}
                         helperText={this.state.formSignUpErrors.passwordError}
+                        error={!!this.state.formSignUpErrors.passwordError}
                         id="signUpPassword"
                         onChange={this.handleChange}
                         value={this.state.signUpPassword}
@@ -170,6 +171,7 @@ class SignUp extends Component {
                         placeholder="Confirm Password"
                         className={classes.formInput}
                         helperText={this.state.formSignUpErrors.confirmPassError}
+                        error={!!this.state.formSignUpErrors.confirmPassError}
                         id="confirmPassword"
                         onChange={this.handleChange}
                         value={this.state.signUpConfirmPassword}
@@ -206,9 +208,6 @@ class SignUp extends Component {
     
                         > Registered</Button>))
                     }
-                           
-
-                  
                 </form>
             </div>
         );
@@ -218,8 +217,8 @@ class SignUp extends Component {
 
 
 const mapStateToProps = (state) => ({
-    registerMessage: state.registerMessage.registerMessage,
-    registerLoading: state.registerLoading.registerLoading
+    registerMessage: state.usersReducer.registerMessage,
+    registerLoading: state.usersReducer.registerLoading
 });
 
 const mapDispatchToProps = dispatch => ({

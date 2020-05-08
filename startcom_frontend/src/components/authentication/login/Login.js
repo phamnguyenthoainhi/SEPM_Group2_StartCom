@@ -61,11 +61,14 @@ class Login extends Component {
                     }
                 })
             }
-            else if (this.props.loginMessage.code === undefined) {
+            else if (this.props.loginMessage.id !== undefined) {
                 this.setState({
                     success: true
-                })
-                window.location.replace("http://localhost:3000/");
+                });
+                sessionStorage.setItem("id", this.props.loginMessage.id);
+                sessionStorage.setItem("token", this.props.loginMessage.token);
+
+                this.props.history.push('/')
             }
         }
     }
@@ -81,7 +84,7 @@ class Login extends Component {
         const account = {
             email: this.state.loginEmail,
             password: this.state.loginPassword
-        }
+        };
         this.props.login(account);
 
     };
@@ -99,6 +102,7 @@ class Login extends Component {
                                placeholder="Email"
                                className={classes.formInput}
                                helperText = {this.state.loginFormError.emailError}
+                               error = {!!this.state.loginFormError.emailError}
                                id="loginEmail"
                                onChange={this.handleChange}
                                value={this.state.loginEmail}
@@ -110,6 +114,7 @@ class Login extends Component {
                         placeholder="Password"
                         className={classes.formInput}
                         helperText = {this.state.loginFormError.passwordError}
+                        error = {!!this.state.loginFormError.passwordError}
                         id="loginPassword"
                         onChange={this.handleChange}
                         value={this.state.loginPassword}
@@ -127,9 +132,6 @@ class Login extends Component {
                              
                     > Login</Button>)
                     :  ''
-                    
-                   
-
                     )}    
                 
                 </form>
@@ -139,8 +141,8 @@ class Login extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    loginMessage: state.loginMessage.loginMessage,
-    loginLoading: state.loginLoading.loginLoading
+    loginMessage: state.usersReducer.loginMessage,
+    loginLoading: state.usersReducer.loginLoading
 });
 
 const mapDispatchToProps = dispatch => ({

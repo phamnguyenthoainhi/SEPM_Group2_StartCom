@@ -171,8 +171,8 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-    profileLoading: state.profileLoading.profileLoading,
-    profileReceiver: state.profileReceiver.profileReceiver
+    profileLoading: state.usersReducer.profileLoading,
+    profileReceiver: state.usersReducer.profileReceiver
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(Container));

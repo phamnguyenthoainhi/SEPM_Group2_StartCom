@@ -1,3 +1,4 @@
+const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const db = admin.firestore();
 const { uploadImage, uploadMultipleImages } = require('./utilities')
@@ -98,15 +99,23 @@ exports.editBusinessIdea = async (req, res) => {
 
     }
     else {
-        return db.collection('BusinessIdea').doc(req.params.id).update(businessIdea)
-            .then(() => {
-                businessIdea.id = req.params.id
-                return res.json(businessIdea);
+        try{
+            const update = await db.collection('BusinessIdea').doc(req.params.id).update(businessIdea)
+            return db.collection('BusinessIdea').doc(req.params.id).get()
+            .then((doc) => {
+                const idea = doc.data()
+                idea.id = req.params.id
+                return res.json(idea);
             })
             .catch((error) => {
                 console.log(error)
                 return res.json(error)
             })
+        }
+        catch(error){
+            console.log(error)
+            return res.json(error)
+        }
     }
 }
 
