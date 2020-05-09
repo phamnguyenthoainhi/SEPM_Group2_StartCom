@@ -138,9 +138,9 @@ class RegisterBI extends Component {
         reader.onerror = function (error) {
           console.log('Error: ', error);
         };
-     }
+     };
 
-     handleRegisterBI = (encodedimage) => {
+     handleRegisterBI = (encodedImage) => {
          
         if (sessionStorage.getItem("id") !== null && sessionStorage.getItem("id") !== undefined && sessionStorage.getItem("id") !== '') {
             const businessIdea = {
@@ -148,11 +148,11 @@ class RegisterBI extends Component {
                 date: this.state.date,
                 description: this.state.description,
                 targetFunding: this.state.targetFunding,
-                image: encodedimage,
+                image: encodedImage,
                 needInvestor: this.state.needInvestor,
                 needConsultant: this.state.needConsultant,
                 category: this.state.category,
-                ownerid: sessionStorage.getItem("id")
+                ownerId: sessionStorage.getItem("id")
             };
             // console.log(JSON.stringify(businessIdea))
             this.props.registerBI(businessIdea);
@@ -161,8 +161,7 @@ class RegisterBI extends Component {
                  ownerError: "There are some errors happened. Please login and try again!"
              })
          }
-        
-     }
+     };
 
     onSubmit(e) {
         e.preventDefault();
@@ -181,7 +180,7 @@ class RegisterBI extends Component {
                         needInvestor: this.state.needInvestor,
                         needConsultant: this.state.needConsultant,
                         category: this.state.category,
-                        ownerid: sessionStorage.getItem("id")
+                        ownerId: sessionStorage.getItem("id")
                     };
                     // console.log(JSON.stringify(businessIdea))
                     this.props.registerBI(businessIdea);
@@ -326,7 +325,7 @@ class RegisterBI extends Component {
                                 <DialogContent>
                                    
                                                 <Typography gutterBottom className={classes.text}>
-                                                Congratulations, your business idea has been registered sucessfully!
+                                                Congratulations, your business idea has been registered successfully!
                                                 </Typography>
                                            
                                     
@@ -350,8 +349,7 @@ class RegisterBI extends Component {
 const mapDispatchToProps = dispatch => ({
       registerBI: (businessIdea) => dispatch(registerBI(businessIdea)),
       resetRegisterStatus: () => dispatch(resetRegisterStatus())
-    
-})
+});
 
 const mapStateToProps = state => ({
     isRegisteredSuccess: state.BIReducer.isRegisteredSuccess,

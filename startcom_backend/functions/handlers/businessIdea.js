@@ -1,4 +1,3 @@
-const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const db = admin.firestore();
 const { uploadImage, uploadMultipleImages } = require('./utilities')
@@ -35,6 +34,23 @@ exports.getBusinessIdeaById = (req, res) => {
         .catch((error) => {
             console.log(error);
             return res.json(error);
+        })
+}
+
+exports.getBusinessIdeaByOwnerId = (req,res)=>{
+    return db.collection('BusinessIdea').where('ownerId','==',req.params.id).get()
+        .then((query)=>{
+            if(!query.empty){
+                const idea = query.docs[0].data()
+                idea.id = query.docs[0].id
+
+                return res.json(idea)
+            }
+            return res.json({error: 'This user has not registered any business idea.'})
+        })
+        .catch((error)=>{
+            console.log(error)
+            return res.json(error)
         })
 }
 
@@ -80,7 +96,7 @@ exports.editBusinessIdea = async (req, res) => {
     var businessIdea = req.body
     if (businessIdea.image && !businessIdea.image.includes("https://storage.googleapis.com/startcom-sepm.appspot.com/images/")) {
         try {
-            const imageUpdate = await uploadImage(businessIdea.image, businessIdea.name)
+            const imageUpdate = await uploadImage(businessIdea.image, req.params.id)
             businessIdea.image = imageUpdate
             return db.collection('BusinessIdea').doc(req.params.id).update(req.body)
                 .then(() => {
@@ -139,5 +155,15 @@ exports.testUploadMultipleImages = (req,res)=>{
         .catch(error=>{
             console.log(error)
             return res.json(error)
+        })
+}
+
+exports.uploadImageUser = async (req,res) =>{
+    return uploadImage(req.body.image, req.body.id)
+        .then((imageUrl)=>{
+            return res.json({url:imageUrl})
+        })
+        .catch(error=>{
+            console.log(error)
         })
 }
