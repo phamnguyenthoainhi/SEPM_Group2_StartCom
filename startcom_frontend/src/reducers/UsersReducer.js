@@ -9,7 +9,12 @@ import {
     GET_PROFILE_RECEIVER,
     GET_PROFILE_SENDER,
     GET_USER,
-    UPDATE_USER
+    UPDATE_USER,
+    POST_EMAIL_RESET_LOADING,
+    
+    POST_EMAIL_RESET_SUCCESS,
+    POST_EMAIL_RESET_FAIL
+    
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -22,7 +27,10 @@ const initialState = {
     sendMessageSuccess: false,
     profileReceiver: {},
     profileSender: {},
-    profileLoading: false
+    profileLoading: false,
+    postEmailLoading : false,
+    postEmailSuccess: false,
+    postEmailFail: ''
 };
 
 export default function (state = initialState, action) {
@@ -46,6 +54,29 @@ export default function (state = initialState, action) {
                 ...state,
                 registerLoading: true
             };
+        case POST_EMAIL_RESET_LOADING: 
+        
+            return {
+                ...state,
+                postEmailLoading: true,
+                postEmailFail: ""
+            }
+        case POST_EMAIL_RESET_SUCCESS: 
+            return {
+                ...state,
+                postEmailLoading: false,
+                postEmailSuccess: true,
+                postEmailFail: ""
+                
+            }
+        case POST_EMAIL_RESET_FAIL: 
+            return {
+                ...state,
+                postEmailLoading: false,
+                postEmailSuccess: false,
+                postEmailFail: "Email is invalid. Please try again"
+            }
+
         case GET_PROFILE_LOADING:
             return {
                 ...state,

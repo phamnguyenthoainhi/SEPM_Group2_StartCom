@@ -2,6 +2,7 @@ const style = (theme) => ({
     form: {
         fontFamily: theme.font
     },
+
         buttonWrapper: {
             outline: "none",
             "&:hover": {
@@ -93,6 +94,16 @@ const style = (theme) => ({
         },
         tick: {
             marginTop: "5%"
+        },
+        passwordbtn: {
+            color : "grey",
+            "&:hover": {
+                // transition: "all 350ms ease-in-out",
+                backgroundColor: 'transparent',
+                color : "black"
+                
+                
+            },
         }
     
 

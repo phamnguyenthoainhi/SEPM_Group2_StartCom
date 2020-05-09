@@ -1,4 +1,4 @@
-import  {REGISTER_ACCOUNT, LOGIN, REGISTER_LOADING, LOGIN_LOADING} from '../actionTypes';
+import  {REGISTER_ACCOUNT, LOGIN, REGISTER_LOADING, LOGIN_LOADING, POST_EMAIL_RESET_SUCCESS, POST_EMAIL_RESET_LOADING, POST_EMAIL_RESET_FAIL} from '../actionTypes';
 import {editProfile} from '../users/UserActions';
 
 import firebase from '../../firebase'
@@ -26,6 +26,39 @@ export const registerAccount = (account) => dispatch => {
             }
             
         })        
+}
+
+
+export const postEmailResetPassword = (email) => dispatch => {
+    console.log(JSON.stringify(email))
+    dispatch({
+        type: POST_EMAIL_RESET_LOADING
+    })
+    fetch('https://asia-east2-startcom-sepm.cloudfunctions.net/api/reset_password', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(email)
+    })
+    .then((res) => {
+        
+        if (res.status === 200) {
+            dispatch({
+                type: POST_EMAIL_RESET_SUCCESS
+            })
+        } 
+        
+    }) 
+    .catch((err) => { 
+        dispatch({
+            type: POST_EMAIL_RESET_FAIL
+        })
+    })
+        
+        
+    
 }
 
 export const getToken = () => {

@@ -6,9 +6,10 @@ import style from './LoginStyle'
 //Material UI
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-import {login} from '../../../actions/anonymoususers/AnonymoususersActions'
+import {login, postEmailResetPassword} from '../../../actions/anonymoususers/AnonymoususersActions'
 
 const ColorCircularProgress = withStyles({
     root: {
@@ -27,7 +28,11 @@ class Login extends Component {
                 passwordError: ""
             },
             loading: false,
-            success: false
+            success: false,
+            postEmail: '',
+            postEmailSuccess: false,
+            postEmailLoading: false,
+            postEmailFail: false,
         };
     }
 
@@ -35,6 +40,30 @@ class Login extends Component {
         if (this.props.loginLoading !== prevProps.loginLoading) {
             this.setState({
                 loading: this.props.loginLoading
+            })
+        }
+        if (this.props.postEmailLoading !== prevProps.postEmailLoading) {
+            console.log(this.props.postEmailLoading)
+            this.setState({
+                postEmailLoading: this.props.postEmailLoading
+            })
+        }
+        if (this.props.postEmailSuccess !== prevProps.postEmailSuccess) {
+            this.setState({
+                postEmailSuccess: this.props.postEmailSuccess,
+              
+                    postEmail: '',
+                    
+                    postEmailLoading: false,
+                    postEmailFail: false,
+                
+
+            })
+        }
+        if (this.props.postEmailFail !== prevProps.postEmailFail) {
+            console.log(this.props.postEmailFail)
+            this.setState({
+                postEmailFail: this.props.postEmailFail
             })
         }
         if (this.props.loginMessage !== prevProps.loginMessage) {
@@ -88,14 +117,35 @@ class Login extends Component {
         this.props.login(account);
 
     };
+    passwordRetrieve = () => {
+        document.getElementById('form').style.display= 'none'
+        document.getElementById('hidden').style.display = 'block'
+        
+        
+    }
+    back = () => {
+        document.getElementById('form').style.display= 'block'
+        document.getElementById('hidden').style.display = 'none'
+    }
+    sendEmailReset = (e) => {
+        e.preventDefault()
+        const email = {
+            "email" : this.state.postEmail
+        }
+        
+        
+        this.props.postEmailResetPassword(email)
+       
+    }
 
 
     render() {
         const {classes} = this.props;
-        
+        console.log(this.state.postEmailLoading)
         return (
             <div className="form-container sign-in-container">
-                <form className={classes.form}>
+                <form className={classes.form}  >
+                    <div id ="form">
                     <h1 className="title" style ={{color: '#3C5155'}}>Login</h1>
                     <TextField type="text"
                                name="loginEmail"
@@ -117,7 +167,8 @@ class Login extends Component {
                         onChange={this.handleChange}
                         value={this.state.loginPassword}
                     />
-
+                    <Button onClick= {() => this.passwordRetrieve()} className={classes.passwordbtn}style={{textTransform: 'none'}}>Forgot your password?</Button>
+                    <br/>
                     {
                     this.state.loading === true ? (<ColorCircularProgress variant="indeterminate" size={32} style={{marginTop: "5%"}}/>)
                     :
@@ -133,9 +184,38 @@ class Login extends Component {
                     
                    
 
-                    )}    
-                
+                    )}   
+                    </div>
+                    <div id='hidden' style={{display:'none', width: "100%"}}> 
+                    <div style={{textAlign: "left"}}>
+                    <Button onClick= {() => this.back()} className={classes.passwordbtn} style={{textTransform: 'none', marginBottom: "40px"}}>Back to Login</Button>
+                    </div>
+                    {this.state.postEmailSuccess ? "Email Confirmed! Please check your email": 
+                    (<div>
+                    <h2 className="title" style ={{color: '#3C5155', marginBottom: "20px"}}>Reset Password</h2>
+                    <TextField type="text"
+                               name="postEmail"
+                               placeholder="Enter your email"
+                               className={classes.formInput}
+                               onChange={this.handleChange}
+                               value={this.state.postEmail}
+                               required
+                               fullWidth
+                               helperText= {this.state.postEmailFail}      
+                    /><br/>
+                    {this.state.postEmailLoading ?  (<ColorCircularProgress variant="indeterminate" size={32} style={{marginTop: "5%"}}/>) : <Button type='submit' className={classes.registerBtn} onClick={(e)=> this.sendEmailReset(e)}>Submit</Button>}
+                  
+                    </div>)}
+                    
+                      
+                    </div>
+                    
                 </form>
+                <form id='password' className={classes.hidden} >
+                    
+                   
+                </form> 
+                
             </div>
         );
     }
@@ -143,11 +223,15 @@ class Login extends Component {
 
 const mapStateToProps = (state) => ({
     loginMessage: state.usersReducer.loginMessage,
-    loginLoading: state.usersReducer.loginLoading
+    loginLoading: state.usersReducer.loginLoading,
+    postEmailLoading: state.usersReducer.postEmailLoading,
+    postEmailSuccess: state.usersReducer.postEmailSuccess,
+    postEmailFail: state.usersReducer.postEmailFail,
 });
 
 const mapDispatchToProps = dispatch => ({
-    login: (account) => dispatch(login(account))
+    login: (account) => dispatch(login(account)),
+    postEmailResetPassword: (email) => dispatch(postEmailResetPassword(email))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(Login));
