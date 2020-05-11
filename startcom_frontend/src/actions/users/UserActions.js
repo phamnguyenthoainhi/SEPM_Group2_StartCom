@@ -49,8 +49,7 @@ export const editProfile = (user) => dispatch => {
             console.log("Edit success")
         }
     })
-
-}
+};
 
 export const getProfile = (id, type) => dispatch => {
     dispatch({

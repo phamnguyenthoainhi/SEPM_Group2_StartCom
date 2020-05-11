@@ -42,7 +42,7 @@ export const deleteUser = (id) => dispatch => {
    
     dispatch({
         type: DELETE_USER_LOADING
-    })
+    });
     fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/decline/${id}`, {
         headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -55,10 +55,9 @@ export const deleteUser = (id) => dispatch => {
         if (res.status === 200) {
             dispatch({
                 type: DELETE_USER_SUCCESS
-            })
+            });
             dispatch(fetchUnverifiedEmails()) 
         }
-
     })
     
 }

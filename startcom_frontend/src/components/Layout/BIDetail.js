@@ -206,25 +206,7 @@ const styles = (theme) => ({
         color: theme.color.primary3,
         fontWeight: 500,
     },
-    cancelBtn: {
-        fontSize: 15,
-        fontFamily: theme.font1,
-        color: "#C75D5D",
-        fontWeight: 600,
-        "&:hover": {
-            backgroundColor: 'transparent',
-        },
 
-    },
-    confirmBtn: {
-        fontSize: 15,
-        fontFamily: theme.font1,
-        color: theme.color.primary3,
-        fontWeight: 600,
-        "&:hover": {
-            backgroundColor: 'transparent',
-        },
-    },
     chip: {
         padding: "20px 0",
         border: "none",
@@ -248,9 +230,6 @@ class BIDetail extends Component {
         super(props);
         this.state = {
             idea: {},
-            toggleUpdate: false,
-            openUpdateForm: false,
-            openDeleteDialog: false
         }
     }
 
@@ -264,34 +243,11 @@ class BIDetail extends Component {
     }
 
 
-    toggleUpdateForm = () => {
-        this.setState({
-            toggleUpdate: !this.state.toggleUpdate
-        })
-    };
 
-    openDeleteDialog = () => {
-        this.setState({
-            openDeleteDialog: true
-        })
-    };
-
-    closeDeleteDialog = () => {
-        this.setState({
-            openDeleteDialog: false
-        })
-    };
-
-    delete = (id) => {
-        this.props.deleteBI(id);
-        console.log("Delete successfully")
-    };
 
     render() {
         // console.log(this.props.businessIdea);
         const { classes, businessIdea, loading } = this.props;
-        const { openDeleteDialog, toggleUpdate } = this.state;
-
         let detailMarkup = !loading ? (
             <Grid container className={classes.detailWrapper}>
                 <Grid container>
@@ -382,37 +338,6 @@ class BIDetail extends Component {
             <Grid container>
                 <Navbar/>
                 {detailMarkup}
-                {/*<Dialog*/}
-                {/*    keepMounted*/}
-                {/*    className={classes.dialog}*/}
-                {/*    open={openDeleteDialog}*/}
-                {/*    onClose={this.closeDeleteDialog}*/}
-                {/*    aria-labelledby="alert-dialog-title"*/}
-                {/*    aria-describedby="alert-dialog-description"*/}
-                {/*    PaperProps={{*/}
-                {/*        style: {*/}
-                {/*            backgroundColor: '#90B494',*/}
-                {/*        },*/}
-                {/*    }}*/}
-                {/*>*/}
-                {/*    <Typography variant="h6" className={classes.dialogTitle}>Do you want to discard this business idea ?</Typography>*/}
-                {/*    <DialogContent>*/}
-                {/*        <Typography variant="subtitle1" className={classes.dialogSubtitle}>*/}
-                {/*            If you delete this business idea. All of its credential will be permanently delete from the database.*/}
-                {/*        </Typography>*/}
-                {/*    </DialogContent>*/}
-                {/*    <DialogActions>*/}
-                {/*        <Button onClick={this.closeDeleteDialog} className={classes.cancelBtn}>*/}
-                {/*            Cancel*/}
-                {/*        </Button>*/}
-                {/*        <Button onClick={() => this.delete(businessIdea.id)} className={classes.confirmBtn}  >*/}
-                {/*            Confirm*/}
-                {/*        </Button>*/}
-                {/*    </DialogActions>*/}
-                {/*</Dialog>*/}
-
-                {/*<UpdateBIForm open={toggleUpdate} close={this.toggleUpdateForm} businessIdea={businessIdea}/>*/}
-
                 <Footer/>
             </Grid>
 

@@ -1,6 +1,7 @@
 import {
     GET_ALL_BIS,
     GET_BI,
+    GET_BI_BY_OWNER,
     IS_REGISTERED_SUCCESS,
     RESET_REGISTER,
     UPDATE_BI,
@@ -35,6 +36,13 @@ export default function (state = initialState, action) {
             };
 
         case GET_BI:
+            return {
+                ...state,
+                businessIdea: action.payload,
+                loading: false
+            };
+
+        case GET_BI_BY_OWNER:
             return {
                 ...state,
                 businessIdea: action.payload,

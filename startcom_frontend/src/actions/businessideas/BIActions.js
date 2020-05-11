@@ -5,7 +5,14 @@ import {
     RESET_REGISTER,
     UPDATE_BI,
     DELETE_BI,
-    UPDATE_BI_SUCCESS, RESET_UI_STATE, LOADING_DATA, STOP_LOADING_DATA, UPDATING_DATA
+    UPDATE_BI_SUCCESS,
+    RESET_UI_STATE,
+    LOADING_DATA,
+    STOP_LOADING_DATA,
+    UPDATING_DATA,
+    GET_BI_BY_OWNER,
+    DELETING_DATA,
+    DELETE_BI_SUCCESS
 
 } from '../actionTypes';
 
@@ -28,12 +35,25 @@ export const getBI = (id) => dispatch => {
     dispatch({ type: LOADING_DATA});
     fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/get_business_idea/${id}`)
         .then (res =>
-                res.json().then(function (data) {
-                    dispatch({
-                        type: GET_BI,
-                        payload: data
-                    })
+            res.json().then(function (data) {
+                dispatch({
+                    type: GET_BI,
+                    payload: data
                 })
+            })
+        )
+};
+
+export const getBIByOwnerID = (ownerID) => dispatch => {
+    dispatch({ type: LOADING_DATA});
+    fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/get_business_idea_by_owner/${ownerID}`)
+        .then (res =>
+            res.json().then(function (data) {
+                dispatch({
+                    type: GET_BI_BY_OWNER,
+                    payload: data
+                })
+            })
         )
 };
 
@@ -69,9 +89,6 @@ export const registerBI = (BIData) => dispatch => {
             return null;
         }
     })
-    .then(() => dispatch(
-        getAllBIS()
-    )) 
 };
 
 export const updateBI = (BIData, id) => dispatch => {
@@ -101,9 +118,8 @@ export const updateBI = (BIData, id) => dispatch => {
 
 };
 
-
-// NOTE: future improvement: changing payload to filter out the delete business ideas
 export const deleteBI = (id) => dispatch => {
+    dispatch({ type: DELETING_DATA });
     fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/delete_business_idea/${id}`, {
         method: 'DELETE',
         headers: {
@@ -111,19 +127,21 @@ export const deleteBI = (id) => dispatch => {
             'Content-type': 'application/json'
         },
     })
-        .then((res) => {
-            console.log("res "+ res.status);
-            if(res.status === 200) {
+        .then (res =>
+            res.json().then(function (data) {
                 dispatch({
                     type: DELETE_BI,
-                    payload: id
+                    payload: data
                 });
-            } else
-                return res.error;
-        })
-        .then(() => dispatch(
-            getAllBIS()
-        ))
+                dispatch({type: DELETE_BI_SUCCESS});
+                setTimeout(() => {
+                    dispatch({type: RESET_UI_STATE});
+                }, 2000);
+                setTimeout(() => {
+                    window.location.reload()
+                }, 2000);
+            })
+        )
 };
 
 

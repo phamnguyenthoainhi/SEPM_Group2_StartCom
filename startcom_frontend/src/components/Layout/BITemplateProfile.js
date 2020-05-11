@@ -9,6 +9,15 @@ import Typography from "@material-ui/core/Typography";
 import defaultLogo from "../../images/company_logo.png";
 import Chip from '@material-ui/core/Chip';
 import Grid from "@material-ui/core/Grid";
+import {deleteBI, updateBI} from "../../actions/businessideas/BIActions";
+import IconButton from "@material-ui/core/IconButton";
+import Tooltip from '@material-ui/core/Tooltip';
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogActions from "@material-ui/core/DialogActions";
+import Button from "@material-ui/core/Button";
+import Backdrop from "@material-ui/core/Backdrop/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
 
 
 
@@ -51,6 +60,41 @@ const styles = (theme) => ({
             fontSize: 14
         },
     },
+    cancelBtn: {
+        fontSize: 15,
+        fontFamily: theme.font1,
+        color: "#C75D5D",
+        fontWeight: 600,
+        "&:hover": {
+            backgroundColor: 'transparent',
+        },
+    },
+    confirmBtn: {
+        fontSize: 15,
+        fontFamily: theme.font1,
+        color: theme.color.secondary,
+        fontWeight: 600,
+        "&:hover": {
+            backgroundColor: 'transparent',
+        },
+    },
+    dialogTitle: {
+        padding: '12px 24px 5px 24px',
+        fontFamily: theme.font1,
+        color: theme.color.primary3,
+        fontSize: 20,
+        fontWeight: 600,
+    },
+    dialogSubtitle: {
+        fontFamily: theme.font1,
+        color: theme.color.primary3,
+        fontWeight: 500,
+    },
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+    },
+
 
 
 });
@@ -59,12 +103,34 @@ class BITemplateProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            openDeleteDialog: false
         }
     }
 
+    openUpdateForm = (id) => {
+        window.open(`/edit_bi/${id}`, '_self');
+    };
+
+    openDeleteDialog = () => {
+        this.setState({
+            openDeleteDialog: true
+        })
+    };
+
+    closeDeleteDialog = () => {
+        this.setState({
+            openDeleteDialog: false
+        });
+    };
+
+    delete = (id) => {
+        this.props.deleteBI(id);
+        this.closeDeleteDialog();
+    };
+
     render() {
-        const { classes, businessIdea } = this.props;
+        const { classes, businessIdea, deleting } = this.props;
+        const { openDeleteDialog } = this.state;
         return (
             <Card elevation={3} className={classes.ideaCard}>
                 <CardContent style={{padding: '10px 30px'}}>
@@ -177,17 +243,70 @@ class BITemplateProfile extends Component {
                             </Typography>
                         </Grid>
                     </Grid>
+
+                    <Grid container direction='row'>
+                        <Tooltip title="Edit this idea">
+                            <IconButton className={classes.iconBtn} style={{marginLeft: 'auto'}} onClick={() => this.openUpdateForm(businessIdea.id)}>
+                                <i
+                                    className="fas fa-edit"
+                                    style={{color: "#90B494", fontSize: "25px"}}
+                                />
+                            </IconButton>
+                        </Tooltip>
+
+                        <Tooltip title="Delete this idea">
+                            <IconButton className={classes.iconBtn} onClick={this.openDeleteDialog}>
+                                <i
+                                    className="fas fa-trash-alt"
+                                    style={{color: "#C75D5D", fontSize: "25px"}}
+                                />
+                            </IconButton>
+                        </Tooltip>
+
+                    </Grid>
                 </CardContent>
+
+                <Dialog
+                    keepMounted
+                    className={classes.dialog}
+                    open={openDeleteDialog}
+                    onClose={this.closeDeleteDialog}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                    PaperProps={{
+                        style: {
+                            // backgroundColor: '#90B494',
+                        },
+                    }}
+                >
+                    <Typography variant="h6" className={classes.dialogTitle}>Do you want to discard this business idea ?</Typography>
+                    <DialogContent>
+                        <Typography variant="subtitle1" className={classes.dialogSubtitle}>
+                            If you delete this business idea. All of its information will be permanently delete from the database.
+                        </Typography>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.closeDeleteDialog} className={classes.cancelBtn}>
+                            Cancel
+                        </Button>
+                        <Button onClick={() => this.delete(businessIdea.id)} className={classes.confirmBtn}  >
+                            Confirm
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </Card>
         )
     }
 }
 
 const mapDispatchToProps = dispatch => ({
+    updateBI: (businessIdea,id) => dispatch(updateBI(businessIdea,id)),
+    deleteBI: (id) => dispatch(deleteBI(id)),
 });
 
 const mapStateToProps = state => ({
-
+    deleting: state.UI.deleting,
+    doneDeleteBI: state.UI.doneDeleteBI
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(BITemplateProfile));

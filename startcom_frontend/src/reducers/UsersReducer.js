@@ -9,11 +9,15 @@ import {
     GET_PROFILE_RECEIVER,
     GET_PROFILE_SENDER,
     GET_USER,
-    UPDATE_USER, FETCHING_USER
+    POST_EMAIL_RESET_LOADING,
+    POST_EMAIL_RESET_SUCCESS,
+    POST_EMAIL_RESET_FAIL,
+    UPDATE_USER,
+    FETCHING_USER
 } from '../actions/actionTypes';
 
 const initialState = {
-    loading: false,
+    userLoading: false,
     user: {},
     registerMessage: {},
     loginMessage: {},
@@ -23,14 +27,16 @@ const initialState = {
     sendMessageSuccess: false,
     profileReceiver: {},
     profileSender: {},
-    profileLoading: false
+    profileLoading: false,
+    postEmailLoading : false,
+    postEmailSuccess: false,
+    postEmailFail: ''
 };
 
 export default function (state = initialState, action) {
     switch(action.type) {
         case REGISTER_ACCOUNT:
             return {
-
                 ...state,
                 registerMessage: action.payload,
                 registerLoading: false
@@ -38,8 +44,7 @@ export default function (state = initialState, action) {
         case LOGIN:
             return {
                 ...state,
-                loginMessage: action.payload
-                ,
+                loginMessage: action.payload,
                 loginLoading: false
             };
         case REGISTER_LOADING:
@@ -47,6 +52,29 @@ export default function (state = initialState, action) {
                 ...state,
                 registerLoading: true
             };
+        case POST_EMAIL_RESET_LOADING:
+
+            return {
+                ...state,
+                postEmailLoading: true,
+                postEmailFail: ""
+            }
+        case POST_EMAIL_RESET_SUCCESS:
+            return {
+                ...state,
+                postEmailLoading: false,
+                postEmailSuccess: true,
+                postEmailFail: ""
+
+            }
+        case POST_EMAIL_RESET_FAIL:
+            return {
+                ...state,
+                postEmailLoading: false,
+                postEmailSuccess: false,
+                postEmailFail: "Email is invalid. Please try again"
+            }
+
         case GET_PROFILE_LOADING:
             return {
                 ...state,
@@ -83,7 +111,8 @@ export default function (state = initialState, action) {
         case GET_USER:
             return {
                 ...state,
-                user: action.payload
+                user: action.payload,
+                userLoading: false
             };
         case UPDATE_USER:
             return {
@@ -92,7 +121,7 @@ export default function (state = initialState, action) {
         case FETCHING_USER:
             return {
                 ...state,
-                loading: true
+                userLoading: true
             };
 
         default:

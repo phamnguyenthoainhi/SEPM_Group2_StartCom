@@ -191,7 +191,7 @@ class EditBusinessIdea extends Component {
     }
 
     componentDidMount() {
-        const businessID = "4sf15mY35j45BaKy6PLq";
+        const businessID = this.props.match.params.id;
         this.props.getBI(businessID);
 
     }
@@ -261,7 +261,7 @@ class EditBusinessIdea extends Component {
     };
 
     handleUpdateBI = (encodedImage) => {
-        const businessID = "4sf15mY35j45BaKy6PLq";
+        const businessID = this.props.match.params.id;
         const businessIdea = {
             name: this.state.name,
             date: this.state.date,
@@ -281,8 +281,7 @@ class EditBusinessIdea extends Component {
     };
 
     submit = () => {
-        const businessID = "4sf15mY35j45BaKy6PLq";
-
+        const businessID = this.props.match.params.id;
         if (!(this.state.chosenFile === '' || this.state.chosenFile === null || this.state.chosenFile === undefined) &&
             (this.state.image === '' || this.state.image === null || this.state.image === undefined)){
             this.getBase64(this.state.chosenFile, this.handleUpdateBI)
@@ -608,8 +607,7 @@ const mapStateToProps = state => ({
     businessIdea: state.businessIdeasData.businessIdea,
     loading: state.businessIdeasData.loading,
     updating: state.UI.updating,
-    doneUpdateBI: state.UI.doneUpdateBI,
-    uploadImage: state.UI.uploadImage
+    doneUpdateBI: state.UI.doneUpdateBI
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(EditBusinessIdea));

@@ -93,9 +93,9 @@ class App extends Component {
                         let re = p.pushManager.subscribe({
                           userVisibleOnly: true
                         })
-
+                        
                         firebase.messaging().onMessage((payload) => {
-
+                          console.log("Message receive " + payload)
                           registration.showNotification(
                             payload.notification.title,
                                     {
@@ -138,7 +138,7 @@ class App extends Component {
                   <Route exact path={'/skeleton'} render={(props) => <BIDetailSkeleton {...props} />} />
                   <Route exact path={'/profile'} render={(props) => <Profile {...props} />} />
                   <Route exact path={'/edit_profile'} render={(props) => <EditProfile {...props} />} />
-                  <Route exact path={'/edit_bi'} render={(props) => <EditBusinessIdea {...props} />} />
+                  <Route exact path={'/edit_bi/:id'} render={(props) => <EditBusinessIdea {...props} />} />
                   <Route exact path={'/registerBI'} render={(props) => <RegisterBI {...props} />} />
                   <Route exact path={'/admin'} render={(props) => <AdminDashboard {...props} />} />
                   <Route exact path={'/contact'} render={(props) => <Contact {...props} />} />

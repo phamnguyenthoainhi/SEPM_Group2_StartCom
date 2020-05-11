@@ -58,12 +58,12 @@ class RegisterBI extends Component {
             open: false,
             setOpen: false,
             image:'',
-            chosenfile: '',
+            chosenFile: '',
             category: '',
             terms: false,
             loading: false
 
-        }
+        };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this); 
         this.chooseFile = this.chooseFile.bind(this);
@@ -81,8 +81,6 @@ class RegisterBI extends Component {
             this.handleClickOpen();
             
         }
-
-
     }
 
     handleClickOpen = () => {
@@ -94,10 +92,10 @@ class RegisterBI extends Component {
     handleClose = () => {
         this.setState({
             open: false
-        })
+        });
         
         setTimeout(this.props.resetRegisterStatus(), 5000);
-        this.props.history.push('/');
+        this.props.history.push('/profile');
     
     };
 
@@ -105,7 +103,7 @@ class RegisterBI extends Component {
         console.log(event.target.files[0].name);
         this.setState({
             image: event.target.files[0],
-            chosenfile: 'Uploaded file: '+ event.target.files[0].name
+            chosenFile: 'Uploaded file: '+ event.target.files[0].name
         })
         
     }
@@ -128,10 +126,10 @@ class RegisterBI extends Component {
     }
 
     getBase64 = (file, callback) => {
-        var reader = new FileReader();
+        const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function () {
-            var base64result = reader.result.split(',')[1];
+            const base64result = reader.result.split(',')[1];
             callback(base64result)
         };
        
@@ -191,15 +189,8 @@ class RegisterBI extends Component {
                  }
 
             }
-        } else {
-
         }
-        
-                
     }
-
-  
-
     render() {
         const {classes} = this.props;
         return (
@@ -251,7 +242,7 @@ class RegisterBI extends Component {
                                 type='number'
                             />
                             <div className={classes.floatitem}>
-                            <Typography className={classes.chosenfile}>{this.state.chosenfile}</Typography>
+                            <Typography className={classes.chosenfile}>{this.state.chosenFile}</Typography>
                             <br/>
                                 <Button color="default"  className={classes.buttonfile} 
                                 label='My Label'startIcon={<CloudUploadIcon />}  >
@@ -323,12 +314,9 @@ class RegisterBI extends Component {
                                 aria-describedby="alert-dialog-description"
                                 > 
                                 <DialogContent>
-                                   
-                                                <Typography gutterBottom className={classes.text}>
-                                                Congratulations, your business idea has been registered successfully!
-                                                </Typography>
-                                           
-                                    
+                                    <Typography gutterBottom className={classes.text}>
+                                    Congratulations, your business idea has been registered successfully!
+                                    </Typography>
                                 </DialogContent>
     
                             </Dialog>   

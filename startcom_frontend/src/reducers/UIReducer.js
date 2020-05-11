@@ -52,6 +52,7 @@ export default function (state = initialState, action) {
         case DELETE_BI_SUCCESS:
             return {
                 ...state,
+                deleting: false,
                 doneDeleteBI: true
             };
         case RESET_UI_STATE:

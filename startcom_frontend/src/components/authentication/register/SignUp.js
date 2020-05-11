@@ -129,7 +129,6 @@ class SignUp extends Component {
         }
        
     };
-   
 
     render() {
         const {classes} = this.props;
