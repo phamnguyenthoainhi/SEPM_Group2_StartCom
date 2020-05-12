@@ -33,32 +33,11 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true,
-      error: null,
-      isUserAllow: Notification.permission,
-      pushServerSubscriptionId: '',
-      isPushNotificationSupport: ''
+
 
     }
   }
 
-
-
-  // onClickAskUserPermission = () => {
-  //   setLoading(true);
-  //   setError(false);
-  //   serviceWorker.askUserPermission().then((consent) => {
-  //     setSuserConsent(consent);
-  //     if (consent !== 'granted') {
-  //       setError({
-  //         name: 'Consent denied',
-  //         message: 'You denied the consent to receive notifications',
-  //         code: 0
-  //       });
-  //     }
-  //     setLoading(false);
-  //   });
-  // };
 
 
   componentDidMount() {

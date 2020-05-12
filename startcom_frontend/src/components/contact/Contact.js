@@ -48,7 +48,10 @@ class Contact extends Component {
     }
 
     componentDidMount() {
-        this.props.getProfile('i0BP7qPsDCOEFos3BxoxSAz6aZm1', 'sender')
+        if (sessionStorage.getItem("id") !== null && sessionStorage.getItem("id") !== undefined && sessionStorage.getItem("id") !== "") {
+            this.props.getProfile(sessionStorage.getItem("id"), 'sender')
+
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -62,6 +65,7 @@ class Contact extends Component {
             this.setState({
                 profileSender: this.props.profileSender 
             })
+            
         }
         if (this.props.profileLoading !== prevProps.profileLoading) {
             this.setState({
@@ -73,13 +77,18 @@ class Contact extends Component {
                 success: this.props.sendMessageSuccess,
                 profileSender: '',
                 profileReceiver: '',
+                subject: "",
+                text: "",
+                
             })
             
         }
         if (this.props.profileReceiver !== prevProps.profileReceiver) {
             this.setState({
-                profileReceiver: this.props.profileReceiver
+                profileReceiver: this.props.profileReceiver,
+                success: false
             })
+            this.props.getProfile(sessionStorage.getItem("id"), 'sender')
         }
     }
     
