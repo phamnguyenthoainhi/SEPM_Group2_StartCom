@@ -67,7 +67,7 @@ const style = (theme) => ({
         backgroundColor: theme.color.primary2,
         textAlign: 'center',
         alignItems: 'center',
-        padding: 100,
+        padding: "40px 100px",
         [theme.breakpoints.down('sm','xs')]: {
             padding: 50
         },

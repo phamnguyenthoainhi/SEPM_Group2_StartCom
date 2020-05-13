@@ -58,23 +58,21 @@ export default function (state = initialState, action) {
                 ...state,
                 postEmailLoading: true,
                 postEmailFail: ""
-            }
+            };
         case POST_EMAIL_RESET_SUCCESS:
             return {
                 ...state,
                 postEmailLoading: false,
                 postEmailSuccess: true,
                 postEmailFail: ""
-
-            }
+            };
         case POST_EMAIL_RESET_FAIL:
             return {
                 ...state,
                 postEmailLoading: false,
                 postEmailSuccess: false,
                 postEmailFail: "Email is invalid. Please try again"
-            }
-
+            };
         case GET_PROFILE_LOADING:
             return {
                 ...state,
@@ -117,6 +115,8 @@ export default function (state = initialState, action) {
         case UPDATE_USER:
             return {
                 ...state,
+                user: action.payload,
+                loading: false
             };
         case FETCHING_USER:
             return {

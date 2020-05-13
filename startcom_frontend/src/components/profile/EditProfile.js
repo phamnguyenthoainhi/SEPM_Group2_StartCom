@@ -8,8 +8,7 @@ import {deleteBI, updateBI, getBI} from "../../actions/businessideas/BIActions";
 import Navbar from "../Layout/Navbar";
 import Footer from "../Layout/Footer";
 import TextField from '@material-ui/core/TextField';
-import {CATEGORIES} from "../../utils/categories";
-import defaultUser from '../../images/default.png';
+
 import Button from '@material-ui/core/Button';
 import ImageIcon from '@material-ui/icons/Image';
 import EditIcon from '@material-ui/icons/Edit';
@@ -27,9 +26,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Backdrop from '@material-ui/core/Backdrop'
 import Snackbar from '@material-ui/core/Snackbar'
-import BITemplateProfile from "../Layout/BITemplateProfile";
 import Alert from "@material-ui/lab/Alert";
-import {getUser} from "../../actions/users/UserActions";
+import {getUser, editProfile} from "../../actions/users/UserActions";
 
 
 const styles = (theme) => ({
@@ -87,8 +85,8 @@ const styles = (theme) => ({
     avatar: {
         borderRadius: '50%',
         objectFit: 'cover',
-        width: '100%',
-        maxHeight: '100%'
+        width: 200,
+        height: 200
     },
     container: {
         justifyContent: 'center',
@@ -201,20 +199,34 @@ class EditProfile extends Component {
     }
 
     componentDidMount() {
-        const userID = 'rxUdzWLlcdgiwszQwicMrjhPSQR2';
-        this.props.getUser(userID);
-
+        // const userID = this.props.match.params.id;
+        // this.props.getUser(userID);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.user !== prevProps.user) {
+            if (this.props.user.image !== null && this.props.user.image !== undefined && this.props.user.image !== '' ) {
+                this.setState({
+                    image: this.props.user.image
+                })
+            }
+            if (this.props.user.username !== null && this.props.user.username !== undefined && this.props.user.username !== '' ) {
+                this.setState({
+                    username: this.props.user.username
+                })
+            }
+            if (this.props.user.facebook !== null && this.props.user.facebook !== undefined && this.props.user.facebook !== '' ) {
+                this.setState({
+                    facebook: this.props.user.facebook
+                })
+            }
+            if (this.props.user.linkedIn !== null && this.props.user.linkedIn !== undefined && this.props.user.linkedIn !== '' ) {
+                this.setState({
+                    linkedIn: this.props.user.linkedIn
+                })
+            }
             this.setState({
-                image: this.props.user.image,
-                email: this.props.user.email,
-                // username: this.props.user.name,
-                // facebook: this.props.user.facebook,
-                // linkedin: this.props.user.linkedin,
-
+                email: this.props.user.email
             })
         }
     }
@@ -254,69 +266,58 @@ class EditProfile extends Component {
         };
     };
 
-    handleUpdateBI = (encodedImage) => {
-        const userID = 'rxUdzWLlcdgiwszQwicMrjhPSQR2';
+    handleUpdateProfile = (encodedImage) => {
+        const userID = this.props.match.params.id;
         const user = {
-            name: this.state.name,
+            username: this.state.username,
             image: encodedImage,
             email: this.state.email,
             facebook: this.state.facebook,
             linkedIn: this.state.linkedIn
         };
         if (this.validateBeforeSubmit(user)) {
-            this.props.updateBI(user,userID)
+            this.props.editProfile(user,userID);
+            console.log(this.state);
+            this.resetStates()
         }
-        console.log(this.state);
-        this.resetStates()
+
     };
 
     submit = () => {
-        // const userID = 'rxUdzWLlcdgiwszQwicMrjhPSQR2';
-        // if (!(this.state.chosenFile === '' || this.state.chosenFile === null || this.state.chosenFile === undefined) &&
-        // (this.state.image === '' || this.state.image === null || this.state.image === undefined)){
-        //     this.getBase64(this.state.chosenFile, this.handleUpdateBI)
-        // }
-        // if( !(this.state.image === '' || this.state.image === null || this.state.image === undefined)) {
-        //     const user = {
-        //         image: this.state.image,
-        //         name: this.state.name,
-        //         email: this.state.email,
-        //         facebook: this.state.facebook,
-        //         linkedIn: this.state.linkedIn,
-        //     };
-        //     if (this.validateBeforeSubmit(user)) {
-        //         this.props.updateBI(user,userID);
-        //         console.log(this.state);
-        //     }
-        //
-        //     this.resetStates()
-        // }
-        //
-        // else {
-        //     const user = {
-        //         image: '',
-        //         name: this.state.name,
-        //         email: this.state.email,
-        //         facebook: this.state.facebook,
-        //         linkedIn: this.state.linkedIn,
-        //     };
-        //
-        //     if (this.validateBeforeSubmit(user)) {
-        //         this.props.updateBI(user,userID);
-        //         console.log(this.state);
-        //     }
-        //
-        //     this.resetStates()
-        // }
-        const user = {
-            username: this.state.username,
-            email: this.state.email,
-            facebook: this.state.facebook,
-            linkedIn: this.state.linkedIn,
-        };
-        console.log(this.state);
-        if(this.validateBeforeSubmit(user)) {
-            console.log("Success")
+        const userID = this.props.match.params.id;
+        if (!(this.state.chosenFile === '' || this.state.chosenFile === null || this.state.chosenFile === undefined) &&
+        (this.state.image === '' || this.state.image === null || this.state.image === undefined)){
+            this.getBase64(this.state.chosenFile, this.handleUpdateProfile)
+        }
+        if( !(this.state.image === '' || this.state.image === null || this.state.image === undefined)) {
+            const user = {
+                image: this.state.image,
+                username: this.state.username,
+                email: this.state.email,
+                facebook: this.state.facebook,
+                linkedIn: this.state.linkedIn,
+            };
+            if (this.validateBeforeSubmit(user)) {
+                this.props.editProfile(user,userID);
+                console.log(this.state);
+                this.resetStates()
+            }
+        }
+
+        else {
+            const user = {
+                image: '',
+                username: this.state.username,
+                email: this.state.email,
+                facebook: this.state.facebook,
+                linkedIn: this.state.linkedIn,
+            };
+
+            if (this.validateBeforeSubmit(user)) {
+                this.props.editProfile(user,userID);
+                console.log(this.state);
+                this.resetStates()
+            }
         }
 
     };
@@ -354,21 +355,9 @@ class EditProfile extends Component {
     };
 
 
-
-    // closeDeleteDialog = () => {
-    //     this.setState({
-    //         openDeleteDialog: false
-    //     })
-    // };
-    //
-    // delete = (id) => {
-    //     this.props.deleteBI(id);
-    //     console.log("Delete successfully")
-    // };
-
     render() {
         // console.log(this.props.businessIdea);
-        const { classes, loading, doneUpdateProfile, updating } = this.props;
+        const { classes, doneUpdateProfile, updating, userLoading } = this.props;
         const { errors, uploadImageComplete } = this.state;
         return (
             <Grid container>
@@ -380,7 +369,7 @@ class EditProfile extends Component {
                             <Typography variant='h5' className={classes.text}>Edit Your Profile</Typography>
                         </Grid>
 
-                        {loading ? (
+                        {userLoading ? (
                             <Grid container className={classes.progressContainer}>
                                 <CircularProgress variant="indeterminate" size={40} style={{color: '#3C5155'}}/>
                             </Grid>
@@ -395,9 +384,11 @@ class EditProfile extends Component {
 
                                     <Grid item md={8} sm={8}>
                                         {this.state.image ? (
-                                            <Grid container justify='center'>
+                                            <Grid container>
                                                 <img src={this.state.image} alt="Profile" className={classes.avatar}/>
-                                                <Grid container className={classes.container}>
+                                                <Grid container
+                                                      // className={classes.container}
+                                                >
                                                     <Button
                                                         startIcon={<DeleteIcon />}
                                                         className={classes.removeImgBtn}
@@ -567,16 +558,16 @@ class EditProfile extends Component {
 
 
 const mapDispatchToProps = dispatch => ({
-    updateBI: (businessIdea,id) => dispatch(updateBI(businessIdea,id)),
+    editProfile: (user,id) => dispatch(editProfile(user,id)),
     getUser: (id) => dispatch(getUser(id))
 
 });
 
 const mapStateToProps = state => ({
-    loading: state.businessIdeasData.loading,
-    user: state.userData.user,
+    user: state.usersReducer.user,
     updating: state.UI.updating,
     doneUpdateProfile: state.UI.doneUpdateProfile,
+    userLoading: state.usersReducer.userLoading
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(EditProfile));

@@ -57,7 +57,14 @@ const styles = (theme) => ({
         textDecoration: 'none',
         [theme.breakpoints.down('sm')]: {
             textAlign: 'center'
-        }
+        },
+        "&:focus": {
+            textDecoration: 'none',
+        },
+        "&:hover": {
+            textDecoration: 'none',
+            color: theme.color.primary1,
+        },
     },
     navBtn: {
         outline: "none",
@@ -115,7 +122,7 @@ class Footer extends Component {
                         A business community provides services for young entrepreneurs
                     </Typography>
                     <Grid item sm={12} md={12} className={classes.copyright}>
-                        © 2020 StartCom. All rights reserved.|
+                        © 2020 StartCom. All rights reserved. |
                         <a href="/#" className={classes.copyright}> Privacy Policy </a>
                         |
                         <a href="/#" className={classes.copyright}> Terms of Service </a>

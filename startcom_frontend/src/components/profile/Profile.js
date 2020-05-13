@@ -41,9 +41,10 @@ const styles = (theme) => ({
         },
     },
     avatar: {
+        objectFit: 'cover',
         borderRadius: '50%',
-        height: "100px",
-        width: "100px",
+        height: 100,
+        width: 100,
     },
     username: {
         fontFamily: theme.font2,
@@ -129,7 +130,7 @@ class Profile extends Component {
 
             email: '',
             username: '',
-            avatar: '',
+            image: '',
             facebook: '',
             linkedIn: ''
         }
@@ -143,13 +144,17 @@ class Profile extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.businessIdea !== prevProps.businessIdea) {
-            if (this.props.user.avatar !== '' && this.props.user.avatar !== undefined && this.props.user.avatar !== null) {
+            if (this.props.user.image !== '' && this.props.user.image !== undefined && this.props.user.image !== null) {
                 this.setState({
-                    avatar: this.props.user.avatar
+                    image: this.props.user.image
                 })
             }
         }
     }
+
+    openUpdateForm = (id) => {
+        window.open(`/edit_profile/${id}`, '_self');
+    };
 
     render() {
         console.log(this.props.businessIdea);
@@ -169,7 +174,7 @@ class Profile extends Component {
                                     <CardContent style={{padding: "40px 50px"}}>
                                         <Grid container className={classes.avatarContainer} direction='column'>
                                             <img
-                                                src={user.avatar ? user.avatar : defaultUser}
+                                                src={user.image ? user.image : defaultUser}
                                                 className={classes.avatar}
                                                 alt="User's Avatar"
                                             />
@@ -179,7 +184,7 @@ class Profile extends Component {
                                                 {user.username ? user.username : user.email}
                                             </Typography>
                                             <Grid container justify='center'>
-                                                <Button className={classes.button}>Edit Profile</Button>
+                                                <Button className={classes.button} onClick={() => this.openUpdateForm(user.id)}>Edit Profile</Button>
                                             </Grid>
 
                                         </Grid>

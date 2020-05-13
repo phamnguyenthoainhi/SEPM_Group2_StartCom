@@ -5,11 +5,10 @@ import {
     GET_PROFILE_LOADING,
     GET_PROFILE_SENDER,
     GET_USER,
-    FETCHING_USER
+    FETCHING_USER, UPDATE_BI, UPDATE_BI_SUCCESS, RESET_UI_STATE, UPDATE_USER, UPDATE_USER_SUCCESS, UPDATING_DATA
 } from '../actionTypes';
 
 export const sendMessage = (message) => dispatch => {
-    
     dispatch({
         type: SEND_MESSAGE_LOADING
     });
@@ -33,22 +32,31 @@ export const sendMessage = (message) => dispatch => {
     })  
     
 };
-export const editProfile = (user) => dispatch => {
-
-    fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/edit_profile/${user.id}`, {
+export const editProfile = (userData, userID) => dispatch => {
+    const token = sessionStorage.getItem("token");
+    dispatch({ type: UPDATING_DATA});
+    fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/edit_profile/${userID}`, {
         method: 'PUT',
         headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json',
-            'Authorization': 'Bearer '+ user.loginToken
+            'Authorization': 'Bearer '+ token
         },
-        body: JSON.stringify(user)
-    }).
-    then((res) => {
-        if(res.status === 200) {
-            console.log("Edit success")
-        }
+        body: JSON.stringify(userData)
     })
+        .then (res =>
+            res.json().then(function (data) {
+                dispatch({
+                    type: UPDATE_USER,
+                    payload: data
+                });
+                dispatch({type: UPDATE_USER_SUCCESS});
+                setTimeout(() => {
+                    dispatch({type: RESET_UI_STATE});
+                }, 2000);
+            })
+        )
+        .catch(err => console.log(err))
 };
 
 export const getProfile = (id, type) => dispatch => {

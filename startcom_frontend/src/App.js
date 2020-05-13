@@ -137,7 +137,7 @@ class App extends Component {
                   <Route exact path={'/detail/:id'} render={(props) => <BIDetail {...props} />}  />
                   <Route exact path={'/skeleton'} render={(props) => <BIDetailSkeleton {...props} />} />
                   <Route exact path={'/profile'} render={(props) => <Profile {...props} />} />
-                  <Route exact path={'/edit_profile'} render={(props) => <EditProfile {...props} />} />
+                  <Route exact path={'/edit_profile/:id'} render={(props) => <EditProfile {...props} />} />
                   <Route exact path={'/edit_bi/:id'} render={(props) => <EditBusinessIdea {...props} />} />
                   <Route exact path={'/registerBI'} render={(props) => <RegisterBI {...props} />} />
                   <Route exact path={'/admin'} render={(props) => <AdminDashboard {...props} />} />
