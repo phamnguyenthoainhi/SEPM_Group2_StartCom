@@ -11,7 +11,7 @@ import Card from "@material-ui/core/Card/Card";
 
 const styles = (theme) => ({
     container: {
-        padding: 80,
+
         [theme.breakpoints.down('sm')]: {
             padding: 40
         }
@@ -68,7 +68,7 @@ class BISkeleton extends Component {
         return (
             <Grid container className={classes.container}>
                 {Array.from({length: 4}).map((item, index) => (
-                    <Grid item md={4} lg={3} sm={4} xs={6} key={index} style={{padding: 20}}>
+                    <Grid item md={4} lg={4} sm={4} xs={6} key={index} style={{padding: 20}}>
                         <Card className={classes.cardWrapper}>
                             <Skeleton variant="rect" className={classes.imageSke}/>
                             <CardContent className={classes.cardContent}>

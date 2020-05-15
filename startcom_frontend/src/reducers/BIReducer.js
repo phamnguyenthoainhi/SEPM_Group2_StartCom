@@ -7,7 +7,7 @@ import {
     UPDATE_BI,
     DELETE_BI,
     LOADING_DATA,
-    REGISTER_BI_LOADING
+    REGISTER_BI_LOADING, FILTER_BI, RESET_FILTER, CLEAR_FILTER, SEARCH_BI
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -15,7 +15,21 @@ const initialState = {
     businessIdea: {},
     businessIdeas: [],
     isRegisteredSuccess: false,
-    isRegisteredLoading: false
+    isRegisteredLoading: false,
+    filteredIdeas: [],
+    name: '',
+    filtered: false,
+};
+
+const defaultState = {
+    loading: false,
+    businessIdea: {},
+    businessIdeas: [],
+    isRegisteredSuccess: false,
+    isRegisteredLoading: false,
+    filteredIdeas: [],
+    name: '',
+    filtered: false,
 };
 
 
@@ -75,6 +89,30 @@ export default function (state = initialState, action) {
         case DELETE_BI:
             return {
                 ...state,
+                loading: false
+            };
+        case FILTER_BI:
+            return {
+                ...state,
+                filteredIdeas: action.payload,
+                filtered: true
+            };
+        case RESET_FILTER:
+            return{
+                ...state,
+                filteredIdeas:[],
+                filtered: false
+            };
+        case CLEAR_FILTER:
+            return{
+                ...state,
+                filteredIdeas: []
+            };
+        case SEARCH_BI:
+            return {
+                ...state,
+                businessIdea: action.payload,
+                name: action.payload.name,
                 loading: false
             };
 

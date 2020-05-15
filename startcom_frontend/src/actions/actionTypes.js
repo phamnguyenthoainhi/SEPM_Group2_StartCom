@@ -16,6 +16,15 @@ export const DELETING_DATA = 'DELETING_DATA';
 export const DELETE_BI = 'DELETE_BI';
 export const DELETE_BI_SUCCESS = 'DELETE_BI_SUCCESS';
 
+//filter business idea
+export const FETCH_BI = 'FETCH_BI';
+export const FILTER_BI = 'FILTER_BI';
+export const CLEAR_FILTER='CLEAR_FILTER';
+export const RESET_FILTER = 'RESET_FILTER';
+
+//search business idea
+export const SEARCH_BI = 'SEARCH_BI';
+
 //Profile CRUD Types
 export const FETCHING_USER = 'FETCHING_USER';
 export const GET_USER = 'GET_USER';

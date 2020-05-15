@@ -1,19 +1,21 @@
 import {
+    CLEAR_FILTER,
+    CLOSE_AUTHENTICATION_SNACKBAR,
+    DELETE_BI,
+    DELETE_BI_SUCCESS,
+    DELETING_DATA,
+    FILTER_BI,
     GET_ALL_BIS,
     GET_BI,
-    IS_REGISTERED_SUCCESS,
-    RESET_REGISTER,
-    UPDATE_BI,
-    DELETE_BI,
-    UPDATE_BI_SUCCESS,
-    RESET_UI_STATE,
-    LOADING_DATA,
-    STOP_LOADING_DATA,
-    UPDATING_DATA,
     GET_BI_BY_OWNER,
-    DELETING_DATA,
-    DELETE_BI_SUCCESS, OPEN_AUTHENTICATION_SNACKBAR, CLOSE_AUTHENTICATION_SNACKBAR, UPDATE_USER, UPDATE_USER_SUCCESS
-
+    IS_REGISTERED_SUCCESS,
+    LOADING_DATA,
+    OPEN_AUTHENTICATION_SNACKBAR, RESET_FILTER,
+    RESET_REGISTER,
+    RESET_UI_STATE,
+    UPDATE_BI,
+    UPDATE_BI_SUCCESS,
+    UPDATING_DATA
 } from '../actionTypes';
 
 
@@ -148,6 +150,87 @@ export const deleteBI = (id) => dispatch => {
                 }, 2000);
             })
         )
+};
+
+export const searchBI = (keyword,businessIdeas) => dispatch => {
+    dispatch({
+        type:CLEAR_FILTER
+    });
+    const searchResults = businessIdeas.filter((idea => idea.name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1));
+
+    dispatch({
+        type:FILTER_BI,
+        payload: searchResults
+    })
+};
+
+export const resetFilter = () => dispatch=>{
+    dispatch({ type:RESET_FILTER })
+};
+
+export const filterBI = (categories, consultant, investor,sort, businessIdeas) => dispatch => {
+    dispatch({ type:CLEAR_FILTER });
+    let filteredIdeas = businessIdeas;
+    if(categories.length > 0){
+        filteredIdeas = filteredIdeas.filter(idea => categories.includes(idea.category))
+    }
+    if(consultant.length===1){
+        console.log(consultant[0]);
+        let filteredByConsultant = [];
+        switch (consultant[0]){
+            case 'needed':
+                filteredByConsultant = filteredIdeas.filter(idea => idea.needConsultant === true);
+                filteredIdeas = filteredByConsultant;
+                console.log(filteredIdeas);
+                break;
+            case 'not needed':
+                filteredByConsultant = filteredIdeas.filter(idea => idea.needConsultant === false);
+                filteredIdeas = filteredByConsultant;
+                console.log(filteredIdeas);
+                break;
+            default:
+                break
+
+        }
+    }
+    if (investor.length === 1){
+        console.log(investor[0]);
+        let filteredByInvestor = [];
+        switch(investor[0]){
+            case 'needed':
+                filteredByInvestor = filteredIdeas.filter(idea => idea.needInvestor === true);
+                filteredIdeas = filteredByInvestor;
+                console.log(filteredIdeas);
+                break;
+            case 'not needed':
+                filteredByInvestor = filteredIdeas.filter(idea => idea.needInvestor === false);
+                filteredIdeas = filteredByInvestor;
+                console.log(filteredIdeas);
+                break;
+            default:
+                break
+        }
+    }
+
+    switch (sort){
+        case 'nameAscending':
+            filteredIdeas.sort((a,b)=> (a.name.toLowerCase()).localeCompare((b.name.toLowerCase())));
+            break;
+        case 'nameDescending':
+            filteredIdeas.sort((a,b)=>(b.name.toLowerCase()).localeCompare((a.name.toLowerCase())));
+            break;
+        case 'ascending':
+            filteredIdeas.sort((a,b)=>a.targetFunding-b.targetFunding);
+            break;
+        case 'descending':
+            filteredIdeas.sort((a,b)=>b.targetFunding-a.targetFunding);
+            break
+    }
+
+    dispatch({
+        type: FILTER_BI,
+        payload: filteredIdeas
+    })
 };
 
 

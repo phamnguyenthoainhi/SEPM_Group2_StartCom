@@ -11,19 +11,11 @@ import TextField from '@material-ui/core/TextField';
 
 import Button from '@material-ui/core/Button';
 import ImageIcon from '@material-ui/icons/Image';
-import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CheckIcon from '@material-ui/icons/Check';
 
 import Typography from "@material-ui/core/Typography";
-import InputAdornment from "@material-ui/core/InputAdornment";
-
 import CircularProgress from "@material-ui/core/CircularProgress";
-import defaultLogo from "../../images/company_logo.png";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Backdrop from '@material-ui/core/Backdrop'
 import Snackbar from '@material-ui/core/Snackbar'
 import Alert from "@material-ui/lab/Alert";
