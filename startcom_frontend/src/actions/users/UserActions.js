@@ -5,7 +5,14 @@ import {
     GET_PROFILE_LOADING,
     GET_PROFILE_SENDER,
     GET_USER,
-    FETCHING_USER, UPDATE_BI, UPDATE_BI_SUCCESS, RESET_UI_STATE, UPDATE_USER, UPDATE_USER_SUCCESS, UPDATING_DATA
+    FETCHING_USER,
+    UPDATE_BI,
+    UPDATE_BI_SUCCESS,
+    RESET_UI_STATE,
+    UPDATE_USER,
+    UPDATE_USER_SUCCESS,
+    UPDATING_DATA,
+    OPEN_AUTHENTICATION_SNACKBAR, CLOSE_AUTHENTICATION_SNACKBAR
 } from '../actionTypes';
 
 export const sendMessage = (message) => dispatch => {
@@ -22,7 +29,6 @@ export const sendMessage = (message) => dispatch => {
             body: JSON.stringify(message)
     })
     .then ((res) => {
-        
         if (res.status === 200) {
                 dispatch({
                     type: SEND_MESSAGE_SUCCESS,
@@ -32,7 +38,7 @@ export const sendMessage = (message) => dispatch => {
     })  
     
 };
-export const editProfile = (userData, userID) => dispatch => {
+export const editProfile = (userData, userID, history) => dispatch => {
     const token = sessionStorage.getItem("token");
     dispatch({ type: UPDATING_DATA});
     fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/edit_profile/${userID}`, {
@@ -44,18 +50,28 @@ export const editProfile = (userData, userID) => dispatch => {
         },
         body: JSON.stringify(userData)
     })
-        .then (res =>
-            res.json().then(function (data) {
-                dispatch({
-                    type: UPDATE_USER,
-                    payload: data
-                });
-                dispatch({type: UPDATE_USER_SUCCESS});
+
+        .then ((res) => {
+            if (res.status === 403) {
+                dispatch({ type: OPEN_AUTHENTICATION_SNACKBAR });
+                history.push("/auth");
                 setTimeout(() => {
-                    dispatch({type: RESET_UI_STATE});
+                    dispatch({ type: CLOSE_AUTHENTICATION_SNACKBAR})
                 }, 2000);
-            })
-        )
+            }
+            else {
+                res.json().then(function (data) {
+                    dispatch({
+                        type: UPDATE_USER,
+                        payload: data
+                    });
+                    dispatch({type: UPDATE_USER_SUCCESS});
+                    setTimeout(() => {
+                        dispatch({type: RESET_UI_STATE});
+                    }, 2000);
+                })
+            }
+        })
         .catch(err => console.log(err))
 };
 

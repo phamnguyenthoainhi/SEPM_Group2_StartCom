@@ -6,9 +6,7 @@ import style from './LoginStyle'
 //Material UI
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
 import {login, postEmailResetPassword} from '../../../actions/anonymoususers/AnonymoususersActions'
 
 const ColorCircularProgress = withStyles({
@@ -129,13 +127,12 @@ class Login extends Component {
             "email" : this.state.postEmail
         };
         this.props.postEmailResetPassword(email)
-
-    }
+    };
 
 
     render() {
         const {classes} = this.props;
-        console.log(this.state.postEmailLoading)
+        console.log(this.state.postEmailLoading);
         return (
             <div className="form-container sign-in-container">
                 <form className={classes.form}  >
@@ -176,13 +173,11 @@ class Login extends Component {
                               className={classes.registerBtn}
                              
                     > Login</Button>)
-                    :  ''
-                    
-                   
+                    :  '' )}
 
-                    )}
                     </div>
                     <div id='hidden' style={{display:'none', width: "100%"}}>
+
                     <div style={{textAlign: "left"}}>
                     <Button onClick= {() => this.back()} className={classes.passwordbtn} style={{textTransform: 'none', marginBottom: "40px"}}>Back to Login</Button>
                     </div>

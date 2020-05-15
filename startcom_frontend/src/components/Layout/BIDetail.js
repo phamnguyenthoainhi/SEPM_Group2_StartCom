@@ -19,6 +19,7 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 // import BITemplate from "./BITemplate";
 import BIDetailSkeleton from "../skeleton/BIDetailSkeleton";
 
+const NumberFormat = require('react-number-format');
 
 
 const styles = (theme) => ({
@@ -283,6 +284,8 @@ class BIDetail extends Component {
                             <Typography variant="h3" className={classes.currency}>
                                 ${businessIdea.targetFunding}
                             </Typography>
+                            {/*<NumberFormat thousandSeparator={true}  displayType={'string'} prefix={'$'} value={businessIdea.targetFunding}/>*/}
+
 
 
                         </Grid>
@@ -323,11 +326,6 @@ class BIDetail extends Component {
                             )}
 
                         </Grid>
-                        {/*<Grid container className={classes.buttonGroup}>*/}
-                        {/*    <Button className={classes.donateBtn}>Back it</Button>*/}
-                        {/*    <Button className={classes.updateBtn} onClick={this.toggleUpdateForm}>Update</Button>*/}
-                        {/*    <Button className={classes.deleteBtn} onClick={this.openDeleteDialog}>Delete</Button>*/}
-                        {/*</Grid>*/}
                     </Grid>
                 </Grid>
             </Grid>

@@ -190,6 +190,7 @@ class Navbar extends Component {
 
     logout = () => {
         sessionStorage.removeItem("id");
+        sessionStorage.removeItem("token");
         window.location.reload();
     };
 
@@ -219,7 +220,7 @@ class Navbar extends Component {
                                     <Button className={classes.navBtn} component={Link} to="/startups">Startups</Button>
                                     <Button className={classes.navBtn} component={Link} to="/consultants">Consultants</Button>
                                     <Button className={classes.navBtn} component={Link} to="/investors">Investors</Button>
-                                    {sessionStorage.getItem("id") === adminId ?  <Button className={classes.navBtn} component={Link} to="/admin">Verify Board</Button> : null}
+                                    {userID === adminId ?  <Button className={classes.navBtn} component={Link} to="/admin">Verify Board</Button> : null}
                                 </Hidden>
                             </Grid>
                         </Grid>
@@ -227,7 +228,7 @@ class Navbar extends Component {
                         <Grid item md={3}>
 
                                 <Hidden only={['sm', 'xs']}>
-                                    {(sessionStorage.getItem("id") !== null && sessionStorage.getItem("id") !== undefined && sessionStorage.getItem("id") !== '') ?
+                                    {(userID !== null && userID !== undefined && userID !== '') ?
 
                                         (
                                             <Grid container className={classes.avatarBtnContainer}>

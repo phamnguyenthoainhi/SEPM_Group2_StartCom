@@ -5,8 +5,10 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import SignUp from "./register/SignUp";
 import SignIn from "./login/Login";
 import './authentication.css';
+import Snackbar from "@material-ui/core/Snackbar";
+import Alert from "@material-ui/lab/Alert/Alert";
 
-const styles = {
+const styles = (theme) => ({
     textField: {
         border: "none",
     },
@@ -29,23 +31,21 @@ const styles = {
             border: "1px solid black"
         }
     },
+    input: {
+        fontFamily: theme.font2,
+        fontWeight: 400,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 14
+        },
+    },
 
-};
+});
 
 
 class Authentication extends Component {
     constructor(props) {
         super(props);
         this.state = {}
-    }
-
-    componentDidMount() {
-        // const auth = sessionStorage.getItem("FBIdToken");
-        // if (auth) {
-        //     window.location.href = "/home";
-        // } else {
-        //     this.handleAnimation()
-        // }
     }
 
     handleAnimation() {
@@ -65,6 +65,7 @@ class Authentication extends Component {
 
 
     render() {
+        const { classes, openAuthenticationSnackbar} = this.props;
         return (
             <div className="body">
                 <div className="container" id="container">
@@ -91,19 +92,19 @@ class Authentication extends Component {
                         </div>
                     </div>
                 </div>
+
+                <Snackbar open={openAuthenticationSnackbar} autoHideDuration={5000}>
+                    <Alert severity="warning" className={classes.input}>
+                        Validation key expired. Please login again !
+                    </Alert>
+                </Snackbar>
             </div>
         );
     }
 }
 
-Authentication.propTypes = {
-    // UI: PropTypes.object.isRequired,
-    // classes: PropTypes.object.isRequired,
-    // signUp: PropTypes.func
-};
-
 const mapStateToProps = state => ({
-
+    openAuthenticationSnackbar: state.UI.openAuthenticationSnackbar
 });
 
 const mapDispatchToProps = {

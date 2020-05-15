@@ -74,8 +74,8 @@ class BISkeleton extends Component {
                             <CardContent className={classes.cardContent}>
                                 <Skeleton variant="rect" className={classes.investorSke}/>
                                 <Skeleton variant="rect" className={classes.bodySke}/>
-                                <Skeleton variant="react" className={classes.categorySke}/>
-                                <Skeleton variant="react" className={classes.fundingSke}/>
+                                <Skeleton variant="rect" className={classes.categorySke}/>
+                                <Skeleton variant="rect" className={classes.fundingSke}/>
                             </CardContent>
                         </Card>
                     </Grid>

@@ -94,12 +94,6 @@ const styles = (theme) => ({
     },
 
     textField: {
-        // "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-        //     borderColor: theme.color.primary1
-        // },
-        // "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-        //     borderColor: theme.color.primary2
-        // },
         "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
             borderColor: theme.color.primary1
         }
@@ -170,17 +164,6 @@ const styles = (theme) => ({
 
 });
 
-
-const CustomCheckbox = withStyles({
-    root: {
-        color: '#718F94',
-        '&$checked': {
-            color: '#E3CFB5',
-        },
-    },
-    checked: {},
-})((props) => <Checkbox color="default" {...props} />);
-
 class EditProfile extends Component {
     constructor(props) {
         super(props);
@@ -190,6 +173,7 @@ class EditProfile extends Component {
             facebook: '',
             linkedIn: '',
             email: '',
+            biography: '',
 
             uploadImageComplete: false,
             chosenFile: '',
@@ -199,8 +183,7 @@ class EditProfile extends Component {
     }
 
     componentDidMount() {
-        // const userID = this.props.match.params.id;
-        // this.props.getUser(userID);
+
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -213,6 +196,11 @@ class EditProfile extends Component {
             if (this.props.user.username !== null && this.props.user.username !== undefined && this.props.user.username !== '' ) {
                 this.setState({
                     username: this.props.user.username
+                })
+            }
+            if (this.props.user.biography !== null && this.props.user.biography !== undefined && this.props.user.biography !== '' ) {
+                this.setState({
+                    biography: this.props.user.biography
                 })
             }
             if (this.props.user.facebook !== null && this.props.user.facebook !== undefined && this.props.user.facebook !== '' ) {
@@ -267,16 +255,18 @@ class EditProfile extends Component {
     };
 
     handleUpdateProfile = (encodedImage) => {
+        const {history} = this.props;
         const userID = this.props.match.params.id;
         const user = {
             username: this.state.username,
             image: encodedImage,
             email: this.state.email,
             facebook: this.state.facebook,
-            linkedIn: this.state.linkedIn
+            linkedIn: this.state.linkedIn,
+            biography: this.state.biography
         };
         if (this.validateBeforeSubmit(user)) {
-            this.props.editProfile(user,userID);
+            this.props.editProfile(user,userID, history);
             console.log(this.state);
             this.resetStates()
         }
@@ -284,6 +274,7 @@ class EditProfile extends Component {
     };
 
     submit = () => {
+        const {history} = this.props;
         const userID = this.props.match.params.id;
         if (!(this.state.chosenFile === '' || this.state.chosenFile === null || this.state.chosenFile === undefined) &&
         (this.state.image === '' || this.state.image === null || this.state.image === undefined)){
@@ -296,9 +287,10 @@ class EditProfile extends Component {
                 email: this.state.email,
                 facebook: this.state.facebook,
                 linkedIn: this.state.linkedIn,
+                biography: this.state.biography
             };
             if (this.validateBeforeSubmit(user)) {
-                this.props.editProfile(user,userID);
+                this.props.editProfile(user,userID, history);
                 console.log(this.state);
                 this.resetStates()
             }
@@ -311,10 +303,11 @@ class EditProfile extends Component {
                 email: this.state.email,
                 facebook: this.state.facebook,
                 linkedIn: this.state.linkedIn,
+                biography: this.state.biography
             };
 
             if (this.validateBeforeSubmit(user)) {
-                this.props.editProfile(user,userID);
+                this.props.editProfile(user,userID, history);
                 console.log(this.state);
                 this.resetStates()
             }
@@ -382,12 +375,12 @@ class EditProfile extends Component {
                                         </Typography>
                                     </Grid>
 
-                                    <Grid item md={8} sm={8}>
+                                    <Grid item md={6} sm={6} lg={6}>
                                         {this.state.image ? (
-                                            <Grid container>
+                                            <Grid container className={classes.container}>
                                                 <img src={this.state.image} alt="Profile" className={classes.avatar}/>
                                                 <Grid container
-                                                      // className={classes.container}
+                                                      className={classes.container}
                                                 >
                                                     <Button
                                                         startIcon={<DeleteIcon />}
@@ -441,6 +434,34 @@ class EditProfile extends Component {
                                             fullWidth
                                             helperText={errors.username}
                                             error={!!errors.username}
+                                            InputLabelProps={{className: classes.input}}
+                                            InputProps={{className: classes.input}}
+                                        >
+                                        </TextField>
+                                    </Grid>
+                                </Grid>
+
+                                <Grid container className={classes.ideaContainer} direction='row'>
+                                    <Grid item md={4} sm={4} xs={4} lg={4}>
+                                        <Typography className={classes.header} >
+                                            Biography
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item md={6} sm={6} xs={6}>
+                                        <TextField
+                                            onChange={this.onChange}
+                                            helperText="A brief summary about yourself"
+                                            size="small"
+                                            className={classes.textField}
+                                            name='biography'
+                                            required
+                                            type="text"
+                                            value={this.state.biography}
+                                            variant='outlined'
+                                            fullWidth
+                                            multiline
+                                            rows={4}
                                             InputLabelProps={{className: classes.input}}
                                             InputProps={{className: classes.input}}
                                         >
@@ -558,7 +579,7 @@ class EditProfile extends Component {
 
 
 const mapDispatchToProps = dispatch => ({
-    editProfile: (user,id) => dispatch(editProfile(user,id)),
+    editProfile: (user,id, history) => dispatch(editProfile(user,id, history)),
     getUser: (id) => dispatch(getUser(id))
 
 });

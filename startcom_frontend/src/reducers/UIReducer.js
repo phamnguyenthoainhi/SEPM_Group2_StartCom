@@ -3,7 +3,7 @@ import {
     UPDATE_BI_SUCCESS,
     DELETING_DATA,
     DELETE_BI_SUCCESS,
-    RESET_UI_STATE, UPDATE_USER_SUCCESS,
+    RESET_UI_STATE, UPDATE_USER_SUCCESS, OPEN_AUTHENTICATION_SNACKBAR, CLOSE_AUTHENTICATION_SNACKBAR,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -12,6 +12,7 @@ const initialState = {
     doneUpdateBI: false,
     doneDeleteBI: false,
     doneUpdateProfile: false,
+    openAuthenticationSnackbar: false,
 };
 
 const defaultState = {
@@ -54,6 +55,16 @@ export default function (state = initialState, action) {
                 ...state,
                 deleting: false,
                 doneDeleteBI: true
+            };
+        case OPEN_AUTHENTICATION_SNACKBAR:
+            return {
+                ...state,
+                openAuthenticationSnackbar: true
+            };
+        case CLOSE_AUTHENTICATION_SNACKBAR:
+            return {
+                ...state,
+                openAuthenticationSnackbar: false
             };
         case RESET_UI_STATE:
             return state = defaultState;

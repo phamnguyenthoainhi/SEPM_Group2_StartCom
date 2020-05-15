@@ -12,7 +12,7 @@ import {
     UPDATING_DATA,
     GET_BI_BY_OWNER,
     DELETING_DATA,
-    DELETE_BI_SUCCESS
+    DELETE_BI_SUCCESS, OPEN_AUTHENTICATION_SNACKBAR, CLOSE_AUTHENTICATION_SNACKBAR, UPDATE_USER, UPDATE_USER_SUCCESS
 
 } from '../actionTypes';
 
@@ -91,7 +91,7 @@ export const registerBI = (BIData) => dispatch => {
     })
 };
 
-export const updateBI = (BIData, id) => dispatch => {
+export const updateBI = (BIData, id, history) => dispatch => {
     dispatch({ type: UPDATING_DATA});
     fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/edit_business_idea/${id}`, {
         method: 'PUT',
@@ -101,21 +101,27 @@ export const updateBI = (BIData, id) => dispatch => {
         },
         body: JSON.stringify(BIData)
     })
-        .then (res =>
-            res.json().then(function (data) {
-                dispatch({
-                    type: UPDATE_BI,
-                    payload: data
-                });
-                dispatch({type: UPDATE_BI_SUCCESS});
+        .then( res => {
+            if (res.status === 403) {
+                dispatch({ type: OPEN_AUTHENTICATION_SNACKBAR });
+                history.push("/auth");
                 setTimeout(() => {
-                    dispatch({type: RESET_UI_STATE});
+                    dispatch({ type: CLOSE_AUTHENTICATION_SNACKBAR})
                 }, 2000);
-            })
-        )
-
-
-
+            }
+            else {
+                res.json().then(function (data) {
+                    dispatch({
+                        type: UPDATE_BI,
+                        payload: data
+                    });
+                    dispatch({type: UPDATE_BI_SUCCESS});
+                    setTimeout(() => {
+                        dispatch({type: RESET_UI_STATE});
+                    }, 2000);
+                })
+            }
+        })
 };
 
 export const deleteBI = (id) => dispatch => {

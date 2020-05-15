@@ -261,6 +261,7 @@ class EditBusinessIdea extends Component {
     };
 
     handleUpdateBI = (encodedImage) => {
+        const {history} = this.props;
         const businessID = this.props.match.params.id;
         const businessIdea = {
             name: this.state.name,
@@ -273,7 +274,7 @@ class EditBusinessIdea extends Component {
             category: this.state.category
         };
         if (this.validateBeforeSubmit(businessIdea)) {
-            this.props.updateBI(businessIdea,businessID);
+            this.props.updateBI(businessIdea,businessID, history);
             console.log(this.state);
             this.resetStates()
         }
@@ -281,6 +282,7 @@ class EditBusinessIdea extends Component {
     };
 
     submit = () => {
+        const {history} = this.props;
         const businessID = this.props.match.params.id;
         if (!(this.state.chosenFile === '' || this.state.chosenFile === null || this.state.chosenFile === undefined) &&
             (this.state.image === '' || this.state.image === null || this.state.image === undefined)){
@@ -298,7 +300,7 @@ class EditBusinessIdea extends Component {
                 category: this.state.category
             };
             if (this.validateBeforeSubmit(businessIdea)) {
-                this.props.updateBI(businessIdea,businessID);
+                this.props.updateBI(businessIdea,businessID, history);
                 console.log(this.state);
                 this.resetStates()
             }
@@ -318,7 +320,7 @@ class EditBusinessIdea extends Component {
             };
 
             if (this.validateBeforeSubmit(businessIdea)) {
-                this.props.updateBI(businessIdea,businessID);
+                this.props.updateBI(businessIdea,businessID, history);
                 console.log(this.state);
                 this.resetStates()
             }
@@ -426,7 +428,7 @@ class EditBusinessIdea extends Component {
                                             multiline
                                             helperText={errors.name}
                                             error={!!errors.name}
-                                            rowsMax={2}
+                                            rows={2}
                                             InputLabelProps={{className: classes.input}}
                                             InputProps={{className: classes.input}}
                                         >
@@ -454,7 +456,7 @@ class EditBusinessIdea extends Component {
                                             multiline
                                             helperText={errors.description}
                                             error={!!errors.description}
-                                            rowsMax={3}
+                                            rows={4}
                                             fullWidth
                                             InputLabelProps={{className: classes.input}}
                                             InputProps={{className: classes.input}}
@@ -597,7 +599,7 @@ class EditBusinessIdea extends Component {
 
 
 const mapDispatchToProps = dispatch => ({
-    updateBI: (businessIdea,id) => dispatch(updateBI(businessIdea,id)),
+    updateBI: (businessIdea,id, history) => dispatch(updateBI(businessIdea,id, history)),
     deleteBI: (id) => dispatch(deleteBI(id)),
     getBI: (id) => dispatch(getBI(id)),
 

@@ -141,7 +141,7 @@ class BITemplateProfile extends Component {
                             </Typography>
                         </Grid>
 
-                        <Grid item md={8} sm={8}>
+                        <Grid item md={6} sm={6} lg={6} xs={6}>
                             {businessIdea.image === '' ? (
                                     <img src={defaultLogo} className={classes.ideaImage}/>
                                 ) :

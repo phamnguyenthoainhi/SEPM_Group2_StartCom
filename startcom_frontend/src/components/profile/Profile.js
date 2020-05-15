@@ -4,12 +4,17 @@ import { Link } from "react-router-dom";
 import withStyles from '@material-ui/core/styles/withStyles'
 //Material UI
 import Grid from '@material-ui/core/Grid';
-import {deleteBI, updateBI, getBI, getBIByOwnerID} from "../../actions/businessideas/BIActions";
+import {getBIByOwnerID} from "../../actions/businessideas/BIActions";
 import Navbar from "../Layout/Navbar";
 import Footer from "../Layout/Footer";
 import defaultUser from '../../images/default.png';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
+import Grow from '@material-ui/core/Grow';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
 
 import CardContent from '@material-ui/core/CardContent';
 import Typography from "@material-ui/core/Typography";
@@ -17,16 +22,16 @@ import Card from "@material-ui/core/Card";
 import IconButton from "@material-ui/core/IconButton";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import BITemplateProfile from "../Layout/BITemplateProfile";
-import {getUser} from "../../actions/users/UserActions";
 import Backdrop from "@material-ui/core/Backdrop/Backdrop";
 import Alert from "@material-ui/lab/Alert/Alert";
 import Snackbar from "@material-ui/core/Snackbar/Snackbar";
+import Switch from "@material-ui/core/Switch";
 
 const styles = (theme) => ({
     containerWrapper: {
         padding: "50px 80px",
         [theme.breakpoints.down('md')]: {
-            padding: "50px 250px",
+            padding: "50px 200px",
         },
         [theme.breakpoints.down('sm')]: {
             padding: "50px 150px",
@@ -118,26 +123,42 @@ const styles = (theme) => ({
         zIndex: theme.zIndex.drawer + 1,
         color: '#fff',
     },
-
-
-
 });
+
+const CustomSwitch = withStyles({
+    switchBase: {
+        color: '#C75D5D',
+        '&$checked': {
+            color: '#90B494',
+        },
+        '&$checked + $track': {
+            backgroundColor: '#90B494',
+        },
+    },
+    checked: {},
+    track: {},
+})(Switch);
 
 class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
             email: '',
             username: '',
             image: '',
             facebook: '',
-            linkedIn: ''
+            linkedIn: '',
+            biography: '',
+            openBiography: false
         }
     }
 
 
     componentDidMount() {
+        const auth = sessionStorage.getItem("token");
+        if (!auth) {
+            window.location.href = "/auth";
+        }
         const userID = sessionStorage.getItem("id");
         this.props.getBIByOwnerID(userID)
     }
@@ -156,76 +177,118 @@ class Profile extends Component {
         window.open(`/edit_profile/${id}`, '_self');
     };
 
+    openBiography = () => {
+        this.setState({
+            openBiography: !this.state.openBiography
+        })
+    };
+
     render() {
         console.log(this.props.businessIdea);
         const { classes, user, businessIdea, loading, userLoading, doneDeleteBI, deleting } = this.props;
+        const { openBiography } = this.state;
         return (
             <Grid container>
                 <Navbar/>
                 <Grid container className={classes.containerWrapper}>
-                    <Grid container spacing={5}>
+                    <Grid container spacing={3}>
                         <Grid item xs={12} sm={12} md={12} lg={4}>
-                            {userLoading ? (
-                                <Grid container className={classes.progressContainer}>
-                                    <CircularProgress variant="indeterminate" size={40} style={{color: '#3C5155'}}/>
+                            <Grid container className={classes.avatarContainer} style={{marginBottom: 10}}>
+                                <Typography variant='h6' className={classes.header}>
+                                    Portfolio
+                                </Typography>
+                            </Grid>
+                            <Grid container direction='column' spacing={3}>
+                                <Grid item xs={12} sm={12} md={12} lg={12}>
+                                    {userLoading ? (
+                                        <Grid container className={classes.progressContainer}>
+                                            <CircularProgress variant="indeterminate" size={40} style={{color: '#3C5155'}}/>
+                                        </Grid>
+                                    ): (
+                                        <Card className={classes.card}>
+                                            <CardContent style={{padding: "30px 30px"}}>
+                                                <Grid container className={classes.avatarContainer} direction='column'>
+                                                    <img
+                                                        src={user.image ? user.image : defaultUser}
+                                                        className={classes.avatar}
+                                                        alt="User's Avatar"
+                                                    />
+                                                </Grid>
+                                                <Grid container className={classes.infoContainer} direction='column'>
+                                                    <Typography className={classes.username} variant='h6'>
+                                                        {user.username ? user.username : user.email}
+                                                    </Typography>
+                                                    <Grid container justify='center'>
+                                                        <Button className={classes.button} onClick={() => this.openUpdateForm(user.id)}>Edit Profile</Button>
+                                                    </Grid>
+
+                                                </Grid>
+
+                                                <Divider variant='middle'/>
+
+                                                <Grid container className={classes.container} direction='column'>
+                                                    <Typography variant="subtitle2" className={classes.title}>
+                                                        Email
+                                                    </Typography>
+                                                    <Typography variant="subtitle2" className={classes.email}>
+                                                        {user.email}
+                                                    </Typography>
+                                                </Grid>
+
+                                                <Grid container className={classes.container} direction='column'>
+                                                    <Typography variant="subtitle2" className={classes.title}>
+                                                        Contact
+                                                    </Typography>
+                                                    <Grid container className={classes.mediaBtn} style={{marginBottom: 10}}>
+                                                        {user.facebook ? (
+                                                            <IconButton href={user.facebook} className={classes.iconBtn}>
+                                                                <i
+                                                                    style={{color: "#90B494", fontSize: "30px"}}
+                                                                    className="fab fa-facebook-square"/>
+                                                            </IconButton>
+                                                        ) : null}
+
+                                                        {user.linkedIn ? (
+                                                            <IconButton href={user.linkedIn} className={classes.iconBtn}>
+                                                                <i
+                                                                    className="fab fa-linkedin"
+                                                                    style={{color: "#90B494", fontSize: "30px"}}
+                                                                />
+                                                            </IconButton>
+                                                        ) : null}
+                                                    </Grid>
+
+                                                    <FormControlLabel
+                                                        value="start"
+                                                        control={<CustomSwitch color="primary" checked={openBiography} onChange={this.openBiography} />}
+                                                        label={<Typography variant="subtitle2" className={classes.email}> {openBiography ? "Display bio" : "Hidden bio"}</Typography>}
+                                                        labelPlacement="top"
+                                                    />
+
+                                                </Grid>
+                                            </CardContent>
+                                        </Card>
+                                    )}
                                 </Grid>
-                            ): (
-                                <Card className={classes.card}>
-                                    <CardContent style={{padding: "40px 50px"}}>
-                                        <Grid container className={classes.avatarContainer} direction='column'>
-                                            <img
-                                                src={user.image ? user.image : defaultUser}
-                                                className={classes.avatar}
-                                                alt="User's Avatar"
-                                            />
-                                        </Grid>
-                                        <Grid container className={classes.infoContainer} direction='column'>
-                                            <Typography className={classes.username} variant='h6'>
-                                                {user.username ? user.username : user.email}
-                                            </Typography>
-                                            <Grid container justify='center'>
-                                                <Button className={classes.button} onClick={() => this.openUpdateForm(user.id)}>Edit Profile</Button>
-                                            </Grid>
 
-                                        </Grid>
+                                <Grow in={openBiography}>
+                                    <Grid item xs={12} sm={12} md={12} lg={12}>
+                                        <Card className={classes.card}>
+                                            <CardContent style={{padding: "10px 30px"}}>
+                                                <Grid container className={classes.container} direction='column'>
+                                                    <Typography variant="subtitle2" className={classes.title}>
+                                                        Biography
+                                                    </Typography>
+                                                    <Typography variant="subtitle2" className={classes.email}>
+                                                        {user.biography ? user.biography : ""}
+                                                    </Typography>
+                                                </Grid>
+                                            </CardContent>
+                                        </Card>
+                                    </Grid>
+                                </Grow>
+                            </Grid>
 
-                                        <Divider variant='fullWidth'/>
-
-                                        <Grid container className={classes.container} direction='column'>
-                                            <Typography variant="subtitle2" className={classes.title}>
-                                                Email
-                                            </Typography>
-                                            <Typography variant="subtitle2" className={classes.email}>
-                                                {user.email}
-                                            </Typography>
-                                        </Grid>
-
-                                        <Grid container className={classes.container} direction='column'>
-                                            <Typography variant="subtitle2" className={classes.title}>
-                                                Contact
-                                            </Typography>
-                                            <Grid container className={classes.mediaBtn}>
-                                                {user.facebook ? (
-                                                    <IconButton href={user.facebook} className={classes.iconBtn}>
-                                                        <i
-                                                            style={{color: "#90B494", fontSize: "30px"}}
-                                                            className="fab fa-facebook-square"/>
-                                                    </IconButton>
-                                                ) : null}
-
-                                                {user.linkedIn ? (
-                                                    <IconButton href={user.linkedIn} className={classes.iconBtn}>
-                                                        <i
-                                                            className="fab fa-linkedin"
-                                                            style={{color: "#90B494", fontSize: "30px"}}
-                                                        />
-                                                    </IconButton>
-                                                ) : null}
-                                            </Grid>
-                                        </Grid>
-                                    </CardContent>
-                                </Card>
-                            )}
                         </Grid>
 
                         <Grid item xs={12} sm={12} md={12} lg={8}>
