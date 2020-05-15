@@ -344,7 +344,7 @@ class BIDetail extends Component {
                             )}
 
                             {businessIdea.needInvestor ? (
-                            (sessionStorage.getItem("id") !== null && sessionStorage.getItem("id") !== undefined && sessionStorage.getItem("id") !== "") ? 
+                            (sessionStorage.getItem("id") !== null && sessionStorage.getItem("id") !== undefined && sessionStorage.getItem("id") !== "" && sessionStorage.getItem("id") !== businessIdea.ownerId) ? 
 
                                 <Button
                                     variant='outlined'
@@ -388,6 +388,7 @@ class BIDetail extends Component {
                         {detailMarkup}
                         </Grid>
                         <Grid item lg={3} md ={4} sm = {12} xs ={12} >
+                           
 
                         <Contact id='mydiv' handleClose={this.handleClose} profileReceiver = {this.state.profileReceiver} 
                                 

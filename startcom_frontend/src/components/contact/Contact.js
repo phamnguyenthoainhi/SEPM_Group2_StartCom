@@ -38,8 +38,7 @@ class Contact extends Component {
             subject: '',
             text: '',
             loading: false,
-            success: false,
-            
+            success: false
         }
         
     }
@@ -88,6 +87,7 @@ class Contact extends Component {
                 profileReceiver: this.props.profileReceiver,
                 success: false
             })
+            
             this.props.getProfile(sessionStorage.getItem("id"), 'sender')
         }
     }

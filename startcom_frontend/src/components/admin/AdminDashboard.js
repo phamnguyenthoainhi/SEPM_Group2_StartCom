@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux';
 import { withStyles } from '@material-ui/core';
 import style from './AdminDashboardStyle.js';
-
+import Backdrop from '@material-ui/core/Backdrop';
 import {fetchUnverifiedEmails, VerifiedEmails, deleteUser} from '../../actions/admin/adminActions.js';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -10,6 +10,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Typography from '@material-ui/core/Typography';
 import Skeleton from '@material-ui/lab/Skeleton';
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Navbar from '../Layout/Navbar.js';
+import Footer from '../Layout/Footer.js';
+import Grid from '@material-ui/core/Grid';
 
 const ColorCircularProgress = withStyles({
     root: {
@@ -101,7 +104,10 @@ class AdminDashboard extends Component {
         const {classes} = this.props; 
         
         return (
+            <div >
+                 <Navbar/>
             <div className={classes.container}>
+               
                 <Typography className={classes.title}>List of Unverified Investors</Typography>
                 {this.state.loading ? 
                     ( 
@@ -127,18 +133,18 @@ class AdminDashboard extends Component {
                                             {row.email}
                                             </td>
                                             <td style={{textAlign: 'center'}} className={classes.cell}>
-                                                {this.state.loadingVerify
+                                                {/* {this.state.loadingVerify
                                                 ? 
                                                 (<ColorCircularProgress variant="indeterminate" size={32} style={{marginTop: "5%"}}/>)
-                                                :
-                                                (<Button className ={classes.verifyBtn} onClick={()=> this.verify(row.id)}>Verify</Button>)
-                                                }
-                                                {this.state.deleteLoading
+                                                : */}
+                                                <Button className ={classes.verifyBtn} onClick={()=> this.verify(row.id)}>Verify</Button>
+                                                {/* } */}
+                                                {/* {this.state.deleteLoading
                                                 ? 
                                                 (<ColorCircularProgress variant="indeterminate" size={32} style={{marginTop: "5%"}}/>)
-                                                :
-                                                (<Button className ={classes.deleteBtn} onClick={()=> this.delete(row.id)}>Decline</Button>)
-                                                }
+                                                : */}
+                                                <Button className ={classes.deleteBtn} onClick={()=> this.delete(row.id)}>Decline</Button>
+                                                {/* } */}
 
                                             </td>
                                         </tr>))
@@ -147,6 +153,14 @@ class AdminDashboard extends Component {
                                     
                                 </tbody>
                             </table>
+                            {this.state.deleteLoading ? 
+                            (<Backdrop className={classes.backdrop} open={true} >
+                            <ColorCircularProgress variant="indeterminate" size={50} style={{marginTop: "5%"}}/>
+                            </Backdrop>) : null}
+                            {this.state.loadingVerify ? 
+                            (<Backdrop className={classes.backdrop} open={true} >
+                            <ColorCircularProgress variant="indeterminate" size={50} style={{marginTop: "5%"}}/>
+                            </Backdrop>) : null}
 
                         </div>
                         
@@ -164,12 +178,16 @@ class AdminDashboard extends Component {
                                 <DialogContent>
                                    
                                                 <Typography gutterBottom className={classes.text}>
-                                                Sucess!
+                                                Success!
                                                 </Typography>
                                 </DialogContent>
     
                             </Dialog> 
+                            
             </div>
+            
+            </div>
+            
         )
     }
 }
