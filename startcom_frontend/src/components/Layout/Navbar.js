@@ -190,6 +190,8 @@ class Navbar extends Component {
 
     logout = () => {
         sessionStorage.removeItem("id");
+        sessionStorage.removeItem("type");
+        sessionStorage.removeItem("token");
         window.location.reload();
     };
 

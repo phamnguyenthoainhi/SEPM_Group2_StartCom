@@ -76,17 +76,41 @@ export const registerBI = (BIData) => dispatch => {
     .then((res) => {
         console.log("res "+ res.status);
         if(res.status === 200) {
-            dispatch({
-                type: IS_REGISTERED_SUCCESS,
-                payload: true
-            });
+            if (sessionStorage.getItem('id') !== null && sessionStorage.getItem('id') !== ''
+            && sessionStorage.getItem('token') !== null && sessionStorage.getItem('token') !== ''
+            ) {
+                console.log("Hello hell0")
+                let id = sessionStorage.getItem('id');
+                let token = sessionStorage.getItem('token')
+                const user = {
+                    "haveBI": true
+                }
+                fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/edit_profile/${id}`, {
+                                method: 'PUT',
+                                    headers: {
+                                        'Accept': 'application/json',
+                                        'Content-type': 'application/json',
+                                        'Authorization': 'Bearer '+ token
+                                    },
+                                    body: JSON.stringify(user)
+                            }).
+                            then((res) => {
+                                if(res.status === 200) {
+                                    console.log("Edit success")
+                                    dispatch({
+                                        type: IS_REGISTERED_SUCCESS,
+                                        payload: true
+                                    });
+                                }
+                            })
+            } else {
+                
+            }
+            
             return res.json();
         } else {
-            dispatch({
-                type: IS_REGISTERED_SUCCESS,
-                payload: false
-            });
-            return null;
+           
+            
         }
     })
 };

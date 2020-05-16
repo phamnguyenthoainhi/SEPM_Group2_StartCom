@@ -90,8 +90,10 @@ class Login extends Component {
                 this.setState({
                     success: true
                 });
+                console.log(this.props.loginMessage)
                 sessionStorage.setItem("id", this.props.loginMessage.id);
                 sessionStorage.setItem("token", this.props.loginMessage.token);
+                sessionStorage.setItem("type", this.props.loginMessage.type)
 
                 this.props.history.push('/')
             }

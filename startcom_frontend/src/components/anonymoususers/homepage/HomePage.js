@@ -9,18 +9,41 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Navbar from '../../Layout/Navbar';
 import Footer from '../../Layout/Footer';
 import Hidden from "@material-ui/core/Hidden";
+import {getUser} from '../../../actions/users/UserActions'
 class HomePage extends Component {
-    compontDidMount() {
-        // if (sessionStorage.getItem('id') !== undefined && sessionStorage.getItem('id') !== null && sessionStorage.getItem('id') !== "") {
-        //     const messaging = firebase.messaging();
-        //     messaging.requestPermission().then((token) => {
-        //     return messaging.getToken()
-        //     }).then(token => {
-        //     console.log('Token: '+ token)
-        //     }).catch(()=> {
-        //     console.log("error ")
-        //     })
-        // }
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: ""
+        }
+    }
+    componenttDidMount() {
+       if (sessionStorage.getItem("token") !== null && sessionStorage.getItem("token") !== "" && sessionStorage.getItem("token") !== undefined
+       && sessionStorage.getItem("id") !== null || sessionStorage.getItem("id") !== "" || sessionStorage.getItem("id") !== undefined
+       ) {
+           this.props.getUser(sessionStorage.getItem("id"))
+       }
+
+    }
+    joinus = () => {
+            this.props.history.push('/auth')
+        
+    }
+
+    toRegisterBI = () => {
+        this.props.history.push('/registerBI')
+    }
+    toProfile = () => {
+        this.props.history.push('/profile')
+    }
+
+    componentDidUpdate(prevProps) {
+        
+        if (this.props.user !== prevProps.user) {
+            this.setState({
+                user: this.props.user
+            })
+        }
     }
     render() {
         const {classes} = this.props;
@@ -37,8 +60,30 @@ class HomePage extends Component {
                                 Established in 2020 with a simple idea from origin and has been growing into an incredible opportunity for startup community.
                                 Out goal is to develop a community platform that can connect startup owners, investors and consultants together.
                             </Box>
+                           
 
-                            <Button variant="contained" className={classes.joinButton}>Join Us</Button>
+{
+(sessionStorage.getItem('token') !== '' && sessionStorage.getItem('token') !== null) ? 
+
+(sessionStorage.getItem("type") === "startupowner" ? 
+
+    (this.state.user.haveBI === true ? 
+        <Button variant="contained" className={classes.joinButton} onClick = {() => this.toProfile()}>My Profile</Button>
+        : 
+        <Button variant="contained" className={classes.joinButton} onClick = {() => this.toRegisterBI()}>Register Business Idea</Button>
+    )
+    :
+     null
+     
+)
+
+
+: 
+
+<Button variant="contained" className={classes.joinButton} onClick = {() => this.joinus()}>Join Us</Button>
+
+}
+                           
                         </Grid>
                         <Hidden only={['sm', 'xs']}>
                             <Grid item xs={6} md={6} className={classes.rightColumn}>
@@ -100,5 +145,13 @@ class HomePage extends Component {
         )
     }
 }
-// export default connect (null, withStyles(style)(HomePage));
-export default connect(null)(withStyles(style)(HomePage));
+const mapStateToProps = (state) => ({
+    user: state.usersReducer.user,
+    
+});
+
+const mapDispatchToProps = dispatch => ({
+    getUser: (id) => dispatch(getUser(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(HomePage));
