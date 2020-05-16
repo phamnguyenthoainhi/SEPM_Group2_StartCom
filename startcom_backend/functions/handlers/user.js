@@ -23,21 +23,25 @@ exports.signUp = async (req, res) => {
 
 }
 
-exports.signIn = (req, res) => {
+exports.signIn = async (req, res) => {
     var user = {}
-    return firebase.auth().signInWithEmailAndPassword(req.body.email, req.body.password)
-        .then((cred) => {
-            user.id = cred.user.uid;
-            return cred.user.getIdToken();
-        })
-        .then((token) => {
-            user.token = token
-            return res.json(user);
-        })
-        .catch((error) => {
-            console.log(error)
-            return res.json(error)
-        })
+    try {
+        const cred = await firebase.auth().signInWithEmailAndPassword(req.body.email, req.body.password)
+        user.id = cred.user.uid
+        user.token = await cred.user.getIdToken()
+        return db.collection('User').doc(cred.user.uid).get()
+            .then(doc=>{
+                user.type = doc.data().type
+                return res.json(user)
+            })
+            .catch(error=>{
+                return res.json(error)
+            })
+    }
+    catch (error) {
+        console.log(error)
+        return res.json(error)
+    }
 }
 
 exports.editProfile = async (req, res) => {
@@ -250,7 +254,7 @@ exports.sendEmailByUser = async (req, res) => {
             subject: `From ${sender.data().email}: ${req.body.subject}`,
             text: req.body.text
         }
-        if (receiver.data().token !== null && receiver.data().token !== undefined){
+        if (receiver.data().token !== null && receiver.data().token !== undefined) {
             console.log(receiver.data().token)
             const notif = {
                 token: receiver.data().token,
@@ -259,9 +263,9 @@ exports.sendEmailByUser = async (req, res) => {
                     body: `You have received an email from ${sender.data().type === 'investor' ? 'an' : 'a'} ${sender.data().type}: ${sender.data().email}`,
                 }
             }
-            return Promise.all([sendEmail(mailOption), 
-                    createNotification(sender.id, receiver.id, sender.data().type, sender.data().email), 
-                    admin.messaging().send(notif)])
+            return Promise.all([sendEmail(mailOption),
+            createNotification(sender.id, receiver.id, sender.data().type, sender.data().email),
+            admin.messaging().send(notif)])
                 .then(() => {
                     return res.status(200).send('Success')
                 })
@@ -270,7 +274,7 @@ exports.sendEmailByUser = async (req, res) => {
                     return res.json(error)
                 })
         }
-        else{
+        else {
 
             return Promise.all([sendEmail(mailOption), createNotification(sender.id, receiver.id, sender.data().type, sender.data().email)])
                 .then(() => {
@@ -289,35 +293,35 @@ exports.sendEmailByUser = async (req, res) => {
     }
 }
 
-exports.getAllNotifications = (req,res)=>{
+exports.getAllNotifications = (req, res) => {
     const notificationList = []
-    return db.collection('Notification').where('receiver','==',req.params.id).get()
-        .then(query=>{
-            if(!query.empty){
-                query.forEach(doc=>{
+    return db.collection('Notification').where('receiver', '==', req.params.id).get()
+        .then(query => {
+            if (!query.empty) {
+                query.forEach(doc => {
                     var notification = doc.data()
                     notification.id = doc.id
                     notificationList.push(notification)
                 })
                 return res.json(notificationList)
             }
-            else{
+            else {
                 return res.status(404).send('No notification found.')
             }
-            
+
         })
-        .catch(error=>{
+        .catch(error => {
             console.log(error)
             return res.json(error)
         })
 }
 
-exports.resetPassword = (req,res)=>{
+exports.resetPassword = (req, res) => {
     return firebase.auth().sendPasswordResetEmail(req.body.email)
-        .then(()=>{
+        .then(() => {
             return res.status(200).send('Success')
         })
-        .catch(error=>{
+        .catch(error => {
             consolelog(error)
             return res.json(error)
         })
