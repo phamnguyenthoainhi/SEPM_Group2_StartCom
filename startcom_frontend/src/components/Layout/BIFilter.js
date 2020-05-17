@@ -7,6 +7,7 @@ import style from './BIStyle.js';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
+import Grid from "@material-ui/core/Grid";
 const CustomCheckbox = withStyles({
     root: {
         color: '#718F94',
@@ -78,16 +79,16 @@ class BIFilter extends Component {
                 [e.target.name]:current
             })
         }
-    }
+    };
 
     handleChange = (e) =>{
         let current = [];
         switch (e.target.name){
             case 'investor':
-                current = this.state.investor
+                current = this.state.investor;
                 break
             case 'consultant':
-                current=this.state.consultant
+                current=this.state.consultant;
                 break
         }
 
@@ -162,7 +163,7 @@ class BIFilter extends Component {
                     <label className={classes.filterlabel}>Consultant</label>
                     <div><label><CustomCheckbox onChange={this.handleChange} type='checkbox' name='consultant' value='needed' checked={consultant.includes('needed')} />Needed</label>
                     </div>
-                    <div><label><CustomCheckbox onChange={this.handleChange} type = 'checkbox'  name ='consultant' value='not needed' checked={consultant.includes('not needed')} /> Not Needed</label>
+                    <div><label><CustomCheckbox onChange={this.handleChange} type = 'checkbox'  name ='consultant' value='not needed' checked={consultant.includes('not needed')} />Not Needed</label>
                     </div>
                 </div>
 
@@ -171,7 +172,7 @@ class BIFilter extends Component {
                     <label className={classes.filterlabel}>Investor</label>
                     <div><label><CustomCheckbox onChange={this.handleChange} type='checkbox' name='investor' value='needed' checked={investor.includes('needed')} />Needed</label>
                     </div>
-                    <div><label><CustomCheckbox onChange={this.handleChange} type = 'checkbox'  name ='investor' value='not needed' checked={investor.includes('not needed')} /> Not Needed</label>
+                    <div><label><CustomCheckbox onChange={this.handleChange} type = 'checkbox'  name ='investor' value='not needed' checked={investor.includes('not needed')} />Not Needed</label>
                     </div>
                 </div>
 
@@ -184,10 +185,14 @@ class BIFilter extends Component {
                     <div><label><CustomCheckbox type='checkbox' onChange={this.handleChangeSorting} name='sort' value='descending' checked={this.state.sort==='descending'} />Target Funding: Descending</label></div>
                 </div>
                 <Divider  />
-                <Button className={classes.setbtn} onClick= {()=>this.resetFilter()}>Reset Filter</Button>
+                <Grid container direction='row' style={{padding: 20}} justify='space-evenly'>
+                    <Button className={classes.setBtn} onClick= {()=> this.resetFilter()}>Reset Filter</Button>
+                    <Button className={classes.filterBtn} onClick={()=> this.filter()}>Apply Filter</Button>
+                </Grid>
+
 
                 <Divider  />
-                <div style={{textAlign: "center"}}><Button variant="outlined" onClick={()=>this.filter()} className={classes.filterbtn} >Apply</Button></div>
+                {/*<div style={{textAlign: "center"}}><Button variant="outlined"  >Apply</Button></div>*/}
 
             </div>
 
@@ -203,7 +208,8 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
     businessIdeas: state.businessIdeasData.businessIdeas,
-    category: state.businessIdeasData.category,
+
+    // category: state.businessIdeasData.category,
     // needConsultant: state.businessIdeas.needConsultant,
     // needInvestor: state.businessIdeas.needInvestor,
     // foundIdeas: state.businessIdeasData.items

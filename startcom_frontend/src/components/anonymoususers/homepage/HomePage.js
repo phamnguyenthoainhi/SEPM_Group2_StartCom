@@ -9,10 +9,31 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Navbar from '../../Layout/Navbar';
 import Footer from '../../Layout/Footer';
 import Hidden from "@material-ui/core/Hidden";
+import {Link} from "react-router-dom";
+import {getAllBIS} from "../../../actions/businessideas/BIActions";
+
+
 class HomePage extends Component {
+
+    componentDidMount() {
+        const auth = sessionStorage.getItem("token");
+        const userID = sessionStorage.getItem("id");
+        if (auth) {
+
+        }
+    }
+
+    checkRegisterBIStatus = () => {
+
+    };
+
+
+
 
     render() {
         const {classes} = this.props;
+        const auth = sessionStorage.getItem("token");
+
         return (
             <div className={classes.root}>
                 <Navbar/>
@@ -27,7 +48,24 @@ class HomePage extends Component {
                                 Out goal is to develop a community platform that can connect startup owners, investors and consultants together.
                             </Box>
 
-                            <Button variant="contained" className={classes.joinButton}>Join Us</Button>
+                            {auth ? (
+                                <Button variant="contained"
+                                        className={classes.joinButton}
+                                        component={Link}
+                                        to="/registerBI"
+                                        onClick={this.checkRegisterBIStatus}
+
+                                >Register your idea</Button>
+
+                            ) : (
+                                <Button
+                                    variant="contained"
+                                    className={classes.joinButton}
+                                    component={Link}
+                                    to="/auth"
+                                >Join Us</Button>
+                            )}
+
                         </Grid>
                         <Hidden only={['sm', 'xs']}>
                             <Grid item xs={6} md={6} className={classes.rightColumn}>

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles'
 
 //Material UI
-import logo from '../../images/company_logo.png';
+import logo from '../../../images/company_logo.png';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from "@material-ui/core/Typography";
@@ -215,7 +215,7 @@ class BITemplate extends Component {
                                 Target Funding:
                             </Typography>
                             <Typography variant="subtitle2" className={classes.value}>
-                               ${idea.targetFunding}
+                               ${parseInt(idea.targetFunding).toLocaleString('en')}
                             </Typography>
                         </Grid>
 

@@ -1,6 +1,6 @@
 const style = (theme) => ({
 
-    searchfield: {
+    searchField: {
         '& label.Mui-focused': {
             color: theme.color.primary1,
         },
@@ -10,9 +10,12 @@ const style = (theme) => ({
         '& .MuiInput-underline:hover': {
             borderBottomColor: theme.color.primary3,
         },
-
-
     },
+    input: {
+        fontFamily: theme.font2,
+        weight: 400
+    },
+
     searchcontainer: {
         paddingRight: 40,
         marginRight: 40,
@@ -39,29 +42,26 @@ const style = (theme) => ({
 
     },
 
-    filterbtn: {
-        marginTop: "20px",
-        paddingLeft: "20px",
-        paddingRight: "20px",
-
-        color: theme.color.primary3,
-
+    filterBtn: {
+        fontFamily: theme.font2,
+        fontWeight: 700,
+        color: theme.color.primary2,
+        backgroundColor: theme.color.secondary,
+        textTransform: 'none',
+        margin: 5,
         '&:hover':{
-
-            color: 'black'
+            backgroundColor: theme.color.secondary,
         },
 
     },
-    setbtn: {
-
-        color: 'black',
-
+    setBtn: {
+        fontFamily: theme.font2,
+        fontWeight: 700,
+        backgroundColor: '#C75D5D',
         textTransform: 'none',
-        fontWeight: 600,
-
+        margin: 5,
         '&:hover':{
-            backgroundColor: 'transparent',
-            fontWeight: 600
+            backgroundColor: '#C75D5D',
         },
 
     },

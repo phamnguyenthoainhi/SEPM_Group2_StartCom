@@ -19,7 +19,6 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 // import BITemplate from "./BITemplate";
 import BIDetailSkeleton from "../skeleton/BIDetailSkeleton";
 
-const NumberFormat = require('react-number-format');
 
 
 const styles = (theme) => ({
@@ -282,12 +281,8 @@ class BIDetail extends Component {
                                 Target funding
                             </Typography>
                             <Typography variant="h3" className={classes.currency}>
-                                ${businessIdea.targetFunding}
+                                ${ parseInt(businessIdea.targetFunding).toLocaleString('en')}
                             </Typography>
-                            {/*<NumberFormat thousandSeparator={true}  displayType={'string'} prefix={'$'} value={businessIdea.targetFunding}/>*/}
-
-
-
                         </Grid>
 
                         <Grid container direction='column' justify='space-between'>

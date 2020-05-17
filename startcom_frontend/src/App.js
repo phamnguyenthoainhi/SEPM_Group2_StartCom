@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import {Provider} from 'react-redux';
 import themeFile from "./utils/theme";
-
-import theme from "./utils/theme";
 import firebase from './firebase'
 import store  from './store'
-import Navbar from "./components/Layout/Navbar";
-import Footer from "./components/Layout/Footer";
+
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter, Route} from 'react-router-dom';
@@ -22,10 +19,13 @@ import Contact from './components/contact/Contact';
 import Container  from './components/contact/Container';
 import DisplayBIS from "./components/businessideas/displaybusinessideas/DisplayBIS";
 import BIDetail from './components/Layout/BIDetail';
-import BIDetailSkeleton from "./components/skeleton/BIDetailSkeleton";
 import Profile from "./components/profile/Profile";
 import EditBusinessIdea from "./components/profile/EditBusinessIdea";
 import EditProfile from "./components/profile/EditProfile";
+import UserTemplate from "./components/Layout/template/UserTemplate";
+import UserSkeleton from "./components/skeleton/UserSkeleton";
+import DisplayConsultants from "./components/consultants/DisplayConsultants";
+import GeneralProfile from "./components/profile/GeneralProfile";
 // import Notification from './components/notification/Notification';
 // import Notifications from './notifications.js'
 
@@ -92,7 +92,7 @@ class App extends Component {
                         //If there is no notification subscription, register.
                         let re = p.pushManager.subscribe({
                           userVisibleOnly: true
-                        })
+                        });
                         
                         firebase.messaging().onMessage((payload) => {
                           console.log("Message receive " + payload)
@@ -134,8 +134,11 @@ class App extends Component {
                   <Route exact path={'/login'} render={(props) => <Login {...props} />} />
                   <Route exact path={'/signup'} render={(props) => <SignUp {...props} />} />
                   <Route exact path={'/displayBIS'} render={(props) => <DisplayBIS {...props}   />} />
+                  <Route exact path={'/displayConsultants'} render={(props) => <DisplayConsultants {...props}   />} />
+                  <Route exact path={'/profile/:type/:id'} render={(props) => <GeneralProfile {...props} />} />
+
+
                   <Route exact path={'/detail/:id'} render={(props) => <BIDetail {...props} />}  />
-                  <Route exact path={'/skeleton'} render={(props) => <BIDetailSkeleton {...props} />} />
                   <Route exact path={'/profile'} render={(props) => <Profile {...props} />} />
                   <Route exact path={'/edit_profile/:id'} render={(props) => <EditProfile {...props} />} />
                   <Route exact path={'/edit_bi/:id'} render={(props) => <EditBusinessIdea {...props} />} />

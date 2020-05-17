@@ -3,6 +3,11 @@ export const RESET_REGISTER = 'RESET_REGISTER';
 export const REGISTER_ACCOUNT = 'REGISTER_ACCOUNT';
 export const LOGIN = 'LOGIN';
 
+//Consultant types
+export const GET_ALL_CONSULTANTS = 'GET_ALL_CONSULTANTS';
+
+//Investor types
+export const GET_ALL_INVESTORS = 'GET_ALL_INVESTORS';
 //Business Idea CRUD types
 export const GET_ALL_BIS = 'GET_ALL_BIS';
 export const GET_BI = 'GET_BI';
@@ -16,13 +21,12 @@ export const DELETING_DATA = 'DELETING_DATA';
 export const DELETE_BI = 'DELETE_BI';
 export const DELETE_BI_SUCCESS = 'DELETE_BI_SUCCESS';
 
-//filter business idea
-export const FETCH_BI = 'FETCH_BI';
+//filter business idea types
 export const FILTER_BI = 'FILTER_BI';
 export const CLEAR_FILTER='CLEAR_FILTER';
 export const RESET_FILTER = 'RESET_FILTER';
 
-//search business idea
+//search business idea types
 export const SEARCH_BI = 'SEARCH_BI';
 
 //Profile CRUD Types
@@ -31,13 +35,13 @@ export const GET_USER = 'GET_USER';
 export const UPDATE_USER = 'UPDATE_USER';
 export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
 
-//UI Types
+//UI types
 export const RESET_UI_STATE = 'RESET_UI_STATE';
 export const LOADING_DATA = 'LOADING_DATA';
 export const OPEN_AUTHENTICATION_SNACKBAR = 'OPEN_AUTHENTICATION_SNACKBAR';
 export const CLOSE_AUTHENTICATION_SNACKBAR = 'CLOSE_AUTHENTICATION_SNACKBAR';
 
-//Authentication Types
+//Authentication types
 export const REGISTER_LOADING = 'REGISTER_LOADING';
 export const LOGIN_LOADING = 'LOGIN_LOADING';
 export const FETCH_INVESTOR_EMAIL = 'FETCH_INVESTOR_EMAIL';

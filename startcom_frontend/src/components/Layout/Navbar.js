@@ -207,7 +207,7 @@ class Navbar extends Component {
                         <Grid item md={3}>
                             <Button
                                 component={Link}
-                                to="/#"
+                                to="/"
                                 className={classes.logoBtn}
                             >
                                 <img src={logo} alt="logo" style={{ width: 150, height: 80}}/>
@@ -217,9 +217,9 @@ class Navbar extends Component {
                         <Grid item md={6}>
                             <Grid container justify='center'>
                                 <Hidden only={['sm', 'xs']}>
-                                    <Button className={classes.navBtn} component={Link} to="/startups">Startups</Button>
-                                    <Button className={classes.navBtn} component={Link} to="/consultants">Consultants</Button>
-                                    <Button className={classes.navBtn} component={Link} to="/investors">Investors</Button>
+                                    <Button className={classes.navBtn} component={Link} to="/displayBIS">Startups</Button>
+                                    <Button className={classes.navBtn} component={Link} to="/displayConsultants">Consultants</Button>
+                                    <Button className={classes.navBtn} component={Link} to="/displayInvestors">Investors</Button>
                                     {userID === adminId ?  <Button className={classes.navBtn} component={Link} to="/admin">Verify Board</Button> : null}
                                 </Hidden>
                             </Grid>
@@ -243,7 +243,10 @@ class Navbar extends Component {
                                                     open={open}
                                                     onClose={this.handleClose}
                                                 >
-                                                    <MenuItem  to="/profile" component={Link} >
+                                                    <MenuItem
+                                                        to={this.props.user.type !== 'startupowner' ? `/profile/${this.props.user.type}/${this.props.user.id}` : "/profile"}
+
+                                                        component={Link} >
                                                         <ListItemIcon>
                                                             <AccountBoxIcon style={{color: '#E3CFB5'}}/>
                                                         </ListItemIcon>

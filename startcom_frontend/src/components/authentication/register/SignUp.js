@@ -127,8 +127,8 @@ class SignUp extends Component {
             };
             this.props.registerAccount(user);
         }
-       
     };
+
 
     render() {
         const {classes} = this.props;

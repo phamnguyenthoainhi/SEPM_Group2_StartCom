@@ -6,10 +6,10 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from "@material-ui/core/Typography";
-import defaultLogo from "../../images/company_logo.png";
+import defaultLogo from "../../../images/company_logo.png";
 import Chip from '@material-ui/core/Chip';
 import Grid from "@material-ui/core/Grid";
-import {deleteBI, updateBI} from "../../actions/businessideas/BIActions";
+import {deleteBI, updateBI} from "../../../actions/businessideas/BIActions";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from '@material-ui/core/Tooltip';
 import Dialog from "@material-ui/core/Dialog";
@@ -129,7 +129,7 @@ class BITemplateProfile extends Component {
     };
 
     render() {
-        const { classes, businessIdea, deleting } = this.props;
+        const { classes, businessIdea } = this.props;
         const { openDeleteDialog } = this.state;
         return (
             <Card elevation={3} className={classes.ideaCard}>
@@ -195,7 +195,7 @@ class BITemplateProfile extends Component {
                     <Grid container className={classes.ideaContainer} direction='row'>
                         <Grid item md={4} sm={4} xs={4} lg={4}>
                             <Typography className={classes.header} >
-                                Date created:
+                                Created:
                             </Typography>
                         </Grid>
 
@@ -239,7 +239,7 @@ class BITemplateProfile extends Component {
 
                         <Grid item md={8} sm={8}>
                             <Typography className={classes.text}>
-                                ${businessIdea.targetFunding}
+                                ${ parseInt(businessIdea.targetFunding).toLocaleString('en')}
                             </Typography>
                         </Grid>
                     </Grid>

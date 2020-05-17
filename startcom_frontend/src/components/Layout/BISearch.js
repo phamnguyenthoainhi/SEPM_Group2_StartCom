@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
-import {updateBI, searchBI, getAllBIS} from "../../actions/businessideas/BIActions";
+import { searchBI, getAllBIS } from "../../actions/businessideas/BIActions";
 import { connect } from 'react-redux';
 import style from './BIStyle.js'
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import Button from '@material-ui/core/Button';
-//import SearchBar from 'material-ui-search-bar';
-
-import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Grid from "@material-ui/core/Grid";
 import Visibility from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
@@ -25,7 +20,6 @@ class BISearch extends Component {
             keyword: '',
         };
         this.handleChange = this.handleChange.bind(this);
-        // this.searchByname = this.searchByname.bind(this);
     };
 
 
@@ -38,29 +32,36 @@ class BISearch extends Component {
         this.setState({ [event.target.name]: event.target.value })
     };
 
-    // backToPageOne = () => { this.child.current.handlePageChange(1) };
-
-    search = ()=>{
+    search = ()=> {
         this.props.searchBI(this.state.keyword,this.props.businessIdeas)
     };
 
+    resetKeyword = () => {
+        this.setState({
+            keyword: '',
+            name: ''
+        })
+    };
+
+
     render() {
         const { classes } = this.props;
-
+        const { keyword } = this.state;
         return (
             <div>
                 <TextField
-                    className={classes.searchfield}
+                    className={classes.searchField}
                     id="outlined-end-adornment"
                     label="Search"
-                    name='keyword' fullWidth onChange={this.handleChange} value={this.state.keyword}
+                    name='keyword' fullWidth onChange={this.handleChange} value={keyword}
                     InputProps={{
                         endAdornment: <InputAdornment position="end">
-                            <IconButton>
-                                <Visibility onClick={()=>this.search()}/>
+                            <IconButton onClick={()=>this.search()}>
+                                <Visibility cursor="pointer"/>
                             </IconButton >
                         </InputAdornment>,
                     }}
+                    InputLabelProps={{className: classes.input}}
 
                 />
 
@@ -79,7 +80,6 @@ const mapStateToProps = state => ({
     businessIdeas: state.businessIdeasData.businessIdeas  ,
     foundIdeas: state.businessIdeasData.items,
     name: state.businessIdeasData.name,
-
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(BISearch));

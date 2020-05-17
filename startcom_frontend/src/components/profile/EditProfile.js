@@ -4,7 +4,6 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import {Link} from "react-router-dom";
 //Material UI
 import Grid from '@material-ui/core/Grid';
-import {deleteBI, updateBI, getBI} from "../../actions/businessideas/BIActions";
 import Navbar from "../Layout/Navbar";
 import Footer from "../Layout/Footer";
 import TextField from '@material-ui/core/TextField';
@@ -13,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import ImageIcon from '@material-ui/icons/Image';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CheckIcon from '@material-ui/icons/Check';
+import {EXPERIENCE} from "../../utils/experienceYears";
 
 import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -20,6 +20,7 @@ import Backdrop from '@material-ui/core/Backdrop'
 import Snackbar from '@material-ui/core/Snackbar'
 import Alert from "@material-ui/lab/Alert";
 import {getUser, editProfile} from "../../actions/users/UserActions";
+import MenuItem from "@material-ui/core/MenuItem";
 
 
 const styles = (theme) => ({
@@ -150,6 +151,14 @@ const styles = (theme) => ({
         fontSize: 16,
         fontFamily: theme.font2,
         fontWeight: 400,
+    },
+    sectionHeader: {
+        fontFamily: theme.font,
+        fontWeight: 700,
+        color: theme.color.secondary
+    },
+    sectionHeaderContainer: {
+        padding: "20px 0 0 0"
     }
 
 
@@ -160,12 +169,17 @@ class EditProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
+
             username:'',
             image:'',
             facebook: '',
             linkedIn: '',
             email: '',
             biography: '',
+
+            skills: '',
+            experience: '',
+            occupation: '',
 
             uploadImageComplete: false,
             chosenFile: '',
@@ -174,12 +188,30 @@ class EditProfile extends Component {
         }
     }
 
-    componentDidMount() {
-
-    }
-
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.user !== prevProps.user) {
+            //Check whether current user is a CONSULTANT or not -> adjust state
+            if (this.props.user.type === 'consultant') {
+                if (this.props.user.skills !== null && this.props.user.skills !== undefined && this.props.user.skills !== '' ) {
+                    this.setState({
+                        skills: this.props.user.skills
+                    })
+                }
+
+                if (this.props.user.experience !== null && this.props.user.experience !== undefined && this.props.user.experience !== '' ) {
+                    this.setState({
+                        experience: this.props.user.experience
+                    })
+                }
+
+                if (this.props.user.occupation !== null && this.props.user.occupation !== undefined && this.props.user.occupation !== '' ) {
+                    this.setState({
+                        occupation: this.props.user.occupation
+                    })
+                }
+
+            }
+
             if (this.props.user.image !== null && this.props.user.image !== undefined && this.props.user.image !== '' ) {
                 this.setState({
                     image: this.props.user.image
@@ -208,6 +240,13 @@ class EditProfile extends Component {
             this.setState({
                 email: this.props.user.email
             })
+        }
+    }
+
+    componentDidMount() {
+        const auth = sessionStorage.getItem("token");
+        if (!auth) {
+            window.location.href = "/auth";
         }
     }
 
@@ -249,14 +288,31 @@ class EditProfile extends Component {
     handleUpdateProfile = (encodedImage) => {
         const {history} = this.props;
         const userID = this.props.match.params.id;
-        const user = {
-            username: this.state.username,
-            image: encodedImage,
-            email: this.state.email,
-            facebook: this.state.facebook,
-            linkedIn: this.state.linkedIn,
-            biography: this.state.biography
-        };
+        let user = {};
+        if (this.props.user.type === 'consultant') {
+             user = {
+                 username: this.state.username,
+                 image: encodedImage,
+                 email: this.state.email,
+                 facebook: this.state.facebook,
+                 linkedIn: this.state.linkedIn,
+                 biography: this.state.biography,
+                 skills: this.state.skills,
+                 experience: this.state.experience,
+                 occupation: this.state.occupation,
+            };
+        }
+        else {
+             user = {
+                username: this.state.username,
+                image: encodedImage,
+                email: this.state.email,
+                facebook: this.state.facebook,
+                linkedIn: this.state.linkedIn,
+                biography: this.state.biography
+            };
+        }
+
         if (this.validateBeforeSubmit(user)) {
             this.props.editProfile(user,userID, history);
             console.log(this.state);
@@ -268,19 +324,38 @@ class EditProfile extends Component {
     submit = () => {
         const {history} = this.props;
         const userID = this.props.match.params.id;
+        let user = {};
         if (!(this.state.chosenFile === '' || this.state.chosenFile === null || this.state.chosenFile === undefined) &&
         (this.state.image === '' || this.state.image === null || this.state.image === undefined)){
             this.getBase64(this.state.chosenFile, this.handleUpdateProfile)
         }
+
         if( !(this.state.image === '' || this.state.image === null || this.state.image === undefined)) {
-            const user = {
-                image: this.state.image,
-                username: this.state.username,
-                email: this.state.email,
-                facebook: this.state.facebook,
-                linkedIn: this.state.linkedIn,
-                biography: this.state.biography
-            };
+            //Check whether current user is CONSULTANT to adjust the edited stated accordingly
+            if (this.props.user.type === 'consultant') {
+                user = {
+                    username: this.state.username,
+                    image: this.state.image,
+                    email: this.state.email,
+                    facebook: this.state.facebook,
+                    linkedIn: this.state.linkedIn,
+                    biography: this.state.biography,
+                    skills: this.state.skills,
+                    experience: this.state.experience,
+                    occupation: this.state.occupation,
+                }
+            }
+            else {
+                user = {
+                    image: this.state.image,
+                    username: this.state.username,
+                    email: this.state.email,
+                    facebook: this.state.facebook,
+                    linkedIn: this.state.linkedIn,
+                    biography: this.state.biography
+                };
+            }
+
             if (this.validateBeforeSubmit(user)) {
                 this.props.editProfile(user,userID, history);
                 console.log(this.state);
@@ -288,15 +363,31 @@ class EditProfile extends Component {
             }
         }
 
+
         else {
-            const user = {
-                image: '',
-                username: this.state.username,
-                email: this.state.email,
-                facebook: this.state.facebook,
-                linkedIn: this.state.linkedIn,
-                biography: this.state.biography
-            };
+            if (this.props.user.type === 'consultant') {
+                user = {
+                    username: this.state.username,
+                    image: '',
+                    email: this.state.email,
+                    facebook: this.state.facebook,
+                    linkedIn: this.state.linkedIn,
+                    biography: this.state.biography,
+                    skills: this.state.skills,
+                    experience: this.state.experience,
+                    occupation: this.state.occupation,
+                }
+            }
+            else {
+                user = {
+                    image: '',
+                    username: this.state.username,
+                    email: this.state.email,
+                    facebook: this.state.facebook,
+                    linkedIn: this.state.linkedIn,
+                    biography: this.state.biography
+                };
+            }
 
             if (this.validateBeforeSubmit(user)) {
                 this.props.editProfile(user,userID, history);
@@ -310,7 +401,8 @@ class EditProfile extends Component {
     resetStates = () => {
         this.setState({
             chosenFile: '',
-            uploadImageComplete: false
+            uploadImageComplete: false,
+            errors: {}
         })
     };
 
@@ -320,18 +412,21 @@ class EditProfile extends Component {
         let regex = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
         if (data.username === "") errors.username = "Cannot be empty";
 
+        if (this.props.user.type === 'consultant') {
+            if (data.experience === "") errors.experience = "Cannot be empty";
+            if (data.occupation === "") errors.occupation = "Cannot be empty";
+        }
+
         if(!(data.facebook === "")) {
             if (!data.facebook.match(regex)) {
                 errors.facebook = "Incorrect URL format"
             }
         }
-
         if(!(data.linkedIn === "")) {
             if (!data.linkedIn.match(regex)) {
                 errors.linkedIn = "Incorrect URL format"
             }
         }
-
         if (Object.keys(errors).length !== 0) {
             this.setState({errors: errors});
             return false
@@ -341,7 +436,8 @@ class EditProfile extends Component {
 
 
     render() {
-        // console.log(this.props.businessIdea);
+        console.log("User: ", this.props.user);
+        console.log("User type: ", this.props.user.type);
         const { classes, doneUpdateProfile, updating, userLoading } = this.props;
         const { errors, uploadImageComplete } = this.state;
         return (
@@ -443,7 +539,7 @@ class EditProfile extends Component {
                                     <Grid item md={6} sm={6} xs={6}>
                                         <TextField
                                             onChange={this.onChange}
-                                            helperText="A brief summary about yourself"
+                                            helperText="Try to provide an appealing summary about yourself"
                                             size="small"
                                             className={classes.textField}
                                             name='biography'
@@ -453,13 +549,110 @@ class EditProfile extends Component {
                                             variant='outlined'
                                             fullWidth
                                             multiline
-                                            rows={4}
+                                            rows={5}
+                                            rowsMax={10}
                                             InputLabelProps={{className: classes.input}}
                                             InputProps={{className: classes.input}}
                                         >
                                         </TextField>
                                     </Grid>
                                 </Grid>
+
+                                {this.props.user.type === 'consultant' ? (
+                                    <Grid container>
+                                        <Grid container className={classes.ideaContainer} direction='row'>
+                                            <Grid item md={4} sm={4} xs={4} lg={4}>
+                                                <Typography className={classes.header} >
+                                                    Occupation:
+                                                </Typography>
+                                            </Grid>
+
+                                            <Grid item md={6} sm={6} xs={6}>
+                                                <TextField
+                                                    size="small"
+                                                    className={classes.textField}
+                                                    name='occupation'
+                                                    type="text"
+                                                    required
+                                                    value={this.state.occupation}
+                                                    onChange={this.onChange}
+                                                    variant='outlined'
+                                                    fullWidth
+                                                    helperText={errors.occupation}
+                                                    error={!!errors.occupation}
+                                                    InputLabelProps={{className: classes.input}}
+                                                    InputProps={{className: classes.input}}
+                                                >
+                                                </TextField>
+                                            </Grid>
+                                        </Grid>
+
+                                        <Grid container className={classes.ideaContainer} direction='row'>
+                                            <Grid item md={4} sm={4} xs={4} lg={4}>
+                                                <Typography className={classes.header} >
+                                                    Acquired skills
+                                                </Typography>
+                                            </Grid>
+
+                                            <Grid item md={6} sm={6} xs={6}>
+                                                <TextField
+                                                    onChange={this.onChange}
+                                                    helperText="Relevant skills you have acquired that can support startup owners"
+                                                    size="small"
+                                                    className={classes.textField}
+                                                    name='skills'
+                                                    required
+                                                    type="text"
+                                                    value={this.state.skills}
+                                                    variant='outlined'
+                                                    fullWidth
+                                                    multiline
+                                                    rows={3}
+                                                    rowsMax={10}
+                                                    InputLabelProps={{className: classes.input}}
+                                                    InputProps={{className: classes.input}}
+                                                >
+                                                </TextField>
+                                            </Grid>
+                                        </Grid>
+
+                                        <Grid container>
+                                            <Grid item md={4} sm={4} xs={4} lg={4}>
+                                                <Typography className={classes.header} >
+                                                    Year of experience:
+                                                </Typography>
+                                            </Grid>
+
+                                            <Grid item md={6} sm={6} xs={6}>
+                                                <TextField
+                                                    size="small"
+                                                    className={classes.textField}
+                                                    select
+                                                    type="text"
+                                                    name="experience"
+                                                    value={this.state.experience}
+                                                    onChange={this.onChange}
+                                                    variant='outlined'
+                                                    helperText={errors.experience}
+                                                    error={!!errors.experience}
+                                                    InputLabelProps={{className: classes.input}}
+                                                    inputProps={{className: classes.input}}
+                                                >
+                                                    {EXPERIENCE.map(option => (
+                                                        <MenuItem key={option.id} value={option.name}
+                                                                  className={classes.input}>
+                                                            {option.name}
+                                                        </MenuItem>
+                                                    ))}
+                                                </TextField>
+                                            </Grid>
+                                        </Grid>
+
+                                    </Grid>
+                                ) : (
+                                    null
+                                )}
+
 
                                 <Grid container className={classes.ideaContainer} direction='row'>
                                     <Grid item md={4} sm={4} xs={4} lg={4}>
@@ -549,7 +742,10 @@ class EditProfile extends Component {
                                         <Button className={classes.button} onClick={this.submit}>Save Changes</Button>
                                     )}
 
-                                    <Button className={classes.button} component={Link} to="/profile">Back to Profile</Button>
+                                    <Button className={classes.button} component={Link}
+                                            to={this.props.user.type !== 'startupowner' ? `/profile/${this.props.user.type}/${this.props.user.id}` : "/profile"}
+
+                                    >Back to Profile</Button>
                                 </Grid>
                         </Grid>
                         )}

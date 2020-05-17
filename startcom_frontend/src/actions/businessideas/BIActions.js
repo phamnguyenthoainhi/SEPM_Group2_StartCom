@@ -30,7 +30,6 @@ export const getAllBIS = () => dispatch =>  {
                 })
             })
         )
-
 };
 
 export const getBI = (id) => dispatch => {
