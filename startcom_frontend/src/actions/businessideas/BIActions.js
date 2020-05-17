@@ -77,17 +77,37 @@ export const registerBI = (BIData) => dispatch => {
     .then((res) => {
         console.log("res "+ res.status);
         if(res.status === 200) {
-            dispatch({
-                type: IS_REGISTERED_SUCCESS,
-                payload: true
-            });
+            if (sessionStorage.getItem('id') !== null && sessionStorage.getItem('id') !== ''
+            && sessionStorage.getItem('token') !== null && sessionStorage.getItem('token') !== ''
+            ) {
+                let id = sessionStorage.getItem('id');
+                let token = sessionStorage.getItem('token');
+                const user = {
+                    "haveBI": true
+                };
+                fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/edit_profile/${id}`, {
+                    method: 'PUT',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-type': 'application/json',
+                            'Authorization': 'Bearer '+ token
+                        },
+                        body: JSON.stringify(user)
+                }).
+                then((res) => {
+                    if(res.status === 200) {
+                        console.log("Edit success")
+                        dispatch({
+                            type: IS_REGISTERED_SUCCESS,
+                            payload: true
+                        });
+                    }
+                })
+            }
             return res.json();
         } else {
-            dispatch({
-                type: IS_REGISTERED_SUCCESS,
-                payload: false
-            });
-            return null;
+           
+            
         }
     })
 };
@@ -134,21 +154,46 @@ export const deleteBI = (id) => dispatch => {
             'Content-type': 'application/json'
         },
     })
-        .then (res =>
-            res.json().then(function (data) {
-                dispatch({
-                    type: DELETE_BI,
-                    payload: data
-                });
-                dispatch({type: DELETE_BI_SUCCESS});
-                setTimeout(() => {
-                    dispatch({type: RESET_UI_STATE});
-                }, 2000);
-                setTimeout(() => {
-                    window.location.reload()
-                }, 2000);
+        .then((res) => {
+                console.log("res "+ res.status);
+                if(res.status === 200) {
+                    if (sessionStorage.getItem('id') !== null && sessionStorage.getItem('id') !== ''
+                        && sessionStorage.getItem('token') !== null && sessionStorage.getItem('token') !== ''
+                    ) {
+                        let id = sessionStorage.getItem('id');
+                        let token = sessionStorage.getItem('token');
+                        const user = {
+                            "haveBI": false
+                        };
+                        fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/edit_profile/${id}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-type': 'application/json',
+                                'Authorization': 'Bearer '+ token
+                            },
+                            body: JSON.stringify(user)
+                        })
+                        .then (res =>
+                            res.json().then(function (data) {
+                                dispatch({
+                                    type: DELETE_BI,
+                                    payload: data
+                                });
+                                dispatch({type: DELETE_BI_SUCCESS});
+                                setTimeout(() => {
+                                    dispatch({type: RESET_UI_STATE});
+                                }, 1000);
+                                setTimeout(() => {
+                                    window.location.reload()
+                                }, 1000);
+                            })
+                        )
+                    }
+                    return res.json();
+                }
             })
-        )
+
 };
 
 export const searchBI = (keyword,businessIdeas) => dispatch => {

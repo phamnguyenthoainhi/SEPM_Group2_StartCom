@@ -8,6 +8,10 @@ const style = (theme) => ({
         paddingBottom: 10,
         
     },
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: 'black',
+    },
     verifyBtn: {
         backgroundColor: theme.color.secondary,
         color: 'black',

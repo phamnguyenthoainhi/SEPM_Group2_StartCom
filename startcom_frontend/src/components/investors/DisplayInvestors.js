@@ -40,10 +40,11 @@ class DisplayInvestors extends Component {
 
     onBICardClick = (type, id) => {
         const userID = sessionStorage.getItem("id");
+        const userType = sessionStorage.getItem("type");
         if (userID !== id) {
             window.open(`/profile/detail/${type}/${id}`, '_blank');
         } else {
-            window.open(`/profile`, '_blank');
+            window.open(`/profile/${userType}/${userID}`, '_blank');
         }
     };
 

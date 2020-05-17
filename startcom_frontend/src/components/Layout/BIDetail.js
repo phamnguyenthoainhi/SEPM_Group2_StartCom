@@ -4,6 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 //Material UI
 import Grid from '@material-ui/core/Grid';
 import {deleteBI, updateBI, getBI} from "../../actions/businessideas/BIActions";
+import {getProfile} from '../../actions/users/UserActions';
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import defaultLogo from '../../images/company_logo.png';
@@ -18,7 +19,7 @@ import Chip from '@material-ui/core/Chip';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 // import BITemplate from "./BITemplate";
 import BIDetailSkeleton from "../skeleton/BIDetailSkeleton";
-
+import Contact from '../contact/Contact'
 
 
 const styles = (theme) => ({
@@ -30,6 +31,7 @@ const styles = (theme) => ({
 
     detailWrapper: {
         padding: '50px 100px',
+        
         [theme.breakpoints.down('sm')]: {
             padding: '50px 60px',
         },
@@ -230,6 +232,11 @@ class BIDetail extends Component {
         super(props);
         this.state = {
             idea: {},
+            contactOpen: false,
+            profileReceiver: {},
+            profileLoadingReceiver: false,
+            sender: '',
+            receiver: ''
         }
     }
 
@@ -238,16 +245,47 @@ class BIDetail extends Component {
         this.props.getBI(businessID);
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-
+    componentDidUpdate(prevProps) {
+        console.log(this.props)
+         if (this.props.profileLoading !== prevProps.profileLoading) {
+             this.setState({
+                 loading: this.props.profileLoading
+             })
+         }
+         if (this.props.profileReceiver !== prevProps.profileReceiver) {
+             this.setState({
+                 profileReceiver: this.props.profileReceiver
+             })
+         }
     }
 
+    backProject = (ownerId) => {
+        var x = document.getElementById("mydiv");
+        x.style.display = 'block'
 
+        this.setState({
+            contactOpen: true,
+           
+        })
+        this.props.getProfile(ownerId, 'receiver');
 
+    } 
+    handleClose = () => {
+        
+        var x = document.getElementById("mydiv");
+        x.style.display = 'none';
+
+        this.setState({
+            contactOpen: false
+        })
+        
+    }
 
     render() {
         // console.log(this.props.businessIdea);
         const { classes, businessIdea, loading } = this.props;
+        console.log(JSON.stringify(businessIdea))
+        
         let detailMarkup = !loading ? (
             <Grid container className={classes.detailWrapper}>
                 <Grid container>
@@ -304,12 +342,16 @@ class BIDetail extends Component {
                             )}
 
                             {businessIdea.needInvestor ? (
+                            (sessionStorage.getItem("id") !== null && sessionStorage.getItem("id") !== undefined && sessionStorage.getItem("id") !== "" && sessionStorage.getItem("id") !== businessIdea.ownerId) ? 
+
                                 <Button
                                     variant='outlined'
                                     className={classes.investorTrue}
-                                >
+                                    onClick = {(ownerid) => this.backProject(businessIdea.ownerId)}>
                                     Back this project
-                                </Button>
+                                </Button> : null
+
+
                             ) : (
                                 <Button
                                     variant='outlined'
@@ -330,7 +372,35 @@ class BIDetail extends Component {
         return (
             <Grid container>
                 <Navbar/>
-                {detailMarkup}
+                
+
+                {this.state.contactOpen ? 
+                (
+                    <Grid container >
+                        <Grid item lg={9} md ={8} sm = {12} xs ={12}>
+                        {detailMarkup}
+                        </Grid>
+                        <Grid item lg={3} md ={4} sm = {12} xs ={12} >
+                           
+
+                        <Contact id='mydiv' handleClose={this.handleClose} profileReceiver = {this.state.profileReceiver} 
+                                
+                                />
+                        </Grid>
+                    </Grid>
+                ) : (
+                    <Grid container>
+                    <Grid item xs={12} >
+                    {detailMarkup}
+                    </Grid>
+                    <Grid item xs={0} >
+                    <Contact id='mydiv' handleClose={this.handleClose} profileReceiver = {this.state.profileReceiver}/>
+                    </Grid>
+                </Grid>
+                    
+                )}
+                
+                
                 <Footer/>
             </Grid>
 
@@ -342,12 +412,16 @@ class BIDetail extends Component {
 const mapDispatchToProps = dispatch => ({
     updateBI: (businessIdea,id) => dispatch(updateBI(businessIdea,id)),
     deleteBI: (id) => dispatch(deleteBI(id)),
-    getBI: (id) => dispatch(getBI(id))
+    getBI: (id) => dispatch(getBI(id)),
+    getProfile: (id, type) => dispatch(getProfile(id, type))
 });
 
 const mapStateToProps = state => ({
     businessIdea: state.businessIdeasData.businessIdea,
-    loading: state.businessIdeasData.loading
+    loading: state.businessIdeasData.loading,
+    profileLoading: state.usersReducer.profileLoading,
+    profileReceiver: state.usersReducer.profileReceiver
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(BIDetail));
