@@ -13,12 +13,14 @@ import {
     POST_EMAIL_RESET_SUCCESS,
     POST_EMAIL_RESET_FAIL,
     UPDATE_USER,
-    FETCHING_USER
+    FETCHING_USER, GET_PROFILE, FETCHING_PROFILE
 } from '../actions/actionTypes';
 
 const initialState = {
     userLoading: false,
+    fetching: false,
     user: {},
+    profile: {},
     registerMessage: {},
     loginMessage: {},
     registerLoading: {},
@@ -122,6 +124,17 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 userLoading: true
+            };
+        case GET_PROFILE:
+            return {
+                ...state,
+                profile: action.payload,
+                fetching: false
+            };
+        case FETCHING_PROFILE:
+            return {
+                ...state,
+                fetching: true
             };
 
         default:

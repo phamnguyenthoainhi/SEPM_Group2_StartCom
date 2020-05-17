@@ -34,6 +34,8 @@ export const FETCHING_USER = 'FETCHING_USER';
 export const GET_USER = 'GET_USER';
 export const UPDATE_USER = 'UPDATE_USER';
 export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
+export const GET_PROFILE = 'GET_PROFILE';
+export const FETCHING_PROFILE = 'FETCHING_PROFILE';
 
 //UI types
 export const RESET_UI_STATE = 'RESET_UI_STATE';

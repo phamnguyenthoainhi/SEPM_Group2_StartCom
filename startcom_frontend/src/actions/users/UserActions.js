@@ -10,7 +10,7 @@ import {
     UPDATE_USER,
     UPDATE_USER_SUCCESS,
     UPDATING_DATA,
-    OPEN_AUTHENTICATION_SNACKBAR, CLOSE_AUTHENTICATION_SNACKBAR
+    OPEN_AUTHENTICATION_SNACKBAR, CLOSE_AUTHENTICATION_SNACKBAR, FETCHING_PROFILE, GET_PROFILE
 } from '../actionTypes';
 
 export const sendMessage = (message) => dispatch => {
@@ -84,7 +84,6 @@ export const getProfile = (id, type) => dispatch => {
                 'Accept': 'application/json',
                 'Content-type': 'application/json'
             }
-            
     })
     .then (res => res.json())
     .then(profile => 
@@ -116,5 +115,18 @@ export const getUser = (id) => dispatch => {
             })
         )
 };
+
+export const getChosenProfile = (id) => dispatch => {
+    dispatch({ type: FETCHING_PROFILE });
+    fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/get_profile/${id}`)
+        .then (res =>
+            res.json().then(function (data) {
+                dispatch({
+                    type: GET_PROFILE,
+                    payload: data
+                })
+            })
+        )
+}
 
 

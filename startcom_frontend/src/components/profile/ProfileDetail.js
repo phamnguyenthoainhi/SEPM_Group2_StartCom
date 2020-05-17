@@ -106,7 +106,7 @@ const styles = (theme) => ({
 
 });
 
-class GeneralProfile extends Component {
+class ProfileDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -125,9 +125,11 @@ class GeneralProfile extends Component {
 
     componentDidMount() {
         const auth = sessionStorage.getItem("token");
+        const profileID = this.props.match.params.id;
         if (!auth) {
             window.location.href = "/auth";
         }
+        this.props.getChosenProfile(profileID)
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -140,12 +142,9 @@ class GeneralProfile extends Component {
         // }
     }
 
-    openUpdateForm = (id) => {
-        window.open(`/edit_profile/${id}`, '_self');
-    };
-
     render() {
-        const { classes, user, userLoading} = this.props;
+        console.log("Profile:", this.props.profile);
+        const { classes, fetching, profile} = this.props;
         return (
             <Grid container>
                 <Navbar/>
@@ -155,7 +154,7 @@ class GeneralProfile extends Component {
                             <Typography variant='h6' className={classes.header} style={{textAlign: 'center'}}>
                                 Portfolio
                             </Typography>
-                            {this.props.user.type === 'investor' ? (
+                            {profile.type === 'investor' ? (
                                 <Typography variant='subtitle2' className={classes.email}>
                                     * Note that your profile can only be publicized after being verified by the admin
                                 </Typography>
@@ -164,7 +163,7 @@ class GeneralProfile extends Component {
                             )}
                         </Grid>
 
-                        {userLoading ? (
+                        {fetching ? (
                             <Grid container className={classes.progressContainer}>
                                 <CircularProgress variant="indeterminate" size={40} style={{color: '#3C5155'}}/>
                             </Grid>
@@ -177,17 +176,20 @@ class GeneralProfile extends Component {
                                                 <CardContent style={{padding: "30px 30px"}}>
                                                     <Grid container className={classes.avatarContainer} direction='column'>
                                                         <img
-                                                            src={user.image ? user.image : defaultUser}
+                                                            src={profile.image ? profile.image : defaultUser}
                                                             className={classes.avatar}
                                                             alt="User's Avatar"
                                                         />
                                                     </Grid>
                                                     <Grid container className={classes.infoContainer} direction='column'>
                                                         <Typography className={classes.username} variant='h6'>
-                                                            {user.username ? user.username : user.email}
+                                                            {profile.username ? profile.username : profile.email}
                                                         </Typography>
                                                         <Grid container justify='center'>
-                                                            <Button className={classes.button} onClick={() => this.openUpdateForm(user.id)}>Edit Profile</Button>
+                                                            <Button className={classes.button}
+                                                                    // onClick={() => this.openUpdateForm(user.id)}
+                                                            >
+                                                                Send message</Button>
                                                         </Grid>
 
                                                     </Grid>
@@ -199,7 +201,7 @@ class GeneralProfile extends Component {
                                                             Email
                                                         </Typography>
                                                         <Typography variant="subtitle2" className={classes.email}>
-                                                            {user.email}
+                                                            {profile.email}
                                                         </Typography>
                                                     </Grid>
 
@@ -208,16 +210,16 @@ class GeneralProfile extends Component {
                                                             Contact
                                                         </Typography>
                                                         <Grid container className={classes.mediaBtn} style={{marginBottom: 10}}>
-                                                            {user.facebook ? (
-                                                                <IconButton href={user.facebook} className={classes.iconBtn}>
+                                                            {profile.facebook ? (
+                                                                <IconButton href={profile.facebook} className={classes.iconBtn}>
                                                                     <i
                                                                         style={{color: "#90B494", fontSize: "30px"}}
                                                                         className="fab fa-facebook-square"/>
                                                                 </IconButton>
                                                             ) : null}
 
-                                                            {user.linkedIn ? (
-                                                                <IconButton href={user.linkedIn} className={classes.iconBtn}>
+                                                            {profile.linkedIn ? (
+                                                                <IconButton href={profile.linkedIn} className={classes.iconBtn}>
                                                                     <i
                                                                         className="fab fa-linkedin"
                                                                         style={{color: "#90B494", fontSize: "30px"}}
@@ -227,12 +229,12 @@ class GeneralProfile extends Component {
                                                         </Grid>
                                                     </Grid>
 
-                                                    {this.props.user.type === 'investor' ? (
-                                                        user.verified === true ? (
+                                                    {profile.type === 'investor' ? (
+                                                        profile.verified === true ? (
                                                             <Grid container className={classes.avatarContainer}>
                                                                 <CheckCircleIcon style={{color: '#90B494', fontSize: 30}}/>
                                                             </Grid>
-                                                            ) : null
+                                                        ) : null
                                                     ) : null}
                                                 </CardContent>
                                             </Card>
@@ -243,7 +245,7 @@ class GeneralProfile extends Component {
                                 <Grid item xs={12} sm={12} md={12} lg={8}>
                                     <Grid container className={classes.avatarContainer}>
                                         <Grid item lg={12} md={12} sm={12}>
-                                            <UserTemplateProfile user={user}/>
+                                            <UserTemplateProfile user={profile}/>
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -266,9 +268,6 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => ({
     profile: state.usersReducer.profile,
     fetching: state.usersReducer.fetching,
-
-    user: state.usersReducer.user,
-    userLoading: state.usersReducer.userLoading,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(GeneralProfile));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ProfileDetail));

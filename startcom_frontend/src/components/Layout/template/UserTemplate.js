@@ -104,7 +104,7 @@ class UserTemplate extends Component {
 
 
     render() {
-        const { classes, user } = this.props;
+        const { classes, user, userType } = this.props;
         const { cardElevation } = this.state;
         return (
             <CardActionArea onMouseOver={this.onMouseOver}  onMouseOut={this.onMouseOut}>

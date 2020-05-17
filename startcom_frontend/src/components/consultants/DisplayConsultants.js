@@ -38,7 +38,12 @@ class DisplayConsultants extends Component {
     }
 
     onBICardClick = (type, id) => {
-        window.open(`/profile/${type}/${id}`, '_blank');
+        const userID = sessionStorage.getItem("id");
+        if (userID !== id) {
+            window.open(`/profile/detail/${type}/${id}`, '_blank');
+        } else {
+            window.open(`/profile`, '_blank');
+        }
     };
 
 
@@ -56,7 +61,7 @@ class DisplayConsultants extends Component {
                 </Grid>
                 {consultants.map((consultant,index) => (
                     <Grid item md={3} lg={3} sm={4} xs={6} key={index} onClick={() => this.onBICardClick(consultant.type, consultant.id)} style={{padding: 20}}>
-                        <UserTemplate user={consultant} />
+                        <UserTemplate user={consultant} userType={consultant.type}/>
                     </Grid>
                 ))}
             </Grid>

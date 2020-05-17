@@ -3,7 +3,7 @@ import {
 } from '../actions/actionTypes';
 
 const initialState = {
-    investors: {},
+    investors: [],
     loading: false
 
 };
