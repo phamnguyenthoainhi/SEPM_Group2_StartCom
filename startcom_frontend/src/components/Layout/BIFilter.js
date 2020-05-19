@@ -34,7 +34,7 @@ class BIFilter extends Component {
         this.props.getAllBIS();
         if (this.props.businessIdeas !== undefined){
             this.props.businessIdeas.forEach(idea=>{
-                console.log(idea.category)
+                // console.log(idea.category)
                 if(!this.state.categories.includes(idea.category)){
                     const current  = this.state.categories
                     current.push(idea.category)
@@ -90,6 +90,7 @@ class BIFilter extends Component {
             case 'consultant':
                 current=this.state.consultant;
                 break
+            
         }
 
         if(current.includes(e.target.value)){

@@ -10,8 +10,8 @@ import Navbar from '../../Layout/Navbar';
 import Footer from '../../Layout/Footer';
 import Hidden from "@material-ui/core/Hidden";
 import {getUser} from '../../../actions/users/UserActions'
-import {Link} from "react-router-dom";
-import {getAllBIS} from "../../../actions/businessideas/BIActions";
+
+
 
 
 class HomePage extends Component {
@@ -23,7 +23,7 @@ class HomePage extends Component {
     }
     componentDidMount() {
         if (sessionStorage.getItem("token") !== null && sessionStorage.getItem("token") !== "" && sessionStorage.getItem("token") !== undefined
-            && sessionStorage.getItem("id") !== null || sessionStorage.getItem("id") !== "" || sessionStorage.getItem("id") !== undefined
+            && sessionStorage.getItem("id") !== null && sessionStorage.getItem("id") !== "" && sessionStorage.getItem("id") !== undefined
         ) {
             this.props.getUser(sessionStorage.getItem("id"))
         }

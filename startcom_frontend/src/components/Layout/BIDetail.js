@@ -302,9 +302,9 @@ class BIDetail extends Component {
                 <Grid container spacing={5}>
                     <Grid item md={7} sm={6}>
                         {businessIdea.image === '' ? (
-                                <img src={defaultLogo} className={classes.companyLogo}/>
+                                <img src={defaultLogo} className={classes.companyLogo} alt="company logo"/>
                             ) :
-                            <img src={businessIdea.image} className={classes.companyLogo} />
+                            <img src={businessIdea.image} className={classes.companyLogo} alt="company logo"/>
                         }
                     </Grid>
 

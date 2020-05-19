@@ -50,8 +50,8 @@ class DisplayInvestors extends Component {
 
 
     render() {
-        console.log(this.props.consultants);
-        console.log(this.props.loading);
+        // console.log(this.props.consultants);
+        // console.log(this.props.loading);
         const { classes, investors, loading} = this.props;
 
         let investorsMarkup = !loading ? (

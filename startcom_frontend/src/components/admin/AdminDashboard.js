@@ -11,8 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Skeleton from '@material-ui/lab/Skeleton';
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Navbar from '../Layout/Navbar.js';
-import Footer from '../Layout/Footer.js';
-import Grid from '@material-ui/core/Grid';
+
 
 const ColorCircularProgress = withStyles({
     root: {

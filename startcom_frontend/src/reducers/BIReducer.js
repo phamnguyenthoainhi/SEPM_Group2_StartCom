@@ -21,17 +21,6 @@ const initialState = {
     filtered: false,
 };
 
-const defaultState = {
-    loading: false,
-    businessIdea: {},
-    businessIdeas: [],
-    isRegisteredSuccess: false,
-    isRegisteredLoading: false,
-    filteredIdeas: [],
-    name: '',
-    filtered: false,
-};
-
 
 export default function (state = initialState, action) {
     switch(action.type) {

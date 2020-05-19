@@ -239,12 +239,12 @@ class EditBusinessIdea extends Component {
 
 
     chooseFile = event => {
-        console.log(event.target.files[0].name);
+        // console.log(event.target.files[0].name);
         this.setState({
             chosenFile: event.target.files[0],
             uploadImageComplete: true
         });
-        console.log(this.state.chosenFile)
+        // console.log(this.state.chosenFile)
     };
 
     getBase64 = (file, callback) => {
@@ -256,7 +256,7 @@ class EditBusinessIdea extends Component {
         };
 
         reader.onerror = function (error) {
-            console.log('Error: ', error);
+            // console.log('Error: ', error);
         };
     };
 
@@ -275,7 +275,7 @@ class EditBusinessIdea extends Component {
         };
         if (this.validateBeforeSubmit(businessIdea)) {
             this.props.updateBI(businessIdea,businessID, history);
-            console.log(this.state);
+            // console.log(this.state);
             this.resetStates()
         }
 
@@ -301,7 +301,7 @@ class EditBusinessIdea extends Component {
             };
             if (this.validateBeforeSubmit(businessIdea)) {
                 this.props.updateBI(businessIdea,businessID, history);
-                console.log(this.state);
+                // console.log(this.state);
                 this.resetStates()
             }
 
@@ -321,7 +321,7 @@ class EditBusinessIdea extends Component {
 
             if (this.validateBeforeSubmit(businessIdea)) {
                 this.props.updateBI(businessIdea,businessID, history);
-                console.log(this.state);
+                // console.log(this.state);
                 this.resetStates()
             }
 

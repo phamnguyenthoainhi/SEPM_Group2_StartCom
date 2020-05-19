@@ -23,7 +23,7 @@ class Container extends Component {
     }
 
     componentDidUpdate(prevProps) {
-       console.log(this.props)
+    //    console.log(this.props)
         if (this.props.profileLoading !== prevProps.profileLoading) {
             this.setState({
                 loading: this.props.profileLoading

@@ -41,7 +41,7 @@ class Login extends Component {
             })
         }
         if (this.props.postEmailLoading !== prevProps.postEmailLoading) {
-            console.log(this.props.postEmailLoading)
+            // console.log(this.props.postEmailLoading)
             this.setState({
                 postEmailLoading: this.props.postEmailLoading
             })
@@ -55,7 +55,7 @@ class Login extends Component {
             })
         }
         if (this.props.postEmailFail !== prevProps.postEmailFail) {
-            console.log(this.props.postEmailFail)
+            // console.log(this.props.postEmailFail)
             this.setState({
                 postEmailFail: this.props.postEmailFail
             })
@@ -88,7 +88,7 @@ class Login extends Component {
                 this.setState({
                     success: true
                 });
-                console.log(this.props.loginMessage)
+                // console.log(this.props.loginMessage)
                 sessionStorage.setItem("id", this.props.loginMessage.id);
                 sessionStorage.setItem("token", this.props.loginMessage.token);
                 sessionStorage.setItem("type", this.props.loginMessage.type)
@@ -134,7 +134,7 @@ class Login extends Component {
 
     render() {
         const {classes} = this.props;
-        console.log(this.state.postEmailLoading);
+        // console.log(this.state.postEmailLoading);
         return (
             <div className="form-container sign-in-container">
                 <form className={classes.form}  >

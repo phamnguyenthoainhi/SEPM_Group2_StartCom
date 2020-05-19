@@ -1,5 +1,4 @@
 import  {REGISTER_ACCOUNT, LOGIN, REGISTER_LOADING, LOGIN_LOADING, POST_EMAIL_RESET_SUCCESS, POST_EMAIL_RESET_LOADING, POST_EMAIL_RESET_FAIL} from '../actionTypes';
-import {editProfile} from '../users/UserActions';
 
 import firebase from '../../firebase'
 export const registerAccount = (account) => dispatch => {
@@ -21,7 +20,7 @@ export const registerAccount = (account) => dispatch => {
                         type: REGISTER_ACCOUNT,
                         payload: data
                     })
-                    // console.log(data.message);
+                
                   })
             }
             
@@ -30,7 +29,7 @@ export const registerAccount = (account) => dispatch => {
 
 
 export const postEmailResetPassword = (email) => dispatch => {
-    console.log(JSON.stringify(email))
+    // console.log(JSON.stringify(email))
     dispatch({
         type: POST_EMAIL_RESET_LOADING
     })
@@ -66,9 +65,9 @@ export const getToken = () => {
     messaging.requestPermission().then((token) => {
       return messaging.getToken()
     }).then(token => {
-      console.log('Token: '+ token)
+    //   console.log('Token: '+ token)
     }).catch(()=> {
-      console.log("error ")
+    //   console.log("error ")
     })
 }
 
@@ -105,8 +104,8 @@ export const login = (account) => dispatch => {
                                         'Authorization': 'Bearer '+ data.token
                                     },
                                     body: JSON.stringify(user)
-                            }).
-                            then((res) => {
+                            })
+                            .then((res) => {
                                 if(res.status === 200) {
                                     console.log("Edit success")
                                     dispatch ({
@@ -123,11 +122,9 @@ export const login = (account) => dispatch => {
                         }
 
                     } else {
-                      // Show permission request.
+               
                       console.log('No Instance ID token available. Request permission to generate one.');
-                      // Show permission UI.
-                    //   updateUIForPushPermissionRequired();
-                    //   setTokenSentToServer(false);
+               
                     }
                   }).catch((err) => {
                     console.log('An error occurred while retrieving token. ', err);

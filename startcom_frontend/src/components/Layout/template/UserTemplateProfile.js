@@ -7,15 +7,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import {deleteBI, updateBI} from "../../../actions/businessideas/BIActions";
-import IconButton from "@material-ui/core/IconButton";
-import Tooltip from '@material-ui/core/Tooltip';
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
-import Button from "@material-ui/core/Button";
-import Backdrop from "@material-ui/core/Backdrop/Backdrop";
-import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
+
 
 
 

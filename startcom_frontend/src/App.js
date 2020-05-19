@@ -22,14 +22,12 @@ import BIDetail from './components/Layout/BIDetail';
 import Profile from "./components/profile/Profile";
 import EditBusinessIdea from "./components/profile/EditBusinessIdea";
 import EditProfile from "./components/profile/EditProfile";
-import UserTemplate from "./components/Layout/template/UserTemplate";
-import UserSkeleton from "./components/skeleton/UserSkeleton";
+
 import DisplayConsultants from "./components/consultants/DisplayConsultants";
 import GeneralProfile from "./components/profile/GeneralProfile";
 import DisplayInvestors from "./components/investors/DisplayInvestors";
 import ProfileDetail from "./components/profile/ProfileDetail";
-// import Notification from './components/notification/Notification';
-// import Notifications from './notifications.js'
+
 
 class App extends Component {
   constructor(props) {

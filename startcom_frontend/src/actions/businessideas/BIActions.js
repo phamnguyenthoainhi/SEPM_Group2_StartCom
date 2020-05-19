@@ -75,7 +75,7 @@ export const registerBI = (BIData) => dispatch => {
         
     })
     .then((res) => {
-        console.log("res "+ res.status);
+        // console.log("res "+ res.status);
         if(res.status === 200) {
             if (sessionStorage.getItem('id') !== null && sessionStorage.getItem('id') !== ''
             && sessionStorage.getItem('token') !== null && sessionStorage.getItem('token') !== ''
@@ -93,8 +93,7 @@ export const registerBI = (BIData) => dispatch => {
                             'Authorization': 'Bearer '+ token
                         },
                         body: JSON.stringify(user)
-                }).
-                then((res) => {
+                }).then((res) => {
                     if(res.status === 200) {
                         console.log("Edit success")
                         dispatch({
@@ -155,7 +154,7 @@ export const deleteBI = (id) => dispatch => {
         },
     })
         .then((res) => {
-                console.log("res "+ res.status);
+                // console.log("res "+ res.status);
                 if(res.status === 200) {
                     if (sessionStorage.getItem('id') !== null && sessionStorage.getItem('id') !== ''
                         && sessionStorage.getItem('token') !== null && sessionStorage.getItem('token') !== ''
@@ -219,18 +218,18 @@ export const filterBI = (categories, consultant, investor,sort, businessIdeas) =
         filteredIdeas = filteredIdeas.filter(idea => categories.includes(idea.category))
     }
     if(consultant.length===1){
-        console.log(consultant[0]);
+        // console.log(consultant[0]);
         let filteredByConsultant = [];
         switch (consultant[0]){
             case 'needed':
                 filteredByConsultant = filteredIdeas.filter(idea => idea.needConsultant === true);
                 filteredIdeas = filteredByConsultant;
-                console.log(filteredIdeas);
+                // console.log(filteredIdeas);
                 break;
             case 'not needed':
                 filteredByConsultant = filteredIdeas.filter(idea => idea.needConsultant === false);
                 filteredIdeas = filteredByConsultant;
-                console.log(filteredIdeas);
+                // console.log(filteredIdeas);
                 break;
             default:
                 break
@@ -238,18 +237,18 @@ export const filterBI = (categories, consultant, investor,sort, businessIdeas) =
         }
     }
     if (investor.length === 1){
-        console.log(investor[0]);
+        // console.log(investor[0]);
         let filteredByInvestor = [];
         switch(investor[0]){
             case 'needed':
                 filteredByInvestor = filteredIdeas.filter(idea => idea.needInvestor === true);
                 filteredIdeas = filteredByInvestor;
-                console.log(filteredIdeas);
+                // console.log(filteredIdeas);
                 break;
             case 'not needed':
                 filteredByInvestor = filteredIdeas.filter(idea => idea.needInvestor === false);
                 filteredIdeas = filteredByInvestor;
-                console.log(filteredIdeas);
+                // console.log(filteredIdeas);
                 break;
             default:
                 break

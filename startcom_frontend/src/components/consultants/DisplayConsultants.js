@@ -48,8 +48,8 @@ class DisplayConsultants extends Component {
     };
 
     render() {
-        console.log(this.props.consultants);
-        console.log(this.props.loading);
+        // console.log(this.props.consultants);
+        // console.log(this.props.loading);
         const { classes, consultants, loading} = this.props;
 
         let consultantsMarkup = !loading ? (

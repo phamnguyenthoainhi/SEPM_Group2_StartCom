@@ -180,7 +180,7 @@ class Profile extends Component {
     };
 
     render() {
-        console.log(this.props.businessIdea);
+        // console.log(this.props.businessIdea);
         const { classes, user, businessIdea, loading, userLoading, doneDeleteBI, deleting } = this.props;
         const { openBiography } = this.state;
         return (

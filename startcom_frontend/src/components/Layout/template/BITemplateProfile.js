@@ -16,8 +16,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
-import Backdrop from "@material-ui/core/Backdrop/Backdrop";
-import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
+
 
 
 
@@ -143,9 +142,9 @@ class BITemplateProfile extends Component {
 
                         <Grid item md={6} sm={6} lg={6} xs={6}>
                             {businessIdea.image === '' ? (
-                                    <img src={defaultLogo} className={classes.ideaImage}/>
+                                    <img src={defaultLogo} className={classes.ideaImage} alt="Idea"/>
                                 ) :
-                                <img src={businessIdea.image} className={classes.ideaImage} />
+                                <img src={businessIdea.image} className={classes.ideaImage} alt="Idea"/>
                             }
                         </Grid>
                     </Grid>

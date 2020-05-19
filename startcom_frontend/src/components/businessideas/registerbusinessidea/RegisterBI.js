@@ -100,7 +100,7 @@ class RegisterBI extends Component {
     };
 
     chooseFile = event => {
-        console.log(event.target.files[0].name);
+        // console.log(event.target.files[0].name);
         this.setState({
             image: event.target.files[0],
             chosenFile: 'Uploaded file: '+ event.target.files[0].name

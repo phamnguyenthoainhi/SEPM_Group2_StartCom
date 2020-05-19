@@ -104,14 +104,14 @@ class UserTemplate extends Component {
 
 
     render() {
-        const { classes, user, userType } = this.props;
+        const { classes, user} = this.props;
         const { cardElevation } = this.state;
         return (
             <CardActionArea onMouseOver={this.onMouseOver}  onMouseOut={this.onMouseOut}>
                 <Card className={classes.cardWrapper} elevation={cardElevation}>
                     <CardContent className={classes.cardContent}>
                         <Grid container className={classes.container}>
-                            <img src={user.image ? user.image : defaultUser} className={classes.avatar}/>
+                            <img src={user.image ? user.image : defaultUser} className={classes.avatar} alt="avatar"/>
                         </Grid>
 
                         <Grid container className={classes.container}>
