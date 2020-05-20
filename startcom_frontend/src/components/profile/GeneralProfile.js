@@ -101,7 +101,18 @@ const styles = (theme) => ({
         padding: 30,
         justifyContent: 'center',
         alignContent: 'center',
-    }
+    },
+    iconBtn: {
+        textDecoration: 'none',
+        backgroundColor: 'transparent',
+        "&:hover": {
+            textDecoration: 'none',
+            backgroundColor: 'transparent',
+        },
+        "&:focus": {
+            textDecoration: 'none',
+        },
+    },
 
 });
 

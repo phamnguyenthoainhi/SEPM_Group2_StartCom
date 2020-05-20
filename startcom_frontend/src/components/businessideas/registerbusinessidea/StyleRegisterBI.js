@@ -1,49 +1,111 @@
 const style = (theme) => ({
 
-    formControl: {
-        // margin: theme.spacing(1),
-        width: '100%',
-    },
-    formContainer: {
-        
-        textAlign: 'center',
-        padding: 50
-    },
-    title: {
-        fontSize: "25px",
-        color: theme.color.primary3,
-        
-    },
-    button: {
-        marginTop: "40px",
-        paddingLeft: "20px",
-        paddingRight: "20px",
-        backgroundColor: theme.color.primary3,
-        color: theme.color.primary1,
-        '&:hover':{
-            backgroundColor: theme.color.contrast
+    containerWrapper: {
+        padding: "50px 300px",
+        [theme.breakpoints.down('md')]: {
+            padding: "50px 200px",
         },
-        clear: 'left',
-        // display: 'table'
-        
-    
+        [theme.breakpoints.down('sm')]: {
+            padding: "50px 150px",
+        },
+    },
+
+    container: {
+        justifyContent: 'center',
+        alignContent: 'center',
+    },
+    text: {
+        fontFamily: theme.font2,
+        fontWeight: 700,
+        color: theme.color.primary3,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 22
+        },
+    },
+
+    dialogText: {
+        fontFamily: theme.font2,
+        fontWeight: 700,
+        color: theme.color.primary3,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 15
+        },
+    },
+
+
+    header: {
+        fontFamily: theme.font2,
+        fontWeight: 700,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 14
+        },
+    },
+
+    ideaContainer: {
+        padding: "15px 0"
     },
     input: {
-        marginBottom: "15px",
-        fontSize: '20px',
-        '& label.Mui-focused': {
-            color: theme.color.primary1,
-          },
-          '& .MuiInput-underline:after': {
-            borderBottomColor: theme.color.primary1,
-            
-          },
-          '& .MuiInput-underline:hover': {
-            borderBottomColor: theme.color.primary3,
-          },
-       
-    
+        fontFamily: theme.font2,
+        fontWeight: 400,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 14
+        },
     },
+    textField: {
+        "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: theme.color.primary1
+        }
+    },
+    buttonFile: {
+        border: '1px dashed black',
+        transition: "all 350ms ease-in-out",
+        color: theme.color.primary3,
+        textTransform: 'inherit',
+        '&:hover':{
+            backgroundColor: theme.color.primary2,
+            color: theme.color.primary1,
+        }
+    },
+    label: {
+        margin: 0,
+        fontSize: 16,
+        fontFamily: theme.font2,
+        fontWeight: 400,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 14
+        },
+    },
+    btnContainer: {
+        marginTop: 20,
+        alignContent: 'center',
+        justifyContent: 'center'
+    },
+    button: {
+        fontSize: 15,
+        padding: 10,
+        margin: "0 15px",
+        outline: "none",
+        textDecoration: "none",
+        backgroundColor: theme.color.primary3,
+        color: theme.color.primary1,
+        fontFamily: "'Raleway', sans-serif;",
+        textTransform: "inherit",
+        transition: "all 350ms ease-in-out",
+        fontWeight: 600,
+        "&:hover": {
+            color: theme.color.primary2,
+            backgroundColor: theme.color.contrast,
+        },
+    },
+    completeBtn: {
+        backgroundColor: theme.color.secondary,
+        color: theme.color.primary1,
+        textTransform: 'inherit',
+        outline: "none",
+        textDecoration: "none",
+        fontFamily: "'Raleway', sans-serif;",
+    },
+
     content: {
         marginTop: '30px'
     },
@@ -62,56 +124,11 @@ const style = (theme) => ({
         marginLeft: 40,
         marginRight: 40,
         margin: 10
+    },
 
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
     },
-    text: {
-        color: theme.color.contrast,
-        paddingTop: '10px',
-        paddingBottom: '10px',
-        fontSize: '16px'   
-    },
-    card: {
-        maxWidth: 600
-    },
-    
-    buttonfile: {
-        color: theme.color.primary3,
-        
-        '&:hover':{
-            backgroundColor: theme.color.primary2,
-            color: theme.color.primary1,
-            
-        }
-    },
-    chosenfile: {
-        float: 'left',
-        color: theme.color.contrast,
-        fontSize: '14px',
-        marginTop: '7px'
-        
-    },
-    formcontrollabel: {
-        color: theme.color.primary3,
-        fontFamily: theme.font,
-        
-    },
-    terms: {
-        color: theme.color.contrast,
-        fontSize: '14px',
-        fontFamily: theme.font,
-        
-    },
-    floatitem: {
-        float: 'left',
-        display: 'block',
-        clear:'center'
-    },
-    
-    radiogroup: {
-     
-        textAlign: 'left'
-    }
-
-
-})
+});
 export default style;

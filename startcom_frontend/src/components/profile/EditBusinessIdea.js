@@ -350,7 +350,6 @@ class EditBusinessIdea extends Component {
         return (
             <Grid container>
                 <Navbar/>
-
                 <Grid container className={classes.containerWrapper}>
                     <Grid container className={classes.contentContainer}>
                         <Grid container className={classes.container} style={{marginBottom: 50}}>
@@ -586,7 +585,7 @@ class EditBusinessIdea extends Component {
                 </Grid>
                 <Footer/>
 
-                <Snackbar open={doneUpdateBI} autoHideDuration={5000} style={{backgroundColor: '#90B494'}}>
+                <Snackbar open={doneUpdateBI} autoHideDuration={5000}>
                     <Alert severity="success" className={classes.input}>
                         Successfully update business idea !
                     </Alert>

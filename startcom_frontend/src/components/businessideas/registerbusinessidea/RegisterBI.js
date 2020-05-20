@@ -20,12 +20,16 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Typography from '@material-ui/core/Typography';
 import Navbar from '../../Layout/Navbar';
 import Box from '@material-ui/core/Box';
+import CheckIcon from '@material-ui/icons/Check';
+import ImageIcon from '@material-ui/icons/Image';
 
 import MenuItem from '@material-ui/core/MenuItem';
-
-
-
 import Grid from '@material-ui/core/Grid';
+import {CATEGORIES} from "../../../utils/categories";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import DeleteIcon from "@material-ui/core/SvgIcon/SvgIcon";
+import Backdrop from "@material-ui/core/Backdrop/Backdrop";
+import {Link} from "react-router-dom";
 
 const CustomCheckbox = withStyles({
     root: {
@@ -61,17 +65,17 @@ class RegisterBI extends Component {
             chosenFile: '',
             category: '',
             terms: false,
-            loading: false
+            loading: false,
+            errors: {},
+            uploadImageComplete: false
 
         };
-        this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this); 
         this.chooseFile = this.chooseFile.bind(this);
         
     }
     
     componentDidUpdate(prevProps) {
-        
         if (this.props.isRegisteredLoading !== prevProps.isRegisteredLoading) {
             this.setState({
                 loading: this.props.isRegisteredLoading
@@ -87,7 +91,7 @@ class RegisterBI extends Component {
         this.setState({
             open: true
         })
-  };
+    };
 
     handleClose = () => {
         this.setState({
@@ -103,12 +107,12 @@ class RegisterBI extends Component {
         // console.log(event.target.files[0].name);
         this.setState({
             image: event.target.files[0],
-            chosenFile: 'Uploaded file: '+ event.target.files[0].name
+            // chosenFile: 'Uploaded file: '+ event.target.files[0].name,
+            uploadImageComplete: true
         })
-        
-    }
+    };
 
-    onChange(e) {
+    onChange = (e) => {
         if (e.target.name === 'needInvestor' || e.target.name === 'needConsultant' || e.target.name === 'terms') {
             this.setState({
                 [e.target.name] : e.target.checked
@@ -121,9 +125,8 @@ class RegisterBI extends Component {
                 [e.target.name] : e.target.value,
             })
 
-        } 
-        
-    }
+        }
+    };
 
     getBase64 = (file, callback) => {
         const reader = new FileReader();
@@ -134,12 +137,11 @@ class RegisterBI extends Component {
         };
        
         reader.onerror = function (error) {
-          console.log('Error: ', error);
+        console.log('Error: ', error);
         };
      };
 
-     handleRegisterBI = (encodedImage) => {
-         
+    handleRegisterBI = (encodedImage) => {
         if (sessionStorage.getItem("id") !== null && sessionStorage.getItem("id") !== undefined && sessionStorage.getItem("id") !== '') {
             const businessIdea = {
                 name: this.state.name,
@@ -191,139 +193,304 @@ class RegisterBI extends Component {
             }
         }
     }
+
+
+
     render() {
         const {classes} = this.props;
+        const { errors, uploadImageComplete } = this.state;
         return (
             <Grid container>
                 <Navbar/>
-                <Grid item md={2}/>
-                <Grid item md={8} className={classes.formContainer} >
-                <form className={classes.form} autoComplete="off" onSubmit={this.onSubmit}>
-                        <label className={classes.title}> Register Your Business Idea </label>
-                            <div className={classes.content}>
-                            <TextField
-                                onChange={this.onChange} 
-                                value = {this.state.name} 
-                                name = 'name'  
-                                fullWidth
-                                label="Business Idea Name"
-                                required className ={classes.input}
-                                
-                            />
+                <Grid container className={classes.containerWrapper}>
+                    <Grid container className={classes.container} style={{marginBottom: 50}}>
+                        <Typography variant='h5' className={classes.text}>Register Your Business Idea</Typography>
+                    </Grid>
 
-                            <TextField
-                                onChange={this.onChange} 
-                                value = {this.state.date} 
-                                name = 'date'  
-                                fullWidth
-                                label="Date of Establishment"
-                                className ={classes.input}
-                                type = 'date'
-                                required
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                            />
 
-                            <TextField label="Description of Business Idea"
-                                onChange={this.onChange} 
-                                value = {this.state.description} 
-                                name = 'description'  
-                                fullWidth
-                                required
-                                className ={classes.input}
-                            />
-                            <TextField label="Target Funding $"
-                                onChange={this.onChange} 
-                                value = {this.state.targetFunding} 
-                                name = 'targetFunding'  
-                                fullWidth
-                                className ={classes.input}
-                                type='number'
-                            />
-                            <div className={classes.floatitem}>
-                            <Typography className={classes.chosenfile}>{this.state.chosenFile}</Typography>
-                            <br/>
-                                <Button color="default"  className={classes.buttonfile} 
-                                label='My Label'startIcon={<CloudUploadIcon />}  >
-                                    <input type="file" accept="image/*" id='file' style={{display:'none'}} name='image'  onChange={this.chooseFile}/>
-                                    <label htmlFor='file' >
-                                    
-                                            Upload Business Idea Image
-                                    </label>
-                                </Button>
-                                
-                            
-
-                            </div>
-                           
-                            
-                            <Grid container spacing={0}>
-                                <Grid item xs={6} className={classes.leftcolumn}>
-                                
-                                    <Box className={classes.radiogroup}>
-                                      
-                                        <FormControlLabel control={<CustomCheckbox checked={this.state.needInvestor} onChange={this.onChange} name="needInvestor" />}
-                                        label="Looking for an consultant" className={classes.checkbox} />
-                                        <br/>
-                                        <FormControlLabel control={<CustomCheckbox checked={this.state.needConsultant} onChange={this.onChange} name="needConsultant" />}
-                                        label="Looking for an consultant" className={classes.checkbox}/>
-                                    </Box>
-                                </Grid>
-                                <Grid item xs={6} className={classes.rightcolumn}>
-                               
-                                <FormControl className={classes.formControl}>
-                                   
-                                    <TextField type ='text' id="select" label ='Choose your business category' value ={this.state.category} select className ={classes.input} onChange={this.onChange} name ='category'>
-                                    <MenuItem value = 'Technology' >Techology</MenuItem>
-                                        <MenuItem value = 'Art' >Art</MenuItem>
-                                        <MenuItem value = 'Community'>Community</MenuItem>
-                                        <MenuItem value = 'Food & Beverage'>Food & Beverage</MenuItem>
-                                        <MenuItem value = 'Education'>Education</MenuItem>
-                                        <MenuItem value = 'Medical'>Medical</MenuItem>
-                                        <MenuItem value = 'Transportation'>Transportation</MenuItem>
-                                    </TextField>
-                                        
-
-                                    
-                                </FormControl>
-                                
-                                </Grid>
-                                <Grid item xs={12} >
-                                    <FormControl component="fieldset" className={classes.floatitem}>
-                                    <FormControlLabel control={<CustomCheckbox checked={this.state.terms} onChange={this.onChange} name="terms" required/>}
-                                        label="I agree that all information about my business idea is published" className={classes.terms} />
-                                                
-                                    </FormControl>
-                                </Grid>
+                    <Grid container>
+                        <Grid container className={classes.ideaContainer} direction='row'>
+                            <Grid item md={4} sm={4} xs={4} lg={4}>
+                                <Typography className={classes.header} >
+                                    Image:
+                                </Typography>
                             </Grid>
 
-                           
-                           {this.state.loading ? (<ColorCircularProgress variant="indeterminate" size={32} style={{marginTop: "5%"}}/>)
-                           :
-                           <div>
-                            <Button variant="contained" type='submit' className={classes.button}>Submit</Button>
+                            <Grid item md={8} sm={8}>
+                                {/*{this.state.image ? (*/}
+                                {/*    <Grid container justify='center'>*/}
+                                {/*        <img src={this.state.image} alt="Profile" className={classes.ideaImage}/>*/}
+                                {/*        <Grid container className={classes.container}>*/}
+                                {/*            <Button*/}
+                                {/*                startIcon={<DeleteIcon />}*/}
+                                {/*                className={classes.removeImgBtn}*/}
+                                {/*                onClick={this.removeImage}*/}
+                                {/*            >Remove image</Button>*/}
+                                {/*        </Grid>*/}
 
-                           </div>}
-                           
-                            <Dialog 
-                            className={classes.dialog}
+                                {/*    </Grid>*/}
+
+                                {/*) : */}
+                                { !uploadImageComplete ? (
+                                    <Button
+                                        variant='outlined'
+                                        className={classes.buttonFile}
+                                        startIcon={<ImageIcon />}  >
+                                        <input type="file" accept="image/*" id='file' style={{display:'none'}} name='image'  onChange={this.chooseFile}/>
+                                        <label htmlFor='file' className={classes.label} >
+                                            Upload image
+                                        </label>
+                                    </Button>
+
+                                ) : (
+                                    <Button
+                                        disabled
+                                        className={classes.completeBtn}
+                                        endIcon={<CheckIcon/>}
+                                    >
+                                        Upload Completed
+                                    </Button>
+                                )}
+                            </Grid>
+                        </Grid>
+
+                        <Grid container className={classes.ideaContainer} direction='row'>
+                            <Grid item md={4} sm={4} xs={4} lg={4}>
+                                <Typography className={classes.header} >
+                                    Name:
+                                </Typography>
+                            </Grid>
+
+                            <Grid item md={6} sm={6} xs={6}>
+                                <TextField
+                                    size="small"
+                                    className={classes.textField}
+                                    name='name'
+                                    type="text"
+                                    required
+                                    value={this.state.name}
+                                    onChange={this.onChange}
+                                    variant='outlined'
+                                    fullWidth
+                                    multiline
+                                    helperText={errors.name}
+                                    error={!!errors.name}
+                                    rows={2}
+                                    InputLabelProps={{className: classes.input}}
+                                    InputProps={{className: classes.input}}
+                                >
+                                </TextField>
+                            </Grid>
+                        </Grid>
+
+                        <Grid container className={classes.ideaContainer} direction='row'>
+                            <Grid item md={4} sm={4} xs={4} lg={4}>
+                                <Typography className={classes.header} >
+                                    Description:
+                                </Typography>
+                            </Grid>
+
+                            <Grid item md={6} sm={6} xs={6}>
+                                <TextField
+                                    size="small"
+                                    className={classes.textField}
+                                    name='description'
+                                    required
+                                    type="text"
+                                    value={this.state.description}
+                                    onChange={this.onChange}
+                                    variant='outlined'
+                                    multiline
+                                    helperText={errors.description}
+                                    error={!!errors.description}
+                                    rows={4}
+                                    fullWidth
+                                    InputLabelProps={{className: classes.input}}
+                                    InputProps={{className: classes.input}}
+                                >
+                                </TextField>
+                            </Grid>
+                        </Grid>
+
+                        <Grid container className={classes.ideaContainer} direction='row'>
+                            <Grid item md={4} sm={4} xs={4} lg={4}>
+                                <Typography className={classes.header} >
+                                    Category:
+                                </Typography>
+                            </Grid>
+
+                            <Grid item md={8} sm={8} xs={8}>
+                                <TextField
+                                    size="small"
+                                    className={classes.textField}
+                                    select
+                                    type="text"
+                                    name="category"
+                                    value={this.state.category}
+                                    onChange={this.onChange}
+                                    variant='outlined'
+                                    InputLabelProps={{className: classes.input}}
+                                    inputProps={{className: classes.input}}
+                                >
+                                    {CATEGORIES.map(option => (
+                                        <MenuItem key={option.id} value={option.name}
+                                                  className={classes.input}>
+                                            {option.name}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                            </Grid>
+                        </Grid>
+
+                        <Grid container className={classes.ideaContainer} direction='row'>
+                            <Grid item md={4} sm={4} xs={4} lg={4}>
+                                <Typography className={classes.header} >
+                                    Status:
+                                </Typography>
+                            </Grid>
+
+                            <Grid item md={8} sm={8} xs={8}>
+                                <FormControl>
+                                    <FormControlLabel
+                                        control={
+                                            <CustomCheckbox
+                                                checked={this.state.needInvestor}
+                                                onChange={this.onChange}
+                                                name="needInvestor"
+                                            />
+                                        }
+                                        label={<Typography className={classes.input} color="textSecondary">Need Funding</Typography>}
+
+                                    />
+                                </FormControl>
+
+                                <FormControl>
+                                    <FormControlLabel
+                                        control={
+                                            <CustomCheckbox
+                                                checked={this.state.needConsultant}
+                                                onChange={this.onChange}
+                                                name="needConsultant"
+                                            />
+                                        }
+                                        label={<Typography className={classes.input} color="textSecondary">Need Consultancy</Typography>}
+                                        className={classes.input}
+                                    />
+                                </FormControl>
+                            </Grid>
+                        </Grid>
+
+                        <Grid container className={classes.ideaContainer} direction='row'>
+                            <Grid item md={4} sm={4} xs={4} lg={4}>
+                                <Typography className={classes.header} >
+                                    Date:
+                                </Typography>
+                            </Grid>
+
+                            <Grid item md={4} sm={4} xs={4}>
+                                <TextField
+                                    variant='outlined'
+                                    onChange={this.onChange}
+                                    value = {this.state.date}
+                                    name = 'date'
+                                    fullWidth
+                                    label="Date of Establishment"
+                                    className ={classes.input}
+                                    type = 'date'
+                                    required
+                                    InputLabelProps={{
+                                        className: classes.input,
+                                        shrink: true,
+                                    }}
+                                    inputProps={{className: classes.input}}
+                                />
+                            </Grid>
+                        </Grid>
+
+                        <Grid container className={classes.ideaContainer} direction='row'>
+                            <Grid item md={4} sm={4} xs={4} lg={4}>
+                                <Typography className={classes.header} >
+                                    Target funding:
+                                </Typography>
+                            </Grid>
+
+                            <Grid item md={4} sm={4} xs={4}>
+                                <TextField
+                                    size="small"
+                                    className={classes.textField}
+                                    name='targetFunding'
+                                    required
+                                    type="number"
+                                    value={this.state.targetFunding}
+                                    onChange={this.onChange}
+                                    variant='outlined'
+                                    fullWidth
+                                    helperText={errors.targetFunding}
+                                    error={!!errors.targetFunding}
+                                    InputLabelProps={{className: classes.input}}
+                                    InputProps={{
+                                        className: classes.input,
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                $
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                >
+                                </TextField>
+                            </Grid>
+
+                        </Grid>
+
+                        <Grid container className={classes.container} justify='center'>
+                            <Grid item md={2} sm={2} xs={2} lg={2}/>
+                            <Grid item md={8} sm={8} xs={8} lg={8}>
+                                <FormControl component="fieldset">
+                                    <FormControlLabel
+                                        control={
+                                            <CustomCheckbox
+                                                checked={this.state.terms}
+                                                onChange={this.onChange}
+                                                name="terms"
+                                                required
+                                            />}
+                                        label={<Typography className={classes.input}>I agree that all information about my business idea is published</Typography>}
+                                        />
+
+                                </FormControl>
+                            </Grid>
+                            <Grid item md={2} sm={2} xs={2} lg={2}/>
+                        </Grid>
+
+                        <Grid container className={classes.btnContainer}>
+                            { this.state.loading ? (
+                                <Backdrop className={classes.backdrop} open={this.state.loading}>
+                                    <CircularProgress variant="indeterminate" size={40} style={{color: '#3C5155'}}/>
+                                </Backdrop>
+                            ) : (
+                                <Button className={classes.button} onClick={this.onSubmit}>Confirm Registration</Button>
+                            )}
+                        </Grid>
+                            <Dialog
+                                className={classes.dialog}
                                 open={this.state.open}
                                 onClose={this.handleClose}
                                 aria-labelledby="alert-dialog-title"
                                 aria-describedby="alert-dialog-description"
-                                > 
+                            >
                                 <DialogContent>
-                                    <Typography gutterBottom className={classes.text}>
-                                    Congratulations, your business idea has been registered successfully!
+                                    <Typography gutterBottom variant='subtitle1' className={classes.dialogText}>
+                                        Congratulations, your business idea has been registered successfully!
                                     </Typography>
                                 </DialogContent>
-    
-                            </Dialog>   
-                            </div> 
-                    </form>
+
+                            </Dialog>
+
+                    </Grid>
                 </Grid>
-                <Grid item md={2}/>
+
+
+
                 <Footer/>
             </Grid>
             

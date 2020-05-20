@@ -44,7 +44,7 @@ class Contact extends Component {
     }
     close = () => {
         this.props.handleClose()
-    }
+    };
 
     componentDidMount() {
         if (sessionStorage.getItem("id") !== null && sessionStorage.getItem("id") !== undefined && sessionStorage.getItem("id") !== "") {
@@ -94,20 +94,18 @@ class Contact extends Component {
     
     onSubmit = (e, receiverid) => {
         e.preventDefault();
-       
             const message = {
                 sender: this.state.profileSender.id,
                 receiver: this.state.profileReceiver.id,
                 subject: this.state.subject,
                 text: this.state.text,
-            }
-            console.log(JSON.stringify(message))
-            this.props.sendMessage(message)
-        
-        
-        
-        
-    }
+            };
+            console.log(JSON.stringify(message));
+            this.props.sendMessage(message);
+            this.setState({
+                contactOpen: false
+            })
+    };
 
     onChange = (e) => {
         this.setState({
@@ -117,8 +115,7 @@ class Contact extends Component {
 
     render() {
         const {classes} = this.props;
-        
-        
+
         return (
             <div className={classes.right} >  
                             <Card className={classes.rootcontact} id='mydiv' style={{display: 'none'}}>
@@ -200,7 +197,7 @@ class Contact extends Component {
                                                                  onChange={(e) => this.onChange(e)} 
                                                                 value = {this.state.text} 
                                                                 name = 'text' 
-                                                                ></textarea>
+                                                                />
                                                             </div>
                                                         </div>
                                             </div>
@@ -230,8 +227,7 @@ class Contact extends Component {
                                                 <Button variant="outlined" className={classes.send} 
                                                
                                                 onClick ={(e, receiverid )=>this.onSubmit(e, this.props.profileReceiver.id)}
-                                                
-                                                
+
                                                 >Send</Button>
                                             </div>)}
                                            

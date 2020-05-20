@@ -99,7 +99,7 @@ const styles = (theme) => ({
         textTransform: "inherit",
         fontFamily: theme.font2,
         fontWeight: 700,
-        color: '#C75D5D',
+        backgroundColor: '#C75D5D',
         [theme.breakpoints.down('sm')]: {
             fontSize: 16
         },
@@ -265,11 +265,10 @@ class BIDetail extends Component {
 
         this.setState({
             contactOpen: true,
-           
-        })
+        });
         this.props.getProfile(ownerId, 'receiver');
 
-    } 
+    };
     handleClose = () => {
         
         var x = document.getElementById("mydiv");
@@ -328,6 +327,7 @@ class BIDetail extends Component {
                                 <Button
                                     variant='outlined'
                                     className={classes.consultantTrue}
+                                    disabled
                                 >
                                     Consultancy in need
                                 </Button>
@@ -378,24 +378,22 @@ class BIDetail extends Component {
                 (
                     <Grid container >
                         <Grid item lg={9} md ={8} sm = {12} xs ={12}>
-                        {detailMarkup}
+                            {detailMarkup}
                         </Grid>
                         <Grid item lg={3} md ={4} sm = {12} xs ={12} >
-                           
-
-                        <Contact id='mydiv' handleClose={this.handleClose} profileReceiver = {this.state.profileReceiver} 
+                            <Contact id='mydiv' handleClose={this.handleClose} profileReceiver = {this.state.profileReceiver}
                                 
                                 />
                         </Grid>
                     </Grid>
                 ) : (
                     <Grid container>
-                    <Grid item xs={12} >
-                    {detailMarkup}
-                    </Grid>
-                    <Grid item xs={0} >
-                    <Contact id='mydiv' handleClose={this.handleClose} profileReceiver = {this.state.profileReceiver}/>
-                    </Grid>
+                        <Grid item xs={12} >
+                            {detailMarkup}
+                        </Grid>
+                        <Grid item xs={0} >
+                            <Contact id='mydiv' handleClose={this.handleClose} profileReceiver = {this.state.profileReceiver}/>
+                        </Grid>
                 </Grid>
                     
                 )}

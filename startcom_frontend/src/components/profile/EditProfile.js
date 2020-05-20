@@ -281,7 +281,6 @@ class EditProfile extends Component {
         };
 
         reader.onerror = function (error) {
-            // console.log('Error: ', error);
         };
     };
 
@@ -754,7 +753,7 @@ class EditProfile extends Component {
                 </Grid>
                 <Footer/>
 
-                <Snackbar open={doneUpdateProfile} autoHideDuration={5000} style={{backgroundColor: '#90B494'}}>
+                <Snackbar open={doneUpdateProfile} autoHideDuration={5000}>
                     <Alert severity="success" className={classes.input}>
                         Successfully update profile !
                     </Alert>
