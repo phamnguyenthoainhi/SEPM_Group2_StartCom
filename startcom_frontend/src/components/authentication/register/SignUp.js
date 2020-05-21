@@ -3,7 +3,6 @@ import {connect} from "react-redux";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import TextField from "@material-ui/core/TextField";
-// import CheckIcon from "@material-ui/icons/Check";
 import withStyles from "@material-ui/core/styles/withStyles";
 import styles from './signUpStyle';
 import {registerAccount} from '../../../actions/anonymoususers/AnonymoususersActions';
@@ -11,8 +10,12 @@ import Radio from '@material-ui/core/Radio';
 import FormControl from '@material-ui/core/FormControl';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import FormLabel from '@material-ui/core/FormLabel';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import LockIcon from '@material-ui/icons/Lock';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
+import InputAdornment from "@material-ui/core/InputAdornment";
 import DoneIcon from '@material-ui/icons/Done';
+import Typography from "@material-ui/core/Typography";
 
 const ColorCircularProgress = withStyles({
     root: {
@@ -135,54 +138,84 @@ class SignUp extends Component {
 
         return (
             <div className="form-container sign-up-container">
-                <form>
-                    <h1 className={classes.label} style ={{color: '#3C5155'}}>Create your account</h1>
+                <form className={classes.form}>
+                    <Typography className={classes.title} variant='h4' style ={{color: '#3C5155', marginBottom: 20}}>Create your account</Typography>
                     <TextField
+                        variant='outlined'
                         type="email"
                         name="signUpEmail"
                         placeholder="Email"
-                        className={classes.formInput}
+                        className={classes.textField}
                         helperText={this.state.formSignUpErrors.emailError}
                         error={!!this.state.formSignUpErrors.emailError}
                         id="signUpEmail"
                         onChange={this.handleChange}
                         value={this.state.signUpEmail}
+                        InputLabelProps={{className: classes.input}}
+                        InputProps={{
+                            className: classes.input,
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <AccountCircleIcon style={{color: '#3C5155'}}/>
+                                </InputAdornment>
+                            ),
+                        }}
                         fullWidth
                     >
                     </TextField>
                     <TextField
+                        variant='outlined'
                         type="password"
                         name="signUpPassword"
                         placeholder="Password"
-                        className={classes.formInput}
+                        className={classes.textField}
                         helperText={this.state.formSignUpErrors.passwordError}
                         error={!!this.state.formSignUpErrors.passwordError}
                         id="signUpPassword"
                         onChange={this.handleChange}
                         value={this.state.signUpPassword}
                         fullWidth
+                        InputLabelProps={{className: classes.input}}
+                        InputProps={{
+                            className: classes.input,
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <LockIcon style={{color: '#3C5155'}}/>
+                                </InputAdornment>
+                            ),
+                        }}
                 
                     >
                     </TextField>
                     <TextField
+                        variant='outlined'
                         type="password"
                         name="signUpConfirmPassword"
                         placeholder="Confirm Password"
-                        className={classes.formInput}
+                        className={classes.textField}
                         helperText={this.state.formSignUpErrors.confirmPassError}
                         error={!!this.state.formSignUpErrors.confirmPassError}
                         id="confirmPassword"
                         onChange={this.handleChange}
                         value={this.state.signUpConfirmPassword}
                         fullWidth
+                        InputLabelProps={{className: classes.input}}
+                        InputProps={{
+                            className: classes.input,
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <LockOpenIcon style={{color: '#3C5155'}}/>
+                                </InputAdornment>
+                            ),
+                        }}
                        
                     >
                     </TextField>
                     <FormControl component="fieldset">
                             <RadioGroup row aria-label="type" name="type" value={this.state.type} onChange={this.handleChange} required>
-                                <FormControlLabel  value="startupowner" control={<CustomRadio />}  label="Startup Owner" className={classes.formcontrollabel}/>
-                                <FormControlLabel value="investor" control={<CustomRadio />} label="Investor" className={classes.formcontrollabel} />
-                                <FormControlLabel value="consultant" control={<CustomRadio />} label="Consultant" className={classes.formcontrollabel}/>
+                                <FormControlLabel  value="startupowner" control={<CustomRadio />}  label={<Typography className={classes.formControlLabel}>Startup Owner</Typography>}/>
+                                <FormControlLabel value="investor" control={<CustomRadio />}  label={<Typography className={classes.formControlLabel}>Investor</Typography>} />
+                                <FormControlLabel value="consultant" control={<CustomRadio />}  label={<Typography className={classes.formControlLabel}>Consultant</Typography>} />
                             </RadioGroup>
                 </FormControl>
 

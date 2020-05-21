@@ -1,13 +1,43 @@
 const style = (theme) => ({
+
+    title: {
+        fontFamily: theme.font2,
+        fontWeight: 700,
+        [theme.breakpoints.down('md')]: {
+            fontSize: 30
+        },
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 26
+        },
+    },
+    form: {
+        [theme.breakpoints.down('sm', 'md')]: {
+            padding: 0
+        },
+    },
+
+    input: {
+        fontFamily: theme.font2,
+        fontWeight: 400,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 14
+        },
+    },
   root: {
       '&:hover': {
         backgroundColor: 'transparent',
       },
       fontFamily: theme.font,
     },
-  textField: {
-      border: "none",
-  },
+    textField: {
+        margin: "5px 10px ",
+        width: "80%",
+        outline: "none",
+        "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: theme.color.primary1
+        }
+    },
+
   label: {
       color: theme.color.primary3,
       fontFamily: theme.font
@@ -22,24 +52,6 @@ const style = (theme) => ({
           border: "none"
       },
   },
-  formInput: {
-      width: "80%",
-      
-      border: "none",
-      padding: "12px 15px",
-      margin: "5px 0 ",
-      outline: "none",
-      '& label.Mui-focused': {
-        color: theme.color.primary1,
-      },
-      '& .MuiInput-underline:after': {
-        borderBottomColor: theme.color.primary1,
-      },
-      '& .MuiInput-underline:hover:before': {
-        borderBottomColor: theme.color.primary3,
-      }
-      
-  },
   successBtn: {
       outline: "none",
       fontFamily: theme.font,
@@ -47,7 +59,7 @@ const style = (theme) => ({
       color: theme.color.primary2,
       fontSize: 13,
       padding: "10px 30px",
-      // letterSpacing: 1,
+
       textTransform: "uppercase",
       margin: "10px 0",
       backgroundColor: theme.color.contrast,
@@ -59,38 +71,29 @@ const style = (theme) => ({
       }
   },
   registerBtn: {
-      
-      fontFamily: theme.font,
-      outline: "none",
-  
-    backgroundColor: theme.color.primary3,
-          color: theme.color.primary1,
-          border: "1px",
-          borderColor: theme.color.primary3,
-  
-      padding: "10px 30px",
-      letterSpacing: 1,
-      textTransform: "uppercase",
-      transition: "all 350mx ease-in-out",
-      margin: "20px 0",
-      "&:hover": {
-          transition: "all 350ms ease-in-out",
+      fontSize: 16,
+      padding: '10px 30px',
+      backgroundColor: theme.color.primary3,
+      color: theme.color.primary1,
+      fontFamily: "'Raleway', sans-serif;",
+      transition: "all 350ms ease-in-out",
+      marginTop: '30px',
+      '&:hover':{
           backgroundColor: theme.color.primary3,
-          color: 'white',
-          border: "1px",
-          borderColor: theme.color.primary3,
-          outline: "none"
+          color: theme.color.primary2
       },
-      "&:focus": {
-          outline: "none"
-      }
   },
-  input: {
-      fontFamily: theme.font,
-  },
-  formcontrollabel: {
+
+  formControlLabel: {
     color: theme.color.primary3,
-    fontFamily: theme.font,
+    fontFamily: theme.font2,
+    fontWeight: 400,
+      [theme.breakpoints.down('md')]: {
+          fontSize: 14
+      },
+      [theme.breakpoints.down('sm')]: {
+          fontSize: 12
+      },
   }
 
 

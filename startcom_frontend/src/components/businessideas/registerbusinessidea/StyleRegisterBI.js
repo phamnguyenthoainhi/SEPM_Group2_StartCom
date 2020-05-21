@@ -32,7 +32,6 @@ const style = (theme) => ({
         },
     },
 
-
     header: {
         fontFamily: theme.font2,
         fontWeight: 700,

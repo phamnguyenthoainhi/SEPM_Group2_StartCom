@@ -30,6 +30,8 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import DeleteIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import Backdrop from "@material-ui/core/Backdrop/Backdrop";
 import {Link} from "react-router-dom";
+import Alert from "@material-ui/lab/Alert/Alert";
+import Snackbar from "@material-ui/core/Snackbar/Snackbar";
 
 const CustomCheckbox = withStyles({
     root: {
@@ -54,20 +56,20 @@ class RegisterBI extends Component {
         this.state = {
             isRegisteredSuccess: '',
             name: '',
-            date:' ',
+            date: '',
             description: '',
-            targetFunding: 0,
+            targetFunding: '',
             needInvestor: false,
             needConsultant: false,
             open: false,
             setOpen: false,
             image:'',
-            chosenFile: '',
             category: '',
             terms: false,
             loading: false,
             errors: {},
-            uploadImageComplete: false
+            uploadImageComplete: false,
+            termsError: false
 
         };
         this.onSubmit = this.onSubmit.bind(this); 
@@ -116,9 +118,8 @@ class RegisterBI extends Component {
         if (e.target.name === 'needInvestor' || e.target.name === 'needConsultant' || e.target.name === 'terms') {
             this.setState({
                 [e.target.name] : e.target.checked
-
             })
-        } 
+        }
         
         else {
             this.setState({
@@ -141,6 +142,13 @@ class RegisterBI extends Component {
         };
      };
 
+    resetStates = () => {
+        this.setState({
+            uploadImageComplete: false,
+            errors: {}
+        })
+    };
+
     handleRegisterBI = (encodedImage) => {
         if (sessionStorage.getItem("id") !== null && sessionStorage.getItem("id") !== undefined && sessionStorage.getItem("id") !== '') {
             const businessIdea = {
@@ -154,8 +162,12 @@ class RegisterBI extends Component {
                 category: this.state.category,
                 ownerId: sessionStorage.getItem("id")
             };
+            if (this.validateBeforeSubmit(businessIdea)) {
+                this.props.registerBI(businessIdea);
+                this.resetStates()
+            }
             // console.log(JSON.stringify(businessIdea))
-            this.props.registerBI(businessIdea);
+
          } else {
              this.setState({
                  ownerError: "There are some errors happened. Please login and try again!"
@@ -163,9 +175,8 @@ class RegisterBI extends Component {
          }
      };
 
-    onSubmit(e) {
+    onSubmit = (e) => {
         e.preventDefault();
-
         if (this.state.terms === true) {
             if (!(this.state.image === '' || this.state.image === null || this.state.image === undefined)) {
                 this.getBase64(this.state.image, this.handleRegisterBI)
@@ -182,8 +193,10 @@ class RegisterBI extends Component {
                         category: this.state.category,
                         ownerId: sessionStorage.getItem("id")
                     };
-                    // console.log(JSON.stringify(businessIdea))
-                    this.props.registerBI(businessIdea);
+                    if (this.validateBeforeSubmit(businessIdea)) {
+                        this.props.registerBI(businessIdea);
+                        this.resetStates()
+                    }
                  } else {
                      this.setState({
                          ownerError: "There are some errors happened. Please login and try again!"
@@ -192,13 +205,33 @@ class RegisterBI extends Component {
 
             }
         }
-    }
+        else {
+            this.setState({
+                termsError: true
+            })
+        }
+    };
+
+    validateBeforeSubmit = (data) => {
+        const errors = {};
+        if (data.name === "") errors.name = "Cannot be empty";
+        if (data.category === "") errors.category = "Cannot be empty";
+        if (data.description === "") errors.description = "Cannot be empty";
+        if (data.date === "") errors.date = "Cannot be empty";
+        if (data.targetFunding === "") errors.targetFunding = "Cannot be empty";
+
+        if (Object.keys(errors).length !== 0) {
+            this.setState({errors: errors});
+            return false
+        }
+        return true;
+    };
 
 
 
     render() {
         const {classes} = this.props;
-        const { errors, uploadImageComplete } = this.state;
+        const { errors, uploadImageComplete, termsError } = this.state;
         return (
             <Grid container>
                 <Navbar/>
@@ -206,7 +239,6 @@ class RegisterBI extends Component {
                     <Grid container className={classes.container} style={{marginBottom: 50}}>
                         <Typography variant='h5' className={classes.text}>Register Your Business Idea</Typography>
                     </Grid>
-
 
                     <Grid container>
                         <Grid container className={classes.ideaContainer} direction='row'>
@@ -217,20 +249,6 @@ class RegisterBI extends Component {
                             </Grid>
 
                             <Grid item md={8} sm={8}>
-                                {/*{this.state.image ? (*/}
-                                {/*    <Grid container justify='center'>*/}
-                                {/*        <img src={this.state.image} alt="Profile" className={classes.ideaImage}/>*/}
-                                {/*        <Grid container className={classes.container}>*/}
-                                {/*            <Button*/}
-                                {/*                startIcon={<DeleteIcon />}*/}
-                                {/*                className={classes.removeImgBtn}*/}
-                                {/*                onClick={this.removeImage}*/}
-                                {/*            >Remove image</Button>*/}
-                                {/*        </Grid>*/}
-
-                                {/*    </Grid>*/}
-
-                                {/*) : */}
                                 { !uploadImageComplete ? (
                                     <Button
                                         variant='outlined'
@@ -327,6 +345,8 @@ class RegisterBI extends Component {
                                     type="text"
                                     name="category"
                                     value={this.state.category}
+                                    helperText={errors.category}
+                                    error={!!errors.category}
                                     onChange={this.onChange}
                                     variant='outlined'
                                     InputLabelProps={{className: classes.input}}
@@ -396,6 +416,8 @@ class RegisterBI extends Component {
                                     fullWidth
                                     label="Date of Establishment"
                                     className ={classes.input}
+                                    helperText={errors.date}
+                                    error={!!errors.date}
                                     type = 'date'
                                     required
                                     InputLabelProps={{
@@ -489,7 +511,11 @@ class RegisterBI extends Component {
                     </Grid>
                 </Grid>
 
-
+                <Snackbar open={termsError} autoHideDuration={1000}>
+                    <Alert severity="error" className={classes.input}>
+                        Please agree to our terms !
+                    </Alert>
+                </Snackbar>
 
                 <Footer/>
             </Grid>

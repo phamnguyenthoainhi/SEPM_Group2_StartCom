@@ -237,7 +237,6 @@ class EditBusinessIdea extends Component {
         })
     };
 
-
     chooseFile = event => {
         // console.log(event.target.files[0].name);
         this.setState({

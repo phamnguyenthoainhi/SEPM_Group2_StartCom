@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-
 import {withStyles} from "@material-ui/core";
 import {connect} from "react-redux";
 import style from './LoginStyle'
@@ -8,6 +7,10 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import {login, postEmailResetPassword} from '../../../actions/anonymoususers/AnonymoususersActions'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import LockIcon from '@material-ui/icons/Lock';
+import InputAdornment from "@material-ui/core/InputAdornment";
+import Typography from "@material-ui/core/Typography";
 
 const ColorCircularProgress = withStyles({
     root: {
@@ -137,32 +140,53 @@ class Login extends Component {
         // console.log(this.state.postEmailLoading);
         return (
             <div className="form-container sign-in-container">
-                <form className={classes.form}  >
+                <form className={classes.form}>
                     <div id ="form">
-                    <h1 className="title" style ={{color: '#3C5155'}}>Login</h1>
-                    <TextField type="text"
-                               name="loginEmail"
-                               placeholder="Email"
-                               className={classes.formInput}
-                               helperText = {this.state.loginFormError.emailError}
-                               error = {!!this.state.loginFormError.emailError}
-                               id="loginEmail"
-                               onChange={this.handleChange}
-                               value={this.state.loginEmail}
+                    <Typography variant='h4' className={classes.title} style ={{color: '#3C5155', marginBottom: 20}}>Login</Typography>
+                    <TextField
+                        variant='outlined'
+                        type="text"
+                        name="loginEmail"
+                        placeholder="Email"
+                        className={classes.textField}
+                        helperText = {this.state.loginFormError.emailError}
+                        error = {!!this.state.loginFormError.emailError}
+                        id="loginEmail"
+                        InputLabelProps={{className: classes.input}}
+                        InputProps={{
+                            className: classes.input,
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <AccountCircleIcon style={{color: '#3C5155'}}/>
+                                </InputAdornment>
+                            ),
+                        }}
+                        onChange={this.handleChange}
+                        value={this.state.loginEmail}
                                
                     />
                     <TextField
+                        variant='outlined'
                         type="password"
                         name="loginPassword"
                         placeholder="Password"
-                        className={classes.formInput}
+                        className={classes.textField}
                         helperText = {this.state.loginFormError.passwordError}
                         error = {!!this.state.loginFormError.passwordError}
                         id="loginPassword"
+                        InputLabelProps={{className: classes.input}}
+                        InputProps={{
+                            className: classes.input,
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <LockIcon style={{color: '#3C5155'}}/>
+                                </InputAdornment>
+                            ),
+                        }}
                         onChange={this.handleChange}
                         value={this.state.loginPassword}
                     />
-                    <Button onClick= {() => this.passwordRetrieve()} className={classes.passwordbtn}style={{textTransform: 'none'}}>Forgot your password?</Button>
+                    <Button onClick= {() => this.passwordRetrieve()} className={classes.passwordBtn}style={{textTransform: 'none'}}>Forgot your password?</Button>
                     <br/>
                     {
                     this.state.loading === true ? (<ColorCircularProgress variant="indeterminate" size={32} style={{marginTop: "5%"}}/>)
@@ -170,9 +194,10 @@ class Login extends Component {
                     
                     ((this.state.success === false && (this.state.loading === '' || this.state.loading === false)) ? 
                     (<Button
+
                         variant="contained"
-                              onClick={this.loginWithEmail}
-                              className={classes.registerBtn}
+                        onClick={this.loginWithEmail}
+                        className={classes.registerBtn}
                              
                     > Login</Button>)
                     :  '' )}
@@ -181,22 +206,36 @@ class Login extends Component {
                     <div id='hidden' style={{display:'none', width: "100%"}}>
 
                     <div style={{textAlign: "left"}}>
-                    <Button onClick= {() => this.back()} className={classes.passwordbtn} style={{textTransform: 'none', marginBottom: "40px"}}>Back to Login</Button>
+                    <Button onClick= {() => this.back()} className={classes.passwordBtn} style={{textTransform: 'none', marginBottom: "40px"}}>Back to Login</Button>
                     </div>
                     {this.state.postEmailSuccess ? "Email Confirmed! Please check your email":
                     (<div>
                     <h2 className="title" style ={{color: '#3C5155', marginBottom: "20px"}}>Reset Password</h2>
-                    <TextField type="text"
-                               name="postEmail"
-                               placeholder="Enter your email"
-                               className={classes.formInput}
-                               onChange={this.handleChange}
-                               value={this.state.postEmail}
-                               required
-                               fullWidth
-                               helperText= {this.state.postEmailFail}
+                    <TextField
+                        variant='outlined'
+                        type="text"
+                        name="postEmail"
+                        placeholder="Enter your email"
+                        className={classes.textField}
+                        onChange={this.handleChange}
+                        value={this.state.postEmail}
+                        required
+                        fullWidth
+                        helperText= {this.state.postEmailFail}
+                        InputLabelProps={{className: classes.input}}
+                        InputProps={{
+                            className: classes.input,
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <AccountCircleIcon style={{color: '#3C5155'}}/>
+                                </InputAdornment>
+                            ),
+                        }}
                     /><br/>
-                    {this.state.postEmailLoading ?  (<ColorCircularProgress variant="indeterminate" size={32} style={{marginTop: "5%"}}/>) : <Button type='submit' className={classes.registerBtn} onClick={(e)=> this.sendEmailReset(e)}>Submit</Button>}
+                    {this.state.postEmailLoading ?
+                        (<ColorCircularProgress variant="indeterminate" size={32} style={{marginTop: "5%"}}/>)
+
+                        : <Button type='submit' className={classes.registerBtn} onClick={(e)=> this.sendEmailReset(e)}>Submit</Button>}
 
                     </div>)}
 

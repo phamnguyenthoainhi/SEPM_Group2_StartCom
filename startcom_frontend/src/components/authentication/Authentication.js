@@ -6,6 +6,7 @@ import SignUp from "./register/SignUp";
 import SignIn from "./login/Login";
 import './authentication.css';
 import Snackbar from "@material-ui/core/Snackbar";
+import Typography from "@material-ui/core/Typography";
 import Alert from "@material-ui/lab/Alert/Alert";
 
 const styles = (theme) => ({
@@ -38,6 +39,26 @@ const styles = (theme) => ({
             fontSize: 14
         },
     },
+    title: {
+        fontFamily: theme.font2,
+        [theme.breakpoints.down('md')]: {
+            fontSize: 30
+        },
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 26
+        },
+    },
+    subTitle: {
+        fontFamily: theme.font2,
+        padding: 15,
+        margin: 0,
+        [theme.breakpoints.down('md')]: {
+            fontSize: 13
+        },
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 12
+        },
+    }
 
 });
 
@@ -74,17 +95,17 @@ class Authentication extends Component {
                     <div className="overlay-container">
                         <div className="overlay">
                             <div className="overlay-panel overlay-left">
-                                <h1>Welcome back</h1>
-                                <p>
+                                <Typography variant='h4' className={classes.title}>Welcome back</Typography>
+                                <Typography paragraph className={classes.subTitle} variant='subtitle2'>
                                     Keep in touch with us by using your private account
-                                </p>
+                                </Typography>
                                 <button className="custom-btn ghost" id="signIn" onClick={() => this.handleAnimation()}>
                                     Login
                                 </button>
                             </div>
                             <div className="overlay-panel overlay-right">
-                                <h1>Hi !</h1>
-                                <p>Leave your information and start the journey with us</p>
+                                <Typography variant='h4' className={classes.title}>Hi !</Typography>
+                                <Typography paragraph variant='subtitle2' className={classes.subTitle}>Leave your information and start the journey with us</Typography>
                                 <button className="custom-btn ghost" id="signUp" onClick={() => this.handleAnimation()}>
                                     Register
                                 </button>
@@ -93,7 +114,7 @@ class Authentication extends Component {
                     </div>
                 </div>
 
-                <Snackbar open={openAuthenticationSnackbar} autoHideDuration={5000}>
+                <Snackbar open={openAuthenticationSnackbar} autoHideDuration={2000}>
                     <Alert severity="warning" className={classes.input}>
                         Validation key expired. Please login again !
                     </Alert>
