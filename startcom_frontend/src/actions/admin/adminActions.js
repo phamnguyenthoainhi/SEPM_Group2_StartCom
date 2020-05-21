@@ -41,7 +41,8 @@ export const deleteUser = (id) => dispatch => {
     fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/decline/${id}`, {
         headers: {
             'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+ sessionStorage.getItem('token')
 
         },
         method: 'DELETE'

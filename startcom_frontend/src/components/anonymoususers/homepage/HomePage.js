@@ -73,7 +73,7 @@ class HomePage extends Component {
                                                 <Button variant="contained" className={classes.joinButton} onClick = {() => this.toRegisterBI()}>Register Business Idea</Button>
                                         )
                                         :
-                                        null
+                                        (sessionStorage.getItem("type") === "admin" ? null : null)
                                 )
                                 :
                                 <Button variant="contained" className={classes.joinButton} onClick = {() => this.joinUs()}>Join Us</Button>

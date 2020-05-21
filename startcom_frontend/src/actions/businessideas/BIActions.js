@@ -69,7 +69,8 @@ export const registerBI = (BIData) => dispatch => {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
+            'Authorization': 'Bearer '+ sessionStorage.getItem('token')
         },
         body: JSON.stringify(BIData)
         
@@ -117,7 +118,8 @@ export const updateBI = (BIData, id, history) => dispatch => {
         method: 'PUT',
         headers: {
             'Accept': 'application/json',
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
+            'Authorization': 'Bearer '+ sessionStorage.getItem('token')
         },
         body: JSON.stringify(BIData)
     })
@@ -150,7 +152,8 @@ export const deleteBI = (id) => dispatch => {
         method: 'DELETE',
         headers: {
             'Accept': 'application/json',
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
+            'Authorization': 'Bearer '+ sessionStorage.getItem('token')
         },
     })
         .then((res) => {
