@@ -68,9 +68,9 @@ class DisplayBIS extends Component {
                             <BIFilter/>
                         </Grid>
                         <Grid item xs={9} sm={9} md={9} lg={9} >
-                            <Grid container style={{ padding: 10}}>
-                                <BISearch/>
-                            </Grid>
+                            
+                            <div style={{ marginRight: '30px', marginLeft: '15px', marginTop: '20px', marginBottom: '20px' }}><BISearch/></div>
+
                             <Grid container className={classes.gridContainer}>
                                 {filteredIdeas.length === 0 ? (
                                     <Grid container justify='center'>
@@ -99,6 +99,7 @@ class DisplayBIS extends Component {
                             <BIFilter/>
                         </Grid>
                         <Grid item xs={9} sm={9} md={9} lg={9}>
+                        
                             <div style={{ marginRight: '30px', marginLeft: '15px', marginTop: '20px', marginBottom: '20px' }}><BISearch/></div>
                             <Grid container className={classes.gridContainer}>
                               {ideaMarkup}
