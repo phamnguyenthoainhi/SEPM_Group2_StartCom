@@ -130,6 +130,7 @@ class BITemplateProfile extends Component {
     render() {
         const { classes, businessIdea } = this.props;
         const { openDeleteDialog } = this.state;
+        const userID = sessionStorage.getItem("id");
         return (
             <Card elevation={3} className={classes.ideaCard}>
                 <CardContent style={{padding: '10px 30px'}}>
@@ -243,26 +244,29 @@ class BITemplateProfile extends Component {
                         </Grid>
                     </Grid>
 
-                    <Grid container direction='row'>
-                        <Tooltip title="Edit this idea">
-                            <IconButton className={classes.iconBtn} style={{marginLeft: 'auto'}} onClick={() => this.openUpdateForm(businessIdea.id)}>
-                                <i
-                                    className="fas fa-edit"
-                                    style={{color: "#90B494", fontSize: "25px"}}
-                                />
-                            </IconButton>
-                        </Tooltip>
+                    {userID === businessIdea.ownerId ? (
+                        <Grid container direction='row'>
+                            <Tooltip title="Edit this idea">
+                                <IconButton className={classes.iconBtn} style={{marginLeft: 'auto'}} onClick={() => this.openUpdateForm(businessIdea.id)}>
+                                    <i
+                                        className="fas fa-edit"
+                                        style={{color: "#90B494", fontSize: "25px"}}
+                                    />
+                                </IconButton>
+                            </Tooltip>
 
-                        <Tooltip title="Delete this idea">
-                            <IconButton className={classes.iconBtn} onClick={this.openDeleteDialog}>
-                                <i
-                                    className="fas fa-trash-alt"
-                                    style={{color: "#C75D5D", fontSize: "25px"}}
-                                />
-                            </IconButton>
-                        </Tooltip>
+                            <Tooltip title="Delete this idea">
+                                <IconButton className={classes.iconBtn} onClick={this.openDeleteDialog}>
+                                    <i
+                                        className="fas fa-trash-alt"
+                                        style={{color: "#C75D5D", fontSize: "25px"}}
+                                    />
+                                </IconButton>
+                            </Tooltip>
 
-                    </Grid>
+                        </Grid>
+                    ) : null}
+
                 </CardContent>
 
                 <Dialog

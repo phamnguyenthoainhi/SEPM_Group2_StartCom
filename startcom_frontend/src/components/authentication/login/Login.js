@@ -210,28 +210,28 @@ class Login extends Component {
                     </div>
                     {this.state.postEmailSuccess ? "Email Confirmed! Please check your email":
                     (<div>
-                    <h2 className="title" style ={{color: '#3C5155', marginBottom: "20px"}}>Reset Password</h2>
-                    <TextField
-                        variant='outlined'
-                        type="text"
-                        name="postEmail"
-                        placeholder="Enter your email"
-                        className={classes.textField}
-                        onChange={this.handleChange}
-                        value={this.state.postEmail}
-                        required
-                        fullWidth
-                        helperText= {this.state.postEmailFail}
-                        InputLabelProps={{className: classes.input}}
-                        InputProps={{
-                            className: classes.input,
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <AccountCircleIcon style={{color: '#3C5155'}}/>
-                                </InputAdornment>
-                            ),
-                        }}
-                    /><br/>
+                        <Typography variant='h4' className={classes.title} style ={{color: '#3C5155', marginBottom: 20}}>Login</Typography>
+                        <TextField
+                            variant='outlined'
+                            type="text"
+                            name="postEmail"
+                            placeholder="Enter your email"
+                            className={classes.textField}
+                            onChange={this.handleChange}
+                            value={this.state.postEmail}
+                            required
+                            fullWidth
+                            helperText= {this.state.postEmailFail}
+                            InputLabelProps={{className: classes.input}}
+                            InputProps={{
+                                className: classes.input,
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <AccountCircleIcon style={{color: '#3C5155'}}/>
+                                    </InputAdornment>
+                                ),
+                            }}
+                        /><br/>
                     {this.state.postEmailLoading ?
                         (<ColorCircularProgress variant="indeterminate" size={32} style={{marginTop: "5%"}}/>)
 

@@ -3,11 +3,11 @@ import {
     CLOSE_AUTHENTICATION_SNACKBAR,
     DELETE_BI,
     DELETE_BI_SUCCESS,
-    DELETING_DATA,
+    DELETING_DATA, FETCHING_PROFILE, FETCHING_USER,
     FILTER_BI,
     GET_ALL_BIS,
     GET_BI,
-    GET_BI_BY_OWNER,
+    GET_BI_BY_OWNER, GET_PROFILE, GET_USER,
     IS_REGISTERED_SUCCESS,
     LOADING_DATA,
     OPEN_AUTHENTICATION_SNACKBAR, RESET_FILTER,
@@ -40,9 +40,32 @@ export const getBI = (id) => dispatch => {
                 dispatch({
                     type: GET_BI,
                     payload: data
-                })
+                });
+                console.log("Business idea: ", data);
+                const ownerId = data.ownerId;
+                console.log("Owner id: ", data.ownerId);
+                if (ownerId !== null || ownerId !== undefined) {
+                    dispatch({ type: FETCHING_PROFILE });
+                    fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/get_profile/${ownerId}`)
+                        .then (res =>
+                            res.json().then(function (data) {
+                                dispatch({
+                                    type: GET_PROFILE,
+                                    payload: data
+                                });
+                                console.log("User: ", data);
+                            })
+                        )
+                }
+
             })
+
+
+
+
         )
+
+
 };
 
 export const getBIByOwnerID = (ownerID) => dispatch => {

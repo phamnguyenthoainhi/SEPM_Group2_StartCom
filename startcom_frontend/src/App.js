@@ -27,6 +27,7 @@ import DisplayConsultants from "./components/consultants/DisplayConsultants";
 import GeneralProfile from "./components/profile/GeneralProfile";
 import DisplayInvestors from "./components/investors/DisplayInvestors";
 import ProfileDetail from "./components/profile/ProfileDetail";
+import OwnerDetailProfile from "./components/profile/OwnerDetailProfile";
 
 
 class App extends Component {
@@ -116,9 +117,8 @@ class App extends Component {
                   <Route exact path={'/displayConsultants'} render={(props) => <DisplayConsultants {...props}   />} />
                   <Route exact path={'/displayInvestors'} render={(props) => <DisplayInvestors {...props}   />} />
                   <Route exact path={'/profile/detail/:type/:id'} render={(props) => <ProfileDetail {...props} />} />
-
+                  <Route exact path={'/profile/owner/:id'} render={(props) => <OwnerDetailProfile {...props} />} />
                   <Route exact path={'/profile/:type/:id'} render={(props) => <GeneralProfile {...props} />} />
-
 
                   <Route exact path={'/detail/:id'} render={(props) => <BIDetail {...props} />}  />
                   <Route exact path={'/profile'} render={(props) => <Profile {...props} />} />
