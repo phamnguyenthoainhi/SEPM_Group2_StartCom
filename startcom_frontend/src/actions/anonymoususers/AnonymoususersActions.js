@@ -1,5 +1,5 @@
 import  {REGISTER_ACCOUNT, LOGIN, REGISTER_LOADING, LOGIN_LOADING, POST_EMAIL_RESET_SUCCESS, POST_EMAIL_RESET_LOADING, POST_EMAIL_RESET_FAIL} from '../actionTypes';
-
+import 'firebase/messaging'
 import firebase from '../../firebase'
 export const registerAccount = (account) => dispatch => {
     dispatch({
@@ -61,6 +61,8 @@ export const postEmailResetPassword = (email) => dispatch => {
 }
 
 export const getToken = () => {
+    let messaging = null
+if (firebase.messaging.isSupported()) {
     const messaging = firebase.messaging();
     messaging.requestPermission().then((token) => {
       return messaging.getToken()
@@ -69,6 +71,8 @@ export const getToken = () => {
     }).catch(()=> {
     //   console.log("error ")
     })
+}
+    
 }
 
 export const login = (account) => dispatch => {
@@ -87,6 +91,11 @@ export const login = (account) => dispatch => {
     .then((res) => {
         if (res.status === 200) {
             res.json().then(function(data) {
+                dispatch({
+                    type: LOGIN,
+                    payload: data
+                })
+                if (firebase.messaging.isSupported()) {
                 const messaging = firebase.messaging();
                 messaging.getToken().then((currentToken) => {
                     
@@ -130,6 +139,7 @@ export const login = (account) => dispatch => {
                     console.log('An error occurred while retrieving token. ', err);
                     
                   });
+            }
                 
               })
         }

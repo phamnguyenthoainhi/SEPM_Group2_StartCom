@@ -21,7 +21,13 @@ export const VerifiedEmails = (id) => dispatch => {
         type: ADMIN_VERIFY
     })
     fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/verify/${id}`, {
+        
+        headers: {
+            'Authorization': 'Bearer '+ sessionStorage.getItem("token")
+        },
         method: 'GET'
+            
+       
     })
 
     .then ((res) => {

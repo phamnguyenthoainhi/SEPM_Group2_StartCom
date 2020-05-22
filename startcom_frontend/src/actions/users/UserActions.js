@@ -22,7 +22,8 @@ export const sendMessage = (message) => dispatch => {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer '+ sessionStorage.getItem("token")
             },
             body: JSON.stringify(message)
     })

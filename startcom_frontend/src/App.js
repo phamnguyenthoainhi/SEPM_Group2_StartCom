@@ -27,7 +27,7 @@ import DisplayConsultants from "./components/consultants/DisplayConsultants";
 import GeneralProfile from "./components/profile/GeneralProfile";
 import DisplayInvestors from "./components/investors/DisplayInvestors";
 import ProfileDetail from "./components/profile/ProfileDetail";
-
+import 'firebase/messaging'
 
 class App extends Component {
   constructor(props) {
@@ -41,8 +41,9 @@ class App extends Component {
 
 
   componentDidMount() {
-
-    if ('serviceWorker' in navigator) {
+          let messaging = null
+    if (firebase.messaging.isSupported()) {
+      if ('serviceWorker' in navigator) {
       window.addEventListener('load', function () {
 
         const registration = navigator.serviceWorker.register('/firebase-messaging-sw.js')
@@ -72,7 +73,9 @@ class App extends Component {
                         let re = p.pushManager.subscribe({
                           userVisibleOnly: true
                         });
-                        
+                        if (firebase.messaging().isSupported()){
+                          console.log("Helllooo")
+                        }
                         firebase.messaging().onMessage((payload) => {
                           console.log("Message receive " + payload)
                           registration.showNotification(
@@ -100,6 +103,13 @@ class App extends Component {
           })
       })
     }
+              } else {
+                console.log("Bye")
+
+              }
+
+
+    
   }
 
   render() {
