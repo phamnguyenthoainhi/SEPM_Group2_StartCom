@@ -73,9 +73,7 @@ class App extends Component {
                         let re = p.pushManager.subscribe({
                           userVisibleOnly: true
                         });
-                        if (firebase.messaging().isSupported()){
-                          console.log("Helllooo")
-                        }
+                       
                         firebase.messaging().onMessage((payload) => {
                           console.log("Message receive " + payload)
                           registration.showNotification(
