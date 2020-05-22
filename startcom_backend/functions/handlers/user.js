@@ -30,11 +30,11 @@ exports.signIn = async (req, res) => {
         user.id = cred.user.uid
         user.token = await cred.user.getIdToken()
         return db.collection('User').doc(cred.user.uid).get()
-            .then(doc=>{
+            .then(doc => {
                 user.type = doc.data().type
                 return res.json(user)
             })
-            .catch(error=>{
+            .catch(error => {
                 return res.json(error)
             })
     }
@@ -159,63 +159,73 @@ exports.getUnverifiedInvestors = (req, res) => {
 }
 
 exports.verifyInvestor = async (req, res) => {
-    try {
-        const user = await (await db.collection('User').doc(req.params.id).get()).data()
-        if (user !== undefined && user !== null && user.type === 'investor') {
-            const mailOption = {
-                from: "Startcom",
-                to: user.email,
-                subject: `Verification completed`,
-                text: `Dear ${user.email}, we have verified that you are a legitimate investor. Thank you for your cooperation.`
+    if (req.user.uid === 'cg2LVnzUoDSMDmmYIoMDEinPJ362') {
+        try {
+            const user = await (await db.collection('User').doc(req.params.id).get()).data()
+            if (user !== undefined && user !== null && user.type === 'investor') {
+                const mailOption = {
+                    from: "Startcom",
+                    to: user.email,
+                    subject: `Verification completed`,
+                    text: `Dear ${user.email}, we have verified that you are a legitimate investor. Thank you for your cooperation.`
+                }
+                return Promise.all([db.collection('User').doc(req.params.id).update({ verified: true }),
+                sendEmail(mailOption)])
+                    .then(() => {
+                        return res.status(200).send('Success')
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        return res.json(error)
+                    })
             }
-            return Promise.all([db.collection('User').doc(req.params.id).update({ verified: true }),
-            sendEmail(mailOption)])
-                .then(() => {
-                    return res.status(200).send('Success')
-                })
-                .catch(error => {
-                    console.log(error)
-                    return res.json(error)
-                })
+            else {
+                return res.status(404).send('User does not exist or is not an investor')
+            }
         }
-        else {
-            return res.status(404).send('User does not exist or is not an investor')
+        catch (error) {
+            console.log(error)
+            return res.json(error)
         }
     }
-    catch (error) {
-        console.log(error)
-        return res.json(error)
+    else{
+        return res.status(403).send('Unauthorized')
     }
 
 }
 
 exports.declineInvestor = async (req, res) => {
-    try {
-        const user = await (await db.collection('User').doc(req.params.id).get()).data()
-        if (user !== undefined && user !== null && user.type === 'investor') {
-            const mailOption = {
-                from: "Startcom",
-                to: user.email,
-                subject: `Unable to verify`,
-                text: `Dear ${user.email}, we were unable to verify your credibility as an investor. Therefore, your account has been deleted. We deeply apologize for any inconvenience caused.`
+    if (req.user.uid === 'cg2LVnzUoDSMDmmYIoMDEinPJ362') {
+        try {
+            const user = await (await db.collection('User').doc(req.params.id).get()).data()
+            if (user !== undefined && user !== null && user.type === 'investor') {
+                const mailOption = {
+                    from: "Startcom",
+                    to: user.email,
+                    subject: `Unable to verify`,
+                    text: `Dear ${user.email}, we were unable to verify your credibility as an investor. Therefore, your account has been deleted. We deeply apologize for any inconvenience caused.`
+                }
+                return Promise.all([admin.auth().deleteUser(req.params.id),
+                sendEmail(mailOption)])
+                    .then(() => {
+                        return res.status(200).send('Success')
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        return res.json(error)
+                    })
             }
-            return Promise.all([admin.auth().deleteUser(req.params.id),
-            sendEmail(mailOption)])
-                .then(() => {
-                    return res.status(200).send('Success')
-                })
-                .catch(error => {
-                    console.log(error)
-                    return res.json(error)
-                })
+            else {
+                return res.status(404).send('User does not exist or is not an investor')
+            }
         }
-        else {
-            return res.status(404).send('User does not exist or is not an investor')
+        catch (error) {
+            console.log(error)
+            return res.json(error)
         }
     }
-    catch (error) {
-        console.log(error)
-        return res.json(error)
+    else{
+        return res.status(403).send('Unauthorized')
     }
 }
 

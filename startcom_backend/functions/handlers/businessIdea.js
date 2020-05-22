@@ -93,58 +93,70 @@ exports.postBusinessIdea = async (req, res) => {
 
 //edit business idea
 exports.editBusinessIdea = async (req, res) => {
+    const ownerId = await ((await db.collection('BusinessIdea').doc(req.params.id).get()).data().ownerId)
     var businessIdea = req.body
-    if (businessIdea.image && !businessIdea.image.includes("https://storage.googleapis.com/startcom-sepm.appspot.com/images/")) {
-        try {
-            const imageUpdate = await uploadImage(businessIdea.image, req.params.id)
-            businessIdea.image = imageUpdate
-            return db.collection('BusinessIdea').doc(req.params.id).update(req.body)
-                .then(() => {
-                    businessIdea.id = req.params.id
-                    return res.json(businessIdea)
+    if (req.user.uid === ownerId){
+        if (businessIdea.image && !businessIdea.image.includes("https://storage.googleapis.com/startcom-sepm.appspot.com/images/")) {
+            try {
+                const imageUpdate = await uploadImage(businessIdea.image, req.params.id)
+                businessIdea.image = imageUpdate
+                return db.collection('BusinessIdea').doc(req.params.id).update(req.body)
+                    .then(() => {
+                        businessIdea.id = req.params.id
+                        return res.json(businessIdea)
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        return res.json(error)
+                    })
+            }
+            catch (error) {
+                console.log(error)
+                return res.json(error)
+            }
+
+        }
+        else {
+            try{
+                const update = await db.collection('BusinessIdea').doc(req.params.id).update(businessIdea)
+                return db.collection('BusinessIdea').doc(req.params.id).get()
+                .then((doc) => {
+                    const idea = doc.data()
+                    idea.id = req.params.id
+                    return res.json(idea);
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.log(error)
                     return res.json(error)
                 })
-        }
-        catch (error) {
-            console.log(error)
-            return res.json(error)
-        }
-
-    }
-    else {
-        try{
-            const update = await db.collection('BusinessIdea').doc(req.params.id).update(businessIdea)
-            return db.collection('BusinessIdea').doc(req.params.id).get()
-            .then((doc) => {
-                const idea = doc.data()
-                idea.id = req.params.id
-                return res.json(idea);
-            })
-            .catch((error) => {
+            }
+            catch(error){
                 console.log(error)
                 return res.json(error)
-            })
+            }
         }
-        catch(error){
-            console.log(error)
-            return res.json(error)
-        }
+    }
+    else{
+        return res.status(403).send('Unauthorized')
     }
 }
 
 //delete business idea
-exports.deleteBusinessIdea = (req, res) => {
-    return db.collection('BusinessIdea').doc(req.params.id).delete()
-        .then(() => {
-            return res.json({ message: 'successfully deleted' });
-        })
-        .catch((error) => {
-            console.log(error);
-            return res.json(error)
-        })
+exports.deleteBusinessIdea = async (req, res) => {
+    const ownerId = await ((await db.collection('BusinessIdea').doc(req.params.id).get()).data().ownerId)
+    if (req.user.uid === ownerId){
+        return db.collection('BusinessIdea').doc(req.params.id).delete()
+            .then(() => {
+                return res.json({ message: 'successfully deleted' });
+            })
+            .catch((error) => {
+                console.log(error);
+                return res.json(error)
+            })
+    }
+    else{
+        return res.status(403).send('Unauthorized')
+    }
 }
 
 exports.testUploadMultipleImages = (req,res)=>{
