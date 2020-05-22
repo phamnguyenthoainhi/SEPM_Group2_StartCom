@@ -192,7 +192,7 @@ class Navbar extends Component {
         sessionStorage.removeItem("id");
         sessionStorage.removeItem("type");
         sessionStorage.removeItem("token");
-        window.location.reload();
+        window.location.reload()
     };
 
     render() {
