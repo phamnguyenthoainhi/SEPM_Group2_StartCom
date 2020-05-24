@@ -170,6 +170,7 @@ export const updateBI = (BIData, id, history) => dispatch => {
 };
 
 export const deleteBI = (id, history) => dispatch => {
+  
     dispatch({ type: DELETING_DATA });
     fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/delete_business_idea/${id}`, {
         method: 'DELETE',
