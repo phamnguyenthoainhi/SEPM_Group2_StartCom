@@ -15,7 +15,8 @@ import {
     RESET_UI_STATE,
     UPDATE_BI,
     UPDATE_BI_SUCCESS,
-    UPDATING_DATA
+    UPDATING_DATA,
+    REGISTER_BI_LOADING
 } from '../actionTypes';
 
 
@@ -82,6 +83,9 @@ export const resetRegisterStatus = () => dispatch => {
 };
 
 export const registerBI = (BIData, history) => dispatch => {
+    dispatch({
+        type: REGISTER_BI_LOADING
+    })
     fetch('https://asia-east2-startcom-sepm.cloudfunctions.net/api/post_business_idea', {
         method: 'POST',
         headers: {
