@@ -35,6 +35,9 @@ export const sendMessage = (message, history) => dispatch => {
             setTimeout(() => {
                 dispatch({ type: CLOSE_AUTHENTICATION_SNACKBAR})
             }, 2000);
+            sessionStorage.removeItem("id");
+            sessionStorage.removeItem("type");
+            sessionStorage.removeItem("token");
         }
         else {
                 dispatch({
@@ -65,6 +68,9 @@ export const editProfile = (userData, userID, history) => dispatch => {
                 setTimeout(() => {
                     dispatch({ type: CLOSE_AUTHENTICATION_SNACKBAR})
                 }, 2000);
+                sessionStorage.removeItem("id");
+                sessionStorage.removeItem("type");
+                sessionStorage.removeItem("token");
             }
             else {
                 res.json().then(function (data) {

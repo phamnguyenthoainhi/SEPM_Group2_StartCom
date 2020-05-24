@@ -415,8 +415,6 @@ class BIDetail extends Component {
                 </Grid>
                     
                 )}
-                
-                
                 <Footer/>
             </Grid>
 

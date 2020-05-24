@@ -42,6 +42,9 @@ export const VerifiedEmails = (id, history) => dispatch => {
             setTimeout(() => {
                 dispatch({ type: CLOSE_AUTHENTICATION_SNACKBAR})
             }, 2000);
+            sessionStorage.removeItem("id");
+            sessionStorage.removeItem("type");
+            sessionStorage.removeItem("token");
         }
         if (res.status === 200) {
                 dispatch({
@@ -72,6 +75,9 @@ export const deleteUser = (id, history) => dispatch => {
             setTimeout(() => {
                 dispatch({ type: CLOSE_AUTHENTICATION_SNACKBAR})
             }, 2000);
+            sessionStorage.removeItem("id");
+            sessionStorage.removeItem("type");
+            sessionStorage.removeItem("token");
         }
         if (res.status === 200) {
             dispatch({

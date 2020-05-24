@@ -99,6 +99,10 @@ export const registerBI = (BIData, history) => dispatch => {
             setTimeout(() => {
                 dispatch({ type: CLOSE_AUTHENTICATION_SNACKBAR})
             }, 2000);
+            sessionStorage.removeItem("id");
+            sessionStorage.removeItem("type");
+            sessionStorage.removeItem("token");
+
         }
         if(res.status === 200) {
             if (sessionStorage.getItem('id') !== null && sessionStorage.getItem('id') !== ''
@@ -153,6 +157,9 @@ export const updateBI = (BIData, id, history) => dispatch => {
                 setTimeout(() => {
                     dispatch({ type: CLOSE_AUTHENTICATION_SNACKBAR})
                 }, 2000);
+                sessionStorage.removeItem("id");
+                sessionStorage.removeItem("type");
+                sessionStorage.removeItem("token");
             }
             else {
                 res.json().then(function (data) {
@@ -186,6 +193,9 @@ export const deleteBI = (id, history) => dispatch => {
                 setTimeout(() => {
                     dispatch({ type: CLOSE_AUTHENTICATION_SNACKBAR})
                 }, 2000);
+                sessionStorage.removeItem("id");
+                sessionStorage.removeItem("type");
+                sessionStorage.removeItem("token");
 
             }
             else {
