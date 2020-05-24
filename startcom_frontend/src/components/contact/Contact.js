@@ -93,6 +93,7 @@ class Contact extends Component {
     }
     
     onSubmit = (e, receiverid) => {
+        const {history} = this.props;
         e.preventDefault();
             const message = {
                 sender: this.state.profileSender.id,
@@ -101,7 +102,7 @@ class Contact extends Component {
                 text: this.state.text,
             };
             console.log(JSON.stringify(message));
-            this.props.sendMessage(message);
+            this.props.sendMessage(message, history);
             this.setState({
                 contactOpen: false
             })
@@ -242,7 +243,7 @@ class Contact extends Component {
     }
 }
 const mapDispatchToProps = dispatch => ({
-    sendMessage: (message) => dispatch(sendMessage(message)),
+    sendMessage: (message, history) => dispatch(sendMessage(message, history)),
     getProfile: (id, type) => dispatch(getProfile(id, type))
   
 })

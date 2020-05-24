@@ -418,10 +418,6 @@ class ProfileDetail extends Component {
                         </Grid>
                         </Grid>
                     )}
-                    
-
-                
-                
                 <Footer/>
             </Grid>
 

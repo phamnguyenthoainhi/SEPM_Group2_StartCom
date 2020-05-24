@@ -123,7 +123,8 @@ class BITemplateProfile extends Component {
     };
 
     delete = (id) => {
-        this.props.deleteBI(id);
+        const {history} = this.props;
+        this.props.deleteBI(id, history);
         this.closeDeleteDialog();
     };
 
@@ -303,8 +304,8 @@ class BITemplateProfile extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    updateBI: (businessIdea,id) => dispatch(updateBI(businessIdea,id)),
-    deleteBI: (id) => dispatch(deleteBI(id)),
+    updateBI: (businessIdea,id, history) => dispatch(updateBI(businessIdea,id, history)),
+    deleteBI: (id, history) => dispatch(deleteBI(id, history)),
 });
 
 const mapStateToProps = state => ({

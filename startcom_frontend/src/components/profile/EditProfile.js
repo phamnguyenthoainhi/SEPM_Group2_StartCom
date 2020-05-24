@@ -264,12 +264,10 @@ class EditProfile extends Component {
     };
 
     chooseFile = event => {
-        // console.log(event.target.files[0].name);
         this.setState({
             chosenFile: event.target.files[0],
             uploadImageComplete: true
         });
-        // console.log(this.state.chosenFile)
     };
 
     getBase64 = (file, callback) => {
@@ -314,7 +312,6 @@ class EditProfile extends Component {
 
         if (this.validateBeforeSubmit(user)) {
             this.props.editProfile(user,userID, history);
-            // console.log(this.state);
             this.resetStates()
         }
 

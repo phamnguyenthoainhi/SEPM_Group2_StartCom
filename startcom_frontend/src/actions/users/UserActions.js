@@ -13,7 +13,7 @@ import {
     OPEN_AUTHENTICATION_SNACKBAR, CLOSE_AUTHENTICATION_SNACKBAR, FETCHING_PROFILE, GET_PROFILE
 } from '../actionTypes';
 
-export const sendMessage = (message) => dispatch => {
+export const sendMessage = (message, history) => dispatch => {
     dispatch({
         type: SEND_MESSAGE_LOADING
     });
@@ -22,11 +22,19 @@ export const sendMessage = (message) => dispatch => {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer '+ sessionStorage.getItem("token")
             },
             body: JSON.stringify(message)
     })
     .then ((res) => {
+        if (res.status === 403) {
+            dispatch({ type: OPEN_AUTHENTICATION_SNACKBAR });
+            history.push("/auth");
+            setTimeout(() => {
+                dispatch({ type: CLOSE_AUTHENTICATION_SNACKBAR})
+            }, 2000);
+        }
         if (res.status === 200) {
                 dispatch({
                     type: SEND_MESSAGE_SUCCESS,

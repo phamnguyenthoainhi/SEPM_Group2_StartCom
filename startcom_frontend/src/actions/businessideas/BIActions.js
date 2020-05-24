@@ -59,13 +59,7 @@ export const getBI = (id) => dispatch => {
                 }
 
             })
-
-
-
-
         )
-
-
 };
 
 export const getBIByOwnerID = (ownerID) => dispatch => {
@@ -87,18 +81,25 @@ export const resetRegisterStatus = () => dispatch => {
     })
 };
 
-export const registerBI = (BIData) => dispatch => {
+export const registerBI = (BIData, history) => dispatch => {
     fetch('https://asia-east2-startcom-sepm.cloudfunctions.net/api/post_business_idea', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
+            'Authorization': 'Bearer '+ sessionStorage.getItem('token')
         },
         body: JSON.stringify(BIData)
         
     })
     .then((res) => {
-        // console.log("res "+ res.status);
+        if (res.status === 403) {
+            dispatch({ type: OPEN_AUTHENTICATION_SNACKBAR });
+            history.push("/auth");
+            setTimeout(() => {
+                dispatch({ type: CLOSE_AUTHENTICATION_SNACKBAR})
+            }, 2000);
+        }
         if(res.status === 200) {
             if (sessionStorage.getItem('id') !== null && sessionStorage.getItem('id') !== ''
             && sessionStorage.getItem('token') !== null && sessionStorage.getItem('token') !== ''
@@ -118,7 +119,7 @@ export const registerBI = (BIData) => dispatch => {
                         body: JSON.stringify(user)
                 }).then((res) => {
                     if(res.status === 200) {
-                        console.log("Edit success")
+                        console.log("Edit success");
                         dispatch({
                             type: IS_REGISTERED_SUCCESS,
                             payload: true
@@ -140,7 +141,8 @@ export const updateBI = (BIData, id, history) => dispatch => {
         method: 'PUT',
         headers: {
             'Accept': 'application/json',
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
+            'Authorization': 'Bearer '+ sessionStorage.getItem('token')
         },
         body: JSON.stringify(BIData)
     })
@@ -173,7 +175,8 @@ export const deleteBI = (id, history) => dispatch => {
         method: 'DELETE',
         headers: {
             'Accept': 'application/json',
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
+            'Authorization': 'Bearer '+ sessionStorage.getItem('token')
         },
     })
         .then((res) => {
@@ -184,43 +187,43 @@ export const deleteBI = (id, history) => dispatch => {
                     dispatch({ type: CLOSE_AUTHENTICATION_SNACKBAR})
                 }, 2000);
             }
-                if(res.status === 200) {
-                    if (sessionStorage.getItem('id') !== null && sessionStorage.getItem('id') !== ''
-                        && sessionStorage.getItem('token') !== null && sessionStorage.getItem('token') !== ''
-                    ) {
-                        let id = sessionStorage.getItem('id');
-                        let token = sessionStorage.getItem('token');
-                        const user = {
-                            "haveBI": false
-                        };
-                        fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/edit_profile/${id}`, {
-                            method: 'PUT',
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-type': 'application/json',
-                                'Authorization': 'Bearer '+ token
-                            },
-                            body: JSON.stringify(user)
+            if(res.status === 200) {
+                if (sessionStorage.getItem('id') !== null && sessionStorage.getItem('id') !== ''
+                    && sessionStorage.getItem('token') !== null && sessionStorage.getItem('token') !== ''
+                ) {
+                    let id = sessionStorage.getItem('id');
+                    let token = sessionStorage.getItem('token');
+                    const user = {
+                        "haveBI": false
+                    };
+                    fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/edit_profile/${id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-type': 'application/json',
+                            'Authorization': 'Bearer '+ token
+                        },
+                        body: JSON.stringify(user)
+                    })
+                    .then (res =>
+                        res.json().then(function (data) {
+                            dispatch({
+                                type: DELETE_BI,
+                                payload: data
+                            });
+                            dispatch({type: DELETE_BI_SUCCESS});
+                            setTimeout(() => {
+                                dispatch({type: RESET_UI_STATE});
+                            }, 1000);
+                            setTimeout(() => {
+                                window.location.reload()
+                            }, 1000);
                         })
-                        .then (res =>
-                            res.json().then(function (data) {
-                                dispatch({
-                                    type: DELETE_BI,
-                                    payload: data
-                                });
-                                dispatch({type: DELETE_BI_SUCCESS});
-                                setTimeout(() => {
-                                    dispatch({type: RESET_UI_STATE});
-                                }, 1000);
-                                setTimeout(() => {
-                                    window.location.reload()
-                                }, 1000);
-                            })
-                        )
-                    }
-                    return res.json();
+                    )
                 }
-            })
+                return res.json();
+            }
+        })
 
 };
 

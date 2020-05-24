@@ -29,6 +29,9 @@ export const VerifiedEmails = (id, history) => dispatch => {
         type: ADMIN_VERIFY
     })
     fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/verify/${id}`, {
+        headers: {
+            'Authorization': 'Bearer '+ sessionStorage.getItem("token")
+        },
         method: 'GET'
     })
 
@@ -56,7 +59,8 @@ export const deleteUser = (id, history) => dispatch => {
     fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/decline/${id}`, {
         headers: {
             'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+ sessionStorage.getItem('token')
 
         },
         method: 'DELETE'
