@@ -92,6 +92,18 @@ const styles = (theme) => ({
     mediaBtn: {
         justifyContent: 'center',
         alignContent: 'center',
+
+    },
+    iconBtn: {
+        textDecoration: 'none',
+        backgroundColor: 'transparent',
+        "&:hover": {
+            textDecoration: 'none',
+            backgroundColor: 'transparent',
+        },
+        "&:focus": {
+            textDecoration: 'none',
+        },
     },
     header: {
         fontFamily: theme.font2,
@@ -213,9 +225,16 @@ class ProfileDetail extends Component {
                                                     />
                                                 </Grid>
                                                 <Grid container className={classes.infoContainer} direction='column'>
-                                                    <Typography className={classes.username} variant='h6'>
-                                                        {profile.username ? profile.username : profile.email}
-                                                    </Typography>
+                                                    <Grid container direction='row' className={classes.avatarContainer} style={{ alignItems: 'center'}}>
+                                                        <Typography className={classes.username} variant='h6' style={{marginRight: 5}}>
+                                                            {profile.username ? profile.username : profile.email}
+                                                        </Typography>
+                                                        {profile.type === 'investor' ? (
+                                                            profile.verified === true ? (
+                                                                <CheckCircleIcon style={{color: '#90B494', fontSize: 20}}/>
+                                                            ) : null
+                                                        ) : null}
+                                                    </Grid>
                                                     <Grid container justify='center'>
                                                         <Button className={classes.button}
                                                         onClick={
@@ -260,14 +279,6 @@ class ProfileDetail extends Component {
                                                         ) : null}
                                                     </Grid>
                                                 </Grid>
-
-                                                {profile.type === 'investor' ? (
-                                                    profile.verified === true ? (
-                                                        <Grid container className={classes.avatarContainer}>
-                                                            <CheckCircleIcon style={{color: '#90B494', fontSize: 30}}/>
-                                                        </Grid>
-                                                    ) : null
-                                                ) : null}
                                             </CardContent>
                                         </Card>
                                     </Grid>
@@ -327,9 +338,18 @@ class ProfileDetail extends Component {
                                                     />
                                                 </Grid>
                                                 <Grid container className={classes.infoContainer} direction='column'>
-                                                    <Typography className={classes.username} variant='h6'>
-                                                        {profile.username ? profile.username : profile.email}
-                                                    </Typography>
+                                                    <Grid container direction='row' className={classes.avatarContainer} style={{ alignItems: 'center'}}>
+                                                        <Typography className={classes.username} variant='h6' style={{marginRight: 5}}>
+                                                            {profile.username ? profile.username : profile.email}
+                                                        </Typography>
+                                                        {profile.type === 'investor' ? (
+                                                            profile.verified === true ? (
+                                                                <CheckCircleIcon style={{color: '#90B494', fontSize: 20}}/>
+                                                            ) : null
+                                                        ) : null}
+                                                    </Grid>
+
+
                                                     <Grid container justify='center'>
                                                         <Button className={classes.button}
                                                         onClick={
@@ -375,13 +395,6 @@ class ProfileDetail extends Component {
                                                     </Grid>
                                                 </Grid>
 
-                                                {profile.type === 'investor' ? (
-                                                    profile.verified === true ? (
-                                                        <Grid container className={classes.avatarContainer}>
-                                                            <CheckCircleIcon style={{color: '#90B494', fontSize: 30}}/>
-                                                        </Grid>
-                                                    ) : null
-                                                ) : null}
                                             </CardContent>
                                         </Card>
                                     </Grid>

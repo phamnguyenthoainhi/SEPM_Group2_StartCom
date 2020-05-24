@@ -1,4 +1,12 @@
-import {FETCH_INVESTOR_EMAIL, FETCH_INVESTOR_EMAIL_LOADING, VERIFY_SUCCESS, ADMIN_VERIFY, DELETE_USER_LOADING, DELETE_USER_SUCCESS} from '../actionTypes';
+import {
+    FETCH_INVESTOR_EMAIL,
+    FETCH_INVESTOR_EMAIL_LOADING,
+    VERIFY_SUCCESS,
+    ADMIN_VERIFY,
+    DELETE_USER_LOADING,
+    DELETE_USER_SUCCESS,
+    OPEN_AUTHENTICATION_SNACKBAR, CLOSE_AUTHENTICATION_SNACKBAR
+} from '../actionTypes';
 
 export const fetchUnverifiedEmails = () => dispatch => {
     dispatch({
@@ -16,7 +24,7 @@ export const fetchUnverifiedEmails = () => dispatch => {
             payload: email
         }))  
 }
-export const VerifiedEmails = (id) => dispatch => {
+export const VerifiedEmails = (id, history) => dispatch => {
     dispatch({
         type: ADMIN_VERIFY
     })
@@ -25,6 +33,13 @@ export const VerifiedEmails = (id) => dispatch => {
     })
 
     .then ((res) => {
+        if (res.status === 403) {
+            dispatch({ type: OPEN_AUTHENTICATION_SNACKBAR });
+            history.push("/auth");
+            setTimeout(() => {
+                dispatch({ type: CLOSE_AUTHENTICATION_SNACKBAR})
+            }, 2000);
+        }
         if (res.status === 200) {
                 dispatch({
                     type: VERIFY_SUCCESS,
@@ -33,7 +48,7 @@ export const VerifiedEmails = (id) => dispatch => {
     })     
 }
 
-export const deleteUser = (id) => dispatch => {
+export const deleteUser = (id, history) => dispatch => {
    
     dispatch({
         type: DELETE_USER_LOADING
@@ -47,6 +62,13 @@ export const deleteUser = (id) => dispatch => {
         method: 'DELETE'
     })
     .then(res => {
+        if (res.status === 403) {
+            dispatch({ type: OPEN_AUTHENTICATION_SNACKBAR });
+            history.push("/auth");
+            setTimeout(() => {
+                dispatch({ type: CLOSE_AUTHENTICATION_SNACKBAR})
+            }, 2000);
+        }
         if (res.status === 200) {
             dispatch({
                 type: DELETE_USER_SUCCESS

@@ -435,10 +435,10 @@ class EditProfile extends Component {
 
 
     render() {
-        // console.log("User: ", this.props.user);
-        // console.log("User type: ", this.props.user.type);
         const { classes, doneUpdateProfile, updating, userLoading } = this.props;
         const { errors, uploadImageComplete } = this.state;
+        const userType = sessionStorage.getItem("type");
+        const userId = sessionStorage.getItem("id");
         return (
             <Grid container>
                 <Navbar/>
@@ -742,7 +742,7 @@ class EditProfile extends Component {
                                     )}
 
                                     <Button className={classes.button} component={Link}
-                                            to={this.props.user.type !== 'startupowner' ? `/profile/${this.props.user.type}/${this.props.user.id}` : "/profile"}
+                                            to={userType !== 'startupowner' ? `/profile/${userType}/${userId}` : "/profile"}
 
                                     >Back to Profile</Button>
                                 </Grid>

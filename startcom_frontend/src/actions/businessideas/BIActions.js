@@ -167,7 +167,7 @@ export const updateBI = (BIData, id, history) => dispatch => {
         })
 };
 
-export const deleteBI = (id) => dispatch => {
+export const deleteBI = (id, history) => dispatch => {
     dispatch({ type: DELETING_DATA });
     fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/delete_business_idea/${id}`, {
         method: 'DELETE',
@@ -177,7 +177,13 @@ export const deleteBI = (id) => dispatch => {
         },
     })
         .then((res) => {
-                // console.log("res "+ res.status);
+            if (res.status === 403) {
+                dispatch({ type: OPEN_AUTHENTICATION_SNACKBAR });
+                history.push("/auth");
+                setTimeout(() => {
+                    dispatch({ type: CLOSE_AUTHENTICATION_SNACKBAR})
+                }, 2000);
+            }
                 if(res.status === 200) {
                     if (sessionStorage.getItem('id') !== null && sessionStorage.getItem('id') !== ''
                         && sessionStorage.getItem('token') !== null && sessionStorage.getItem('token') !== ''

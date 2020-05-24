@@ -72,6 +72,19 @@ const styles = (theme) => ({
             width: 200,
         }
     },
+    creator: {
+        width: 150,
+        height: 50,
+        backgroundColor: '#a4a4a4',
+        [theme.breakpoints.down('sm')]: {
+            width: 100,
+            height: 20,
+        },
+        [theme.breakpoints.down('xs')]: {
+            height: 15,
+            width: 80,
+        }
+    },
     container: {
         [theme.breakpoints.down('xs')]: {
             alignItems: 'center'
@@ -125,6 +138,10 @@ class BIDetailSkeleton extends Component {
                             <Grid container direction='column'>
                                 <Skeleton variant="rect" className={classes.buttonSke}/>
                                 <Skeleton variant="rect" className={classes.buttonSke}/>
+                            </Grid>
+
+                            <Grid container>
+                                <Skeleton variant="rect" className={classes.creator}/>
                             </Grid>
                         </Grid>
                     </Grid>

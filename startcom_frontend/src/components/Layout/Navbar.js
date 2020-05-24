@@ -244,15 +244,17 @@ class Navbar extends Component {
                                                     open={open}
                                                     onClose={this.handleClose}
                                                 >
-                                                    <MenuItem
-                                                        to={this.props.user.type !== 'startupowner' ? `/profile/${this.props.user.type}/${this.props.user.id}` : "/profile"}
+                                                    {userID !== adminId ? (
+                                                        <MenuItem
+                                                            to={this.props.user.type !== 'startupowner' ? `/profile/${this.props.user.type}/${this.props.user.id}` : "/profile"}
+                                                            component={Link} >
+                                                            <ListItemIcon>
+                                                                <AccountBoxIcon style={{color: '#E3CFB5'}}/>
+                                                            </ListItemIcon>
+                                                            <Typography className={classes.text}>My Profile</Typography>
+                                                        </MenuItem>
+                                                    ) : null}
 
-                                                        component={Link} >
-                                                        <ListItemIcon>
-                                                            <AccountBoxIcon style={{color: '#E3CFB5'}}/>
-                                                        </ListItemIcon>
-                                                        <Typography className={classes.text}>My Profile</Typography>
-                                                    </MenuItem>
 
                                                     <MenuItem onClick={() => this.logout()}>
                                                         <ListItemIcon>
@@ -293,28 +295,33 @@ class Navbar extends Component {
                                             </IconButton>
                                         </Grid>
                                         <List>
-                                            <ListItem button component={Link} to="/startups" className={classes.mobileNavBtn}>
+                                            <ListItem button component={Link} to="/displayBIS" className={classes.mobileNavBtn}>
                                                 <Typography className={classes.mobileNavText}>Startups</Typography>
                                             </ListItem>
-                                            <ListItem button component={Link} to="/consultants" className={classes.mobileNavBtn}>
+                                            <ListItem button component={Link} to="/displayConsultants" className={classes.mobileNavBtn}>
                                                 <Typography className={classes.mobileNavText}>Consultants</Typography>
                                             </ListItem>
-                                            <ListItem button component={Link} to="/investors" className={classes.mobileNavBtn}>
+                                            <ListItem button component={Link} to="/displayInvestors" className={classes.mobileNavBtn}>
                                                 <Typography className={classes.mobileNavText}>Investors</Typography>
                                             </ListItem>
 
-                                            {auth ?  <ListItem button component={Link} to="/profile" className={classes.mobileNavBtn}>
-                                                <Typography className={classes.mobileNavText}>My Profile</Typography>
+
+                                            { userID !== adminId ? (
+                                                    <ListItem className={classes.mobileNavBtn}
+                                                        to={this.props.user.type !== 'startupowner' ? `/profile/${this.props.user.type}/${this.props.user.id}` : "/profile"}
+                                                        component={Link} >
+                                                        <Typography className={classes.mobileNavText}>My Profile</Typography>
+                                                    </ListItem>
+                                                ) : null }
+
+                                            {userID === adminId ?  <ListItem button component={Link} to="/admin" className={classes.mobileNavBtn}>
+                                                <Typography className={classes.mobileNavText}>Verify Board</Typography>
                                             </ListItem> : null}
 
                                             {auth ?  <ListItem button className={classes.mobileNavBtn}>
                                                 <Typography className={classes.mobileNavText} style={{color: '#C75D5D'}}>Logout</Typography>
                                             </ListItem> : null}
 
-
-                                            {userID === adminId ?  <ListItem button component={Link} to="/investors" className={classes.mobileNavBtn}>
-                                                <Typography className={classes.mobileNavText}>Verify Board</Typography>
-                                            </ListItem> : null}
                                         </List>
                                     </Drawer>
                                 </Hidden>
