@@ -33,6 +33,8 @@ export const VerifiedEmails = (id, history) => dispatch => {
             'Authorization': 'Bearer '+ sessionStorage.getItem("token")
         },
         method: 'GET'
+            
+       
     })
 
     .then ((res) => {

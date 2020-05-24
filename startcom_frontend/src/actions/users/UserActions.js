@@ -14,6 +14,7 @@ import {
 } from '../actionTypes';
 
 export const sendMessage = (message, history) => dispatch => {
+    console.log("testt  "+ history)
     const token = sessionStorage.getItem("token");
     dispatch({
         type: SEND_MESSAGE_LOADING
@@ -49,6 +50,7 @@ export const sendMessage = (message, history) => dispatch => {
     
 };
 export const editProfile = (userData, userID, history) => dispatch => {
+   
     const token = sessionStorage.getItem("token");
     dispatch({ type: UPDATING_DATA});
     fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/edit_profile/${userID}`, {

@@ -11,7 +11,6 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import LockIcon from '@material-ui/icons/Lock';
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Typography from "@material-ui/core/Typography";
-
 const ColorCircularProgress = withStyles({
     root: {
       color: '#3C5155'
@@ -88,20 +87,25 @@ class Login extends Component {
                 })
             }
             else if (this.props.loginMessage.id !== undefined) {
+               
                 this.setState({
                     success: true
                 });
-                // console.log(this.props.loginMessage)
+                
                 sessionStorage.setItem("id", this.props.loginMessage.id);
                 sessionStorage.setItem("token", this.props.loginMessage.token);
                 sessionStorage.setItem("type", this.props.loginMessage.type)
 
                 this.props.history.push('/')
             }
+            
         }
     }
 
+
+    
     handleChange = (event) => {
+      
         this.setState({
             [event.target.name]: event.target.value
         });

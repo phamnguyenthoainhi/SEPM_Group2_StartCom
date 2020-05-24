@@ -399,7 +399,7 @@ class BIDetail extends Component {
                             {detailMarkup}
                         </Grid>
                         <Grid item lg={3} md ={4} sm = {12} xs ={12} >
-                            <Contact id='mydiv' handleClose={this.handleClose} profileReceiver = {this.state.profileReceiver}
+                            <Contact id='mydiv' handleClose={this.handleClose} profileReceiver = {this.state.profileReceiver} history = {this.props.history}
                                 
                                 />
                         </Grid>
@@ -410,7 +410,7 @@ class BIDetail extends Component {
                             {detailMarkup}
                         </Grid>
                         <Grid item xs={0} >
-                            <Contact id='mydiv' handleClose={this.handleClose} profileReceiver = {this.state.profileReceiver}/>
+                            <Contact id='mydiv' handleClose={this.handleClose} profileReceiver = {this.state.profileReceiver} history = {this.props.history}/>
                         </Grid>
                 </Grid>
                     

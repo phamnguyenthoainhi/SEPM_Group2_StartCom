@@ -167,7 +167,7 @@ class GeneralProfile extends Component {
                             </Typography>
                             {this.props.user.type === 'investor' ? (
                                 <Typography variant='subtitle2' className={classes.email}>
-                                    * Note that your profile can only be publicized after being verified by the admin
+                                    * Note that this profile can only be publicized after being verified by the admin
                                 </Typography>
                             ) : (
                                 null
@@ -193,9 +193,17 @@ class GeneralProfile extends Component {
                                                         />
                                                     </Grid>
                                                     <Grid container className={classes.infoContainer} direction='column'>
-                                                        <Typography className={classes.username} variant='h6'>
-                                                            {user.username ? user.username : user.email}
-                                                        </Typography>
+                                                        <Grid container direction='row' className={classes.avatarContainer} style={{ alignItems: 'center'}}>
+                                                            <Typography className={classes.username} variant='h6' style={{marginRight: 5}}>
+                                                                {user.username ? user.username : user.email}
+                                                            </Typography>
+                                                            {this.props.user.type === 'investor' ? (
+                                                                user.verified === true ? (
+                                                                    <CheckCircleIcon style={{color: '#90B494', fontSize: 20}}/>
+                                                                ) : null
+                                                            ) : null}
+                                                        </Grid>
+
                                                         <Grid container justify='center'>
                                                             <Button className={classes.button} onClick={() => this.openUpdateForm(user.id)}>Edit Profile</Button>
                                                         </Grid>
@@ -237,13 +245,6 @@ class GeneralProfile extends Component {
                                                         </Grid>
                                                     </Grid>
 
-                                                    {this.props.user.type === 'investor' ? (
-                                                        user.verified === true ? (
-                                                            <Grid container className={classes.avatarContainer}>
-                                                                <CheckCircleIcon style={{color: '#90B494', fontSize: 30}}/>
-                                                            </Grid>
-                                                            ) : null
-                                                    ) : null}
                                                 </CardContent>
                                             </Card>
                                         </Grid>

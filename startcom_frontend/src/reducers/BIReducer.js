@@ -65,6 +65,7 @@ export default function (state = initialState, action) {
                 isRegisteredLoading: false
             };
         case REGISTER_BI_LOADING:
+            
             return {
                 ...state,
                 isRegisteredLoading: true

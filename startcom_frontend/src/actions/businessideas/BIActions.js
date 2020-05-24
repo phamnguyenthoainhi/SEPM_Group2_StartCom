@@ -15,7 +15,8 @@ import {
     RESET_UI_STATE,
     UPDATE_BI,
     UPDATE_BI_SUCCESS,
-    UPDATING_DATA
+    UPDATING_DATA,
+    REGISTER_BI_LOADING
 } from '../actionTypes';
 
 
@@ -82,6 +83,9 @@ export const resetRegisterStatus = () => dispatch => {
 };
 
 export const registerBI = (BIData, history) => dispatch => {
+    dispatch({
+        type: REGISTER_BI_LOADING
+    })
     fetch('https://asia-east2-startcom-sepm.cloudfunctions.net/api/post_business_idea', {
         method: 'POST',
         headers: {
@@ -177,6 +181,7 @@ export const updateBI = (BIData, id, history) => dispatch => {
 };
 
 export const deleteBI = (id, history) => dispatch => {
+  
     dispatch({ type: DELETING_DATA });
     fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/delete_business_idea/${id}`, {
         method: 'DELETE',
@@ -193,6 +198,7 @@ export const deleteBI = (id, history) => dispatch => {
                 setTimeout(() => {
                     dispatch({ type: CLOSE_AUTHENTICATION_SNACKBAR})
                 }, 2000);
+                dispatch({RESET_UI_STATE});
                 sessionStorage.removeItem("id");
                 sessionStorage.removeItem("type");
                 sessionStorage.removeItem("token");

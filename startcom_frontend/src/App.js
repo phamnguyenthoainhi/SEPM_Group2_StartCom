@@ -40,7 +40,6 @@ class App extends Component {
     }
 
 
-
     componentDidMount() {
         let messaging = null
         if (firebase.messaging.isSupported()) {

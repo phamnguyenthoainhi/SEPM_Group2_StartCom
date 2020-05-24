@@ -182,6 +182,8 @@ class ProfileDetail extends Component {
 
     render() {
         // console.log("Profile:", this.props.profile);
+        const userType = sessionStorage.getItem('type');
+        const userId = sessionStorage.getItem('id');
         const { classes, fetching, profile} = this.props;
         return (
             <Grid container>
@@ -196,13 +198,13 @@ class ProfileDetail extends Component {
                             <Typography variant='h6' className={classes.header} style={{textAlign: 'center'}}>
                                 Portfolio
                             </Typography>
-                            {profile.type === 'investor' ? (
-                                <Typography variant='subtitle2' className={classes.email}>
-                                    * Note that your profile can only be publicized after being verified by the admin
-                                </Typography>
-                            ) : (
-                                null
-                            )}
+                            {/*{profile.type === 'investor' && userId === profile.id? (*/}
+                            {/*    <Typography variant='subtitle2' className={classes.email}>*/}
+                            {/*        * Note that this profile can only be publicized after being verified by the admin*/}
+                            {/*    </Typography>*/}
+                            {/*) : (*/}
+                            {/*    null*/}
+                            {/*)}*/}
                         </Grid>
 
                         {fetching ? (
@@ -298,7 +300,7 @@ class ProfileDetail extends Component {
                 </Grid>
                         </Grid>
                         <Grid item lg={3} xs={12} sm={12} md={12}>
-                        <Contact id='mydiv' handleClose={this.handleClose} profileReceiver = {this.state.profileReceiver}/>
+                        <Contact id='mydiv' handleClose={this.handleClose} profileReceiver = {this.state.profileReceiver} history = {this.props.history}/>
                         </Grid>
                         </Grid>
                     ) : (
@@ -310,13 +312,6 @@ class ProfileDetail extends Component {
                             <Typography variant='h6' className={classes.header} style={{textAlign: 'center'}}>
                                 Portfolio
                             </Typography>
-                            {profile.type === 'investor' ? (
-                                <Typography variant='subtitle2' className={classes.email}>
-                                    * Note that your profile can only be publicized after being verified by the admin
-                                </Typography>
-                            ) : (
-                                null
-                            )}
                         </Grid>
 
                         {fetching ? (

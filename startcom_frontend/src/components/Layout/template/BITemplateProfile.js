@@ -123,6 +123,7 @@ class BITemplateProfile extends Component {
     };
 
     delete = (id) => {
+        // console.log("Hello "+ this.props.history)
         this.props.deleteBI(id, this.props.history);
         this.closeDeleteDialog();
     };
@@ -206,8 +207,6 @@ class BITemplateProfile extends Component {
                         </Grid>
                     </Grid>
 
-
-
                     <Grid container className={classes.ideaContainer} direction='row'>
                         <Grid item md={4} sm={4} xs={4} lg={4}>
                             <Typography className={classes.header} >
@@ -276,11 +275,6 @@ class BITemplateProfile extends Component {
                     onClose={this.closeDeleteDialog}
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
-                    PaperProps={{
-                        style: {
-                            // backgroundColor: '#90B494',
-                        },
-                    }}
                 >
                     <Typography variant="h6" className={classes.dialogTitle}>Do you want to discard this business idea ?</Typography>
                     <DialogContent>
@@ -303,7 +297,7 @@ class BITemplateProfile extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    updateBI: (businessIdea,id, history) => dispatch(updateBI(businessIdea,id, history)),
+    updateBI: (businessIdea,id, history) => dispatch(updateBI(businessIdea, id, history)),
     deleteBI: (id, history) => dispatch(deleteBI(id, history)),
 });
 
