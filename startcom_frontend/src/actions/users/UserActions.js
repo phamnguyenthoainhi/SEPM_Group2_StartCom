@@ -14,6 +14,7 @@ import {
 } from '../actionTypes';
 
 export const sendMessage = (message, history) => dispatch => {
+    const token = sessionStorage.getItem("token");
     dispatch({
         type: SEND_MESSAGE_LOADING
     });
@@ -23,7 +24,7 @@ export const sendMessage = (message, history) => dispatch => {
             headers: {
                 'Accept': 'application/json',
                 'Content-type': 'application/json',
-                'Authorization': 'Bearer '+ sessionStorage.getItem("token")
+                'Authorization': 'Bearer '+ token
             },
             body: JSON.stringify(message)
     })
@@ -35,13 +36,13 @@ export const sendMessage = (message, history) => dispatch => {
                 dispatch({ type: CLOSE_AUTHENTICATION_SNACKBAR})
             }, 2000);
         }
-        if (res.status === 200) {
+        else {
                 dispatch({
                     type: SEND_MESSAGE_SUCCESS,
                 })   
         }
-        
-    })  
+    })
+        .catch(err => console.log(err))
     
 };
 export const editProfile = (userData, userID, history) => dispatch => {

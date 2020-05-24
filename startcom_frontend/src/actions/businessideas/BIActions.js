@@ -186,8 +186,9 @@ export const deleteBI = (id, history) => dispatch => {
                 setTimeout(() => {
                     dispatch({ type: CLOSE_AUTHENTICATION_SNACKBAR})
                 }, 2000);
+
             }
-            if(res.status === 200) {
+            else {
                 if (sessionStorage.getItem('id') !== null && sessionStorage.getItem('id') !== ''
                     && sessionStorage.getItem('token') !== null && sessionStorage.getItem('token') !== ''
                 ) {
@@ -224,6 +225,7 @@ export const deleteBI = (id, history) => dispatch => {
                 return res.json();
             }
         })
+        .catch(err => console.log(err))
 
 };
 

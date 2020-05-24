@@ -426,8 +426,6 @@ class BIDetail extends Component {
 
 
 const mapDispatchToProps = dispatch => ({
-    updateBI: (businessIdea,id) => dispatch(updateBI(businessIdea,id)),
-    deleteBI: (id) => dispatch(deleteBI(id)),
     getBI: (id) => dispatch(getBI(id)),
     getProfile: (id, type) => dispatch(getProfile(id, type)),
 

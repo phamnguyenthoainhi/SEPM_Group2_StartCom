@@ -123,8 +123,7 @@ class BITemplateProfile extends Component {
     };
 
     delete = (id) => {
-        const {history} = this.props;
-        this.props.deleteBI(id, history);
+        this.props.deleteBI(id, this.props.history);
         this.closeDeleteDialog();
     };
 
