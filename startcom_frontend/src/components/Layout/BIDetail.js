@@ -4,22 +4,20 @@ import withStyles from '@material-ui/core/styles/withStyles'
 //Material UI
 import Grid from '@material-ui/core/Grid';
 import {deleteBI, updateBI, getBI} from "../../actions/businessideas/BIActions";
-import {getProfile} from '../../actions/users/UserActions';
+import {getProfile, getUser} from '../../actions/users/UserActions';
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import defaultLogo from '../../images/company_logo.png';
 import Button from '@material-ui/core/Button';
 import Typography from "@material-ui/core/Typography";
-
-// import Dialog from '@material-ui/core/Dialog';
-// import DialogActions from '@material-ui/core/DialogActions';
-// import DialogContent from '@material-ui/core/DialogContent';
-// import UpdateBIForm from "./UpdateBIForm";
+import Avatar from '@material-ui/core/Avatar';
+import defaultUser from "../../images/default.png";
 import Chip from '@material-ui/core/Chip';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-// import BITemplate from "./BITemplate";
 import BIDetailSkeleton from "../skeleton/BIDetailSkeleton";
 import Contact from '../contact/Contact'
+import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
+import Backdrop from "@material-ui/core/Backdrop/Backdrop";
 
 
 const styles = (theme) => ({
@@ -55,8 +53,9 @@ const styles = (theme) => ({
             fontSize: 14
         }
     },
-    date: {
+    miniText: {
         fontFamily: theme.font2,
+        fontWeight: 400
     },
 
     category: {
@@ -163,9 +162,10 @@ const styles = (theme) => ({
             textAlign: 'center'
         }
     },
-    buttonGroup: {
-        textAlign: 'center',
-        justifyContent: 'center'
+    progressContainer: {
+        padding: 20,
+        justifyContent: 'center',
+        alignContent: 'center',
     },
     donateBtn: {
         margin: 10,
@@ -236,17 +236,19 @@ class BIDetail extends Component {
             profileReceiver: {},
             profileLoadingReceiver: false,
             sender: '',
-            receiver: ''
+            receiver: '',
         }
     }
 
     componentDidMount() {
         const businessID = this.props.match.params.id;
         this.props.getBI(businessID);
+
     }
 
     componentDidUpdate(prevProps) {
-        console.log(this.props)
+        console.log(this.props);
+
          if (this.props.profileLoading !== prevProps.profileLoading) {
              this.setState({
                  loading: this.props.profileLoading
@@ -258,6 +260,10 @@ class BIDetail extends Component {
              })
          }
     }
+
+    viewDetailProfile = (id) => {
+        window.open(`/profile/owner/${id}`, '_self');
+    };
 
     backProject = (ownerId) => {
         var x = document.getElementById("mydiv");
@@ -278,13 +284,11 @@ class BIDetail extends Component {
             contactOpen: false
         })
         
-    }
+    };
 
     render() {
-        // console.log(this.props.businessIdea);
-        const { classes, businessIdea, loading } = this.props;
-        console.log(JSON.stringify(businessIdea))
-        
+
+        const { classes, businessIdea, loading, fetching, profile } = this.props;
         let detailMarkup = !loading ? (
             <Grid container className={classes.detailWrapper}>
                 <Grid container>
@@ -363,6 +367,22 @@ class BIDetail extends Component {
                             )}
 
                         </Grid>
+
+                        {fetching ? (
+                            <Grid container className={classes.progressContainer}>
+                                <CircularProgress variant="indeterminate" size={40} style={{color: '#3C5155'}}/>
+                            </Grid>
+                        ) : (
+                            <Grid container direction='column' style={{marginTop: 20, cursor: 'pointer'}} onClick={() => this.viewDetailProfile(profile.id)}>
+                                <Typography variant='subtitle1' className={classes.miniText}>created by</Typography>
+                                <Grid container direction='row' style={{ alignItems: 'center'}}>
+                                    <Avatar src={ profile.image ? profile.image : defaultUser}/>
+                                    <Typography variant='subtitle2' style={{marginLeft: 10}}>{profile.username ? profile.username : "Anonymous User"}</Typography>
+                                </Grid>
+                            </Grid>
+                        )}
+
+
                     </Grid>
                 </Grid>
             </Grid>
@@ -372,8 +392,6 @@ class BIDetail extends Component {
         return (
             <Grid container>
                 <Navbar/>
-                
-
                 {this.state.contactOpen ? 
                 (
                     <Grid container >
@@ -381,7 +399,7 @@ class BIDetail extends Component {
                             {detailMarkup}
                         </Grid>
                         <Grid item lg={3} md ={4} sm = {12} xs ={12} >
-                            <Contact id='mydiv' handleClose={this.handleClose} profileReceiver = {this.state.profileReceiver}
+                            <Contact id='mydiv' handleClose={this.handleClose} profileReceiver = {this.state.profileReceiver} history = {this.props.history}
                                 
                                 />
                         </Grid>
@@ -392,7 +410,7 @@ class BIDetail extends Component {
                             {detailMarkup}
                         </Grid>
                         <Grid item xs={0} >
-                            <Contact id='mydiv' handleClose={this.handleClose} profileReceiver = {this.state.profileReceiver}/>
+                            <Contact id='mydiv' handleClose={this.handleClose} profileReceiver = {this.state.profileReceiver} history = {this.props.history}/>
                         </Grid>
                 </Grid>
                     
@@ -408,17 +426,20 @@ class BIDetail extends Component {
 
 
 const mapDispatchToProps = dispatch => ({
-    updateBI: (businessIdea,id) => dispatch(updateBI(businessIdea,id)),
-    deleteBI: (id) => dispatch(deleteBI(id)),
     getBI: (id) => dispatch(getBI(id)),
-    getProfile: (id, type) => dispatch(getProfile(id, type))
+    getProfile: (id, type) => dispatch(getProfile(id, type)),
+
+
 });
 
 const mapStateToProps = state => ({
     businessIdea: state.businessIdeasData.businessIdea,
     loading: state.businessIdeasData.loading,
     profileLoading: state.usersReducer.profileLoading,
-    profileReceiver: state.usersReducer.profileReceiver
+    profileReceiver: state.usersReducer.profileReceiver,
+
+    profile: state.usersReducer.profile,
+    fetching: state.usersReducer.fetching
 
 });
 

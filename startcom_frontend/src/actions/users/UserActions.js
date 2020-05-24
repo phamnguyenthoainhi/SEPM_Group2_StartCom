@@ -13,7 +13,9 @@ import {
     OPEN_AUTHENTICATION_SNACKBAR, CLOSE_AUTHENTICATION_SNACKBAR, FETCHING_PROFILE, GET_PROFILE
 } from '../actionTypes';
 
-export const sendMessage = (message) => dispatch => {
+export const sendMessage = (message, history) => dispatch => {
+    console.log("testt  "+ history)
+    const token = sessionStorage.getItem("token");
     dispatch({
         type: SEND_MESSAGE_LOADING
     });
@@ -23,21 +25,29 @@ export const sendMessage = (message) => dispatch => {
             headers: {
                 'Accept': 'application/json',
                 'Content-type': 'application/json',
-                'Authorization': 'Bearer '+ sessionStorage.getItem("token")
+                'Authorization': 'Bearer '+ token
             },
             body: JSON.stringify(message)
     })
     .then ((res) => {
-        if (res.status === 200) {
+        if (res.status === 403) {
+            dispatch({ type: OPEN_AUTHENTICATION_SNACKBAR });
+            history.push("/auth");
+            setTimeout(() => {
+                dispatch({ type: CLOSE_AUTHENTICATION_SNACKBAR})
+            }, 2000);
+        }
+        else {
                 dispatch({
                     type: SEND_MESSAGE_SUCCESS,
                 })   
         }
-        
-    })  
+    })
+        .catch(err => console.log(err))
     
 };
 export const editProfile = (userData, userID, history) => dispatch => {
+   
     const token = sessionStorage.getItem("token");
     dispatch({ type: UPDATING_DATA});
     fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/edit_profile/${userID}`, {

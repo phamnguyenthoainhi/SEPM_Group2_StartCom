@@ -92,6 +92,18 @@ const styles = (theme) => ({
     mediaBtn: {
         justifyContent: 'center',
         alignContent: 'center',
+
+    },
+    iconBtn: {
+        textDecoration: 'none',
+        backgroundColor: 'transparent',
+        "&:hover": {
+            textDecoration: 'none',
+            backgroundColor: 'transparent',
+        },
+        "&:focus": {
+            textDecoration: 'none',
+        },
     },
     header: {
         fontFamily: theme.font2,
@@ -198,97 +210,95 @@ class ProfileDetail extends Component {
                                 <CircularProgress variant="indeterminate" size={40} style={{color: '#3C5155'}}/>
                             </Grid>
                         ) : (
-                            
-                           
-                                                <Grid container spacing={3} >
-                                                <Grid item xs={12} sm={12} md={12} lg={4}>
-                                                    <Grid container direction='column' spacing={3}>
-                                                        <Grid item xs={12} sm={12} md={12} lg={12}>
-                                                            <Card className={classes.card}>
-                                                                <CardContent style={{padding: "30px 30px"}}>
-                                                                    <Grid container className={classes.avatarContainer} direction='column'>
-                                                                        <img
-                                                                            src={profile.image ? profile.image : defaultUser}
-                                                                            className={classes.avatar}
-                                                                            alt="User's Avatar"
-                                                                        />
-                                                                    </Grid>
-                                                                    <Grid container className={classes.infoContainer} direction='column'>
-                                                                        <Typography className={classes.username} variant='h6'>
-                                                                            {profile.username ? profile.username : profile.email}
-                                                                        </Typography>
-                                                                        <Grid container justify='center'>
-                                                                            <Button className={classes.button}
-                                                                            onClick={
-                                                                                (id) => this.handleOpen(profile.id)}
-                                                                            >
-                                                                                Send message</Button>
-                                                                        </Grid>
 
-                                                                    </Grid>
-
-                                                                    <Divider variant='middle'/>
-
-                                                                    <Grid container className={classes.container} direction='column'>
-                                                                        <Typography variant="subtitle2" className={classes.title}>
-                                                                            Email
-                                                                        </Typography>
-                                                                        <Typography variant="subtitle2" className={classes.email}>
-                                                                            {profile.email}
-                                                                        </Typography>
-                                                                    </Grid>
-
-                                                                    <Grid container className={classes.container} direction='column'>
-                                                                        <Typography variant="subtitle2" className={classes.title}>
-                                                                            Contact
-                                                                        </Typography>
-                                                                        <Grid container className={classes.mediaBtn} style={{marginBottom: 10}}>
-                                                                            {profile.facebook ? (
-                                                                                <IconButton href={profile.facebook} className={classes.iconBtn}>
-                                                                                    <i
-                                                                                        style={{color: "#90B494", fontSize: "30px"}}
-                                                                                        className="fab fa-facebook-square"/>
-                                                                                </IconButton>
-                                                                            ) : null}
-
-                                                                            {profile.linkedIn ? (
-                                                                                <IconButton href={profile.linkedIn} className={classes.iconBtn}>
-                                                                                    <i
-                                                                                        className="fab fa-linkedin"
-                                                                                        style={{color: "#90B494", fontSize: "30px"}}
-                                                                                    />
-                                                                                </IconButton>
-                                                                            ) : null}
-                                                                        </Grid>
-                                                                    </Grid>
-
-                                                                    {profile.type === 'investor' ? (
-                                                                        profile.verified === true ? (
-                                                                            <Grid container className={classes.avatarContainer}>
-                                                                                <CheckCircleIcon style={{color: '#90B494', fontSize: 30}}/>
-                                                                            </Grid>
-                                                                        ) : null
-                                                                    ) : null}
-                                                                </CardContent>
-                                                            </Card>
-                                                        </Grid>
+                            <Grid container spacing={3} >
+                            <Grid item xs={12} sm={12} md={12} lg={4}>
+                                <Grid container direction='column' spacing={3}>
+                                    <Grid item xs={12} sm={12} md={12} lg={12}>
+                                        <Card className={classes.card}>
+                                            <CardContent style={{padding: "30px 30px"}}>
+                                                <Grid container className={classes.avatarContainer} direction='column'>
+                                                    <img
+                                                        src={profile.image ? profile.image : defaultUser}
+                                                        className={classes.avatar}
+                                                        alt="User's Avatar"
+                                                    />
+                                                </Grid>
+                                                <Grid container className={classes.infoContainer} direction='column'>
+                                                    <Grid container direction='row' className={classes.avatarContainer} style={{ alignItems: 'center'}}>
+                                                        <Typography className={classes.username} variant='h6' style={{marginRight: 5}}>
+                                                            {profile.username ? profile.username : profile.email}
+                                                        </Typography>
+                                                        {profile.type === 'investor' ? (
+                                                            profile.verified === true ? (
+                                                                <CheckCircleIcon style={{color: '#90B494', fontSize: 20}}/>
+                                                            ) : null
+                                                        ) : null}
                                                     </Grid>
+                                                    <Grid container justify='center'>
+                                                        <Button className={classes.button}
+                                                        onClick={
+                                                            (id) => this.handleOpen(profile.id)}
+                                                        >
+                                                            Send message</Button>
+                                                    </Grid>
+
                                                 </Grid>
 
-                                                <Grid item xs={12} sm={12} md={12} lg={8}>
-                                                    <Grid container className={classes.avatarContainer}>
-                                                        <Grid item lg={12} md={12} sm={12}>
-                                                            <UserTemplateProfile user={profile}/>
-                                                        </Grid>
+                                                <Divider variant='middle'/>
+
+                                                <Grid container className={classes.container} direction='column'>
+                                                    <Typography variant="subtitle2" className={classes.title}>
+                                                        Email
+                                                    </Typography>
+                                                    <Typography variant="subtitle2" className={classes.email}>
+                                                        {profile.email}
+                                                    </Typography>
+                                                </Grid>
+
+                                                <Grid container className={classes.container} direction='column'>
+                                                    <Typography variant="subtitle2" className={classes.title}>
+                                                        Contact
+                                                    </Typography>
+                                                    <Grid container className={classes.mediaBtn} style={{marginBottom: 10}}>
+                                                        {profile.facebook ? (
+                                                            <IconButton href={profile.facebook} className={classes.iconBtn}>
+                                                                <i
+                                                                    style={{color: "#90B494", fontSize: "30px"}}
+                                                                    className="fab fa-facebook-square"/>
+                                                            </IconButton>
+                                                        ) : null}
+
+                                                        {profile.linkedIn ? (
+                                                            <IconButton href={profile.linkedIn} className={classes.iconBtn}>
+                                                                <i
+                                                                    className="fab fa-linkedin"
+                                                                    style={{color: "#90B494", fontSize: "30px"}}
+                                                                />
+                                                            </IconButton>
+                                                        ) : null}
                                                     </Grid>
                                                 </Grid>
+                                            </CardContent>
+                                        </Card>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+
+                            <Grid item xs={12} sm={12} md={12} lg={8}>
+                                <Grid container className={classes.avatarContainer}>
+                                    <Grid item lg={12} md={12} sm={12}>
+                                        <UserTemplateProfile user={profile}/>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
                                             
                     </Grid>)}
                 </Grid>
                 </Grid>
                         </Grid>
                         <Grid item lg={3} xs={12} sm={12} md={12}>
-                        <Contact id='mydiv' handleClose={this.handleClose} profileReceiver = {this.state.profileReceiver}/>
+                        <Contact id='mydiv' handleClose={this.handleClose} profileReceiver = {this.state.profileReceiver} history = {this.props.history}/>
                         </Grid>
                         </Grid>
                     ) : (
@@ -314,104 +324,100 @@ class ProfileDetail extends Component {
                                 <CircularProgress variant="indeterminate" size={40} style={{color: '#3C5155'}}/>
                             </Grid>
                         ) : (
-                            
-                           
-                                                <Grid container spacing={3}>
-                                                <Grid item xs={12} sm={12} md={12} lg={4}>
-                                                    <Grid container direction='column' spacing={3}>
-                                                        <Grid item xs={12} sm={12} md={12} lg={12}>
-                                                            <Card className={classes.card}>
-                                                                <CardContent style={{padding: "30px 30px"}}>
-                                                                    <Grid container className={classes.avatarContainer} direction='column'>
-                                                                        <img
-                                                                            src={profile.image ? profile.image : defaultUser}
-                                                                            className={classes.avatar}
-                                                                            alt="User's Avatar"
-                                                                        />
-                                                                    </Grid>
-                                                                    <Grid container className={classes.infoContainer} direction='column'>
-                                                                        <Typography className={classes.username} variant='h6'>
-                                                                            {profile.username ? profile.username : profile.email}
-                                                                        </Typography>
-                                                                        <Grid container justify='center'>
-                                                                            <Button className={classes.button}
-                                                                            onClick={
-                                                                                (id) => this.handleOpen(profile.id)}
-                                                                            >
-                                                                                Send message</Button>
-                                                                        </Grid>
+                            <Grid container spacing={3}>
+                            <Grid item xs={12} sm={12} md={12} lg={4}>
+                                <Grid container direction='column' spacing={3}>
+                                    <Grid item xs={12} sm={12} md={12} lg={12}>
+                                        <Card className={classes.card}>
+                                            <CardContent style={{padding: "30px 30px"}}>
+                                                <Grid container className={classes.avatarContainer} direction='column'>
+                                                    <img
+                                                        src={profile.image ? profile.image : defaultUser}
+                                                        className={classes.avatar}
+                                                        alt="User's Avatar"
+                                                    />
+                                                </Grid>
+                                                <Grid container className={classes.infoContainer} direction='column'>
+                                                    <Grid container direction='row' className={classes.avatarContainer} style={{ alignItems: 'center'}}>
+                                                        <Typography className={classes.username} variant='h6' style={{marginRight: 5}}>
+                                                            {profile.username ? profile.username : profile.email}
+                                                        </Typography>
+                                                        {profile.type === 'investor' ? (
+                                                            profile.verified === true ? (
+                                                                <CheckCircleIcon style={{color: '#90B494', fontSize: 20}}/>
+                                                            ) : null
+                                                        ) : null}
+                                                    </Grid>
 
-                                                                    </Grid>
 
-                                                                    <Divider variant='middle'/>
+                                                    <Grid container justify='center'>
+                                                        <Button className={classes.button}
+                                                        onClick={
+                                                            (id) => this.handleOpen(profile.id)}
+                                                        >
+                                                            Send message</Button>
+                                                    </Grid>
 
-                                                                    <Grid container className={classes.container} direction='column'>
-                                                                        <Typography variant="subtitle2" className={classes.title}>
-                                                                            Email
-                                                                        </Typography>
-                                                                        <Typography variant="subtitle2" className={classes.email}>
-                                                                            {profile.email}
-                                                                        </Typography>
-                                                                    </Grid>
+                                                </Grid>
 
-                                                                    <Grid container className={classes.container} direction='column'>
-                                                                        <Typography variant="subtitle2" className={classes.title}>
-                                                                            Contact
-                                                                        </Typography>
-                                                                        <Grid container className={classes.mediaBtn} style={{marginBottom: 10}}>
-                                                                            {profile.facebook ? (
-                                                                                <IconButton href={profile.facebook} className={classes.iconBtn}>
-                                                                                    <i
-                                                                                        style={{color: "#90B494", fontSize: "30px"}}
-                                                                                        className="fab fa-facebook-square"/>
-                                                                                </IconButton>
-                                                                            ) : null}
+                                                <Divider variant='middle'/>
 
-                                                                            {profile.linkedIn ? (
-                                                                                <IconButton href={profile.linkedIn} className={classes.iconBtn}>
-                                                                                    <i
-                                                                                        className="fab fa-linkedin"
-                                                                                        style={{color: "#90B494", fontSize: "30px"}}
-                                                                                    />
-                                                                                </IconButton>
-                                                                            ) : null}
-                                                                        </Grid>
-                                                                    </Grid>
+                                                <Grid container className={classes.container} direction='column'>
+                                                    <Typography variant="subtitle2" className={classes.title}>
+                                                        Email
+                                                    </Typography>
+                                                    <Typography variant="subtitle2" className={classes.email}>
+                                                        {profile.email}
+                                                    </Typography>
+                                                </Grid>
 
-                                                                    {profile.type === 'investor' ? (
-                                                                        profile.verified === true ? (
-                                                                            <Grid container className={classes.avatarContainer}>
-                                                                                <CheckCircleIcon style={{color: '#90B494', fontSize: 30}}/>
-                                                                            </Grid>
-                                                                        ) : null
-                                                                    ) : null}
-                                                                </CardContent>
-                                                            </Card>
-                                                        </Grid>
+                                                <Grid container className={classes.container} direction='column'>
+                                                    <Typography variant="subtitle2" className={classes.title}>
+                                                        Contact
+                                                    </Typography>
+                                                    <Grid container className={classes.mediaBtn} style={{marginBottom: 10}}>
+                                                        {profile.facebook ? (
+                                                            <IconButton href={profile.facebook} className={classes.iconBtn}>
+                                                                <i
+                                                                    style={{color: "#90B494", fontSize: "30px"}}
+                                                                    className="fab fa-facebook-square"/>
+                                                            </IconButton>
+                                                        ) : null}
+
+                                                        {profile.linkedIn ? (
+                                                            <IconButton href={profile.linkedIn} className={classes.iconBtn}>
+                                                                <i
+                                                                    className="fab fa-linkedin"
+                                                                    style={{color: "#90B494", fontSize: "30px"}}
+                                                                />
+                                                            </IconButton>
+                                                        ) : null}
                                                     </Grid>
                                                 </Grid>
 
-                                                <Grid item xs={12} sm={12} md={12} lg={8}>
-                                                    <Grid container className={classes.avatarContainer}>
-                                                        <Grid item lg={12} md={12} sm={12}>
-                                                            <UserTemplateProfile user={profile}/>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
+                                            </CardContent>
+                                        </Card>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+
+                            <Grid item xs={12} sm={12} md={12} lg={8}>
+                                <Grid container className={classes.avatarContainer}>
+                                    <Grid item lg={12} md={12} sm={12}>
+                                        <UserTemplateProfile user={profile}/>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
                                             
                     </Grid>)}
                 </Grid>
                 </Grid>
                         </Grid>
                         <Grid item lg={false}>
-                            <Contact id='mydiv' handleClose={this.handleClose}/>
+                            <Contact id='mydiv' handleClose={this.handleClose} history = {this.props.history}/>
                         </Grid>
                         </Grid>
                     )}
-                    
-
-                
-                
                 <Footer/>
             </Grid>
 

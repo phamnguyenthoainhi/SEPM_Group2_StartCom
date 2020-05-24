@@ -74,12 +74,14 @@ class AdminDashboard extends Component {
         
     }
     verify = (key) => {
+        const {history} = this.props;
         // this.handleClickOpen()
-        this.props.VerifiedEmails(key)
+        this.props.VerifiedEmails(key, history)
     }
 
     delete = (id) => {
-        this.props.deleteUser(id)
+        const {history} = this.props;
+        this.props.deleteUser(id, history)
     }
 
     handleClickOpen = () => {
@@ -192,8 +194,8 @@ class AdminDashboard extends Component {
 }
 const mapDispatchToProps = dispatch => ({
     fetchUnverifiedEmails: () => dispatch(fetchUnverifiedEmails()),
-    VerifiedEmails: (id) => dispatch(VerifiedEmails(id)),
-    deleteUser: (id) => dispatch(deleteUser(id))
+    VerifiedEmails: (id, history) => dispatch(VerifiedEmails(id, history)),
+    deleteUser: (id, history) => dispatch(deleteUser(id, history))
 
   
 })

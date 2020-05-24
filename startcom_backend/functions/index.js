@@ -21,9 +21,9 @@ const {
 app.get("/get_all_business_ideas",getAllBusinessIdeas);
 app.get("/get_business_idea/:id",getBusinessIdeaById);
 app.get("/get_business_idea_by_owner/:id",getBusinessIdeaByOwnerId);
-app.post("/post_business_idea",postBusinessIdea);
-app.put("/edit_business_idea/:id",editBusinessIdea);
-app.delete("/delete_business_idea/:id",deleteBusinessIdea);
+app.post("/post_business_idea",validateFirebaseIdToken,postBusinessIdea);
+app.put("/edit_business_idea/:id",validateFirebaseIdToken,editBusinessIdea);
+app.delete("/delete_business_idea/:id",validateFirebaseIdToken,deleteBusinessIdea);
 app.post("/test_multiple_images",testUploadMultipleImages)
 app.post("/upload_image",uploadImageUser)
 
@@ -34,10 +34,10 @@ app.get("/get_all_consultants",getAllConsultants);
 app.get("/get_profile/:id",getProfile)
 app.put("/edit_profile/:id",validateFirebaseIdToken,editProfile);
 app.delete("/delete_user/:id",validateFirebaseIdToken,deleteUser)
-app.post("/send_email",sendEmailByUser)
+app.post("/send_email",validateFirebaseIdToken,sendEmailByUser)
 app.get("/get_unverified",getUnverifiedInvestors)
-app.get("/verify/:id",verifyInvestor)
-app.delete("/decline/:id",declineInvestor)
+app.get("/verify/:id",validateFirebaseIdToken,verifyInvestor)
+app.delete("/decline/:id",validateFirebaseIdToken,declineInvestor)
 app.get("/get_notifications/:id",getAllNotifications)
 app.post("/reset_password",resetPassword)
 

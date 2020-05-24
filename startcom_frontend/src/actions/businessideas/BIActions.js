@@ -3,11 +3,11 @@ import {
     CLOSE_AUTHENTICATION_SNACKBAR,
     DELETE_BI,
     DELETE_BI_SUCCESS,
-    DELETING_DATA,
+    DELETING_DATA, FETCHING_PROFILE, FETCHING_USER,
     FILTER_BI,
     GET_ALL_BIS,
     GET_BI,
-    GET_BI_BY_OWNER,
+    GET_BI_BY_OWNER, GET_PROFILE, GET_USER,
     IS_REGISTERED_SUCCESS,
     LOADING_DATA,
     OPEN_AUTHENTICATION_SNACKBAR, RESET_FILTER,
@@ -40,7 +40,24 @@ export const getBI = (id) => dispatch => {
                 dispatch({
                     type: GET_BI,
                     payload: data
-                })
+                });
+                console.log("Business idea: ", data);
+                const ownerId = data.ownerId;
+                console.log("Owner id: ", data.ownerId);
+                if (ownerId !== null || ownerId !== undefined) {
+                    dispatch({ type: FETCHING_PROFILE });
+                    fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/get_profile/${ownerId}`)
+                        .then (res =>
+                            res.json().then(function (data) {
+                                dispatch({
+                                    type: GET_PROFILE,
+                                    payload: data
+                                });
+                                console.log("User: ", data);
+                            })
+                        )
+                }
+
             })
         )
 };
@@ -64,7 +81,7 @@ export const resetRegisterStatus = () => dispatch => {
     })
 };
 
-export const registerBI = (BIData) => dispatch => {
+export const registerBI = (BIData, history) => dispatch => {
     fetch('https://asia-east2-startcom-sepm.cloudfunctions.net/api/post_business_idea', {
         method: 'POST',
         headers: {
@@ -76,7 +93,13 @@ export const registerBI = (BIData) => dispatch => {
         
     })
     .then((res) => {
-        // console.log("res "+ res.status);
+        if (res.status === 403) {
+            dispatch({ type: OPEN_AUTHENTICATION_SNACKBAR });
+            history.push("/auth");
+            setTimeout(() => {
+                dispatch({ type: CLOSE_AUTHENTICATION_SNACKBAR})
+            }, 2000);
+        }
         if(res.status === 200) {
             if (sessionStorage.getItem('id') !== null && sessionStorage.getItem('id') !== ''
             && sessionStorage.getItem('token') !== null && sessionStorage.getItem('token') !== ''
@@ -96,7 +119,7 @@ export const registerBI = (BIData) => dispatch => {
                         body: JSON.stringify(user)
                 }).then((res) => {
                     if(res.status === 200) {
-                        console.log("Edit success")
+                        console.log("Edit success");
                         dispatch({
                             type: IS_REGISTERED_SUCCESS,
                             payload: true
@@ -146,7 +169,7 @@ export const updateBI = (BIData, id, history) => dispatch => {
         })
 };
 
-export const deleteBI = (id) => dispatch => {
+export const deleteBI = (id, history) => dispatch => {
     dispatch({ type: DELETING_DATA });
     fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/delete_business_idea/${id}`, {
         method: 'DELETE',
@@ -157,44 +180,52 @@ export const deleteBI = (id) => dispatch => {
         },
     })
         .then((res) => {
-                // console.log("res "+ res.status);
-                if(res.status === 200) {
-                    if (sessionStorage.getItem('id') !== null && sessionStorage.getItem('id') !== ''
-                        && sessionStorage.getItem('token') !== null && sessionStorage.getItem('token') !== ''
-                    ) {
-                        let id = sessionStorage.getItem('id');
-                        let token = sessionStorage.getItem('token');
-                        const user = {
-                            "haveBI": false
-                        };
-                        fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/edit_profile/${id}`, {
-                            method: 'PUT',
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-type': 'application/json',
-                                'Authorization': 'Bearer '+ token
-                            },
-                            body: JSON.stringify(user)
+            if (res.status === 403) {
+                dispatch({ type: OPEN_AUTHENTICATION_SNACKBAR });
+                history.push("/auth");
+                setTimeout(() => {
+                    dispatch({ type: CLOSE_AUTHENTICATION_SNACKBAR})
+                }, 2000);
+
+            }
+            else {
+                if (sessionStorage.getItem('id') !== null && sessionStorage.getItem('id') !== ''
+                    && sessionStorage.getItem('token') !== null && sessionStorage.getItem('token') !== ''
+                ) {
+                    let id = sessionStorage.getItem('id');
+                    let token = sessionStorage.getItem('token');
+                    const user = {
+                        "haveBI": false
+                    };
+                    fetch(`https://asia-east2-startcom-sepm.cloudfunctions.net/api/edit_profile/${id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-type': 'application/json',
+                            'Authorization': 'Bearer '+ token
+                        },
+                        body: JSON.stringify(user)
+                    })
+                    .then (res =>
+                        res.json().then(function (data) {
+                            dispatch({
+                                type: DELETE_BI,
+                                payload: data
+                            });
+                            dispatch({type: DELETE_BI_SUCCESS});
+                            setTimeout(() => {
+                                dispatch({type: RESET_UI_STATE});
+                            }, 1000);
+                            setTimeout(() => {
+                                window.location.reload()
+                            }, 1000);
                         })
-                        .then (res =>
-                            res.json().then(function (data) {
-                                dispatch({
-                                    type: DELETE_BI,
-                                    payload: data
-                                });
-                                dispatch({type: DELETE_BI_SUCCESS});
-                                setTimeout(() => {
-                                    dispatch({type: RESET_UI_STATE});
-                                }, 1000);
-                                setTimeout(() => {
-                                    window.location.reload()
-                                }, 1000);
-                            })
-                        )
-                    }
-                    return res.json();
+                    )
                 }
-            })
+                return res.json();
+            }
+        })
+        .catch(err => console.log(err))
 
 };
 

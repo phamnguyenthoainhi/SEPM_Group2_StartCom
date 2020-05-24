@@ -300,7 +300,6 @@ class EditBusinessIdea extends Component {
             };
             if (this.validateBeforeSubmit(businessIdea)) {
                 this.props.updateBI(businessIdea,businessID, history);
-                // console.log(this.state);
                 this.resetStates()
             }
 
@@ -320,7 +319,6 @@ class EditBusinessIdea extends Component {
 
             if (this.validateBeforeSubmit(businessIdea)) {
                 this.props.updateBI(businessIdea,businessID, history);
-                // console.log(this.state);
                 this.resetStates()
             }
 

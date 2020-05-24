@@ -10,16 +10,13 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import {registerBI, resetRegisterStatus } from '../../../actions/businessideas/BIActions';
-
 import Footer from "../../Layout/Footer";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import FormControl from '@material-ui/core/FormControl';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Typography from '@material-ui/core/Typography';
 import Navbar from '../../Layout/Navbar';
-import Box from '@material-ui/core/Box';
 import CheckIcon from '@material-ui/icons/Check';
 import ImageIcon from '@material-ui/icons/Image';
 
@@ -27,9 +24,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
 import {CATEGORIES} from "../../../utils/categories";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import DeleteIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import Backdrop from "@material-ui/core/Backdrop/Backdrop";
-import {Link} from "react-router-dom";
 import Alert from "@material-ui/lab/Alert/Alert";
 import Snackbar from "@material-ui/core/Snackbar/Snackbar";
 
@@ -150,6 +145,7 @@ class RegisterBI extends Component {
     };
 
     handleRegisterBI = (encodedImage) => {
+        const {history} = this.props;
         if (sessionStorage.getItem("id") !== null && sessionStorage.getItem("id") !== undefined && sessionStorage.getItem("id") !== '') {
             const businessIdea = {
                 name: this.state.name,
@@ -163,7 +159,7 @@ class RegisterBI extends Component {
                 ownerId: sessionStorage.getItem("id")
             };
             if (this.validateBeforeSubmit(businessIdea)) {
-                this.props.registerBI(businessIdea);
+                this.props.registerBI(businessIdea, history);
                 this.resetStates()
             }
             // console.log(JSON.stringify(businessIdea))
@@ -177,6 +173,7 @@ class RegisterBI extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
+        const {history} = this.props;
         if (this.state.terms === true) {
             if (!(this.state.image === '' || this.state.image === null || this.state.image === undefined)) {
                 this.getBase64(this.state.image, this.handleRegisterBI)
@@ -194,7 +191,7 @@ class RegisterBI extends Component {
                         ownerId: sessionStorage.getItem("id")
                     };
                     if (this.validateBeforeSubmit(businessIdea)) {
-                        this.props.registerBI(businessIdea);
+                        this.props.registerBI(businessIdea, history);
                         this.resetStates()
                     }
                  } else {
@@ -528,7 +525,7 @@ class RegisterBI extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-      registerBI: (businessIdea) => dispatch(registerBI(businessIdea)),
+      registerBI: (businessIdea, history) => dispatch(registerBI(businessIdea, history)),
       resetRegisterStatus: () => dispatch(resetRegisterStatus())
 });
 
