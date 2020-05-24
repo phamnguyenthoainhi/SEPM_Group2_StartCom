@@ -312,7 +312,7 @@ class Profile extends Component {
                                             <Button component={Link} to="/registerBI" className={classes.button}>Register Yours Now</Button>
                                         </Grid>
                                     ) : (
-                                       <BITemplateProfile businessIdea={businessIdea}/>
+                                       <BITemplateProfile businessIdea={businessIdea} history={this.props.history}/>
                                     )}
                                 </Grid>
 

@@ -352,7 +352,7 @@ class BIDetail extends Component {
                                     variant='outlined'
                                     className={classes.investorTrue}
                                     onClick = {(ownerid) => this.backProject(businessIdea.ownerId)}>
-                                    Back this project
+                                    Contact business owner
                                 </Button> : null
 
 

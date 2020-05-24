@@ -408,13 +408,12 @@ class ProfileDetail extends Component {
                                     </Grid>
                                 </Grid>
                             </Grid>
-                                            
                     </Grid>)}
                 </Grid>
                 </Grid>
                         </Grid>
                         <Grid item lg={false}>
-                            <Contact id='mydiv' handleClose={this.handleClose}/>
+                            <Contact id='mydiv' handleClose={this.handleClose} history={this.props.history}/>
                         </Grid>
                         </Grid>
                     )}

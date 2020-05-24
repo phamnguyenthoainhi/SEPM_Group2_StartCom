@@ -490,6 +490,7 @@ class RegisterBI extends Component {
                                 <Button className={classes.button} onClick={this.onSubmit}>Confirm Registration</Button>
                             )}
                         </Grid>
+
                             <Dialog
                                 className={classes.dialog}
                                 open={this.state.open}
