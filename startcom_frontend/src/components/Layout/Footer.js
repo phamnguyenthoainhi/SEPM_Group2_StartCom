@@ -110,10 +110,9 @@ class Footer extends Component {
 
                 <Grid item sm={12} md={6}>
                     <Grid container justify='flex-end' className={classes.navContainer}>
-                        <Button className={classes.navBtn} component={Link} to="/dashboard">Dashboard</Button>
-                        <Button className={classes.navBtn} component={Link} to="/startups">Startups</Button>
-                        <Button className={classes.navBtn} component={Link} to="/consultants">Consultants</Button>
-                        <Button className={classes.navBtn} component={Link} to="/investors">Investors</Button>
+                        <Button className={classes.navBtn} component={Link} to="/displayBIS">Startups</Button>
+                        <Button className={classes.navBtn} component={Link} to="/displayConsultants">Consultants</Button>
+                        <Button className={classes.navBtn} component={Link} to="/displayInvestors">Investors</Button>
                     </Grid>
                 </Grid>
 

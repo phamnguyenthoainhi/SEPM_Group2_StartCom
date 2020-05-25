@@ -245,7 +245,7 @@ class OwnerDetailProfile extends Component {
                                                     <FormControlLabel
                                                         value="start"
                                                         control={<CustomSwitch color="primary" checked={openBiography} onChange={this.openBiography} />}
-                                                        label={<Typography variant="subtitle2" className={classes.email}> {openBiography ? "Display bio" : "Hidden bio"}</Typography>}
+                                                        label={<Typography variant="subtitle2" className={classes.email}> {openBiography ? "Hidden bio" : "Display bio"}</Typography>}
                                                         labelPlacement="top"
                                                     />
 
