@@ -262,7 +262,7 @@ class BIDetail extends Component {
     }
 
     viewDetailProfile = (id) => {
-        window.open(`/profile/owner/${id}`, '_self');
+        window.open(`/profile/${id}`, '_self');
     };
 
     backProject = (ownerId) => {

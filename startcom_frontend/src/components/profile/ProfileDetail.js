@@ -198,13 +198,7 @@ class ProfileDetail extends Component {
                             <Typography variant='h6' className={classes.header} style={{textAlign: 'center'}}>
                                 Portfolio
                             </Typography>
-                            {/*{profile.type === 'investor' && userId === profile.id? (*/}
-                            {/*    <Typography variant='subtitle2' className={classes.email}>*/}
-                            {/*        * Note that this profile can only be publicized after being verified by the admin*/}
-                            {/*    </Typography>*/}
-                            {/*) : (*/}
-                            {/*    null*/}
-                            {/*)}*/}
+
                         </Grid>
 
                         {fetching ? (
@@ -307,6 +301,7 @@ class ProfileDetail extends Component {
                         <Grid container  spacing={3}>
                         <Grid item lg={12}>
                         <Grid container className={classes.containerWrapper} >
+
                     <Grid container spacing={3}>
                         <Grid container className={classes.avatarContainer} style={{marginBottom: 30}} direction='column'>
                             <Typography variant='h6' className={classes.header} style={{textAlign: 'center'}}>

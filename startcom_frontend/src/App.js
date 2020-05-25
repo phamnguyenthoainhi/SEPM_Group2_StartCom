@@ -120,7 +120,7 @@ class App extends Component {
                         <Route exact path={'/displayInvestors'} render={(props) => <DisplayInvestors {...props}   />} />
 
                         <Route exact path={'/profile/detail/:type/:id'} render={(props) => <ProfileDetail {...props} />} />
-                        <Route exact path={'/profile/owner/:id'} render={(props) => <OwnerDetailProfile {...props} />} />
+                        <Route exact path={'/profile/:id'} render={(props) => <OwnerDetailProfile {...props} />} />
                         <Route exact path={'/profile/:type/:id'} render={(props) => <GeneralProfile {...props} />} />
 
                         <Route exact path={'/detail/:id'} render={(props) => <BIDetail {...props} />}  />
